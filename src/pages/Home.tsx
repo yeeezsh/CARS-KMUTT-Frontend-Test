@@ -3,15 +3,13 @@ import React from 'react'
 import HomeLayout from '../components/Layout/Home'
 import { DatePicker } from 'antd';
 
-const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
-
 
 
 export default function Home() {
     console.log('home')
     return (
         <HomeLayout>
-            <MonthPicker/>
+            <p>HOME JSAAAAA</p>
         </HomeLayout>
     )
 }
