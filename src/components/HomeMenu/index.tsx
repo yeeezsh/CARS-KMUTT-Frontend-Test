@@ -9,11 +9,17 @@ import backetball from '../../assets/icons/menu/basketball.svg'
 const menu: Menu[] = [
     {
         label: 'จองสนามกีฬา',
-        icon: backetball
+        icon: backetball,
+        setting: {
+            backgroundColor: '#FF682B'
+        }
     },
     {
         label: 'จองสนามกีฬา',
-        icon: backetball
+        icon: backetball,
+        setting: {
+            backgroundColor: '#1890FF'
+        }
     },
     {
         label: 'จองสนามกีฬา',
@@ -24,15 +30,6 @@ const menu: Menu[] = [
 export default function HomeMenu() {
     return (
         <React.Fragment>
-            {/* <Row type='flex' justify='space-between'>
-                <Col span={11}>
-                    <Card />
-                </Col>
-                <Col span={11}>
-                    <Card />
-                </Col>
-
-            </Row> */}
             <Row type='flex' justify='space-between'>
                 {
                     menu && menu.map(({ icon, label, setting }) =>
@@ -41,6 +38,7 @@ export default function HomeMenu() {
                                 <Card
                                     label={label}
                                     icon={icon}
+                                    setting={setting}
                                 />
                             </Col>)
                     )

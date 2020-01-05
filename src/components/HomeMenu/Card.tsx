@@ -3,14 +3,17 @@ import styles from './card.module.css'
 import Menu from './menu.interface'
 export default function Card(props: {
     icon?: string, label: string,
-    setting?: Menu
+    // setting?: {
+    //     center:boolean
+    // }
+    setting?: Menu['setting']
 }) {
-    const { label, icon } = props
+    const { label, icon, setting } = props
     return (
-        <div className={styles.card}>
-            <div style={{ padding: 10 }}>
+        <div style={{ backgroundColor: setting?.backgroundColor }} className={styles.card}>
+            <div className={styles.container}>
                 <img style={{ width: 65 }} src={icon} alt={label} />
-                <p>{label}</p>
+                <p className={styles.label}>{label}</p>
             </div>
         </div>
     )

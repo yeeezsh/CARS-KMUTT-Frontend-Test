@@ -3,6 +3,7 @@ export default interface Menu {
     icon: string,
     setting?: {
         center?: boolean,
-        color?: string
+        backgroundColor?: string,
+        labelColor?: string,
     }
 }
