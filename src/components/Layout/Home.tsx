@@ -74,7 +74,12 @@ export default class Home extends Component<{}, { drawer: boolean, day: moment.M
 
                 {/* content */}
                 <Row style={{ marginTop: 50, padding: 0 }}>
-                    <div className={styles.content}>{this.props.children}</div>
+                    <Col className={styles.content}>{this.props.children}</Col>
+                </Row>
+
+                {/* menu */}
+                <Row>
+
                 </Row>
             </React.Fragment>
         )
