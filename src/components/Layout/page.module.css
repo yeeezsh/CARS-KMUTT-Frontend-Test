@@ -1,0 +1,28 @@
+.header {
+  height: 75px;
+}
+
+.expand {
+    height: 275;
+}
+
+.title {
+  margin-top: 25px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.btn {
+  margin-top: 25px;
+  padding-left: 18px;
+  cursor: pointer;
+}
+
+.orange {
+  color: #ff682b;
+}
+
+.white {
+  color: #ffffff;
+}
