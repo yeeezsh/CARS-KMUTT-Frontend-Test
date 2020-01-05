@@ -4,7 +4,7 @@ import moment from 'moment'
 import styles from './home.module.css'
 // import hamburgerOrange from '../../assets/icons/hamburger-orange.svg'
 import hamburgerWhite from '../../assets/icons/hamburger-white.svg'
-import TitleCard from '../TitleCard/TitleCard'
+import StateCard from '../StateCard/StateCard'
 
 export default class Home extends Component<{}, { drawer: boolean, day: moment.Moment }> {
 
@@ -57,7 +57,7 @@ export default class Home extends Component<{}, { drawer: boolean, day: moment.M
                 {/* card */}
                 <Row className={styles.card}>
                     <Col span={24}>
-                        <TitleCard
+                        <StateCard
                             name={'Badminton 1'}
                             reserve={{
                                 date: moment(),
