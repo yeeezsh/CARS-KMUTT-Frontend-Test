@@ -1,9 +1,10 @@
-import React, { Component, Props } from 'react'
+import React, { Component } from 'react'
 import { Row, Col, Drawer } from 'antd'
 import moment from 'moment'
 import styles from './home.module.css'
 // import hamburgerOrange from '../../assets/icons/hamburger-orange.svg'
 import hamburgerWhite from '../../assets/icons/hamburger-white.svg'
+import TitleCard from '../TitleCard/TitleCard'
 
 export default class Home extends Component<{}, { drawer: boolean, day: moment.Moment }> {
 
@@ -52,6 +53,21 @@ export default class Home extends Component<{}, { drawer: boolean, day: moment.M
                     <div className={styles.textDate}>Today</div>
                     <div className={styles.textDate}>{dayName}, {date} {month} {year}</div>
                 </Row>
+
+                {/* card */}
+                <Row className={styles.card}>
+                    <Col span={24}>
+                        <TitleCard
+                            name={'Badminton 1'}
+                            reserve={{
+                                date: moment(),
+                                start: moment(),
+                                stop: moment().add(1, 'hour')
+                            }}
+                        />
+                    </Col>
+                </Row>
+
                 {/* content */}
                 <Row style={{ marginTop: 50, padding: 0 }}>
                     <div className={styles.content}>{this.props.children}</div>

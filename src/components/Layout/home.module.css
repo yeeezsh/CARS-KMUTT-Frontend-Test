@@ -43,3 +43,11 @@
   background-color: red;
   margin: 0px 22px 0px 22px;
 }
+
+.card {
+  margin: 22px 22px;
+  background-color: #ffffff;
+  height: 84px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+}
