@@ -62,7 +62,11 @@ export default class Home extends Component<{}, { drawer: boolean, day: moment.M
                             reserve={{
                                 date: moment(),
                                 start: moment(),
-                                stop: moment().add(1, 'hour')
+                                stop: moment().add(1, 'hour'),
+                                state: {
+                                    type: 'wait',
+                                    desc: 'รอการยืนยัน'
+                                }
                             }}
                         />
                     </Col>

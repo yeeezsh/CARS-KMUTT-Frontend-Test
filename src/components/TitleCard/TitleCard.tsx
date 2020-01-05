@@ -2,6 +2,8 @@ import React from 'react'
 import { Row, Col } from 'antd'
 import styles from './styles.module.css'
 import { Moment } from 'moment'
+import StateBlue from '../../assets/icons/state.blue.svg'
+import StateYellow from '../../assets/icons/state.yellow.svg'
 
 export default function TitleCard(props:
     {
@@ -12,7 +14,7 @@ export default function TitleCard(props:
             stop?: Moment,
             detail?: string,
             state?: {
-                type?: 'wait' | 'reject' | 'undefined',
+                type?: 'wait' | 'reject' | 'accept' | 'undefined',
                 desc?: string
             }
         }
@@ -42,6 +44,26 @@ export default function TitleCard(props:
             <Row className={styles.detail} type='flex'>
                 <Col span={22}>
                     <p>{reserve?.start !== undefined ? range : detail}</p>
+                </Col>
+            </Row>
+            <Row className={styles.detail} type='flex' justify='start'>
+                <Col span={22}>
+                    <span className={styles.state}>
+                        {
+                            reserve?.state?.type === 'wait' ?
+                                <img src={StateBlue} alt="state-blue" />
+                                :
+                                <img src={StateYellow} alt="state-yellow" />
+                        }
+                        <span className={
+                            reserve?.state?.type === 'wait' ?
+                                styles.blue
+                                :
+                                styles.yellow
+                        } style={{ marginLeft: 5 }}>
+                            {reserve?.state?.desc}
+                        </span>
+                    </span>
                 </Col>
             </Row>
         </Row>

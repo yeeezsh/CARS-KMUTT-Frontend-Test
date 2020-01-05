@@ -28,3 +28,16 @@
   color: #666666;
   margin-top: -14px;
 }
+
+.state {
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.blue {
+  color: #1890ff;
+}
+
+.yellow {
+  color: #ffbf00;
+}
