@@ -5,7 +5,7 @@ export interface Drawer {
     link?: string,
     settings?: {
         iconSize?: number,
-        labelColor: string,
+        labelColor?: string,
     },
     sub?: Drawer[]
 }
