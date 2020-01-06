@@ -1,4 +1,5 @@
 import React from 'react'
+import { Col, Row } from 'antd'
 import styles from './card.module.css'
 import Menu from './menu.interface'
 export default function Card(props: {
@@ -13,16 +14,48 @@ export default function Card(props: {
             }}
             className={styles.card}>
             <div className={styles.container}>
-                <div style={{ display: 'flex' }}>
-                    <img style={{ height: setting?.iconSize || 55 }} src={icon} alt={label[0]} />
+                <div style={{
+                    display: 'flex',
+                    justifyContent: setting?.center ? 'center' : undefined
+                }}>
+                    <img
+                        style={{
+                            height: setting?.iconSize || 55,
+                        }}
+                        src={icon}
+                        alt={label[0]}
+                    />
                 </div>
-                <p
-                    style={{
-                        display: 'flex',
-                        color: setting?.labelColor || undefined
-                    }} className={styles.label}>
-                    {label}
-                </p>
+                {
+                    !setting?.center ?
+                        (<p
+                            style={{
+                                display: 'flex',
+                                color: setting?.labelColor || undefined
+                            }}
+                            className={styles.label}> {label[0]}
+                        </p>)
+                        :
+                        (
+                            <Row type='flex' justify='center'>
+                                {
+                                    label.map((e, i) => {
+                                        return (
+                                            <Col
+                                                className={
+                                                    i === 0 ? styles.labelMain :
+                                                        styles.labelSub
+                                                }
+                                                style={{ textAlign: 'center' }}
+                                                span={24}>
+                                                {e}
+                                            </Col>
+                                        )
+                                    })
+                                }
+                            </Row>
+                        )
+                }
             </div>
         </div>
     )
