@@ -2,7 +2,9 @@ import React from 'react'
 import { Drawer, Row, Col } from 'antd'
 import { Drawer as DrawerType } from './drawer.interface'
 
-import styles from './drawer.module.css'
+import CardMain from './card.main'
+
+import styles from './styles.module.css'
 
 import hamburgerWhite from '../../assets/icons/hamburger-white.svg'
 import homeIcon from '../../assets/icons/drawer/home.svg'
@@ -79,27 +81,12 @@ export default function AppDrawer(props: { drawer: boolean, onDrawer: any }) {
                     menu && menu.map(({ key, label, icon, settings, sub }) => {
                         return (
                             <React.Fragment>
-                                <Col key={key} className={styles.main} span={22}>
-                                    <Row type='flex' justify='start'>
-                                        <Col span={3}>
-                                            <Row type='flex' justify='center'>
-                                                <Col>
-                                                    <img
-                                                        height={
-                                                            settings?.iconSize
-                                                            || undefined
-                                                        }
-                                                        src={icon}
-                                                        alt={label}
-                                                    />
-                                                </Col>
-                                            </Row>
-                                        </Col>
-                                        <Col offset={2} span={19}>
-                                            {label}
-                                        </Col>
-                                    </Row>
-                                </Col>
+                                <CardMain
+                                    key={key}
+                                    label={label}
+                                    icon={icon}
+                                    settings={settings}
+                                />
                                 {
                                     sub && sub.map(e => (
                                         <Col key={key + '.' + e.key} className={styles.sub} span={22}>
