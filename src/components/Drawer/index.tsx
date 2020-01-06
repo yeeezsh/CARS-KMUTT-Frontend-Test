@@ -1,5 +1,5 @@
 import React from 'react'
-import { Drawer, Row, Col } from 'antd'
+import { Drawer, Row } from 'antd'
 import { Drawer as DrawerType } from './drawer.interface'
 
 import CardMain from './card.main'
@@ -17,6 +17,49 @@ import {
     timeIcon,
     hamburgerWhite
 } from './icon.import'
+
+export default function AppDrawer(props: { drawer: boolean, onDrawer: any }) {
+    const { drawer } = props
+    return (
+        <Drawer
+            placement={'left'}
+            closable={false}
+            maskClosable={true}
+            onClose={props.onDrawer}
+            visible={drawer}
+            drawerStyle={{ backgroundColor: '#FF682B' }}
+        >
+            <img onClick={props.onDrawer} src={hamburgerWhite} alt='hamburger' />
+
+            {/* menu */}
+            <Row className={styles.container} type='flex' justify='space-around'>
+                {
+                    menu && menu.map(({ key, label, icon, settings, sub }) => {
+                        return (
+                            <React.Fragment key={key}>
+                                <CardMain
+                                    label={label}
+                                    icon={icon}
+                                    settings={settings}
+                                />
+                                {
+                                    sub && sub.map(e => (
+                                        <CardSub
+                                            icon={e.icon}
+                                            link={e.link}
+                                            settings={e.settings}
+                                            label={e.label}
+                                        />
+                                    ))
+                                }
+                            </React.Fragment>
+                        )
+                    })
+                }
+            </Row>
+        </Drawer>
+    )
+}
 
 const menu: DrawerType[] = [
     {
@@ -64,48 +107,3 @@ const menu: DrawerType[] = [
         ]
     },
 ]
-
-export default function AppDrawer(props: { drawer: boolean, onDrawer: any }) {
-    const { drawer } = props
-    return (
-        <Drawer
-            placement={'left'}
-            closable={false}
-            maskClosable={true}
-            onClose={props.onDrawer}
-            visible={drawer}
-            drawerStyle={{ backgroundColor: '#FF682B' }}
-        >
-            <img onClick={props.onDrawer} src={hamburgerWhite} alt='hamburger' />
-
-            {/* menu */}
-            <Row className={styles.container} type='flex' justify='space-around'>
-                {
-                    menu && menu.map(({ key, label, icon, settings, sub }) => {
-                        return (
-                            <React.Fragment key={key}>
-                                <CardMain
-                                    label={label}
-                                    icon={icon}
-                                    settings={settings}
-                                />
-                                {
-                                    sub && sub.map(e => (
-                                        <CardSub
-                                            key={Math.random().toString()}
-                                            // key={key + '.' + e.key}
-                                            icon={e.icon}
-                                            link={e.link}
-                                            settings={e.settings}
-                                            label={e.label}
-                                        />
-                                    ))
-                                }
-                            </React.Fragment>
-                        )
-                    })
-                }
-            </Row>
-        </Drawer>
-    )
-}

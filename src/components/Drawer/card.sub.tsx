@@ -1,8 +1,6 @@
 import React from 'react'
 import { Row, Col } from 'antd'
 
-// import styles from './styles.module.css'
-// import styles from './styles.module.css'
 import styles from './styles.module.css'
 import { Drawer } from './drawer.interface'
 
