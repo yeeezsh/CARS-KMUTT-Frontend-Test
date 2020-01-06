@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Row, Col } from 'antd'
 import moment from 'moment'
-import AppDrawer from '../Drawer'
+import AppDrawer from '../AppDrawer'
 
 import styles from './home.module.css'
 
