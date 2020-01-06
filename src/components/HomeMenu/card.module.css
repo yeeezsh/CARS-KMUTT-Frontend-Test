@@ -10,6 +10,8 @@
 }
 
 .container {
+  /* flex-direction: column; */
+  align-content: space-between;
   padding: 14px;
 }
 

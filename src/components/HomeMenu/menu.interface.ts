@@ -7,5 +7,6 @@ export default interface Menu {
         center?: boolean,
         backgroundColor?: string,
         labelColor?: string,
+        iconSize?: number,
     }
 }

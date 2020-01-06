@@ -73,7 +73,7 @@ export default class Home extends Component<{}, { drawer: boolean, day: moment.M
                 </Row>
 
                 {/* content */}
-                <Row style={{ marginTop: 50, padding: 0 }}>
+                <Row style={{ marginTop: 30, padding: 0 }}>
                     <Col className={styles.content}>{this.props.children}</Col>
                 </Row>
 

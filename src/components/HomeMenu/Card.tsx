@@ -9,8 +9,10 @@ export default function Card(props: {
     return (
         <div style={{ backgroundColor: setting?.backgroundColor }} className={styles.card}>
             <div className={styles.container}>
-                <img style={{ width: 65 }} src={icon} alt={label} />
-                <p className={styles.label}>{label}</p>
+                <div style={{ display: 'flex' }}>
+                    <img style={{ height: setting?.iconSize || 55 }} src={icon} alt={label} />
+                </div>
+                <p style={{ display: 'flex' }} className={styles.label}>{label}</p>
             </div>
         </div>
     )
