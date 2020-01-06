@@ -3,6 +3,7 @@ import { Drawer, Row, Col } from 'antd'
 import { Drawer as DrawerType } from './drawer.interface'
 
 import CardMain from './card.main'
+import CardSub from './card.sub'
 
 import styles from './styles.module.css'
 
@@ -89,27 +90,35 @@ export default function AppDrawer(props: { drawer: boolean, onDrawer: any }) {
                                 />
                                 {
                                     sub && sub.map(e => (
-                                        <Col key={key + '.' + e.key} className={styles.sub} span={22}>
-                                            <Row type='flex' justify='start'>
-                                                <Col span={3}>
-                                                    <Row type='flex' justify='center'>
-                                                        <Col>
-                                                            <img
-                                                                height={
-                                                                    e.settings?.iconSize
-                                                                    || undefined
-                                                                }
-                                                                src={e.icon}
-                                                                alt={e.label}
-                                                            />
-                                                        </Col>
-                                                    </Row>
-                                                </Col>
-                                                <Col offset={1} span={19}>
-                                                    {e.label}
-                                                </Col>
-                                            </Row>
-                                        </Col>
+                                        <CardSub
+                                            key={key}
+                                            subkey={e.key}
+                                            icon={e.icon}
+                                            link={e.link}
+                                            settings={e.settings}
+                                            label={e.label}
+                                        />
+                                        // <Col key={key + '.' + e.key} className={styles.sub} span={22}>
+                                        //     <Row type='flex' justify='start'>
+                                        //         <Col span={3}>
+                                        //             <Row type='flex' justify='center'>
+                                        //                 <Col>
+                                        //                     <img
+                                        //                         height={
+                                        //                             e.settings?.iconSize
+                                        //                             || undefined
+                                        //                         }
+                                        //                         src={e.icon}
+                                        //                         alt={e.label}
+                                        //                     />
+                                        //                 </Col>
+                                        //             </Row>
+                                        //         </Col>
+                                        //         <Col offset={1} span={19}>
+                                        //             {e.label}
+                                        //         </Col>
+                                        //     </Row>
+                                        // </Col>
                                     ))
                                 }
                             </React.Fragment>
