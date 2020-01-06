@@ -17,7 +17,9 @@ const KanBanLayout: React.FunctionComponent<
             {/* outliner */}
             <Col span={24}>
                 <Row type='flex' justify='start'>
-                    <Outline text={props.outline || ''} />
+                    <Outline>
+                        {props.outline || ''}
+                    </Outline>
                 </Row>
             </Col>
 
