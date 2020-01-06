@@ -1,6 +1,6 @@
 export interface Drawer {
     key: string,
-    label: string,
+    label: string[],
     icon: string,
     link?: string,
     settings?: {

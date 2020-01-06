@@ -75,43 +75,43 @@ export default function AppDrawer(props: { drawer: boolean, onDrawer: any }) {
 const menu: DrawerType[] = [
     {
         key: '1',
-        label: 'หน้าหลัก',
+        label: ['หน้าหลัก'],
         icon: homeIcon,
         link: '/',
     },
     {
         key: '2',
-        label: 'จองสนามกีฬา',
+        label: ['จองสนามกีฬา'],
         icon: basketballIcon,
         link: '/reserve/sport'
     },
     {
         key: '3',
-        label: 'จองพื้นที่จัดกิจกรรม /ห้องประชุม',
+        label: ['จองพื้นที่จัดกิจกรรม /ห้องประชุม'],
         icon: footballareaIcon,
         link: '/reserve/test'
     },
     {
         key: '4',
-        label: 'การจองของฉัน',
+        label: ['การจองของฉัน'],
         icon: ticketIcon,
         link: '/reserve/test',
         sub: [
             {
                 key: '1',
-                label: 'กำลังดำนเนินการ',
+                label: ['กำลังดำนเนินการ'],
                 icon: docsIcon,
                 link: '/reserve/process'
             },
             {
                 key: '2',
-                label: 'รีเควสที่ต้องยืนยัน',
+                label: ['รีเควสที่ต้องยืนยัน'],
                 icon: checkedIcon,
                 link: '/reserve/request'
             },
             {
                 key: '3',
-                label: 'ประวัติการจอง',
+                label: ['ประวัติการจอง'],
                 icon: timeIcon,
                 link: '/reserve/history'
             },

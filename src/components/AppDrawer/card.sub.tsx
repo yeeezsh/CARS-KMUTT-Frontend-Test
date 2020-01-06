@@ -29,7 +29,7 @@ export default function CardSub(props: {
                                         || undefined
                                     }
                                     src={icon}
-                                    alt={label}
+                                    alt={label[0]}
                                 />
                             </Col>
                         </Row>
