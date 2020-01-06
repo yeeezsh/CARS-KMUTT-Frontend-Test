@@ -56,9 +56,8 @@ export default function HomeMenu() {
                 {
                     menu && menu.map(({ icon, label, setting, key }) =>
                         (
-                            <Col span={11}>
+                            <Col key={key} span={11}>
                                 <Card
-                                    key={key}
                                     label={label}
                                     icon={icon}
                                     setting={setting}
