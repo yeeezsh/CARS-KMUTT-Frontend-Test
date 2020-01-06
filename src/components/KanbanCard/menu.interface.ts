@@ -1,6 +1,6 @@
 export default interface Menu {
     key: string,
-    label: string | any,
+    label: string[],
     icon: string,
     link?: string,
     setting?: {

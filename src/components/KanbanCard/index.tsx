@@ -10,10 +10,10 @@ import check from '../../assets/icons/menu/check.svg'
 
 
 
-const menu: Menu[] = [
+const defaultMenu: Menu[] = [
     {
         key: '1',
-        label: 'จองสนามกีฬา',
+        label: ['จองสนามกีฬา'],
         icon: backetball,
         link: '/reserve/sport',
         setting: {
@@ -22,9 +22,9 @@ const menu: Menu[] = [
     },
     {
         key: '2',
-        label: `
+        label: [`
         จองพื้นจัดกิจกรรม
-        / ห้องประชุม`,
+        / ห้องประชุม`],
         icon: footballarea,
         setting: {
             backgroundColor: '#1890FF',
@@ -33,7 +33,7 @@ const menu: Menu[] = [
     },
     {
         key: '3',
-        label: 'กำลังดำเนินการ',
+        label: ['กำลังดำเนินการ'],
         icon: docs,
         setting: {
             labelColor: '#666666'
@@ -41,7 +41,7 @@ const menu: Menu[] = [
     },
     {
         key: '4',
-        label: 'รีเควสที่ต้องยืนยัน',
+        label: ['รีเควสที่ต้องยืนยัน'],
         icon: check,
         setting: {
             labelColor: '#666666'
@@ -49,7 +49,9 @@ const menu: Menu[] = [
     },
 ]
 
-export default function HomeMenu() {
+export default function HomeMenu(props: { menu?: Menu[] }) {
+    const menu = props.menu ? props.menu : defaultMenu
+
     return (
         <React.Fragment>
             <Row type='flex' justify='space-between'>
