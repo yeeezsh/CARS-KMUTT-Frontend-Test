@@ -4,6 +4,10 @@ import KanbanCard from '../../components/KanbanCard'
 import Menu from '../../components/KanbanCard/menu.interface'
 
 import footballIcon from '../../assets/icons/sport/football.svg'
+import badmintonIcon from '../../assets/icons/sport/badminton.svg'
+import basketballIcon from '../../assets/icons/sport/basketball.svg'
+import tennisIcon from '../../assets/icons/sport/tennis.svg'
+import volleyballIcon from '../../assets/icons/sport/volleyball.svg'
 
 export default function Category() {
     // map setting
@@ -35,18 +39,23 @@ const menu: Menu[] = [
         icon: footballIcon,
     },
     {
-        key: '1',
-        label: ['ฟุตบอล', 'football'],
-        icon: footballIcon,
+        key: '2',
+        label: ['แบดมินตัน', 'badminton'],
+        icon: badmintonIcon,
     },
     {
-        key: '1',
-        label: ['ฟุตบอล', 'football'],
-        icon: footballIcon,
+        key: '3',
+        label: ['บาสเก็ตบอล', 'basketball'],
+        icon: basketballIcon,
     },
     {
-        key: '1',
-        label: ['ฟุตบอล', 'football'],
-        icon: footballIcon,
+        key: '4',
+        label: ['เทนนิส', 'tennis'],
+        icon: tennisIcon,
+    },
+    {
+        key: '5',
+        label: ['วอลเลย์บอล', 'volleyball'],
+        icon: volleyballIcon,
     },
 ]
