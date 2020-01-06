@@ -29,7 +29,7 @@ export default class PageLayout extends Component<
         const { drawer } = this.state
         return (
             <React.Fragment>
-                <AppDrawer onDrawer={this.onDrawer} drawer={drawer} />
+                {/* header */}
                 <Row className={styles.header}>
                     <Col className={styles.btn} span={1}>
                         <img onClick={this.onDrawer} src={hamburgerOrange} alt='hamburger' />
@@ -39,9 +39,14 @@ export default class PageLayout extends Component<
                     </Col>
                 </Row>
 
+                {/* AppDrawer */}
+                <AppDrawer onDrawer={this.onDrawer} drawer={drawer} />
+
                 {/* content */}
-                <Row style={{ marginTop: 50, padding: 0 }}>
-                    <div>{this.props.children}</div>
+                <Row type='flex' justify='center'>
+                    <Col style={{ marginTop: 75 }} span={22}>
+                        {this.props.children}
+                    </Col>
                 </Row>
             </React.Fragment>
         )
