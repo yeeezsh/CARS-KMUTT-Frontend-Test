@@ -7,14 +7,16 @@ import CardSub from './card.sub'
 
 import styles from './styles.module.css'
 
-import hamburgerWhite from '../../assets/icons/hamburger-white.svg'
-import homeIcon from '../../assets/icons/drawer/home.svg'
-import basketballIcon from '../../assets/icons/drawer/basketball.svg'
-import footballareaIcon from '../../assets/icons/drawer/footballarea.svg'
-import ticketIcon from '../../assets/icons/drawer/ticket.svg'
-import docsIcon from '../../assets/icons/drawer/docs.svg'
-import checkedIcon from '../../assets/icons/drawer/checked.svg'
-import timeIcon from '../../assets/icons/drawer/time.svg'
+import {
+    homeIcon,
+    basketballIcon,
+    footballareaIcon,
+    ticketIcon,
+    docsIcon,
+    checkedIcon,
+    timeIcon,
+    hamburgerWhite
+} from './icon.import'
 
 const menu: DrawerType[] = [
     {
@@ -81,9 +83,8 @@ export default function AppDrawer(props: { drawer: boolean, onDrawer: any }) {
                 {
                     menu && menu.map(({ key, label, icon, settings, sub }) => {
                         return (
-                            <React.Fragment>
+                            <React.Fragment key={key}>
                                 <CardMain
-                                    key={key}
                                     label={label}
                                     icon={icon}
                                     settings={settings}
@@ -91,34 +92,13 @@ export default function AppDrawer(props: { drawer: boolean, onDrawer: any }) {
                                 {
                                     sub && sub.map(e => (
                                         <CardSub
-                                            key={key}
-                                            subkey={e.key}
+                                            key={Math.random().toString()}
+                                            // key={key + '.' + e.key}
                                             icon={e.icon}
                                             link={e.link}
                                             settings={e.settings}
                                             label={e.label}
                                         />
-                                        // <Col key={key + '.' + e.key} className={styles.sub} span={22}>
-                                        //     <Row type='flex' justify='start'>
-                                        //         <Col span={3}>
-                                        //             <Row type='flex' justify='center'>
-                                        //                 <Col>
-                                        //                     <img
-                                        //                         height={
-                                        //                             e.settings?.iconSize
-                                        //                             || undefined
-                                        //                         }
-                                        //                         src={e.icon}
-                                        //                         alt={e.label}
-                                        //                     />
-                                        //                 </Col>
-                                        //             </Row>
-                                        //         </Col>
-                                        //         <Col offset={1} span={19}>
-                                        //             {e.label}
-                                        //         </Col>
-                                        //     </Row>
-                                        // </Col>
                                     ))
                                 }
                             </React.Fragment>
