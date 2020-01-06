@@ -1,6 +1,8 @@
 import React from 'react'
 import { Row, Col } from 'antd'
 import Card from './Card'
+import { Link } from 'react-router-dom'
+
 import Menu from './menu.interface'
 
 import { basketball, footballarea, docs, check } from './icon.import'
@@ -18,15 +20,20 @@ export default function KanbanCard(
                         icon,
                         label,
                         setting,
-                        key }) =>
+                        key,
+                        link,
+                    }) =>
                         (
                             <Col key={key} span={11}>
-                                <Card
-                                    label={label}
-                                    icon={icon}
-                                    setting={setting}
-                                />
-                            </Col>)
+                                <Link to={link || ''}>
+                                    <Card
+                                        label={label}
+                                        icon={icon}
+                                        setting={setting}
+                                    />
+                                </Link>
+                            </Col>
+                        )
                     )
                 }
             </Row>
