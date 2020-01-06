@@ -8,6 +8,10 @@ import hamburgerWhite from '../../assets/icons/hamburger-white.svg'
 import homeIcon from '../../assets/icons/drawer/home.svg'
 import basketballIcon from '../../assets/icons/drawer/basketball.svg'
 import footballareaIcon from '../../assets/icons/drawer/footballarea.svg'
+import ticketIcon from '../../assets/icons/drawer/ticket.svg'
+import docsIcon from '../../assets/icons/drawer/docs.svg'
+import checkedIcon from '../../assets/icons/drawer/checked.svg'
+import timeIcon from '../../assets/icons/drawer/time.svg'
 
 const menu: DrawerType[] = [
     {
@@ -25,9 +29,19 @@ const menu: DrawerType[] = [
     {
         key: '3',
         label: 'จองพื้นที่จัดกิจกรรม /ห้องประชุม',
-        // label: 'จองพื้นที่',
         icon: footballareaIcon,
         link: '/reserve/test'
+    },
+    {
+        key: '4',
+        label: 'การจองของฉัน',
+        icon: ticketIcon,
+        link: '/reserve/test',
+        // sub: [
+        //     {
+
+        //     }
+        // ]
     },
 ]
 
