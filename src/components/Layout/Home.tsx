@@ -5,7 +5,6 @@ import AppDrawer from '../Drawer'
 
 import styles from './home.module.css'
 
-// import hamburgerOrange from '../../assets/icons/hamburger-orange.svg'
 import hamburgerWhite from '../../assets/icons/hamburger-white.svg'
 import StateCard from '../StateCard/StateCard'
 
@@ -32,17 +31,6 @@ export default class Home extends Component<{}, { drawer: boolean, day: moment.M
         const year = day.format('YYYY')
         return (
             <React.Fragment>
-                <AppDrawer onDrawer={this.onDrawer} drawer={drawer} />
-                {/* <Drawer
-                    placement={'left'}
-                    closable={false}
-                    maskClosable={true}
-                    onClose={this.onDrawer}
-                    visible={drawer}
-                    drawerStyle={{ backgroundColor: '#FF682B' }}
-                >
-                    <img onClick={this.onDrawer} src={hamburgerWhite} alt='hamburger' />
-                </Drawer> */}
                 <Row className={styles.header}>
                     <Col className={styles.btn} span={1}>
                         <img onClick={this.onDrawer} src={hamburgerWhite} alt='hamburger' />
@@ -51,6 +39,10 @@ export default class Home extends Component<{}, { drawer: boolean, day: moment.M
                         <p className={styles.white}>หน้าแรก</p>
                     </Col>
                 </Row>
+                <AppDrawer onDrawer={this.onDrawer} drawer={drawer} />
+
+                {/* spacing */}
+                <div style={{ height: 325 }}></div>
 
                 {/* date and time */}
                 <Row className={styles.date}>
@@ -81,10 +73,7 @@ export default class Home extends Component<{}, { drawer: boolean, day: moment.M
                     <Col className={styles.content}>{this.props.children}</Col>
                 </Row>
 
-                {/* menu */}
-                <Row>
 
-                </Row>
             </React.Fragment>
         )
     }
