@@ -83,7 +83,7 @@ const menu: DrawerType[] = [
         key: '2',
         label: ['จองสนามกีฬา'],
         icon: basketballIcon,
-        link: '/reserve/sport'
+        link: '/reserve/sport/category'
     },
     {
         key: '3',

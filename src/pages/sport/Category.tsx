@@ -1,10 +1,13 @@
 import React from 'react'
-import PageLayout from '../../components/Layout/Page'
+import KanBanLayout from '../../components/Layout/Kanban'
 
 export default function Category() {
     return (
-        <PageLayout titile='sports'>
-            <p>sport Category jaa</p>
-        </PageLayout>
+        <KanBanLayout
+            title={'จองสนามกีฬา'}
+            outline={'เลือกประเภทกีฬา'}
+        >
+
+        </KanBanLayout>
     )
 }
