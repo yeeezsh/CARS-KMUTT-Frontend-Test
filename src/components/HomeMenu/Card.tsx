@@ -12,7 +12,13 @@ export default function Card(props: {
                 <div style={{ display: 'flex' }}>
                     <img style={{ height: setting?.iconSize || 55 }} src={icon} alt={label} />
                 </div>
-                <p style={{ display: 'flex' }} className={styles.label}>{label}</p>
+                <p
+                    style={{
+                        display: 'flex',
+                        color: setting?.labelColor || undefined
+                    }} className={styles.label}>
+                    {label}
+                </p>
             </div>
         </div>
     )

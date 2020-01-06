@@ -5,6 +5,8 @@ import Menu from './menu.interface'
 
 import backetball from '../../assets/icons/menu/basketball.svg'
 import footballarea from '../../assets/icons/menu/footballarea.svg'
+import docs from '../../assets/icons/menu/docs.svg'
+import check from '../../assets/icons/menu/check.svg'
 
 
 
@@ -31,8 +33,19 @@ const menu: Menu[] = [
     },
     {
         key: '3',
-        label: 'จองสนามกีฬา',
-        icon: backetball
+        label: 'กำลังดำเนินการ',
+        icon: docs,
+        setting: {
+            labelColor: '#666666'
+        }
+    },
+    {
+        key: '4',
+        label: 'รีเควสที่ต้องยืนยัน',
+        icon: check,
+        setting: {
+            labelColor: '#666666'
+        }
     },
 ]
 
