@@ -19,13 +19,13 @@ import {
 } from './icon.import'
 
 export default function AppDrawer(props: { drawer: boolean, onDrawer: any }) {
-    const { drawer } = props
+    const { drawer, onDrawer } = props
     return (
         <Drawer
             placement={'left'}
             closable={false}
             maskClosable={true}
-            onClose={props.onDrawer}
+            onClose={onDrawer}
             visible={drawer}
             drawerStyle={{ backgroundColor: '#FF682B' }}
         >
@@ -45,6 +45,7 @@ export default function AppDrawer(props: { drawer: boolean, onDrawer: any }) {
                         return (
                             <React.Fragment key={key}>
                                 <CardMain
+                                    onClick={onDrawer}
                                     label={label}
                                     icon={icon}
                                     settings={settings}
@@ -53,6 +54,7 @@ export default function AppDrawer(props: { drawer: boolean, onDrawer: any }) {
                                 {
                                     sub && sub.map(e => (
                                         <CardSub
+                                            onClick={onDrawer}
                                             key={key + '.' + e.key}
                                             icon={e.icon}
                                             link={e.link}

@@ -10,10 +10,14 @@ export default function CardMain(props: {
     icon: Drawer['icon'],
     label: Drawer['label'],
     link?: Drawer['link'],
+    onClick?: any
 }) {
-    const { icon, label, settings, link } = props
+    const { icon, label, settings, link, onClick } = props
     return (
-        <Col className={styles.main} span={22}>
+        <Col
+            onClick={onClick}
+            className={styles.main}
+            span={22}>
             <Link to={link || ''}>
                 <Row type='flex' justify='start'>
                     <Col span={3}>

@@ -10,10 +10,14 @@ export default function CardSub(props: {
     icon: Drawer['icon'],
     label: Drawer['label'],
     link?: Drawer['link'],
+    onClick?: any
 }) {
-    const { label, icon, settings, link } = props
+    const { label, icon, settings, link, onClick } = props
     return (
-        <Col className={styles.sub} span={22}>
+        <Col
+            onClick={onClick}
+            className={styles.sub}
+            span={22}>
             <Link to={link || ''}>
                 <Row type='flex' justify='start'>
                     <Col span={3}>
