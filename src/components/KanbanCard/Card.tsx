@@ -2,6 +2,7 @@ import React from 'react'
 import { Col, Row } from 'antd'
 import styles from './card.module.css'
 import Menu from './menu.interface'
+
 export default function Card(props: {
     icon?: string, label: Array<string>,
     setting?: Menu['setting']
@@ -10,7 +11,9 @@ export default function Card(props: {
     return (
         <div
             style={{
-                backgroundColor: setting?.backgroundColor
+                backgroundColor: setting?.backgroundColor,
+                height: setting?.center ? 200 : undefined,
+                paddingTop: setting?.center ? 25 : undefined
             }}
             className={styles.card}>
             <div className={styles.container}>
@@ -37,7 +40,7 @@ export default function Card(props: {
                         </p>)
                         :
                         (
-                            <Row type='flex' justify='center'>
+                            <Row style={{ marginTop: 18 }} type='flex' justify='center'>
                                 {
                                     label.map((e, i) => {
                                         return (
