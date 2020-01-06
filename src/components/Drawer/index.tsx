@@ -37,11 +37,26 @@ const menu: DrawerType[] = [
         label: 'การจองของฉัน',
         icon: ticketIcon,
         link: '/reserve/test',
-        // sub: [
-        //     {
-
-        //     }
-        // ]
+        sub: [
+            {
+                key: '1',
+                label: 'กำลังดำนเนินการ',
+                icon: docsIcon,
+                link: '/reserve/process'
+            },
+            {
+                key: '2',
+                label: 'รีเควสที่ต้องยืนยัน',
+                icon: checkedIcon,
+                link: '/reserve/request'
+            },
+            {
+                key: '3',
+                label: 'ประวัติการจอง',
+                icon: timeIcon,
+                link: '/reserve/history'
+            },
+        ]
     },
 ]
 
@@ -61,46 +76,59 @@ export default function AppDrawer(props: { drawer: boolean, onDrawer: any }) {
             {/* menu */}
             <Row className={styles.container} type='flex' justify='space-around'>
                 {
-                    menu && menu.map(({ key, label, icon, settings }) => {
+                    menu && menu.map(({ key, label, icon, settings, sub }) => {
                         return (
-                            <Col key={key} className={styles.main} span={22}>
-                                <Row type='flex' justify='start'>
-                                    <Col span={3}>
-                                        <Row type='flex' justify='center'>
-                                            <Col>
-                                                <img
-                                                    height={
-                                                        settings?.iconSize
-                                                        || undefined
-                                                    }
-                                                    src={icon}
-                                                    alt={label}
-                                                />
-                                            </Col>
-                                        </Row>
-                                    </Col>
-                                    <Col offset={2} span={19}>
-                                        {label}
-                                    </Col>
-                                </Row>
-                            </Col>
+                            <React.Fragment>
+                                <Col key={key} className={styles.main} span={22}>
+                                    <Row type='flex' justify='start'>
+                                        <Col span={3}>
+                                            <Row type='flex' justify='center'>
+                                                <Col>
+                                                    <img
+                                                        height={
+                                                            settings?.iconSize
+                                                            || undefined
+                                                        }
+                                                        src={icon}
+                                                        alt={label}
+                                                    />
+                                                </Col>
+                                            </Row>
+                                        </Col>
+                                        <Col offset={2} span={19}>
+                                            {label}
+                                        </Col>
+                                    </Row>
+                                </Col>
+                                {
+                                    sub && sub.map(e => (
+                                        <Col key={key + '.' + e.key} className={styles.sub} span={22}>
+                                            <Row type='flex' justify='start'>
+                                                <Col span={3}>
+                                                    <Row type='flex' justify='center'>
+                                                        <Col>
+                                                            <img
+                                                                height={
+                                                                    e.settings?.iconSize
+                                                                    || undefined
+                                                                }
+                                                                src={e.icon}
+                                                                alt={e.label}
+                                                            />
+                                                        </Col>
+                                                    </Row>
+                                                </Col>
+                                                <Col offset={1} span={19}>
+                                                    {e.label}
+                                                </Col>
+                                            </Row>
+                                        </Col>
+                                    ))
+                                }
+                            </React.Fragment>
                         )
                     })
                 }
-
-                <Col className={styles.sub} span={22}>
-                    <Row type='flex' justify='start'>
-                        <Col span={2}>
-                            <img
-                                src={homeIcon}
-                                alt="euei" />
-                        </Col>
-                        <Col offset={2} span={18}>
-                            หน้าแรก
-                        </Col>
-                    </Row>
-                </Col>
-
             </Row>
         </Drawer>
     )
