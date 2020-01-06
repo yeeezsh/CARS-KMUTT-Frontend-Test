@@ -11,8 +11,9 @@ import StateCard from '../StateCard/StateCard'
 export default class Home extends Component<{}, { drawer: boolean, day: moment.Moment }> {
 
     state = {
+        // day: moment('30/11/20', 'DD-MM-YY'),
         drawer: false,
-        day: moment('30/11/20', 'DD-MM-YY')
+        day: moment()
     }
 
     onDrawer = () => {

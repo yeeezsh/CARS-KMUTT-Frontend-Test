@@ -3,14 +3,10 @@ import React from 'react'
 import HomeLayout from '../components/Layout/Home'
 import HomeMenu from '../components/HomeMenu'
 
-
-
 export default function Home() {
-    console.log('home')
     return (
         <HomeLayout>
-            {/* <p>HOME JSAAAAA</p> */}
-            <HomeMenu/>
+            <HomeMenu />
         </HomeLayout>
     )
 }
