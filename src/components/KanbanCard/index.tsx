@@ -3,18 +3,35 @@ import { Row, Col } from 'antd'
 import Card from './Card'
 import Menu from './menu.interface'
 
-import backetball from '../../assets/icons/menu/basketball.svg'
-import footballarea from '../../assets/icons/menu/footballarea.svg'
-import docs from '../../assets/icons/menu/docs.svg'
-import check from '../../assets/icons/menu/check.svg'
+import { basketball, footballarea, docs, check } from './icon.import'
 
-
+export default function HomeMenu(props: { menu?: Menu[] }) {
+    const menu = props.menu ? props.menu : defaultMenu
+    return (
+        <React.Fragment>
+            <Row type='flex' justify='space-between'>
+                {
+                    menu && menu.map(({ icon, label, setting, key }) =>
+                        (
+                            <Col key={key} span={11}>
+                                <Card
+                                    label={label}
+                                    icon={icon}
+                                    setting={setting}
+                                />
+                            </Col>)
+                    )
+                }
+            </Row>
+        </React.Fragment>
+    )
+}
 
 const defaultMenu: Menu[] = [
     {
         key: '1',
         label: ['จองสนามกีฬา'],
-        icon: backetball,
+        icon: basketball,
         link: '/reserve/sport',
         setting: {
             backgroundColor: '#FF682B'
@@ -48,26 +65,3 @@ const defaultMenu: Menu[] = [
         }
     },
 ]
-
-export default function HomeMenu(props: { menu?: Menu[] }) {
-    const menu = props.menu ? props.menu : defaultMenu
-
-    return (
-        <React.Fragment>
-            <Row type='flex' justify='space-between'>
-                {
-                    menu && menu.map(({ icon, label, setting, key }) =>
-                        (
-                            <Col key={key} span={11}>
-                                <Card
-                                    label={label}
-                                    icon={icon}
-                                    setting={setting}
-                                />
-                            </Col>)
-                    )
-                }
-            </Row>
-        </React.Fragment>
-    )
-}
