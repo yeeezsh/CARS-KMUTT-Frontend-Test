@@ -40,6 +40,8 @@ export default class Home extends Component<{}, { drawer: boolean, day: moment.M
                         <p className={styles.white}>หน้าแรก</p>
                     </Col>
                 </Row>
+
+                {/* AppDrawer */}
                 <AppDrawer onDrawer={this.onDrawer} drawer={drawer} />
 
                 {/* spacing */}

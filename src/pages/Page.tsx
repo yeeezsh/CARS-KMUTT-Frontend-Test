@@ -4,7 +4,7 @@ import PageLayout from '../components/Layout/Page'
 export default function Page() {
     console.log('home')
     return (
-        <PageLayout title={'page'}>
+        <PageLayout titile='pages'>
             <p>Page jaa</p>
         </PageLayout>
     )
