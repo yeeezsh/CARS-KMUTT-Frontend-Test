@@ -1,6 +1,8 @@
 export default interface Menu {
-    label: string,
+    key: string,
+    label: string | any,
     icon: string,
+    link?: string,
     setting?: {
         center?: boolean,
         backgroundColor?: string,
