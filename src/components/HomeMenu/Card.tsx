@@ -3,9 +3,6 @@ import styles from './card.module.css'
 import Menu from './menu.interface'
 export default function Card(props: {
     icon?: string, label: string,
-    // setting?: {
-    //     center:boolean
-    // }
     setting?: Menu['setting']
 }) {
     const { label, icon, setting } = props
