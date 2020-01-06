@@ -2,7 +2,6 @@ import React, { Component, Props as PageProps } from 'react'
 import { Row, Col, Drawer } from 'antd'
 import styles from './page.module.css'
 import hamburgerOrange from '../../assets/icons/hamburger-orange.svg'
-// import hamburgerWhite from '../../assets/icons/hamburger-white.svg'
 import AppDrawer from '../AppDrawer'
 
 export default class PageLayout extends Component<
@@ -27,7 +26,6 @@ export default class PageLayout extends Component<
 
     render() {
         const { drawer } = this.state
-        console.log(React.Children.count(this.props.children))
         return (
             <Row >
                 {/* header */}
