@@ -34,13 +34,21 @@ export default function AppDrawer(props: { drawer: boolean, onDrawer: any }) {
             {/* menu */}
             <Row className={styles.container} type='flex' justify='space-around'>
                 {
-                    menu && menu.map(({ key, label, icon, settings, sub }) => {
+                    menu && menu.map(({
+                        key,
+                        label,
+                        icon,
+                        settings,
+                        sub,
+                        link
+                    }) => {
                         return (
                             <React.Fragment key={key}>
                                 <CardMain
                                     label={label}
                                     icon={icon}
                                     settings={settings}
+                                    link={link}
                                 />
                                 {
                                     sub && sub.map(e => (
