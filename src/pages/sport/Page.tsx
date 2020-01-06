@@ -6,16 +6,23 @@ import Badge from '../../components/Badge'
 import BadgeDateSelector from '../../components/BadgeDateSelector'
 import moment, { Moment } from 'moment'
 
-export default class Page extends Component {
+export default class Page extends Component<
+    {},
+    { dateSelect: Moment }
+    > {
 
     state = {
         dateSelect: moment().startOf('day')
     }
 
-    onSelectDate(date: Moment) {
+    onSelectDate = (date: Moment) => {
         console.log('select date', date.format('DD'))
+        return this.setState({
+            dateSelect: date
+        })
     }
     render() {
+        const { dateSelect } = this.state
         return (
             <React.Fragment>
                 <PageLayout titile={'จองสนามกีฬา'}>
@@ -69,7 +76,7 @@ export default class Page extends Component {
                             <BadgeDateSelector
                                 start={moment().startOf('day')}
                                 stop={moment().startOf('day').add(1, 'day')}
-                                select={moment()}
+                                select={dateSelect}
                                 onSelect={this.onSelectDate}
                             />
                         </Col>
