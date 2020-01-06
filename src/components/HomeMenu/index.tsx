@@ -4,6 +4,8 @@ import Card from './Card'
 import Menu from './menu.interface'
 
 import backetball from '../../assets/icons/menu/basketball.svg'
+import footballarea from '../../assets/icons/menu/footballarea.svg'
+
 
 
 const menu: Menu[] = [
@@ -21,9 +23,10 @@ const menu: Menu[] = [
         label: `
         จองพื้นจัดกิจกรรม
         / ห้องประชุม`,
-        icon: backetball,
+        icon: footballarea,
         setting: {
-            backgroundColor: '#1890FF'
+            backgroundColor: '#1890FF',
+            iconSize: 50
         }
     },
     {
