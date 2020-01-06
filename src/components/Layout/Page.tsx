@@ -29,7 +29,7 @@ export default class PageLayout extends Component<
         const { drawer } = this.state
         console.log(React.Children.count(this.props.children))
         return (
-            <Row type='flex' justify='center'>
+            <Row >
                 {/* header */}
                 <Row className={styles.header}>
                     <Col className={styles.btn} span={1}>
