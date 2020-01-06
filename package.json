@@ -2,7 +2,7 @@
   "name": "cars-kmutt-frontend-test",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://localhost",
+  "homepage": "https://cars-frontend.herokuapp.com/",
   "dependencies": {
     "antd": "^3.26.6",
     "babel-plugin-import": "^1.13.0",
