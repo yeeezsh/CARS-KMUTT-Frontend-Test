@@ -11,12 +11,17 @@ const KanBanLayout: React.FunctionComponent<
 > = (props) => (
     <React.Fragment>
         <PageLayout titile={props.title || ''}>
+            {/* spacing */}
+            <div style={{ height: 30 }}></div>
+
             {/* outliner */}
             <Col span={24}>
                 <Row type='flex' justify='start'>
                     <Outline text={props.outline || ''} />
                 </Row>
             </Col>
+
+            {/* child */}
             {props.children}
         </PageLayout>
     </React.Fragment>

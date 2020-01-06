@@ -1,5 +1,6 @@
 import React from 'react'
 import KanBanLayout from '../../components/Layout/Kanban'
+import KanbanCard from '../../components/KanbanCard'
 
 export default function Category() {
     return (
@@ -7,7 +8,7 @@ export default function Category() {
             title={'จองสนามกีฬา'}
             outline={'เลือกประเภทกีฬา'}
         >
-
+            <KanbanCard />
         </KanBanLayout>
     )
 }

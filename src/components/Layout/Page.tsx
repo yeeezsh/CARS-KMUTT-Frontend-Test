@@ -7,7 +7,7 @@ import AppDrawer from '../AppDrawer'
 
 export default class PageLayout extends Component<
     {
-        titile: string
+        titile: string,
     },
     {
         drawer: boolean
@@ -27,8 +27,9 @@ export default class PageLayout extends Component<
 
     render() {
         const { drawer } = this.state
+        console.log(React.Children.count(this.props.children))
         return (
-            <React.Fragment>
+            <Row type='flex' justify='center'>
                 {/* header */}
                 <Row className={styles.header}>
                     <Col className={styles.btn} span={1}>
@@ -43,12 +44,16 @@ export default class PageLayout extends Component<
                 <AppDrawer onDrawer={this.onDrawer} drawer={drawer} />
 
                 {/* content */}
-                <Row type='flex' justify='center'>
-                    <Col style={{ marginTop: 75 }} span={22}>
-                        {this.props.children}
-                    </Col>
+                <Row style={{ marginTop: 75 }} type='flex' justify='center'>
+                    {
+                        React.Children.map(this.props.children, child => (
+                            <Col span={22}>
+                                {child}
+                            </Col>
+                        ))
+                    }
                 </Row>
-            </React.Fragment>
+            </Row>
         )
     }
 }

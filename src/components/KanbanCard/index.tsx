@@ -5,13 +5,20 @@ import Menu from './menu.interface'
 
 import { basketball, footballarea, docs, check } from './icon.import'
 
-export default function HomeMenu(props: { menu?: Menu[] }) {
+export default function KanbanCard(
+    props: {
+        menu?: Menu[]
+    }) {
     const menu = props.menu ? props.menu : defaultMenu
     return (
         <React.Fragment>
             <Row type='flex' justify='space-between'>
                 {
-                    menu && menu.map(({ icon, label, setting, key }) =>
+                    menu && menu.map(({
+                        icon,
+                        label,
+                        setting,
+                        key }) =>
                         (
                             <Col key={key} span={11}>
                                 <Card
