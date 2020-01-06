@@ -37,6 +37,7 @@ const menu: Menu[] = [
         key: '1',
         label: ['ฟุตบอล', 'football'],
         icon: footballIcon,
+        link: '/reserve/sport/'
     },
     {
         key: '2',
