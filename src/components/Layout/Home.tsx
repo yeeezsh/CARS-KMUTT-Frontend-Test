@@ -47,6 +47,15 @@ export default class Home extends Component<{}, { drawer: boolean, day: moment.M
                 {/* spacing */}
                 <div style={{ height: 325 }}></div>
 
+                {/* bg color */}
+                <div style={{
+                    backgroundColor: '#ff682b',
+                    position: 'fixed',
+                    height: '335px',
+                    width: '100%',
+                    top: 0
+                }}></div>
+
                 {/* date and time */}
                 <Row className={styles.date}>
                     <div className={styles.textDate}>Today</div>
