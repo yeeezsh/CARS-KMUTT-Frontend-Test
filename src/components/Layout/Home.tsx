@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
-import { Row, Col, Drawer } from 'antd'
+import { Row, Col } from 'antd'
 import moment from 'moment'
+import AppDrawer from '../Drawer'
+
 import styles from './home.module.css'
+
 // import hamburgerOrange from '../../assets/icons/hamburger-orange.svg'
 import hamburgerWhite from '../../assets/icons/hamburger-white.svg'
 import StateCard from '../StateCard/StateCard'
@@ -29,7 +32,8 @@ export default class Home extends Component<{}, { drawer: boolean, day: moment.M
         const year = day.format('YYYY')
         return (
             <React.Fragment>
-                <Drawer
+                <AppDrawer onDrawer={this.onDrawer} drawer={drawer} />
+                {/* <Drawer
                     placement={'left'}
                     closable={false}
                     maskClosable={true}
@@ -38,7 +42,7 @@ export default class Home extends Component<{}, { drawer: boolean, day: moment.M
                     drawerStyle={{ backgroundColor: '#FF682B' }}
                 >
                     <img onClick={this.onDrawer} src={hamburgerWhite} alt='hamburger' />
-                </Drawer>
+                </Drawer> */}
                 <Row className={styles.header}>
                     <Col className={styles.btn} span={1}>
                         <img onClick={this.onDrawer} src={hamburgerWhite} alt='hamburger' />
