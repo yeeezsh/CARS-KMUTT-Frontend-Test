@@ -1,9 +1,10 @@
 import React from 'react'
+import PageLayout from '../../components/Layout/Page'
 
-export default function SportCategoryPage() {
+export default function Category() {
     return (
-        <div>
-
-        </div>
+        <PageLayout titile='sports'>
+            <p>sport Category jaa</p>
+        </PageLayout>
     )
 }

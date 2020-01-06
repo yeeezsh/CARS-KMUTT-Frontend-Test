@@ -32,7 +32,7 @@ const defaultMenu: Menu[] = [
         key: '1',
         label: ['จองสนามกีฬา'],
         icon: basketball,
-        link: '/reserve/sport',
+        link: '/reserve/sport/category',
         setting: {
             backgroundColor: '#FF682B'
         }
