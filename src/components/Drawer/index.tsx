@@ -45,6 +45,7 @@ export default function AppDrawer(props: { drawer: boolean, onDrawer: any }) {
                                 {
                                     sub && sub.map(e => (
                                         <CardSub
+                                            key={key + '.' + e.key}
                                             icon={e.icon}
                                             link={e.link}
                                             settings={e.settings}
