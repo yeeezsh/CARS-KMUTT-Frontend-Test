@@ -49,6 +49,7 @@ export default function Card(props: {
                                                     i === 0 ? styles.labelMain :
                                                         styles.labelSub
                                                 }
+                                                key={i}
                                                 style={{ textAlign: 'center' }}
                                                 span={24}>
                                                 {e}
