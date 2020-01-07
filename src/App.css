@@ -6,3 +6,21 @@ a {
 a:hover {
   color: inherit;
 }
+
+/* antd overrides */
+
+/* steps */
+.ant-steps-horizontal.ant-steps-label-horizontal {
+  display: flex;
+}
+
+.ant-steps-item-title::after {
+  position: absolute;
+  top: 16px;
+  left: 100%;
+  display: block !important;
+  width: 9999px;
+  height: 1px;
+  background: #e8e8e8;
+  /* content: ""; */
+}
