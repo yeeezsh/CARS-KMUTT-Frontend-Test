@@ -6,7 +6,7 @@ import Badge from '../../components/Badge'
 import BadgeDateSelector from '../../components/BadgeDateSelector'
 import moment, { Moment } from 'moment'
 
-export default class Page extends Component<
+export default class SportPage extends Component<
     {},
     { dateSelect: Moment }
     > {
