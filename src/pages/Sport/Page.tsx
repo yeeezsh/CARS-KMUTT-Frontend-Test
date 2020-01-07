@@ -13,6 +13,7 @@ import Badge from '../../components/Badge'
 import BadgeDateSelector from '../../components/BadgeDateSelector'
 import StateSteps from '../../components/StateSteps'
 import StepsType from '../../components/StateSteps/step.interface'
+import BreakingLine from '../../components/BreakingLine'
 
 export default class SportPage extends Component<
     {},
@@ -87,14 +88,7 @@ export default class SportPage extends Component<
 
                             {/* borderline */}
                             <Col span={24}>
-                                <Row type='flex' justify='center'>
-                                    <Col span={22}>
-                                        <div style={{
-                                            border: '1px solid #DADADA',
-                                            marginTop: '-4px'
-                                        }} />
-                                    </Col>
-                                </Row>
+                                <BreakingLine />
                             </Col>
                         </Row>
 
@@ -142,9 +136,7 @@ export default class SportPage extends Component<
 
                     {/* TimeTable */}
                     <Col span={24}>
-                        {/* <Row type='flex' justify='center'> */}
                         <TimeTable />
-                        {/* </Row> */}
                     </Col>
 
                 </PageLayout>

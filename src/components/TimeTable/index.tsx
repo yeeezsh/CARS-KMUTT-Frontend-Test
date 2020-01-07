@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Row, Col } from 'antd'
+
 import Outline from '../Outline'
+import BreakingLine from '../BreakingLine'
 
 export default class TimeTable extends Component {
     state = {
@@ -27,14 +29,7 @@ export default class TimeTable extends Component {
 
                 {/* borderline */}
                 <Col span={24}>
-                    <Row type='flex' justify='center'>
-                        <Col span={22}>
-                            <div style={{
-                                border: '.5px solid #DADADA',
-                                marginTop: '-4px'
-                            }} />
-                        </Col>
-                    </Row>
+                    <BreakingLine lineSize={.5} />
                 </Col>
             </React.Fragment>
         )
