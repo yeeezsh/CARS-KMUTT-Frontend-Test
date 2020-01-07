@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import { Row, Col } from 'antd'
+import moment, { Moment } from 'moment'
+
 import Outline from '../../components/Outline'
 import PageLayout from '../../components/Layout/Page'
 import Badge from '../../components/Badge'
 import BadgeDateSelector from '../../components/BadgeDateSelector'
-import moment, { Moment } from 'moment'
+import StateSteps from '../../components/StateSteps'
 
 export default class SportPage extends Component<
     {},
@@ -26,6 +28,30 @@ export default class SportPage extends Component<
         return (
             <React.Fragment>
                 <PageLayout titile={'จองสนามกีฬา'}>
+
+                    <div style={{ height: '25px' }} />
+
+                    {/* steps */}
+                    <Col span={24}>
+                        <Row type='flex' justify='center'>
+                            <Col span={22}>
+                                <StateSteps
+                                    steps={
+                                        [
+                                            {
+                                                label: '1'
+                                            }
+                                        ]
+                                    }
+                                />
+                            </Col>
+                        </Row>
+                    </Col>
+
+                    {/* spacing */}
+                    <div style={
+                        { height: '25px' }
+                    } />
 
                     {/* Badge */}
                     <Col span={24}>

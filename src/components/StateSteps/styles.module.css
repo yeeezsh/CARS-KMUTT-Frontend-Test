@@ -1,0 +1,25 @@
+.dash {
+  height: 1px;
+  width: 100%;
+  border: 1px solid #d9d9d9;
+  z-index: -1;
+  position: absolute;
+}
+
+.dot {
+  width: 42px;
+  height: 42px;
+  background: #ffffff;
+  border: 1px solid #d9d9d9;
+  box-sizing: border-box;
+  padding: 9px;
+  border-radius: 50%;
+  margin-top: -18px;
+}
+
+.label {
+  text-align: center;
+  font-size: 16px;
+  line-height: 22px;
+  color: #dadada;
+}

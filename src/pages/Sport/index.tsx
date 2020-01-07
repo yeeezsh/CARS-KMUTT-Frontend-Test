@@ -1,7 +1,7 @@
 import Category from './Category'
-import Page from './Page'
+import PageSport from './Page'
 
 export {
     Category,
-    Page
+    PageSport as Page
 }
