@@ -39,8 +39,8 @@ export default class SportPage extends Component<
                     <div style={{ height: '25px' }} />
 
                     {/* steps */}
-                    <Col span={24}>
-                        <Row type='flex' justify='center'>
+                    <Col offset={2} span={20}>
+                        < Row type='flex' justify='center'>
                             <Col span={22}>
                                 <StateSteps
                                     current={0}
@@ -140,7 +140,7 @@ export default class SportPage extends Component<
                     </Col>
 
                 </PageLayout>
-            </React.Fragment>
+            </React.Fragment >
         )
     }
 }
