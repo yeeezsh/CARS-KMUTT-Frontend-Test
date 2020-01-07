@@ -7,6 +7,7 @@ import PageLayout from '../../components/Layout/Page'
 import Badge from '../../components/Badge'
 import BadgeDateSelector from '../../components/BadgeDateSelector'
 import StateSteps from '../../components/StateSteps'
+import StepsType from '../../components/StateSteps/step.interface'
 
 export default class SportPage extends Component<
     {},
@@ -37,19 +38,7 @@ export default class SportPage extends Component<
                             <Col span={22}>
                                 <StateSteps
                                     current={0}
-                                    steps={
-                                        [
-                                            {
-                                                label: '1'
-                                            },
-                                            {
-                                                label: '2'
-                                            },
-                                            {
-                                                label: '3'
-                                            },
-                                        ]
-                                    }
+                                    steps={stepLists}
                                 />
                             </Col>
                         </Row>
@@ -102,9 +91,12 @@ export default class SportPage extends Component<
                                     </Col>
                                 </Row>
                             </Col>
-
                         </Row>
 
+                        {/* spacing */}
+                        <div style={{ height: '8px' }} />
+
+                        {/* BadgeDaySelector */}
                         <Col span={24}>
                             <BadgeDateSelector
                                 start={moment().startOf('day')}
@@ -113,9 +105,24 @@ export default class SportPage extends Component<
                                 onSelect={this.onSelectDate}
                             />
                         </Col>
+
+
+
                     </Col>
                 </PageLayout>
             </React.Fragment>
         )
     }
 }
+
+const stepLists: StepsType[] = [
+    {
+        label: '1'
+    },
+    {
+        label: '2'
+    },
+    {
+        label: '3'
+    },
+]
