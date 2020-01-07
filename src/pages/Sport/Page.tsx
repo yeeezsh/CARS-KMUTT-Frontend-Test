@@ -122,7 +122,7 @@ export default class SportPage extends Component<
                                     fontWeight: 'bold',
                                     fontSize: '18px'
                                 }}>
-                                    วันที่ {moment().format('DD MMMM YYYY')}
+                                    วันที่ {dateSelect.format('DD MMMM YYYY')}
                                 </span>
                             </Badge>
                         </Row>
