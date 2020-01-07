@@ -1,14 +1,44 @@
 import React, { Component } from 'react'
 import { Row, Col } from 'antd'
+import { Moment } from 'moment'
+
+import styles from './styles.module.css'
 
 import Outline from '../Outline'
 import BreakingLine from '../BreakingLine'
 
-export default class TimeTable extends Component {
+const selecting: React.CSSProperties = {
+    backgroundColor: '#1890FF',
+    color: '#FFFFFF',
+    border: '1px solid #1890FF',
+}
+
+const disabled: React.CSSProperties = {
+    backgroundColor: '#DADADA',
+    color: '#979797',
+    border: ' 1px solid #979797',
+}
+
+interface TimeNode {
+    value: Moment
+}
+
+
+export default class TimeTable extends Component<
+    {},
+    {
+
+    },
+    {
+        table: []
+    }
+    > {
     state = {
         table: [],
-        disabled: [],
-        selecting: []
+        // disabled: [],
+        // selecting: []
+    }
+    componentWillReceiveProps = () => {
     }
     render() {
         return (
@@ -23,7 +53,10 @@ export default class TimeTable extends Component {
                 {/* timetable */}
                 <Row type='flex' justify='space-around'>
                     <Col span={6}>
-                        <p>1</p>
+                        <p
+                            // style={selecting}
+                            className={styles.card}
+                        >08.00</p>
                     </Col>
                 </Row>
 
