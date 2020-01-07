@@ -3,7 +3,7 @@ import blueCheckedIcon from '../../assets/icons/checked.blue.svg'
 
 const styles = (active: boolean): React.CSSProperties => {
     return {
-        position: 'fixed',
+        position: 'absolute',
         marginLeft: '55px',
         width: '20px',
         visibility: active ? 'visible' : 'hidden',
