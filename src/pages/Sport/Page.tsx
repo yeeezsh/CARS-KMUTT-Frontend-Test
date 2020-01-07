@@ -6,6 +6,7 @@ import orangeSquareIcon from '../../assets/icons/square/orange.svg'
 import greySquareIcon from '../../assets/icons/square/grey.svg'
 import blueSquareIcon from '../../assets/icons/square/blue.svg'
 
+import TimeTable from '../../components/TimeTable'
 import Outline from '../../components/Outline'
 import PageLayout from '../../components/Layout/Page'
 import Badge from '../../components/Badge'
@@ -136,6 +137,14 @@ export default class SportPage extends Component<
                             {iconSquare('ที่ถูกเลือก', blueSquareIcon)}
 
                         </Row>
+                    </Col>
+
+
+                    {/* TimeTable */}
+                    <Col span={24}>
+                        {/* <Row type='flex' justify='center'> */}
+                        <TimeTable />
+                        {/* </Row> */}
                     </Col>
 
                 </PageLayout>
