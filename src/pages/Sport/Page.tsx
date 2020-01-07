@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 import { Row, Col } from 'antd'
 import moment, { Moment } from 'moment'
 
+import orangeSquareIcon from '../../assets/icons/square/orange.svg'
+import greySquareIcon from '../../assets/icons/square/grey.svg'
+import blueSquareIcon from '../../assets/icons/square/blue.svg'
+
 import Outline from '../../components/Outline'
 import PageLayout from '../../components/Layout/Page'
 import Badge from '../../components/Badge'
@@ -93,9 +97,6 @@ export default class SportPage extends Component<
                             </Col>
                         </Row>
 
-                        {/* spacing */}
-                        <div style={{ height: '8px' }} />
-
                         {/* BadgeDaySelector */}
                         <Col span={24}>
                             <BadgeDateSelector
@@ -105,10 +106,38 @@ export default class SportPage extends Component<
                                 onSelect={this.onSelectDate}
                             />
                         </Col>
-
-
-
                     </Col>
+
+                    {/* spacing */}
+                    <div style={
+                        { height: '8px' }
+                    } />
+
+                    {/* Date Outliner */}
+                    <Col span={24}>
+                        <Row type='flex' justify='center'>
+                            <Badge>
+                                <span style={{
+                                    color: '#FF682B',
+                                    fontWeight: 'bold',
+                                    fontSize: '18px'
+                                }}>
+                                    วันที่ {moment().format('DD MMMM YYYY')}
+                                </span>
+                            </Badge>
+                        </Row>
+                    </Col>
+
+                    {/* icon detail */}
+                    <Col span={24}>
+                        <Row type='flex' justify='center'>
+                            {iconSquare('ว่าง', orangeSquareIcon)}
+                            {iconSquare('ไม่ว่าง/รอการอนุมัติ', greySquareIcon)}
+                            {iconSquare('ที่ถูกเลือก', blueSquareIcon)}
+
+                        </Row>
+                    </Col>
+
                 </PageLayout>
             </React.Fragment>
         )
@@ -126,3 +155,19 @@ const stepLists: StepsType[] = [
         label: '3'
     },
 ]
+
+const iconLabel: React.CSSProperties = {
+    color: '#3B4046',
+    fontSize: '14px',
+    marginLeft: '5px',
+    marginTop: '14px'
+}
+
+const iconSquare = (text?: string, icon?: string) => (
+    <div style={{ display: 'flex', padding: '0px 10px 0px 10px' }}>
+        <img src={icon} alt="icon" />
+        <p style={iconLabel}>
+            {text || ''}
+        </p>
+    </div>
+)
