@@ -36,11 +36,18 @@ export default class SportPage extends Component<
                         <Row type='flex' justify='center'>
                             <Col span={22}>
                                 <StateSteps
+                                    current={0}
                                     steps={
                                         [
                                             {
                                                 label: '1'
-                                            }
+                                            },
+                                            {
+                                                label: '2'
+                                            },
+                                            {
+                                                label: '3'
+                                            },
                                         ]
                                     }
                                 />
