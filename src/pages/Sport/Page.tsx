@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { Row, Col } from 'antd'
 import moment, { Moment } from 'moment'
+import { Route, Switch } from 'react-router'
 
+// import history from '../history'
 import TimePage from './Time'
 import PageLayout from '../../components/Layout/Page'
 import Badge from '../../components/Badge'
@@ -80,32 +82,36 @@ class SportPage extends Component<
                         </Row>
                     </Col>
 
-                    <TimePage
-                        onSelectDate={this.onSelectDate}
-                        onSelectTime={this.onSelectTime}
-                        onSelectArea={this.onSelectArea}
-                        date={{
-                            start: moment(),
-                            stop: moment().add(12, "hour"),
-                            selected: this.state.dateSelected
-                        }}
-                        areas={[
-                            {
-                                time: {
-                                    start: moment().startOf('hour'),
-                                    stop: moment().startOf('hour').add(12, 'hour'),
-                                    disabled: [{
-                                        value: moment().startOf('hour').add(1, "hour")
-                                    }]
-                                },
-                                area: {
-                                    label: 'สนามฟุตบอล',
-                                    id: '1'
-                                }
+                    <Switch>
+                        <Route path='*/1'>
+                            <TimePage
+                                onSelectDate={this.onSelectDate}
+                                onSelectTime={this.onSelectTime}
+                                onSelectArea={this.onSelectArea}
+                                date={{
+                                    start: moment(),
+                                    stop: moment().add(12, "hour"),
+                                    selected: this.state.dateSelected
+                                }}
+                                areas={[
+                                    {
+                                        time: {
+                                            start: moment().startOf('hour'),
+                                            stop: moment().startOf('hour').add(12, 'hour'),
+                                            disabled: [{
+                                                value: moment().startOf('hour').add(1, "hour")
+                                            }]
+                                        },
+                                        area: {
+                                            label: 'สนามฟุตบอล',
+                                            id: '1'
+                                        }
 
-                            }
-                        ]}
-                    />
+                                    }
+                                ]}
+                            />
+                        </Route>
+                    </Switch>
 
                 </PageLayout>
             </React.Fragment >
