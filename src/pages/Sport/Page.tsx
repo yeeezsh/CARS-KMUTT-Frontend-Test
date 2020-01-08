@@ -2,42 +2,47 @@ import React, { Component } from 'react'
 import { Row, Col } from 'antd'
 import moment, { Moment } from 'moment'
 
-import orangeSquareIcon from '../../assets/icons/square/orange.svg'
-import greySquareIcon from '../../assets/icons/square/grey.svg'
-import blueSquareIcon from '../../assets/icons/square/blue.svg'
-
-import TimeTable from '../../components/TimeTable'
-import Outline from '../../components/Outline'
 import PageLayout from '../../components/Layout/Page'
 import Badge from '../../components/Badge'
-import BadgeDateSelector from '../../components/BadgeDateSelector'
 import StateSteps from '../../components/StateSteps'
 import StepsType from '../../components/StateSteps/step.interface'
-import BreakingLine from '../../components/BreakingLine'
+// import BreakingLine from '../../components/BreakingLine'
 
 import TimeNode from '../../components/TimeTable/timetable.interface'
 
-export default class SportPage extends Component<
+import TimePage from './Time'
+
+class SportPage extends Component<
     {},
-    { dateSelect: Moment }
+    {
+        dateSelect: Moment
+        timeSelect: Moment | undefined,
+        state: number
+    }
     > {
 
     state = {
-        dateSelect: moment().startOf('day')
+        dateSelect: moment().startOf('day'),
+        timeSelect: undefined,
+        state: 0,
     }
 
     onSelectDate = (date: Moment) => {
-        console.log('select date', date.format('DD'))
+        console.log('ddd', date.format('DD'))
         return this.setState({
             dateSelect: date
         })
     }
 
-    onSelectTime = (date: TimeNode) => {
-        console.log(date)
+    onSelectTime = (time: TimeNode) => {
+        console.log('ttt', time.value.format('hh.mm'))
+        if (time.type === 'disabled') return
+        return this.setState({ timeSelect: time.value })
     }
+
     render() {
-        const { dateSelect } = this.state
+        // const { dateSelect } = this.state
+        console.log(this.state.dateSelect.format('DD'))
         return (
             <React.Fragment>
                 <PageLayout titile={'จองสนามกีฬา'}>
@@ -70,90 +75,22 @@ export default class SportPage extends Component<
                         </Row>
                     </Col>
 
-
-                    {/* outliner n' desc */}
-                    <Col style={{ marginTop: '-10px' }} span={24}>
-                        <Row type='flex' justify='start'>
-                            {/* outliner */}
-                            <Outline>
-                                เลือกช่วงเวลา
-                            </Outline>
-
-                            {/* description */}
-                            <Col
-                                style={{
-                                    marginTop: '-20px',
-                                    color: '#666666',
-                                    fontSize: '12px'
-                                }}
-                                span={20}>
-                                <p>
-                                    เลือกช่วงเวลาที่ต้องการจอง สามารถจองได้ครั้งละ 1 ชั่วโมง
-                                </p>
-                            </Col>
-
-                            {/* borderline */}
-                            <Col span={24}>
-                                <BreakingLine />
-                            </Col>
-                        </Row>
-
-                        {/* BadgeDaySelector */}
-                        <Col span={24}>
-                            <BadgeDateSelector
-                                start={moment().startOf('day')}
-                                stop={moment().startOf('day').add(1, 'day')}
-                                select={dateSelect}
-                                onSelect={this.onSelectDate}
-                            />
-                        </Col>
-                    </Col>
-
-                    {/* spacing */}
-                    <div style={
-                        { height: '8px' }
-                    } />
-
-                    {/* Date Outliner */}
-                    <Col span={24}>
-                        <Row type='flex' justify='center'>
-                            <Badge>
-                                <span style={{
-                                    color: '#FF682B',
-                                    fontWeight: 'bold',
-                                    fontSize: '18px'
-                                }}>
-                                    วันที่ {dateSelect.format('DD MMMM YYYY')}
-                                </span>
-                            </Badge>
-                        </Row>
-                    </Col>
-
-                    {/* icon detail */}
-                    <Col span={24}>
-                        <Row type='flex' justify='center'>
-                            {iconSquare('ว่าง', orangeSquareIcon)}
-                            {iconSquare('ไม่ว่าง/รอการอนุมัติ', greySquareIcon)}
-                            {iconSquare('ที่ถูกเลือก', blueSquareIcon)}
-
-                        </Row>
-                    </Col>
-
-
-                    {/* TimeTable */}
-                    <Col span={24}>
-                        <TimeTable
-                            start={moment().startOf('hour')}
-                            stop={moment().startOf('hour').add(9, 'hour')}
-                            interval={60}
-                            onSelect={this.onSelectTime}
-                            disabled={
-                                [{
-                                    value: moment().startOf('hour').add(1, "hour")
-                                }]
-                            }
-                        />
-                    </Col>
+                    <TimePage
+                        onSelectDate={this.onSelectDate}
+                        onSelectTime={this.onSelectTime}
+                        date={{
+                            start: moment(),
+                            stop: moment().add(12, "hour"),
+                            selected: this.state.dateSelect
+                        }}
+                        time={{
+                            start: moment().startOf('hour'),
+                            stop: moment().startOf('hour').add(12, 'hour'),
+                            disabled: [{
+                                value: moment().startOf('hour').add(1, "hour")
+                            }]
+                        }}
+                    />
 
                 </PageLayout>
             </React.Fragment >
@@ -173,18 +110,4 @@ const stepLists: StepsType[] = [
     },
 ]
 
-const iconLabel: React.CSSProperties = {
-    color: '#3B4046',
-    fontSize: '14px',
-    marginLeft: '5px',
-    marginTop: '14px'
-}
-
-const iconSquare = (text?: string, icon?: string) => (
-    <div style={{ display: 'flex', padding: '0px 10px 0px 10px' }}>
-        <img src={icon} alt="icon" />
-        <p style={iconLabel}>
-            {text || ''}
-        </p>
-    </div>
-)
+export default SportPage
