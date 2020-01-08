@@ -19,7 +19,7 @@ export default class PageRouter extends Component {
                 <Route path='/reserve/sport/category'>
                     <SportCategory />
                 </Route>
-                <Route exact path='/reserve/sport/'>
+                <Route exact path='/reserve/sport/*'>
                     <SportPage />
                 </Route>
             </Router>

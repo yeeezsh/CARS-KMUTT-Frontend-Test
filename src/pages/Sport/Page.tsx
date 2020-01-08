@@ -2,15 +2,14 @@ import React, { Component } from 'react'
 import { Row, Col } from 'antd'
 import moment, { Moment } from 'moment'
 
+import TimePage from './Time'
 import PageLayout from '../../components/Layout/Page'
 import Badge from '../../components/Badge'
 import StateSteps from '../../components/StateSteps'
-import StepsType from '../../components/StateSteps/step.interface'
 
+import StepsType from '../../components/StateSteps/step.interface'
 import TimeNode from '../../components/TimeTable/timetable.interface'
 import Area from './area.interface'
-
-import TimePage from './Time'
 
 class SportPage extends Component<
     {},
