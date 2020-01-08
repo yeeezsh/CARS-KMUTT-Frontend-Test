@@ -25,6 +25,7 @@ class SportPage extends Component<
         timeSelected: Moment | undefined,
         areaSelected: Area['area'] | undefined,
         step: number,
+        badge: string | undefined
     }
     > {
 
@@ -33,6 +34,7 @@ class SportPage extends Component<
         timeSelected: undefined,
         areaSelected: undefined,
         step: 1,
+        badge: ''
     }
 
     onSelectDate = (date: Moment) => {
@@ -45,14 +47,21 @@ class SportPage extends Component<
     onSelectTime = (time: TimeNode) => {
         console.log('ttt', time.value.format('hh.mm'))
         if (time.type === 'disabled') return
-        let { step } = this.state
+        let { step, badge } = this.state
         return this.setState(
             {
                 timeSelected: time.value,
                 step: ++step
             },
             () => {
-                this.props.history.push(step.toString())
+                this.props.history.push(
+                    {
+                        pathname: step.toString(),
+                        state: {
+                            label: [badge]
+                        }
+                    }
+                )
             })
     }
 
@@ -61,13 +70,29 @@ class SportPage extends Component<
         return this.setState({ areaSelected: area })
     }
 
-    onClickStep = (n: number) => this.setState({ step: n }, () => this.props.history.push(n.toString()))
+    onClickStep = (n: number) => {
+        // if (n === 2) n = 1
+        const { badge } = this.state
+        return this.setState({ step: n },
+            () => this.props.history.push({
+                pathname: n.toString(),
+                state: {
+                    label: [badge]
+                }
+            })
+        )
+    }
+
+    componentWillReceiveProps = () => {
+        // for setting badge
+        const { history } = this.props
+        const badge = history.location.state?.label[0]
+        return this.setState({ badge })
+    }
 
     render() {
         console.log(this.state)
-        const { location } = this.props
-        const badge = location.state?.label[0]
-        // const badgeLabelText = this.props.location.state?.label[0]
+
         return (
             <React.Fragment>
                 <PageLayout titile={'จองสนามกีฬา'}>
@@ -96,7 +121,7 @@ class SportPage extends Component<
                     <Col span={24}>
                         <Row type='flex' justify='start'>
                             <Badge>
-                                {badge}
+                                {this.state.badge}
                             </Badge>
                         </Row>
                     </Col>
