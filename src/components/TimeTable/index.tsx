@@ -30,7 +30,8 @@ interface TimeTableProps {
     interval: number,
     disabled?: TimeNode[]
     onSelect: any,
-    title?: string
+    title?: string,
+    onClick?: any,
 }
 
 const cardStyle = (type: TimeNode['type'])
@@ -120,7 +121,10 @@ export default class TimeTable extends Component<
                         table[0] && table.map(({ value, type }, i) => (
                             <Row
                                 key={i}
-                                onClick={() => this.onSelect(value, type)}
+                                onClick={() => {
+                                    this.onSelect(value, type)
+                                    this.props.onClick()
+                                }}
                                 type='flex'
                                 justify='center'>
                                 <p
