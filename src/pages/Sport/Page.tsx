@@ -15,36 +15,36 @@ import TimePage from './Time'
 class SportPage extends Component<
     {},
     {
-        dateSelect: Moment
-        timeSelect: Moment | undefined,
-        areaSelect: Area['area'] | undefined,
+        dateSelected: Moment
+        timeSelected: Moment | undefined,
+        areaSelected: Area['area'] | undefined,
         state: number
     }
     > {
 
     state = {
-        dateSelect: moment().startOf('day'),
-        timeSelect: undefined,
-        areaSelect: undefined,
+        dateSelected: moment().startOf('day'),
+        timeSelected: undefined,
+        areaSelected: undefined,
         state: 0,
     }
 
     onSelectDate = (date: Moment) => {
         console.log('ddd', date.format('DD'))
         return this.setState({
-            dateSelect: date
+            dateSelected: date
         })
     }
 
     onSelectTime = (time: TimeNode) => {
         console.log('ttt', time.value.format('hh.mm'))
         if (time.type === 'disabled') return
-        return this.setState({ timeSelect: time.value })
+        return this.setState({ timeSelected: time.value })
     }
 
     onSelectArea = (area: Area['area']) => {
         console.log('aaa', area.id)
-        return this.setState({ areaSelect: area })
+        return this.setState({ areaSelected: area })
     }
 
     render() {
@@ -88,7 +88,7 @@ class SportPage extends Component<
                         date={{
                             start: moment(),
                             stop: moment().add(12, "hour"),
-                            selected: this.state.dateSelect
+                            selected: this.state.dateSelected
                         }}
                         areas={[
                             {
