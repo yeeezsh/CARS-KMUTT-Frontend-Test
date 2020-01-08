@@ -25,7 +25,14 @@ export default function KanbanCard(
                     }) =>
                         (
                             <Col key={key} span={11}>
-                                <Link to={link || ''}>
+                                <Link
+                                    to={{
+                                        pathname: link,
+                                        state: {
+                                            label
+                                        }
+                                    } || ''}
+                                >
                                     <Card
                                         label={label}
                                         icon={icon}

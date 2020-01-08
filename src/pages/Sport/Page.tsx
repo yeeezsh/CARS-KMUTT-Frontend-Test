@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
 import { Row, Col } from 'antd'
 import moment, { Moment } from 'moment'
-import { Route, Switch } from 'react-router'
+import {
+    Route,
+    Switch, withRouter,
+    RouteComponentProps
+} from 'react-router'
 
 // import history from '../history'
 import TimePage from './Time'
@@ -12,9 +16,10 @@ import StateSteps from '../../components/StateSteps'
 import StepsType from '../../components/StateSteps/step.interface'
 import TimeNode from '../../components/TimeTable/timetable.interface'
 import Area from './area.interface'
+import TimeAreaReserveType from './time.interface'
 
 class SportPage extends Component<
-    {},
+    RouteComponentProps<any>,
     {
         dateSelected: Moment
         timeSelected: Moment | undefined,
@@ -27,7 +32,7 @@ class SportPage extends Component<
         dateSelected: moment().startOf('day'),
         timeSelected: undefined,
         areaSelected: undefined,
-        state: 0,
+        state: 1,
     }
 
     onSelectDate = (date: Moment) => {
@@ -40,7 +45,15 @@ class SportPage extends Component<
     onSelectTime = (time: TimeNode) => {
         console.log('ttt', time.value.format('hh.mm'))
         if (time.type === 'disabled') return
-        return this.setState({ timeSelected: time.value })
+        let { state } = this.state
+        return this.setState(
+            {
+                timeSelected: time.value,
+                state: ++state
+            },
+            () => {
+                this.props.history.push(state.toString())
+            })
     }
 
     onSelectArea = (area: Area['area']) => {
@@ -93,22 +106,7 @@ class SportPage extends Component<
                                     stop: moment().add(12, "hour"),
                                     selected: this.state.dateSelected
                                 }}
-                                areas={[
-                                    {
-                                        time: {
-                                            start: moment().startOf('hour'),
-                                            stop: moment().startOf('hour').add(12, 'hour'),
-                                            disabled: [{
-                                                value: moment().startOf('hour').add(1, "hour")
-                                            }]
-                                        },
-                                        area: {
-                                            label: 'สนามฟุตบอล',
-                                            id: '1'
-                                        }
-
-                                    }
-                                ]}
+                                areas={areas}
                             />
                         </Route>
                     </Switch>
@@ -118,6 +116,42 @@ class SportPage extends Component<
         )
     }
 }
+
+const areas: TimeAreaReserveType['areas'] = [
+    {
+        time: {
+            start: moment().startOf('hour'),
+            stop: moment().startOf('hour').add(12, 'hour'),
+            disabled: [{
+                value: moment().startOf('hour').add(1, "hour")
+            }]
+        },
+        area: {
+            label: 'สนามฟุตบอล 1',
+            id: '1'
+        }
+
+    },
+    {
+        time: {
+            start: moment().startOf('hour'),
+            stop: moment().startOf('hour').add(12, 'hour'),
+            disabled: [
+                {
+                    value: moment().startOf('hour').add(1, "hour")
+                },
+                {
+                    value: moment().startOf('hour').add(4, "hour")
+                },
+            ]
+        },
+        area: {
+            label: 'สนามฟุตบอล 2',
+            id: '2'
+        }
+
+    },
+]
 
 const stepLists: StepsType[] = [
     {
@@ -131,4 +165,4 @@ const stepLists: StepsType[] = [
     },
 ]
 
-export default SportPage
+export default withRouter<RouteComponentProps, any>(SportPage)
