@@ -28,9 +28,10 @@ const dotStyle = (styles?: 'passed' | 'current' | 'next'): React.CSSProperties =
 
 const StateSteps: React.FunctionComponent<{
     steps: StepsType[],
-    current: number
+    current: number,
+    onClick?: any,
 }> = (props) => {
-    const { steps, current } = props
+    const { steps, current, onClick } = props
     return (
         <React.Fragment>
             <div className={styles.dash} />
@@ -42,6 +43,7 @@ const StateSteps: React.FunctionComponent<{
                         if (i === current) dot = 'current'
                         return (
                             <Col
+                                onClick={() => onClick(i + 1)}
                                 key={i}
                                 className={styles.dot}
                                 span={2}
