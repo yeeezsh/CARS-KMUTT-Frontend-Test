@@ -38,12 +38,18 @@ const menu: Menu[] = [
         label: ['ฟุตบอล', 'football'],
         icon: footballIcon,
         link: '/reserve/sport/1',
+        state: {
+            label: ['ฟุตบอล', 'football']
+        }
     },
     {
         key: '2',
         label: ['แบดมินตัน', 'badminton'],
         icon: badmintonIcon,
-        link: '/reserve/sport/1'
+        link: '/reserve/sport/1',
+        state: {
+            label: ['แบดมินตัน', 'badminton']
+        }
     },
     {
         key: '3',
