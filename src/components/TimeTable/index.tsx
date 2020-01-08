@@ -45,7 +45,6 @@ const cardStyle = (type: TimeNode['type'])
 
 }
 
-
 export default class TimeTable extends Component<
     TimeTableProps,
     TimeTableState
