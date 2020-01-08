@@ -1,3 +1,5 @@
+import RouterStates from './states.interface'
+
 export default interface Menu {
     key: string,
     label: string[],
@@ -8,5 +10,6 @@ export default interface Menu {
         backgroundColor?: string,
         labelColor?: string,
         iconSize?: number,
-    }
+    },
+    state?: RouterStates
 }

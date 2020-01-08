@@ -4,6 +4,7 @@ import Card from './Card'
 import { Link } from 'react-router-dom'
 
 import Menu from './menu.interface'
+import RouterStates from './states.interface'
 
 import { basketball, footballarea, docs, check } from './icon.import'
 
@@ -22,13 +23,14 @@ export default function KanbanCard(
                         setting,
                         key,
                         link,
-                    }) =>
-                        (
+                        state
+                    }) => (
                             <Col key={key} span={11}>
                                 <Link
                                     to={{
                                         pathname: link,
                                         state: {
+                                            ...state,
                                             label
                                         }
                                     } || ''}
@@ -41,8 +43,7 @@ export default function KanbanCard(
                                 </Link>
                             </Col>
                         )
-                    )
-                }
+                    )}
             </Row>
         </React.Fragment>
     )
