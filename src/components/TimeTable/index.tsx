@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Row, Col } from 'antd'
 import moment, { Moment } from 'moment'
+import TimeNode from './timetable.interface'
 
 import styles from './styles.module.css'
 
@@ -19,29 +20,45 @@ const disabled: React.CSSProperties = {
     border: ' 1px solid #979797',
 }
 
-interface TimeNode {
-    value: Moment,
-    type: 'selecting' | 'disabled' | 'available'
+interface TimeTableState {
+    table: TimeNode[]
+}
+
+interface TimeTableProps {
+    start: Moment
+    stop: Moment
+    interval: number,
+    onSelect: any
 }
 
 
 export default class TimeTable extends Component<
-    {
-        start: Moment,
-        stop: Moment,
-        interval: number,
-    },
-    {
-        table: any
-    }
+    TimeTableProps,
+    TimeTableState
     > {
-    state = {
-        table: [],
-        // disabled: [],
-        // selecting: []
+
+    constructor(props: TimeTableProps) {
+        super(props)
+        this.state = {
+            table: []
+        }
     }
 
-    render() {
+    onSelect = (
+        date: Moment,
+        type: TimeNode['type']
+    ): {
+        date: Moment,
+        type: TimeNode['type']
+    } => {
+        return this.props.onSelect({
+            date: date,
+            type: type
+        })
+
+    }
+
+    componentDidMount = () => {
         const { start, stop, interval } = this.props
         const table: TimeNode[] = []
         let cur = moment(start)
@@ -54,8 +71,13 @@ export default class TimeTable extends Component<
             cur = moment(cur.add(interval, 'minute'))
         }
 
-        console.log(table)
+        return this.setState({
+            table
+        })
+    }
 
+    render() {
+        const { table } = this.state
         return (
             <React.Fragment>
                 {/* outliner */}
@@ -68,14 +90,17 @@ export default class TimeTable extends Component<
                 {/* timetable */}
                 <Row type='flex' justify='start'>
                     {
-                        table && table.map(({ value, type }) => (
-                            <Row type='flex' justify='center'>
-                                {/* <Col span={6}> */}
+                        table[0] && table.map(({ value, type }, i) => (
+                            <Row
+                                key={i}
+                                onClick={() => this.onSelect(value, type)}
+                                type='flex'
+                                justify='center'>
                                 <p
                                     // style={selecting}
                                     className={styles.card}
-                                >{value.format('hh.mm')}</p>
-                                {/* </Col> */}
+                                >{value.format('hh.mm')}
+                                </p>
                             </Row>
                         ))
                     }

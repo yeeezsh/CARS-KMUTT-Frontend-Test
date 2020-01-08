@@ -15,6 +15,8 @@ import StateSteps from '../../components/StateSteps'
 import StepsType from '../../components/StateSteps/step.interface'
 import BreakingLine from '../../components/BreakingLine'
 
+import TimeNode from '../../components/TimeTable/timetable.interface'
+
 export default class SportPage extends Component<
     {},
     { dateSelect: Moment }
@@ -29,6 +31,10 @@ export default class SportPage extends Component<
         return this.setState({
             dateSelect: date
         })
+    }
+
+    onSelectTime = (date: TimeNode) => {
+        console.log(date)
     }
     render() {
         const { dateSelect } = this.state
@@ -137,9 +143,10 @@ export default class SportPage extends Component<
                     {/* TimeTable */}
                     <Col span={24}>
                         <TimeTable
-                            start={moment()}
+                            start={moment().startOf('hour')}
                             stop={moment().add(22, 'hour')}
                             interval={60}
+                            onSelect={this.onSelectTime}
                         />
                     </Col>
 
