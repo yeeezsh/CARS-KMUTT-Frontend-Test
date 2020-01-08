@@ -24,7 +24,7 @@ class SportPage extends Component<
         dateSelected: Moment
         timeSelected: Moment | undefined,
         areaSelected: Area['area'] | undefined,
-        state: number
+        step: number
     }
     > {
 
@@ -32,7 +32,7 @@ class SportPage extends Component<
         dateSelected: moment().startOf('day'),
         timeSelected: undefined,
         areaSelected: undefined,
-        state: 1,
+        step: 1,
     }
 
     onSelectDate = (date: Moment) => {
@@ -45,14 +45,14 @@ class SportPage extends Component<
     onSelectTime = (time: TimeNode) => {
         console.log('ttt', time.value.format('hh.mm'))
         if (time.type === 'disabled') return
-        let { state } = this.state
+        let { step } = this.state
         return this.setState(
             {
                 timeSelected: time.value,
-                state: ++state
+                step: ++step
             },
             () => {
-                this.props.history.push(state.toString())
+                this.props.history.push(step.toString())
             })
     }
 
@@ -75,7 +75,7 @@ class SportPage extends Component<
                         < Row type='flex' justify='center'>
                             <Col span={22}>
                                 <StateSteps
-                                    current={0}
+                                    current={this.state.step - 1}
                                     steps={stepLists}
                                 />
                             </Col>
