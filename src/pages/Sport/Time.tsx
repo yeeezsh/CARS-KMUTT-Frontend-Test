@@ -11,24 +11,11 @@ import orangeSquareIcon from '../../assets/icons/square/orange.svg'
 import greySquareIcon from '../../assets/icons/square/grey.svg'
 import blueSquareIcon from '../../assets/icons/square/blue.svg'
 
-import TimeNode from '../../components/TimeTable/timetable.interface'
+// import TimeNode from '../../components/TimeTable/timetable.interface'
+import TimeAreaReserveType from './time.interface'
 
 const TimePage: React.FunctionComponent<
-    {
-        date: {
-            start: Moment,
-            stop: Moment,
-            selected: Moment
-        },
-        time: {
-            start: Moment,
-            stop: Moment,
-            disabled?: TimeNode[]
-        },
-        onSelectDate: any,
-        onSelectTime: any,
-
-    }
+    TimeAreaReserveType
 > = (props) => {
     return (
         <React.Fragment>
@@ -102,16 +89,25 @@ const TimePage: React.FunctionComponent<
 
 
             {/* TimeTable */}
-            <Col span={24}>
-                <TimeTable
-                    title={'สนามฟุตบอล'}
-                    start={props.time.start}
-                    stop={props.time.stop}
-                    interval={60}
-                    onSelect={props.onSelectTime}
-                    disabled={props.time.disabled}
-                />
-            </Col>
+            {
+                props.areas && props.areas.map((e, i) => (
+                    <Col
+                        key={i}
+                        span={24}
+                        onClick={props.onSelectArea(e.area)}
+                    >
+                        <TimeTable
+                            title={e.area.label}
+                            start={e.time.start}
+                            stop={e.time.stop}
+                            interval={60}
+                            onSelect={props.onSelectTime}
+                            disabled={e.time.disabled}
+                        />
+                    </Col>
+                ))
+            }
+
         </React.Fragment>
     )
 }
