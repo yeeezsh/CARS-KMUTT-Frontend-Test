@@ -28,7 +28,21 @@ interface TimeTableProps {
     start: Moment
     stop: Moment
     interval: number,
+    disabled?: TimeNode[]
     onSelect: any
+}
+
+const cardStyle = (type: TimeNode['type'])
+    : React.CSSProperties => {
+    switch (type) {
+        case 'disabled':
+            return disabled
+        case 'selecting':
+            return selecting
+        default:
+            return {}
+    }
+
 }
 
 
@@ -59,8 +73,8 @@ export default class TimeTable extends Component<
     }
 
     componentDidMount = () => {
-        const { start, stop, interval } = this.props
-        const table: TimeNode[] = []
+        const { start, stop, interval, disabled } = this.props
+        let table: TimeNode[] = []
         let cur = moment(start)
 
         while (cur < stop) {
@@ -70,6 +84,19 @@ export default class TimeTable extends Component<
             })
             cur = moment(cur.add(interval, 'minute'))
         }
+
+        const disabledMapped = disabled?.map(e => e.value.format('hh.mm'))
+        table = table.map(e => {
+            const type = disabledMapped
+                ?.includes(e.value.format('hh.mm'))
+            if (type) {
+                return {
+                    ...e,
+                    type: 'disabled'
+                }
+            }
+            return e
+        })
 
         return this.setState({
             table
@@ -97,7 +124,7 @@ export default class TimeTable extends Component<
                                 type='flex'
                                 justify='center'>
                                 <p
-                                    // style={selecting}
+                                    style={cardStyle(type)}
                                     className={styles.card}
                                 >{value.format('hh.mm')}
                                 </p>

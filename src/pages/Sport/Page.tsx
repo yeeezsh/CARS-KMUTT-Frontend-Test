@@ -144,9 +144,14 @@ export default class SportPage extends Component<
                     <Col span={24}>
                         <TimeTable
                             start={moment().startOf('hour')}
-                            stop={moment().add(22, 'hour')}
+                            stop={moment().startOf('hour').add(9, 'hour')}
                             interval={60}
                             onSelect={this.onSelectTime}
+                            disabled={
+                                [{
+                                    value: moment().startOf('hour').add(1, "hour")
+                                }]
+                            }
                         />
                     </Col>
 
