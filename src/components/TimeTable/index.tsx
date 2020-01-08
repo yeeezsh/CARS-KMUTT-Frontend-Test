@@ -29,7 +29,8 @@ interface TimeTableProps {
     stop: Moment
     interval: number,
     disabled?: TimeNode[]
-    onSelect: any
+    onSelect: any,
+    title?: string
 }
 
 const cardStyle = (type: TimeNode['type'])
@@ -58,15 +59,15 @@ export default class TimeTable extends Component<
     }
 
     onSelect = (
-        date: Moment,
+        value: Moment,
         type: TimeNode['type']
     ): {
-        date: Moment,
+        value: Moment,
         type: TimeNode['type']
     } => {
         return this.props.onSelect({
-            date: date,
-            type: type
+            value,
+            type
         })
 
     }
@@ -109,7 +110,7 @@ export default class TimeTable extends Component<
                 {/* outliner */}
                 <Outline>
                     <span style={{ fontSize: '14px' }}>
-                        สนามฟุตบอล
+                        {this.props.title || 'Unknown'}
                     </span>
                 </Outline>
 
