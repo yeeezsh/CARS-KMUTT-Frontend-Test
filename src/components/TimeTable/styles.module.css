@@ -7,7 +7,16 @@
   border: 1px solid #ff682b;
   box-sizing: border-box;
   text-align: center;
-  width: 66px;
+  width: 68px;
   height: 32px;
   border-radius: 100px;
+  display: flexbox;
+  margin-left: 8px;
+  margin-right: 5px;
+}
+
+.card:hover {
+  background-color: #1890ff;
+  color: #ffffff;
+  border: 1px solid #1890ff;
 }
