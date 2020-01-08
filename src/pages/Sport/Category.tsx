@@ -37,12 +37,13 @@ const menu: Menu[] = [
         key: '1',
         label: ['ฟุตบอล', 'football'],
         icon: footballIcon,
-        link: '/reserve/sport/1'
+        link: '/reserve/sport/1',
     },
     {
         key: '2',
         label: ['แบดมินตัน', 'badminton'],
         icon: badmintonIcon,
+        link: '/reserve/sport/1'
     },
     {
         key: '3',
