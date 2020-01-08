@@ -9,7 +9,6 @@ import StepsType from '../../components/StateSteps/step.interface'
 
 import TimeNode from '../../components/TimeTable/timetable.interface'
 import Area from './area.interface'
-// import TimeAreaReserveType from './time.interface'
 
 import TimePage from './Time'
 
@@ -18,7 +17,7 @@ class SportPage extends Component<
     {
         dateSelect: Moment
         timeSelect: Moment | undefined,
-        areaSelect: string | undefined,
+        areaSelect: Area['area'] | undefined,
         state: number
     }
     > {
@@ -45,11 +44,11 @@ class SportPage extends Component<
 
     onSelectArea = (area: Area['area']) => {
         console.log('aaa', area.id)
+        return this.setState({ areaSelect: area })
     }
 
     render() {
-        // const { dateSelect } = this.state
-        console.log(this.state.dateSelect.format('DD'))
+        console.log(this.state)
         return (
             <React.Fragment>
                 <PageLayout titile={'จองสนามกีฬา'}>
