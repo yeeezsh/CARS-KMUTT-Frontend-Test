@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Row, Col } from 'antd'
-import { Moment } from 'moment'
+import moment, { Moment } from 'moment'
 
 import styles from './styles.module.css'
 
@@ -20,17 +20,19 @@ const disabled: React.CSSProperties = {
 }
 
 interface TimeNode {
-    value: Moment
+    value: Moment,
+    type: 'selecting' | 'disabled' | 'available'
 }
 
 
 export default class TimeTable extends Component<
-    {},
     {
-
+        start: Moment,
+        stop: Moment,
+        interval: number,
     },
     {
-        table: []
+        table: any
     }
     > {
     state = {
@@ -38,9 +40,22 @@ export default class TimeTable extends Component<
         // disabled: [],
         // selecting: []
     }
-    componentWillReceiveProps = () => {
-    }
+
     render() {
+        const { start, stop, interval } = this.props
+        const table: TimeNode[] = []
+        let cur = moment(start)
+
+        while (cur < stop) {
+            table.push({
+                value: cur,
+                type: 'available'
+            })
+            cur = moment(cur.add(interval, 'minute'))
+        }
+
+        console.log(table)
+
         return (
             <React.Fragment>
                 {/* outliner */}
@@ -51,13 +66,19 @@ export default class TimeTable extends Component<
                 </Outline>
 
                 {/* timetable */}
-                <Row type='flex' justify='space-around'>
-                    <Col span={6}>
-                        <p
-                            // style={selecting}
-                            className={styles.card}
-                        >08.00</p>
-                    </Col>
+                <Row type='flex' justify='start'>
+                    {
+                        table && table.map(({ value, type }) => (
+                            <Row type='flex' justify='center'>
+                                {/* <Col span={6}> */}
+                                <p
+                                    // style={selecting}
+                                    className={styles.card}
+                                >{value.format('hh.mm')}</p>
+                                {/* </Col> */}
+                            </Row>
+                        ))
+                    }
                 </Row>
 
                 {/* borderline */}

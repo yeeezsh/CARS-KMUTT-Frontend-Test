@@ -136,7 +136,11 @@ export default class SportPage extends Component<
 
                     {/* TimeTable */}
                     <Col span={24}>
-                        <TimeTable />
+                        <TimeTable
+                            start={moment()}
+                            stop={moment().add(22, 'hour')}
+                            interval={60}
+                        />
                     </Col>
 
                 </PageLayout>
