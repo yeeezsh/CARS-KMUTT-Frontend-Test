@@ -94,9 +94,9 @@ const TimePage: React.FunctionComponent<
                     <Col
                         key={i}
                         span={24}
-                        onClick={props.onSelectArea(e.area)}
                     >
                         <TimeTable
+                            onClick={() => props.onSelectArea(e.area)}
                             title={e.area.label}
                             start={e.time.start}
                             stop={e.time.stop}
