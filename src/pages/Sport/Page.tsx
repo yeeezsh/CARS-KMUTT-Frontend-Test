@@ -24,7 +24,7 @@ class SportPage extends Component<
         dateSelected: Moment
         timeSelected: Moment | undefined,
         areaSelected: Area['area'] | undefined,
-        step: number
+        step: number,
     }
     > {
 
@@ -61,9 +61,13 @@ class SportPage extends Component<
         return this.setState({ areaSelected: area })
     }
 
+    onClickStep = (n: number) => this.setState({ step: n }, () => this.props.history.push(n.toString()))
+
     render() {
         console.log(this.state)
-        const badgeLabelText = this.props.location.state?.label[0]
+        const { location } = this.props
+        const badge = location.state?.label[0]
+        // const badgeLabelText = this.props.location.state?.label[0]
         return (
             <React.Fragment>
                 <PageLayout titile={'จองสนามกีฬา'}>
@@ -75,6 +79,7 @@ class SportPage extends Component<
                         < Row type='flex' justify='center'>
                             <Col span={22}>
                                 <StateSteps
+                                    onClick={this.onClickStep}
                                     current={this.state.step - 1}
                                     steps={stepLists}
                                 />
@@ -91,7 +96,7 @@ class SportPage extends Component<
                     <Col span={24}>
                         <Row type='flex' justify='start'>
                             <Badge>
-                                {badgeLabelText}
+                                {badge}
                             </Badge>
                         </Row>
                     </Col>
