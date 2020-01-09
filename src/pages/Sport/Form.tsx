@@ -9,12 +9,13 @@ import { FormComponentProps } from 'antd/lib/form/Form';
 import Outline from '../../components/Outline';
 import Button from '../../components/Button';
 
+interface PropsTypes extends FormComponentProps {
+  required?: number;
+  onFilled?: any;
+}
+
 class FormPage extends Component<
-  RouteComponentProps<any> &
-    FormComponentProps & {
-      required?: number;
-      onForm: any;
-    },
+  PropsTypes,
   {
     users: string[];
     required: number;
@@ -51,7 +52,7 @@ class FormPage extends Component<
           },
           () => {
             const { users, status } = this.state;
-            this.props.onForm({
+            return this.props.onFilled({
               users,
               status,
             });
@@ -60,7 +61,7 @@ class FormPage extends Component<
       }
       return this.setState({ status: false }, () => {
         const { status, users } = this.state;
-        return this.props.onForm({ status, users });
+        return this.props.onFilled({ status, users });
       });
     });
   };
@@ -128,4 +129,6 @@ class FormPage extends Component<
   }
 }
 
-export default Form.create()(withRouter<RouteComponentProps & FormComponentProps, any>(FormPage));
+const wrapped = Form.create<PropsTypes>({})(FormPage);
+
+export default wrapped;
