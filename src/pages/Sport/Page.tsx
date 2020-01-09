@@ -43,7 +43,8 @@ class SportPage extends Component<
   onSelectTime = (time: TimeNode) => {
     console.log('ttt', time.value.format('hh.mm'));
     if (time.type === 'disabled') return;
-    let { step, badge } = this.state;
+    let { step } = this.state;
+    const { badge } = this.state;
     return this.setState(
       {
         timeSelected: time.value,
