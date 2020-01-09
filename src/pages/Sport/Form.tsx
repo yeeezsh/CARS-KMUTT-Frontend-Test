@@ -49,21 +49,19 @@ class FormPage extends Component<
         const { form } = this.props
         const ids: string[] = form.getFieldValue('users')
         const sets = new Set(ids).size
-        if (ids.length !== sets)
-            return callback('รหัสนักศึกษาซ้ำ')
-        // if (ids.includes(value)) {
-        //     console.log('summmmm ja')
-        // }
-        console.log('idsss', ids)
+
         if (value === '') callback()
         if (value.length !== 11)
             return callback('โปรดกรอกรหัสนักศึกษาให้ถูกต้อง')
-        return callback()
 
+        if (ids.length !== sets)
+            return callback('รหัสนักศึกษาซ้ำ')
+        return callback()
     }
 
     render() {
         const { getFieldDecorator } = this.props.form
+        const { required } = this.state
         return (
             <React.Fragment>
                 {/* outliner n' desc */}
@@ -79,7 +77,7 @@ class FormPage extends Component<
                             className={styles.desc}
                             span={20}>
                             <p>
-                                ใช้รหัสนักศึกษา 2 คน สำหรับการจองพื้นที่กีฬาแบดมินตัน
+                                ใช้รหัสนักศึกษา {required} คน สำหรับการจองพื้นที่กีฬาแบดมินตัน
                              </p>
                         </Col>
                     </Row>
