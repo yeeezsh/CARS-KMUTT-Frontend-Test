@@ -1,8 +1,8 @@
-import { Moment } from 'moment'
+import { Moment } from 'moment';
 
 interface TimeNode {
-    value: Moment,
-    type?: 'selecting' | 'disabled' | 'available'
+  value: Moment;
+  type?: 'selecting' | 'disabled' | 'available';
 }
 
-export default TimeNode
+export default TimeNode;

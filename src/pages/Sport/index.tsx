@@ -1,7 +1,4 @@
-import Category from './Category'
-import PageSport from './Page'
+import Category from './Category';
+import PageSport from './Page';
 
-export {
-    Category,
-    PageSport as Page
-}
+export { Category, PageSport as Page };
