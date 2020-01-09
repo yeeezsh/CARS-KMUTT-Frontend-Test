@@ -9,6 +9,7 @@ import {
 
 // import history from '../history'
 import TimePage from './Time'
+import FormPage from './Form'
 import PageLayout from '../../components/Layout/Page'
 import Badge from '../../components/Badge'
 import StateSteps from '../../components/StateSteps'
@@ -139,6 +140,10 @@ class SportPage extends Component<
                                 }}
                                 areas={areas}
                             />
+                        </Route>
+
+                        <Route path='*/2'>
+                            <FormPage />
                         </Route>
                     </Switch>
 
