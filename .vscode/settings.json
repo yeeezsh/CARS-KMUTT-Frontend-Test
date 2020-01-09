@@ -1,4 +1,7 @@
 {
+  "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
   "editor.formatOnSave": true,
-  "javascript.format.insertSpaceBeforeFunctionParenthesis": true
+  "prettier.jsxSingleQuote": true,
+  "prettier.singleQuote": true,
+  "prettier.useTabs": true
 }
