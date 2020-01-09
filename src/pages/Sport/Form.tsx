@@ -13,15 +13,18 @@ class FormPage extends Component<
   RouteComponentProps<any> &
     FormComponentProps & {
       required?: number;
+      onForm: any;
     },
   {
     users: string[];
     required: number;
+    status: boolean;
   }
 > {
   state = {
     users: [],
     required: 2,
+    status: false,
   };
 
   componentDidMount = () => {
@@ -35,14 +38,30 @@ class FormPage extends Component<
     const { form } = this.props;
     form.validateFields((err, values) => {
       if (!err) {
-        const { keys, names } = values;
-        console.log('Received values of form: ', values);
-        console.log(
-          'Merged values:',
-          keys.map((key: any) => names[key]),
+        // const { keys, names } = values;
+        // console.log('Received values of form: ', values);
+        // console.log(
+        //   'Merged values:',
+        //   keys.map((key: any) => names[key]),
+        // );
+        return this.setState(
+          {
+            status: true,
+            users: values,
+          },
+          () => {
+            const { users, status } = this.state;
+            this.props.onForm({
+              users,
+              status,
+            });
+          },
         );
       }
-      console.log(values);
+      return this.setState({ status: false }, () => {
+        const { status, users } = this.state;
+        return this.props.onForm({ status, users });
+      });
     });
   };
 
