@@ -1,17 +1,16 @@
 import React from 'react'
-import { Col, Row, Badge } from 'antd'
-import moment, { Moment } from 'moment'
+import { Col, Row } from 'antd'
 
 import BreakingLine from '../../components/BreakingLine'
 import Outline from '../../components/Outline'
 import BadgeDateSelector from '../../components/BadgeDateSelector'
 import TimeTable from '../../components/TimeTable'
+import Badge from '../../components/Badge'
 
 import orangeSquareIcon from '../../assets/icons/square/orange.svg'
 import greySquareIcon from '../../assets/icons/square/grey.svg'
 import blueSquareIcon from '../../assets/icons/square/blue.svg'
 
-// import TimeNode from '../../components/TimeTable/timetable.interface'
 import TimeAreaReserveType from './time.interface'
 
 const TimePage: React.FunctionComponent<
@@ -58,20 +57,22 @@ const TimePage: React.FunctionComponent<
             </Col>
 
             {/* spacing */}
-            <div style={
-                { height: '8px' }
-            } />
+            <Col span={24}>
+                <div style={
+                    { height: '8px' }
+                } />
+            </Col>
 
             {/* Date Outliner */}
-            <Col span={24}>
+            <Col style={{ marginBottom: '-20px' }} span={24}>
                 <Row type='flex' justify='center'>
                     <Badge>
                         <span style={{
                             color: '#FF682B',
                             fontWeight: 'bold',
-                            fontSize: '18px'
+                            fontSize: '16px',
                         }}>
-                            {/* วันที่ {dateSelect.format('DD MMMM YYYY')} */}
+                            วันที่ {props.date.selected.format('DD MMMM YYYY')}
                         </span>
                     </Badge>
                 </Row>
@@ -83,7 +84,6 @@ const TimePage: React.FunctionComponent<
                     {iconSquare('ว่าง', orangeSquareIcon)}
                     {iconSquare('ไม่ว่าง/รอการอนุมัติ', greySquareIcon)}
                     {iconSquare('ที่ถูกเลือก', blueSquareIcon)}
-
                 </Row>
             </Col>
 
