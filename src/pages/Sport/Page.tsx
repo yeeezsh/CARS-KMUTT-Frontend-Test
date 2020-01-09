@@ -83,7 +83,7 @@ class SportPage extends Component<
         )
     }
 
-    componentWillReceiveProps = () => {
+    componentDidMount = () => {
         // for setting badge
         const { history } = this.props
         const badge = history.location.state?.label[0]
