@@ -3,17 +3,16 @@ import { Row, Col } from 'antd';
 import moment, { Moment } from 'moment';
 import { Route, Switch, withRouter, RouteComponentProps } from 'react-router';
 
-// import history from '../history'
 import TimePage from './Time';
 import FormPage from './Form';
 import PageLayout from '../../components/Layout/Page';
 import Badge from '../../components/Badge';
 import StateSteps from '../../components/StateSteps';
 
-import StepsType from '../../components/StateSteps/step.interface';
 import TimeNode from '../../components/TimeTable/timetable.interface';
 import Area from './area.interface';
-import TimeAreaReserveType from './time.interface';
+
+import { areas, stepLists } from '../../models/sport';
 
 class SportPage extends Component<
   RouteComponentProps<any>,
@@ -23,6 +22,7 @@ class SportPage extends Component<
     areaSelected: Area['area'] | undefined;
     step: number;
     badge: string | undefined;
+    status: boolean[];
   }
 > {
   state = {
@@ -31,6 +31,7 @@ class SportPage extends Component<
     areaSelected: undefined,
     step: 1,
     badge: '',
+    status: [],
   };
 
   onSelectDate = (date: Moment) => {
@@ -82,8 +83,9 @@ class SportPage extends Component<
   componentDidMount = () => {
     // for setting badge
     const { history } = this.props;
+    const status = stepLists.map(e => false);
     const badge = history.location.state?.label[0];
-    return this.setState({ badge });
+    return this.setState({ badge, status });
   };
 
   render() {
@@ -137,63 +139,5 @@ class SportPage extends Component<
     );
   }
 }
-
-const areas: TimeAreaReserveType['areas'] = [
-  {
-    time: {
-      start: moment().startOf('hour'),
-      stop: moment()
-        .startOf('hour')
-        .add(12, 'hour'),
-      disabled: [
-        {
-          value: moment()
-            .startOf('hour')
-            .add(1, 'hour'),
-        },
-      ],
-    },
-    area: {
-      label: 'สนามฟุตบอล 1',
-      id: '1',
-    },
-  },
-  {
-    time: {
-      start: moment().startOf('hour'),
-      stop: moment()
-        .startOf('hour')
-        .add(12, 'hour'),
-      disabled: [
-        {
-          value: moment()
-            .startOf('hour')
-            .add(1, 'hour'),
-        },
-        {
-          value: moment()
-            .startOf('hour')
-            .add(4, 'hour'),
-        },
-      ],
-    },
-    area: {
-      label: 'สนามฟุตบอล 2',
-      id: '2',
-    },
-  },
-];
-
-const stepLists: StepsType[] = [
-  {
-    label: '1',
-  },
-  {
-    label: '2',
-  },
-  {
-    label: '3',
-  },
-];
 
 export default withRouter<RouteComponentProps, any>(SportPage);
