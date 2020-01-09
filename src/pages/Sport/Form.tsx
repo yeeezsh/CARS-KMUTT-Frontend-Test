@@ -50,7 +50,7 @@ class FormPage extends Component<
         const ids: string[] = form.getFieldValue('users')
         const sets = new Set(ids).size
 
-        if (value === '') callback()
+        if (value === undefined) return callback('โปรดกรอกรหัสนักศึกษาให้ถูกต้อง')
         if (value.length !== 11)
             return callback('โปรดกรอกรหัสนักศึกษาให้ถูกต้อง')
 
@@ -96,14 +96,11 @@ class FormPage extends Component<
                                                     getFieldDecorator(`users[${i}]`, {
                                                         rules: [{
                                                             required: true,
-                                                            message: 'โปรดกรอกรหัสนักศึกษาให้ถูกต้อง',
-                                                            max: 11
-                                                        },
-                                                        {
-                                                            required: true,
+                                                            // message: 'โปรดกรอกรหัสนักศึกษาให้ถูกต้อง',
+                                                            max: 11,
                                                             validator: this.onValidator,
-                                                        }
-                                                        ],
+                                                        }],
+                                                        initialValue: undefined,
                                                         validateTrigger: ['onBlur']
                                                     })(
                                                         <Input
