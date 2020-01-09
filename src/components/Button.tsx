@@ -10,6 +10,7 @@ const btnStyle = (type?: Style['type']): React.CSSProperties => {
         backgroundColor: '#FF682B',
         borderRadius: '100px',
         cursor: 'pointer',
+        border: 'none',
     }
 
     switch (type) {
