@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
 import { withRouter, RouteComponentProps } from 'react-router'
 import { Form, Col, Row } from 'antd'
+
+import styles from './styles.module.css'
+
 import { FormComponentProps } from 'antd/lib/form/Form'
+
 import Outline from '../../components/Outline'
 
 
@@ -22,11 +26,7 @@ class FormPage extends Component<
 
                         {/* description */}
                         <Col
-                            style={{
-                                marginTop: '-20px',
-                                color: '#666666',
-                                fontSize: '12px'
-                            }}
+                            className={styles.desc}
                             span={20}>
                             <p>
                                 ใช้รหัสนักศึกษา 2 คน สำหรับการจองพื้นที่กีฬาแบดมินตัน

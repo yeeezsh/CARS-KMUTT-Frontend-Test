@@ -1,6 +1,8 @@
 import React from 'react'
 import { Col, Row } from 'antd'
 
+import styles from './styles.module.css'
+
 import BreakingLine from '../../components/BreakingLine'
 import Outline from '../../components/Outline'
 import BadgeDateSelector from '../../components/BadgeDateSelector'
@@ -28,11 +30,7 @@ const TimePage: React.FunctionComponent<
 
                     {/* description */}
                     <Col
-                        style={{
-                            marginTop: '-20px',
-                            color: '#666666',
-                            fontSize: '12px'
-                        }}
+                        className={styles.desc}
                         span={20}>
                         <p>
                             เลือกช่วงเวลาที่ต้องการจอง สามารถจองได้ครั้งละ 1 ชั่วโมง
