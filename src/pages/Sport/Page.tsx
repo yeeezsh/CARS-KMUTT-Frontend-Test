@@ -96,6 +96,10 @@ class SportPage extends Component<
     return this.setState({ areaSelected: area });
   };
 
+  onFilled = (d: { status: boolean; users: string[] }) => {
+    console.log(d);
+  };
+
   componentDidMount = () => {
     // for setting badge
     const { history } = this.props;
@@ -147,7 +151,7 @@ class SportPage extends Component<
             </Route>
 
             <Route path="*/2">
-              <FormPage />
+              <FormPage onFilled={this.onFilled} />
             </Route>
           </Switch>
         </PageLayout>
