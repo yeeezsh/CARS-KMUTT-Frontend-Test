@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Router, Route } from 'react-router'
+import { Router, Route, Switch } from 'react-router'
 import history from './history'
 import Home from './Home'
 import Page from './Page'
@@ -16,11 +16,15 @@ export default class PageRouter extends Component {
                     <Page />
                 </Route>
 
-                <Route path='/reserve/sport/category'>
-                    <SportCategory />
-                </Route>
-                <Route exact path='/reserve/sport/*'>
-                    <SportPage />
+                <Route path='/reserve/sport'>
+                    <Switch>
+                        <Route path='*/category'>
+                            <SportCategory />
+                        </Route>
+                        <Route path='*/([0-9])'>
+                            <SportPage />
+                        </Route>
+                    </Switch>
                 </Route>
             </Router>
         )
