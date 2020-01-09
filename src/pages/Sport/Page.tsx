@@ -23,12 +23,14 @@ class SportPage extends Component<
     step: number;
     badge: string | undefined;
     status: boolean[];
+    users: string[];
   }
 > {
   state = {
     dateSelected: moment().startOf('day'),
     timeSelected: undefined,
     areaSelected: undefined,
+    users: [],
     step: 1,
     badge: '',
     status: [],
@@ -43,13 +45,22 @@ class SportPage extends Component<
 
   onSelectTime = (time: TimeNode) => {
     console.log('ttt', time.value.format('hh.mm'));
-    if (time.type === 'disabled') return;
+    if (time.type === 'disabled') {
+      return this.setState(prevState => {
+        return {
+          status: prevState.status.map((e, i) => (i === 0 ? false : e)),
+        };
+      });
+    }
     let { step } = this.state;
     const { badge } = this.state;
     return this.setState(
-      {
-        timeSelected: time.value,
-        step: ++step,
+      prevState => {
+        return {
+          timeSelected: time.value,
+          step: ++step,
+          status: prevState.status.map((e, i) => (i === 0 ? true : e)),
+        };
       },
       () => {
         this.props.history.push({
@@ -60,11 +71,6 @@ class SportPage extends Component<
         });
       },
     );
-  };
-
-  onSelectArea = (area: Area['area']) => {
-    console.log('aaa', area.id);
-    return this.setState({ areaSelected: area });
   };
 
   onClickStep = (n: number) => {
@@ -78,6 +84,11 @@ class SportPage extends Component<
         },
       }),
     );
+  };
+
+  onSelectArea = (area: Area['area']) => {
+    console.log('aaa', area.id);
+    return this.setState({ areaSelected: area });
   };
 
   componentDidMount = () => {
