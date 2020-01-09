@@ -74,8 +74,13 @@ class SportPage extends Component<
   };
 
   onClickStep = (n: number) => {
-    // if (n === 2) n = 1
-    const { badge } = this.state;
+    const { badge, status } = this.state;
+    let canNext = false;
+    status.forEach((e, i) => {
+      if (n - 1 === i && e) canNext = true;
+    });
+
+    if (!canNext) return;
     return this.setState({ step: n }, () =>
       this.props.history.push({
         pathname: n.toString(),
