@@ -36,6 +36,7 @@ class SportPage extends Component<
     status: boolean[];
     users: string[];
     backCard: string[];
+    interval: number;
   }
 > {
   state = {
@@ -47,6 +48,7 @@ class SportPage extends Component<
     badge: '',
     status: [],
     backCard: ['เลือกประเภทกีฬา', 'เลือกช่วงเวลา', 'กรอกรหัสนักศึกษา'],
+    interval: 0,
   };
 
   onSelectDate = (date: Moment) => {
@@ -101,7 +103,8 @@ class SportPage extends Component<
   };
 
   onSelectArea = (area: Area['area']) => {
-    return this.setState({ areaSelected: area });
+    const interval = areas.find(e => e.area.id === area.id)?.time.interval || 60;
+    return this.setState({ areaSelected: area, interval });
   };
 
   onForm = (d: { status: boolean; users: string[] }) => {
