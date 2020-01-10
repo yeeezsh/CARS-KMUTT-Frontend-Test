@@ -50,18 +50,17 @@ class SportPage extends Component<
   };
 
   onSelectDate = (date: Moment) => {
-    console.log('ddd', date.format('DD'));
     return this.setState({
       dateSelected: date,
     });
   };
 
   onSelectTime = (time: TimeNode) => {
-    console.log('ttt', time.value.format('hh.mm'));
     if (time.type === 'disabled') {
       return this.setState(prevState => {
+        const { status } = prevState;
         return {
-          status: prevState.status.map((e, i) => (i === 0 ? false : e)),
+          status: status.map((e, i) => (i === 0 ? false : e)),
         };
       });
     }
@@ -87,7 +86,7 @@ class SportPage extends Component<
   };
 
   onClickStep = (n: number) => {
-    const { badge, status } = this.state;
+    const { status } = this.state;
     let canNext = false;
     status.forEach((e, i) => {
       if (n - 1 === i && e) canNext = true;
@@ -97,30 +96,43 @@ class SportPage extends Component<
     return this.setState({ step: n }, () =>
       this.props.history.push({
         pathname: n.toString(),
-        state: {
-          label: [badge],
-        },
       }),
     );
   };
 
   onSelectArea = (area: Area['area']) => {
-    console.log('aaa', area.id, area.required);
     return this.setState({ areaSelected: area });
   };
 
   onForm = (d: { status: boolean; users: string[] }) => {
-    console.log(d);
+    if (!d.status) return;
+
+    return this.setState(
+      prevState => {
+        const { step, status } = prevState;
+        return {
+          step: step + 1,
+          status: status.map((e, i) => (i === 1 ? true : e)),
+        };
+      },
+      () => {
+        const { step } = this.state;
+        return this.props.history.push({
+          pathname: step.toString(),
+        });
+      },
+    );
   };
 
   onBackCard = () => {
     return this.setState(
       prevState => {
-        const { step, timeSelected } = prevState;
+        const { step, timeSelected, areaSelected } = prevState;
         return {
           step: step - 1,
+          //   all reset when step 2 cause selected area, time is the same
           timeSelected: step === 2 ? undefined : timeSelected,
-          areaSelected: DEFAULT_SELECTED_AREA,
+          areaSelected: step === 2 ? DEFAULT_SELECTED_AREA : areaSelected,
         };
       },
       () => {
@@ -197,6 +209,10 @@ class SportPage extends Component<
 
             <Route path="*/2">
               <FormPage required={areaSelected.required} onSubmit={this.onForm} />
+            </Route>
+
+            <Route path="*/3">
+              <div>3</div>
             </Route>
           </Switch>
         </PageLayout>
