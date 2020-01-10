@@ -16,6 +16,18 @@ import blueSquareIcon from '../../assets/icons/square/blue.svg';
 import TimeAreaReserveType from './time.interface';
 
 const TimePage: React.FunctionComponent<TimeAreaReserveType> = props => {
+  // const reserveSlot: number = props.areas[0].time.interval || 60;
+  let reserveSlot: number[] = props.areas.map(e => e.time.interval || 60);
+  let unit: 'ชั่วโมง' | 'นาที' = 'นาที';
+  // let time: any = reserveSlot;
+  const useHourUnit = reserveSlot.some(e => e >= 60);
+  if (useHourUnit) {
+    unit = 'ชั่วโมง';
+    reserveSlot = reserveSlot.map(e => e / 60);
+  }
+  const reserveDesc = reserveSlot.join(', ') + ' ' + unit;
+  const { areas } = props;
+  console.log('yaheee', areas);
   return (
     <React.Fragment>
       {/* outliner n' desc */}
@@ -26,7 +38,7 @@ const TimePage: React.FunctionComponent<TimeAreaReserveType> = props => {
 
           {/* description */}
           <Col className={styles.desc} span={20}>
-            <p>เลือกช่วงเวลาที่ต้องการจอง สามารถจองได้ครั้งละ 1 ชั่วโมง</p>
+            <p>เลือกช่วงเวลาที่ต้องการจอง สามารถจองได้ครั้งละ {reserveDesc}</p>
           </Col>
 
           {/* borderline */}
