@@ -49,6 +49,32 @@ const areas: TimeAreaReserveType['areas'] = [
       required: 10,
     },
   },
+  {
+    time: {
+      start: moment().startOf('hour'),
+      stop: moment()
+        .startOf('hour')
+        .add(12, 'hour'),
+      interval: 120,
+      disabled: [
+        {
+          value: moment()
+            .startOf('hour')
+            .add(1, 'hour'),
+        },
+        {
+          value: moment()
+            .startOf('hour')
+            .add(4, 'hour'),
+        },
+      ],
+    },
+    area: {
+      label: 'สนามฟุตบอล 3',
+      id: '2',
+      required: 2,
+    },
+  },
 ];
 
 const stepLists: StepsType[] = [
