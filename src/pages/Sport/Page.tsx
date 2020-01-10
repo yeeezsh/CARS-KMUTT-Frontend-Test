@@ -7,6 +7,7 @@ import styles from './styles.module.css';
 
 import TimePage from './Time';
 import FormPage from './Form';
+import ConfirmPage from './Confirm';
 import PageLayout from '../../components/Layout/Page';
 import Badge from '../../components/Badge';
 import StateSteps from '../../components/StateSteps';
@@ -116,6 +117,7 @@ class SportPage extends Component<
         return {
           step: step + 1,
           status: status.map((e, i) => (i === 1 ? true : e)),
+          users: d.users,
         };
       },
       () => {
@@ -163,7 +165,7 @@ class SportPage extends Component<
 
   render() {
     console.log(this.state);
-    const { step, backCard, areaSelected, dateSelected } = this.state;
+    const { users, step, backCard, areaSelected, dateSelected, timeSelected, interval } = this.state;
 
     return (
       <React.Fragment>
@@ -215,7 +217,13 @@ class SportPage extends Component<
             </Route>
 
             <Route path="*/3">
-              <div>3</div>
+              <ConfirmPage
+                users={users}
+                areaLabel={areaSelected.label}
+                time={timeSelected}
+                interval={interval}
+                date={dateSelected}
+              />
             </Route>
           </Switch>
         </PageLayout>
