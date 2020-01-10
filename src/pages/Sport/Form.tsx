@@ -144,8 +144,15 @@ class FormPage extends Component<PropsTypes, StateTypes> {
                     </Form.Item>
                   );
                 })}
-                <Button>ต่อไป</Button>
               </Form>
+            </Col>
+          </Row>
+        </Col>
+
+        <Col span={24}>
+          <Row type="flex" justify="center">
+            <Col span={22}>
+              <Button>ต่อไป</Button>
             </Col>
           </Row>
         </Col>
