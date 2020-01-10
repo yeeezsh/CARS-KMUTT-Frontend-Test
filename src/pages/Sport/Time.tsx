@@ -35,7 +35,7 @@ const TimePage: React.FunctionComponent<TimeAreaReserveType> = props => {
           <Outline>เลือกช่วงเวลา</Outline>
 
           {/* description */}
-          <Col className={styles.desc} span={20}>
+          <Col className={styles.desc} span={24}>
             <p>เลือกช่วงเวลาที่ต้องการจอง สามารถจองได้ครั้งละ {reserveDesc}</p>
           </Col>
 
