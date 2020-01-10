@@ -15,6 +15,9 @@ import Area from './area.interface';
 import { areas, stepLists } from '../../models/sport';
 import BackCard from '../../components/BackCard';
 
+const CATEGORY_PAGE = '/reserve/sport/category';
+const FIRST_STEP_PAGE = '/reserve/sport/1';
+
 class SportPage extends Component<
   RouteComponentProps<any>,
   {
@@ -116,7 +119,7 @@ class SportPage extends Component<
         const { history, location } = this.props;
         const paths = location.pathname.split('/');
         const step = paths[paths.length - 1];
-        if (step === '1') return history.replace('/reserve/sport/category');
+        if (step === '1') return history.replace(CATEGORY_PAGE);
         return history.goBack();
       },
     );
@@ -127,10 +130,11 @@ class SportPage extends Component<
     const { history, location } = this.props;
     const status = stepLists.map(e => false);
     const badge = history.location.state?.label[0];
+    if (!badge) return history.replace(CATEGORY_PAGE);
     return this.setState({ badge, status }, () => {
       const paths = location.pathname.split('/');
       const step = paths[paths.length - 1];
-      if (step !== '1') return history.replace('/reserve/sport/1');
+      if (step !== '1') return history.replace(FIRST_STEP_PAGE);
     });
   };
 
