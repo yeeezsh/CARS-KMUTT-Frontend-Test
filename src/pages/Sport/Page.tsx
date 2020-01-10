@@ -117,7 +117,7 @@ class SportPage extends Component<
     const { history } = this.props;
     const status = stepLists.map(e => false);
     const badge = history.location.state?.label[0];
-    return this.setState({ badge, status });
+    return this.setState({ badge, status }, () => history.push('/reserve/sport/1'));
   };
 
   render() {
