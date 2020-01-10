@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { withRouter, RouteComponentProps } from 'react-router';
 import { Form, Col, Row, Input } from 'antd';
 
 import styles from './styles.module.css';
@@ -39,12 +38,6 @@ class FormPage extends Component<
     const { form } = this.props;
     form.validateFields((err, values) => {
       if (!err) {
-        // const { keys, names } = values;
-        // console.log('Received values of form: ', values);
-        // console.log(
-        //   'Merged values:',
-        //   keys.map((key: any) => names[key]),
-        // );
         return this.setState(
           {
             status: true,
