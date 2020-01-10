@@ -102,7 +102,7 @@ class FormPage extends Component<PropsTypes, StateTypes> {
   render() {
     console.log('form states', this.state);
     const { getFieldDecorator } = this.props.form;
-    const { required } = this.state;
+    const { users } = this.state;
     return (
       <React.Fragment>
         {/* outliner n' desc */}
@@ -113,7 +113,7 @@ class FormPage extends Component<PropsTypes, StateTypes> {
 
             {/* description */}
             <Col className={styles.desc} span={20}>
-              <p>ใช้รหัสนักศึกษา {required} คน สำหรับการจองพื้นที่กีฬาแบดมินตัน</p>
+              <p>ใช้รหัสนักศึกษา {users.length} คน สำหรับการจองพื้นที่กีฬาแบดมินตัน</p>
             </Col>
           </Row>
         </Col>
