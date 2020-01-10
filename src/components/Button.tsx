@@ -36,8 +36,8 @@ const Button: React.FunctionComponent<{
   style?: React.CSSProperties;
 }> = props => {
   const styles = {
-    ...props.style,
     ...btnStyle(props.type),
+    ...props.style,
   };
 
   return (
