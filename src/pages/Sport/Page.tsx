@@ -11,6 +11,7 @@ import ConfirmPage from './Confirm';
 import PageLayout from '../../components/Layout/Page';
 import Badge from '../../components/Badge';
 import StateSteps from '../../components/StateSteps';
+import ConfirmModal from '../../components/ConfirmModal';
 
 import TimeNode from '../../components/TimeTable/timetable.interface';
 import Area from './area.interface';
@@ -38,6 +39,7 @@ class SportPage extends Component<
     users: string[];
     backCard: string[];
     interval: number;
+    confirmModal: boolean;
   }
 > {
   state = {
@@ -50,6 +52,7 @@ class SportPage extends Component<
     status: [],
     backCard: ['เลือกประเภทกีฬา', 'เลือกช่วงเวลา', 'กรอกรหัสนักศึกษา'],
     interval: 0,
+    confirmModal: false,
   };
 
   onSelectDate = (date: Moment) => {
@@ -150,6 +153,13 @@ class SportPage extends Component<
     );
   };
 
+  onConfirm = () => {
+    console.log('confirm kaa');
+    return this.setState({ confirmModal: true });
+  };
+
+  onModal = () => this.props.history.replace('/');
+
   componentDidMount = () => {
     // for setting badge
     const { history, location } = this.props;
@@ -165,10 +175,12 @@ class SportPage extends Component<
 
   render() {
     console.log(this.state);
-    const { users, step, backCard, areaSelected, dateSelected, timeSelected, interval } = this.state;
+    const { confirmModal, users, step, backCard, areaSelected, dateSelected, timeSelected, interval } = this.state;
 
     return (
       <React.Fragment>
+        <ConfirmModal visible={confirmModal} onClick={this.onModal} />
+
         <PageLayout titile={'จองสนามกีฬา'}>
           <Row type="flex" justify="center" className={styles.innerFixedHeader}>
             {/* steps */}
@@ -223,6 +235,7 @@ class SportPage extends Component<
                 time={timeSelected}
                 interval={interval}
                 date={dateSelected}
+                onConfirm={this.onConfirm}
               />
             </Route>
           </Switch>
