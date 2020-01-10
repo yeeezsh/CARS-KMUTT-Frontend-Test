@@ -66,7 +66,7 @@ class SportPage extends Component<
         };
       },
       () => {
-        this.props.history.push({
+        return this.props.history.push({
           pathname: step.toString(),
           state: {
             label: [badge],
@@ -106,18 +106,32 @@ class SportPage extends Component<
   onBackCard = () => {
     return this.setState(
       prevState => {
-        return { step: prevState.step - 1 };
+        const { step, timeSelected } = prevState;
+        return {
+          step: step - 1,
+          timeSelected: step === 2 ? undefined : timeSelected,
+        };
       },
-      () => this.props.history.goBack(),
+      () => {
+        const { history, location } = this.props;
+        const paths = location.pathname.split('/');
+        const step = paths[paths.length - 1];
+        if (step === '1') return history.replace('/reserve/sport/category');
+        return history.goBack();
+      },
     );
   };
 
   componentDidMount = () => {
     // for setting badge
-    const { history } = this.props;
+    const { history, location } = this.props;
     const status = stepLists.map(e => false);
     const badge = history.location.state?.label[0];
-    return this.setState({ badge, status }, () => history.push('/reserve/sport/1'));
+    return this.setState({ badge, status }, () => {
+      const paths = location.pathname.split('/');
+      const step = paths[paths.length - 1];
+      if (step !== '1') return history.replace('/reserve/sport/1');
+    });
   };
 
   render() {
