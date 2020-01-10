@@ -52,41 +52,18 @@ class FormPage extends Component<PropsTypes, StateTypes> {
     e.preventDefault();
     const { form } = this.props;
     return form.validateFields((err, values: { users: string[] }) => {
-      console.log('form validators', values, err);
       if (!err) {
-        const { status } = this.state;
         const data = values.users.map((e: string) => e);
 
         return this.setState({ users: data }, () => {
           const { users } = this.state;
           return this.props.onSubmit({
             users,
-            status,
+            status: true,
           });
         });
-
-        // return this.props.onSubmit({
-        //   users,
-        //   status,
-        // });
-
-        // return this.setState(
-        //   prevState => {
-        //     return {
-        //       ...prevState,
-        //       status: true,
-        //       users: values,
-        //     };
-        //   },
-        //   () => {
-        //     const { users, status } = this.state;
-        //     return this.props.onSubmit({
-        //       users,
-        //       status,
-        //     });
-        //   },
-        // );
       }
+      return this.props.onSubmit({ staus: false });
       //   return this.setState({ status: false }, () => {
       //     const { status } = this.state;
       //     return this.props.onSubmit({ status });
@@ -96,13 +73,13 @@ class FormPage extends Component<PropsTypes, StateTypes> {
 
   onValidator = (rule: any, value: string, callback: any) => {
     const { form } = this.props;
-    const ids: string[] = form.getFieldValue('users');
+    const ids: string[] = form.getFieldValue('users').filter((e: string) => e);
     const sets = new Set(ids).size;
 
     if (value === undefined) return callback('โปรดกรอกรหัสนักศึกษาให้ถูกต้อง');
     if (value.length !== 11) return callback('โปรดกรอกรหัสนักศึกษาให้ถูกต้อง');
 
-    if (ids.length !== sets) return callback('รหัสนักศึกษาซ้ำ');
+    if (ids.length !== sets && ids.length !== 0) return callback('รหัสนักศึกษาซ้ำ');
     return callback();
   };
 
@@ -110,9 +87,19 @@ class FormPage extends Component<PropsTypes, StateTypes> {
     const value = e.target.value;
     const key = e.target.id.split('[')[1].split(']')[0];
     const { users } = this.state;
-    this.setState({
-      users: users.map((e, i) => (Number(key) === i ? value : e)),
-    });
+    this.setState(
+      {
+        users: users.map((e, i) => (Number(key) === i ? value : e)),
+      },
+      () => {
+        //   error exception when type
+        return this.props.form.setFields({
+          'users[0]': {
+            error: undefined,
+          },
+        });
+      },
+    );
   };
 
   render() {
