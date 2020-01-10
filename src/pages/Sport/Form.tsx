@@ -33,8 +33,9 @@ class FormPage extends Component<PropsTypes, StateTypes> {
   };
 
   componentDidMount = () => {
+    // auto scroll
     window.scroll(0, 0);
-    console.log('form mounting', this.state, CACHE_STATE);
+
     const required = this.props.required;
     const load = CACHE_STATE.users.length !== 0 && required === CACHE_STATE.users.length;
     if (load) {
@@ -45,7 +46,6 @@ class FormPage extends Component<PropsTypes, StateTypes> {
   };
 
   componentWillUnmount = () => {
-    console.log('form unmounting', this.state, CACHE_STATE);
     CACHE_STATE = this.state;
   };
 
