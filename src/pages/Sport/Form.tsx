@@ -153,7 +153,7 @@ class FormPage extends Component<PropsTypes, StateTypes> {
         <Col span={24}>
           <Row type="flex" justify="center">
             <Col span={22}>
-              <Button>ต่อไป</Button>
+              <Button onClick={this.onSubmit}>ต่อไป</Button>
             </Col>
           </Row>
         </Col>
