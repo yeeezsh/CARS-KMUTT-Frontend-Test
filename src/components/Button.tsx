@@ -33,9 +33,15 @@ const Button: React.FunctionComponent<{
   color?: string;
   onClick?: any;
   type?: Style['type'];
+  style?: React.CSSProperties;
 }> = props => {
+  const styles = {
+    ...props.style,
+    ...btnStyle(props.type),
+  };
+
   return (
-    <button type="submit" onClick={props.onClick} style={btnStyle(props.type)}>
+    <button type="submit" onClick={props.onClick} style={styles}>
       <p
         style={{
           color: '#FFFFFF',
