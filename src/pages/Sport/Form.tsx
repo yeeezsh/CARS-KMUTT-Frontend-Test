@@ -34,11 +34,11 @@ class FormPage extends Component<PropsTypes, StateTypes> {
 
   componentDidMount = () => {
     console.log('form mounting', this.state, CACHE_STATE);
-    const load = CACHE_STATE.users.length !== 0;
+    const required = this.props.required;
+    const load = CACHE_STATE.users.length !== 0 && required === CACHE_STATE.users.length;
     if (load) {
       return this.setState(CACHE_STATE);
     }
-    const required = this.props.required || this.state.required;
     const users = Array(required).fill('');
     return this.setState({ users });
   };
