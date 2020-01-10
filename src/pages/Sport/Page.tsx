@@ -13,6 +13,7 @@ import TimeNode from '../../components/TimeTable/timetable.interface';
 import Area from './area.interface';
 
 import { areas, stepLists } from '../../models/sport';
+import BackCard from '../../components/BackCard';
 
 class SportPage extends Component<
   RouteComponentProps<any>,
@@ -24,6 +25,7 @@ class SportPage extends Component<
     badge: string | undefined;
     status: boolean[];
     users: string[];
+    backCard: string[];
   }
 > {
   state = {
@@ -34,6 +36,7 @@ class SportPage extends Component<
     step: 1,
     badge: '',
     status: [],
+    backCard: ['เลือกประเภทกีฬา', 'เลือกช่วงเวลา', 'กรอกรหัสนักศึกษา'],
   };
 
   onSelectDate = (date: Moment) => {
@@ -100,6 +103,15 @@ class SportPage extends Component<
     console.log(d);
   };
 
+  onBackCard = () => {
+    return this.setState(
+      prevState => {
+        return { step: prevState.step - 1 };
+      },
+      () => this.props.history.goBack(),
+    );
+  };
+
   componentDidMount = () => {
     // for setting badge
     const { history } = this.props;
@@ -126,7 +138,12 @@ class SportPage extends Component<
           </Col>
 
           {/* spacing */}
-          <div style={{ height: '25px' }} />
+          <div style={{ height: '10px' }} />
+
+          <BackCard onClick={() => this.onBackCard()}>{this.state.backCard[this.state.step - 1]}</BackCard>
+
+          {/* spacing */}
+          <div style={{ height: '10px' }} />
 
           {/* Badge */}
           <Col span={24}>
