@@ -65,10 +65,6 @@ class FormPage extends Component<PropsTypes, StateTypes> {
         });
       }
       return this.props.onSubmit({ staus: false });
-      //   return this.setState({ status: false }, () => {
-      //     const { status } = this.state;
-      //     return this.props.onSubmit({ status });
-      //   });
     });
   };
 
@@ -150,6 +146,7 @@ class FormPage extends Component<PropsTypes, StateTypes> {
           </Row>
         </Col>
 
+        {/* Button */}
         <Col span={24}>
           <Row type="flex" justify="center">
             <Col span={22}>
