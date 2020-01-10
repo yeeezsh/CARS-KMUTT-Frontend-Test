@@ -47,7 +47,7 @@ export default class ConfirmPage extends Component<
               <span className={styles.overviewStudentIds}>รหัสนักศึกษา</span>
               {users &&
                 users.map((e, i) => (
-                  <p key={i}>
+                  <p className={styles.studentId} key={i}>
                     {i + 1}) {e}
                   </p>
                 ))}
@@ -55,7 +55,7 @@ export default class ConfirmPage extends Component<
           </Row>
 
           {/* Button */}
-          <Col style={{ marginTop: '12px' }} span={24}>
+          <Col style={{ marginTop: '16px' }} span={24}>
             <Row type="flex" justify="center">
               <Col span={22}>
                 <Button style={{ backgroundColor: '#1890FF' }} onClick={this.props.onConfirm}>
