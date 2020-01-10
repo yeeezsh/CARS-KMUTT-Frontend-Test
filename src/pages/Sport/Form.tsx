@@ -137,7 +137,14 @@ class FormPage extends Component<PropsTypes, StateTypes> {
                         ],
                         initialValue: e,
                         validateTrigger: ['onBlur'],
-                      })(<Input onChange={this.onType} placeholder={`รหัสนักศึกษาคนที่ ${i + 1}`} type={'number'} />)}
+                      })(
+                        <Input
+                          pattern="[0-9]*"
+                          onChange={this.onType}
+                          placeholder={`รหัสนักศึกษาคนที่ ${i + 1}`}
+                          type={'number'}
+                        />,
+                      )}
                     </Form.Item>
                   );
                 })}
