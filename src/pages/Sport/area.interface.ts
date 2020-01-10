@@ -5,6 +5,7 @@ interface Area {
   area: {
     id: string;
     label: string;
+    required: number;
   };
   time: {
     start: Moment;

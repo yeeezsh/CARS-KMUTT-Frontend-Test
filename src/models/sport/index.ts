@@ -20,6 +20,7 @@ const areas: TimeAreaReserveType['areas'] = [
     area: {
       label: 'สนามฟุตบอล 1',
       id: '1',
+      required: 3,
     },
   },
   {
@@ -44,6 +45,7 @@ const areas: TimeAreaReserveType['areas'] = [
     area: {
       label: 'สนามฟุตบอล 2',
       id: '2',
+      required: 10,
     },
   },
 ];
