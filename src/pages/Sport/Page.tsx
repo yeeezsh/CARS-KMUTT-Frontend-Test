@@ -89,10 +89,10 @@ class SportPage extends Component<
 
   onClickStep = (n: number) => {
     const { status } = this.state;
-    let canNext = false;
-    status.forEach((e, i) => {
-      if (n - 1 === i && e) canNext = true;
-    });
+    const canNext = false;
+    // status.forEach((e, i) => {
+    //   if (n - 1 === i && e) canNext = true;
+    // });
 
     if (!canNext) return;
     return this.setState({ step: n }, () =>
