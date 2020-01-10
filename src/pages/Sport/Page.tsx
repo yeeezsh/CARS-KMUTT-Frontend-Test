@@ -168,32 +168,32 @@ class SportPage extends Component<
     return (
       <React.Fragment>
         <PageLayout titile={'จองสนามกีฬา'}>
-          <div style={{ height: '25px' }} />
+          <Row type="flex" justify="center" className={styles.innerFixedHeader}>
+            {/* steps */}
+            <Col style={{ marginTop: '-12px' }} offset={2} span={18}>
+              <Row type="flex" justify="center">
+                <Col span={20}>
+                  <StateSteps onClick={this.onClickStep} current={step - 1} steps={stepLists} />
+                </Col>
+              </Row>
+            </Col>
 
-          {/* steps */}
-          <Col offset={2} span={20}>
-            <Row type="flex" justify="center">
-              <Col span={22}>
-                <StateSteps onClick={this.onClickStep} current={step - 1} steps={stepLists} />
-              </Col>
-            </Row>
-          </Col>
+            {/* back card */}
+            <Col style={{ marginTop: '4px', marginBottom: '4px' }} span={10}>
+              <BackCard onClick={() => this.onBackCard()}>{backCard[step - 1]}</BackCard>
+            </Col>
 
-          {/* spacing */}
-          <div style={{ height: '10px' }} />
+            {/* Badge */}
+            <Col style={{ marginBottom: '-8px' }} span={24}>
+              <Row type="flex" justify="start">
+                <Badge>{this.state.badge}</Badge>
+                <span className={styles.sideLabel}>{areaSelected && areaSelected.label}</span>
+              </Row>
+            </Col>
+          </Row>
 
-          <BackCard onClick={() => this.onBackCard()}>{backCard[step - 1]}</BackCard>
-
-          {/* spacing */}
-          <div style={{ height: '10px' }} />
-
-          {/* Badge */}
-          <Col span={24}>
-            <Row type="flex" justify="start">
-              <Badge>{this.state.badge}</Badge>
-              <span className={styles.sideLabel}>{areaSelected && areaSelected.label}</span>
-            </Row>
-          </Col>
+          {/* spacing between fixed inner header */}
+          <div style={{ height: '145px' }} />
 
           <Switch>
             <Route path="*/1">
