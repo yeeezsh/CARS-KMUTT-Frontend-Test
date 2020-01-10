@@ -6,6 +6,7 @@ const styles: React.CSSProperties = {
   fontWeight: 'normal',
   lineHeight: '22px',
   cursor: 'pointer',
+  display: 'block',
 };
 
 const BackCard: React.FunctionComponent<{
