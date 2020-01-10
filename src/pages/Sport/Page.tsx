@@ -148,6 +148,7 @@ class SportPage extends Component<
 
   render() {
     console.log(this.state);
+    const { step, backCard, areaSelected, dateSelected } = this.state;
 
     return (
       <React.Fragment>
@@ -158,7 +159,7 @@ class SportPage extends Component<
           <Col offset={2} span={20}>
             <Row type="flex" justify="center">
               <Col span={22}>
-                <StateSteps onClick={this.onClickStep} current={this.state.step - 1} steps={stepLists} />
+                <StateSteps onClick={this.onClickStep} current={step - 1} steps={stepLists} />
               </Col>
             </Row>
           </Col>
@@ -166,7 +167,7 @@ class SportPage extends Component<
           {/* spacing */}
           <div style={{ height: '10px' }} />
 
-          <BackCard onClick={() => this.onBackCard()}>{this.state.backCard[this.state.step - 1]}</BackCard>
+          <BackCard onClick={() => this.onBackCard()}>{backCard[step - 1]}</BackCard>
 
           {/* spacing */}
           <div style={{ height: '10px' }} />
@@ -175,7 +176,7 @@ class SportPage extends Component<
           <Col span={24}>
             <Row type="flex" justify="start">
               <Badge>{this.state.badge}</Badge>
-              <span className={styles.sideLabel}>{this.state.areaSelected && this.state.areaSelected.label}</span>
+              <span className={styles.sideLabel}>{areaSelected && areaSelected.label}</span>
             </Row>
           </Col>
 
@@ -188,14 +189,14 @@ class SportPage extends Component<
                 date={{
                   start: moment(),
                   stop: moment().add(12, 'hour'),
-                  selected: this.state.dateSelected,
+                  selected: dateSelected,
                 }}
                 areas={areas}
               />
             </Route>
 
             <Route path="*/2">
-              <FormPage required={this.state.areaSelected.required} onSubmit={this.onForm} />
+              <FormPage required={areaSelected.required} onSubmit={this.onForm} />
             </Route>
           </Switch>
         </PageLayout>
