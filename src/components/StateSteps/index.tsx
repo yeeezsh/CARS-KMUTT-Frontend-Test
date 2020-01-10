@@ -33,7 +33,7 @@ const StateSteps: React.FunctionComponent<{
   return (
     <React.Fragment>
       <div className={styles.dash} />
-      <Row type="flex" justify={'space-between'}>
+      <Row className={styles.container} type="flex" justify={'space-between'}>
         {steps.map((e, i) => {
           let dot: 'next' | 'current' | 'passed' = 'next';
           if (i < current) dot = 'passed';
