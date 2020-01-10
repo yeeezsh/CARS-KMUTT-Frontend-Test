@@ -3,6 +3,8 @@ import { Row, Col } from 'antd';
 import moment, { Moment } from 'moment';
 import { Route, Switch, withRouter, RouteComponentProps } from 'react-router';
 
+import styles from './styles.module.css';
+
 import TimePage from './Time';
 import FormPage from './Form';
 import PageLayout from '../../components/Layout/Page';
@@ -17,13 +19,18 @@ import BackCard from '../../components/BackCard';
 
 const CATEGORY_PAGE = '/reserve/sport/category';
 const FIRST_STEP_PAGE = '/reserve/sport/1';
+const DEFAULT_SELECTED_AREA = {
+  id: '',
+  label: '',
+  required: 0,
+};
 
 class SportPage extends Component<
   RouteComponentProps<any>,
   {
     dateSelected: Moment;
     timeSelected: Moment | undefined;
-    areaSelected: Area['area'] | undefined;
+    areaSelected: Area['area'];
     step: number;
     badge: string | undefined;
     status: boolean[];
@@ -34,7 +41,7 @@ class SportPage extends Component<
   state = {
     dateSelected: moment().startOf('day'),
     timeSelected: undefined,
-    areaSelected: undefined,
+    areaSelected: DEFAULT_SELECTED_AREA,
     users: [],
     step: 1,
     badge: '',
@@ -98,7 +105,7 @@ class SportPage extends Component<
   };
 
   onSelectArea = (area: Area['area']) => {
-    console.log('aaa', area.id);
+    console.log('aaa', area.id, area.required);
     return this.setState({ areaSelected: area });
   };
 
@@ -113,6 +120,7 @@ class SportPage extends Component<
         return {
           step: step - 1,
           timeSelected: step === 2 ? undefined : timeSelected,
+          areaSelected: DEFAULT_SELECTED_AREA,
         };
       },
       () => {
@@ -167,6 +175,7 @@ class SportPage extends Component<
           <Col span={24}>
             <Row type="flex" justify="start">
               <Badge>{this.state.badge}</Badge>
+              <span className={styles.sideLabel}>{this.state.areaSelected && this.state.areaSelected.label}</span>
             </Row>
           </Col>
 
@@ -186,7 +195,7 @@ class SportPage extends Component<
             </Route>
 
             <Route path="*/2">
-              <FormPage onSubmit={this.onForm} />
+              <FormPage required={this.state.areaSelected.required} onSubmit={this.onForm} />
             </Route>
           </Switch>
         </PageLayout>
