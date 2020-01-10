@@ -10,17 +10,22 @@ import Button from '../../components/Button';
 
 interface PropsTypes extends FormComponentProps {
   required?: number;
-  onFilled?: any;
+  onSubmit?: any;
 }
 
-class FormPage extends Component<
-  PropsTypes,
-  {
-    users: string[];
-    required: number;
-    status: boolean;
-  }
-> {
+interface StateTypes {
+  users: string[];
+  required: number;
+  status: boolean;
+}
+
+let CACHE_STATE: StateTypes = {
+  users: [],
+  required: 2,
+  status: false,
+};
+
+class FormPage extends Component<PropsTypes, StateTypes> {
   state = {
     users: [],
     required: 2,
@@ -28,34 +33,64 @@ class FormPage extends Component<
   };
 
   componentDidMount = () => {
+    console.log('form mounting', this.state, CACHE_STATE);
+    const load = CACHE_STATE.users.length !== 0;
+    if (load) {
+      return this.setState(CACHE_STATE);
+    }
     const required = this.props.required || this.state.required;
     const users = Array(required).fill('');
     return this.setState({ users });
   };
 
+  componentWillUnmount = () => {
+    console.log('form unmounting', this.state, CACHE_STATE);
+    CACHE_STATE = this.state;
+  };
+
   onSubmit = (e: any): void => {
     e.preventDefault();
     const { form } = this.props;
-    form.validateFields((err, values) => {
+    return form.validateFields((err, values: { users: string[] }) => {
+      console.log('form validators', values, err);
       if (!err) {
-        return this.setState(
-          {
-            status: true,
-            users: values,
-          },
-          () => {
-            const { users, status } = this.state;
-            return this.props.onFilled({
-              users,
-              status,
-            });
-          },
-        );
+        const { status } = this.state;
+        const data = values.users.map((e: string) => e);
+
+        return this.setState({ users: data }, () => {
+          const { users } = this.state;
+          return this.props.onSubmit({
+            users,
+            status,
+          });
+        });
+
+        // return this.props.onSubmit({
+        //   users,
+        //   status,
+        // });
+
+        // return this.setState(
+        //   prevState => {
+        //     return {
+        //       ...prevState,
+        //       status: true,
+        //       users: values,
+        //     };
+        //   },
+        //   () => {
+        //     const { users, status } = this.state;
+        //     return this.props.onSubmit({
+        //       users,
+        //       status,
+        //     });
+        //   },
+        // );
       }
-      return this.setState({ status: false }, () => {
-        const { status, users } = this.state;
-        return this.props.onFilled({ status, users });
-      });
+      //   return this.setState({ status: false }, () => {
+      //     const { status } = this.state;
+      //     return this.props.onSubmit({ status });
+      //   });
     });
   };
 
@@ -71,7 +106,17 @@ class FormPage extends Component<
     return callback();
   };
 
+  onType = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    const key = e.target.id.split('[')[1].split(']')[0];
+    const { users } = this.state;
+    this.setState({
+      users: users.map((e, i) => (Number(key) === i ? value : e)),
+    });
+  };
+
   render() {
+    console.log('form states', this.state);
     const { getFieldDecorator } = this.props.form;
     const { required } = this.state;
     return (
@@ -108,7 +153,7 @@ class FormPage extends Component<
                         ],
                         initialValue: e,
                         validateTrigger: ['onBlur'],
-                      })(<Input placeholder={`รหัสนักศึกษาคนที่ ${i + 1}`} type={'number'} />)}
+                      })(<Input onChange={this.onType} placeholder={`รหัสนักศึกษาคนที่ ${i + 1}`} type={'number'} />)}
                     </Form.Item>
                   );
                 })}
