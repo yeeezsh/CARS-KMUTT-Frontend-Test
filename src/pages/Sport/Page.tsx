@@ -102,7 +102,7 @@ class SportPage extends Component<
     return this.setState({ areaSelected: area });
   };
 
-  onFilled = (d: { status: boolean; users: string[] }) => {
+  onForm = (d: { status: boolean; users: string[] }) => {
     console.log(d);
   };
 
@@ -186,7 +186,7 @@ class SportPage extends Component<
             </Route>
 
             <Route path="*/2">
-              <FormPage onFilled={this.onFilled} />
+              <FormPage onSubmit={this.onForm} />
             </Route>
           </Switch>
         </PageLayout>
