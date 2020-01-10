@@ -106,7 +106,7 @@ class FormPage extends Component<
                             validator: this.onValidator,
                           },
                         ],
-                        initialValue: undefined,
+                        initialValue: e,
                         validateTrigger: ['onBlur'],
                       })(<Input placeholder={`รหัสนักศึกษาคนที่ ${i + 1}`} type={'number'} />)}
                     </Form.Item>
