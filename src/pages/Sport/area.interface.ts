@@ -11,6 +11,7 @@ interface Area {
     start: Moment;
     stop: Moment;
     disabled?: TimeNode[];
+    interval?: number;
   };
 }
 

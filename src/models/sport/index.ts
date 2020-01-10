@@ -29,6 +29,7 @@ const areas: TimeAreaReserveType['areas'] = [
       stop: moment()
         .startOf('hour')
         .add(12, 'hour'),
+      interval: 120,
       disabled: [
         {
           value: moment()

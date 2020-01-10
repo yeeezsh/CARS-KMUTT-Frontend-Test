@@ -86,7 +86,7 @@ const TimePage: React.FunctionComponent<TimeAreaReserveType> = props => {
               title={e.area.label}
               start={e.time.start}
               stop={e.time.stop}
-              interval={60}
+              interval={e.time.interval || 60}
               onSelect={props.onSelectTime}
               disabled={e.time.disabled}
             />
