@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
 import { Router, Route, Switch } from 'react-router';
 import history from './history';
-import Loadable from 'react-loadable';
 
-const Home = Loadable({
-  loader: () => import('./Home'),
-  loading: () => null,
-});
-
+import Home from './Home';
 import Page from './Page';
 import { Category as SportCategory, Page as SportPage } from './Sport';
 
