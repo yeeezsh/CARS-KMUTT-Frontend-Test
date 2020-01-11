@@ -6,7 +6,10 @@ import history from './history';
 import hamburgerWhite from '../assets/icons/hamburger-white.svg';
 import hamburgerOrange from '../assets/icons/hamburger-orange.svg';
 
-import Home from './Home';
+const Home = Loadable({
+  loader: () => import('./Home'),
+  loading: () => null,
+});
 const Page = Loadable({
   loader: () => import('./Page'),
   loading: () => null,
@@ -38,6 +41,12 @@ export default class PageRouter extends Component<
   };
 
   componentDidMount = () => {
+    // preload other components
+    Home.preload();
+    AppDrawer.preload();
+    SportCategory.preload();
+    SportPage.preload();
+
     // when first lunch
     const { location } = history;
     const onHome = location.pathname === '/';
