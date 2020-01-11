@@ -6,12 +6,11 @@ module.exports = {
   mode: 'development',
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
-    compress: true,
     port: 9000,
-    contentBase: './dist',
     hot: true,
+    historyApiFallback: true,
   },
-  devtool: "source-map",
+  devtool: 'source-map',
   entry: './src/index',
   output: {
     path: path.join(__dirname, '/dist'),
@@ -66,5 +65,5 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/index.html',
     }),
-  ]
+  ],
 };
