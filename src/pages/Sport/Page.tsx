@@ -2,12 +2,23 @@ import React, { Component } from 'react';
 import { Row, Col } from 'antd';
 import moment, { Moment } from 'moment';
 import { Route, Switch, withRouter, RouteComponentProps } from 'react-router';
+import Loadable from 'react-loadable';
 
 import styles from './styles.module.css';
 
-import TimePage from './Time';
-import FormPage from './Form';
-import ConfirmPage from './Confirm';
+const TimePage = Loadable({
+  loader: () => import('./Time'),
+  loading: () => null,
+});
+const FormPage = Loadable({
+  loader: () => import('./Form'),
+  loading: () => null,
+});
+const ConfirmPage = Loadable({
+  loader: () => import('./Confirm'),
+  loading: () => null,
+});
+
 import PageLayout from '../../components/Layout/Page';
 import Badge from '../../components/Badge';
 import StateSteps from '../../components/StateSteps';
