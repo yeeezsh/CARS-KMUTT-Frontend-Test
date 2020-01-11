@@ -9,7 +9,10 @@ import hamburgerOrange from '../assets/icons/hamburger-orange.svg';
 import Home from './Home';
 import Page from './Page';
 import { Category as SportCategory, Page as SportPage } from './Sport';
-import AppDrawer from '../components/AppDrawer';
+const AppDrawer = Loadable({
+  loader: () => import('../components/AppDrawer'),
+  loading: () => null,
+});
 
 export default class PageRouter extends Component<
   {},
@@ -22,12 +25,6 @@ export default class PageRouter extends Component<
     drawer: false,
     onHome: true,
   };
-
-  // onHome = () => {
-  //   const { location } = history;
-  //   const onHome = location.pathname === '/';
-  //   return this.setState({ onHome });
-  // };
 
   onDrawer = () => {
     return this.setState(prevState => {
