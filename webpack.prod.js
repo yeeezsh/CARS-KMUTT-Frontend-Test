@@ -3,7 +3,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   entry: './src/index',
   output: {
     path: path.join(__dirname, '/dist'),
@@ -19,9 +19,6 @@ module.exports = {
         exclude: /node_modules/,
         use: {
           loader: 'ts-loader',
-          options: {
-            transpileOnly: true,
-          },
         },
       },
 
@@ -63,24 +60,21 @@ module.exports = {
     }),
   ],
   optimization: {
-    // removeAvailableModules: false,
-    // removeEmptyChunks: false,
-    // splitChunks: false,
-
-    // runtimeChunk: 'single',
-    // splitChunks: {
-    //   chunks: 'all',
-    //   maxInitialRequests: Infinity,
-    //   minSize: 0,
-    //   cacheGroups: {
-    //     vendor: {
-    //       test: /[\\/]node_modules[\\/]/,
-    //       name(module) {
-    //         const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
-    //         return `npm.${packageName.replace('@', '')}`;
-    //       },
-    //     },
-    //   },
-    // },
+    runtimeChunk: 'single',
+    splitChunks: {
+      chunks: 'all',
+      maxInitialRequests: Infinity,
+      minSize: 0,
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name(module) {
+            const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
+            return `npm.${packageName.replace('@', '')}`;
+          },
+        },
+      },
+    },
   },
+
 };
