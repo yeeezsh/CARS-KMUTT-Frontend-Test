@@ -172,6 +172,10 @@ class SportPage extends Component<
   onModal = () => this.props.history.replace('/');
 
   componentDidMount = () => {
+    TimePage.preload();
+    FormPage.preload();
+    ConfirmPage.preload();
+
     // for setting badge
     const { history, location } = this.props;
     const status = stepLists.map(e => false);
