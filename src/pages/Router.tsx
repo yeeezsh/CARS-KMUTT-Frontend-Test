@@ -58,7 +58,7 @@ export default class PageRouter extends Component<
           <img
             style={{
               zIndex: 2,
-              position: 'absolute',
+              position: 'fixed',
               marginTop: '24px',
               marginLeft: '20px',
             }}
