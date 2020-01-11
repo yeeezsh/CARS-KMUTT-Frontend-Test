@@ -7,7 +7,10 @@ import hamburgerWhite from '../assets/icons/hamburger-white.svg';
 import hamburgerOrange from '../assets/icons/hamburger-orange.svg';
 
 import Home from './Home';
-import Page from './Page';
+const Page = Loadable({
+  loader: () => import('./Page'),
+  loading: () => null,
+});
 import { Category as SportCategory, Page as SportPage } from './Sport';
 const AppDrawer = Loadable({
   loader: () => import('../components/AppDrawer'),

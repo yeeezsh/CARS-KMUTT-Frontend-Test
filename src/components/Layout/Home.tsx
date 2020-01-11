@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'antd';
 import moment from 'moment';
+import Loadable from 'react-loadable';
 
 import styles from './home.module.css';
-import StateCard from '../StateCard/StateCard';
+const StateCard = Loadable({
+  loader: () => import('../StateCard/StateCard'),
+  loading: () => null,
+});
 
 export default class Home extends Component<{}, { day: moment.Moment }> {
   state = {
