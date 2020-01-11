@@ -6,9 +6,11 @@ const webpack = require('webpack');
 module.exports = {
   mode: 'production',
   entry: './src/index',
+  devtool: 'source-map',
   output: {
     path: path.join(__dirname, '/dist'),
     filename: 'bundle.js',
+    publicPath: '/',
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
@@ -59,23 +61,23 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/index.html',
     }),
-    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en|th/),
+    // new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en|th/),
   ],
-  optimization: {
-    runtimeChunk: 'single',
-    splitChunks: {
-      chunks: 'all',
-      maxInitialRequests: Infinity,
-      minSize: 0,
-      cacheGroups: {
-        vendor: {
-          test: /[\\/]node_modules[\\/]/,
-          name(module) {
-            const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
-            return `npm.${packageName.replace('@', '')}`;
-          },
-        },
-      },
-    },
-  },
+  // optimization: {
+    // runtimeChunk: 'single',
+    // splitChunks: {
+    //   chunks: 'all',
+    //   maxInitialRequests: Infinity,
+    //   minSize: 0,
+    //   cacheGroups: {
+    //     vendor: {
+    //       test: /[\\/]node_modules[\\/]/,
+    //       name(module) {
+    //         const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
+    //         return `npm.${packageName.replace('@', '')}`;
+    //       },
+    //     },
+    //   },
+    // },
+  // },
 };
