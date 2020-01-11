@@ -4,7 +4,6 @@ import Card from './Card';
 import { Link } from 'react-router-dom';
 
 import Menu from './menu.interface';
-import RouterStates from './states.interface';
 
 import { basketball, footballarea, docs, check } from './icon.import';
 
