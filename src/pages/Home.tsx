@@ -1,12 +1,18 @@
 import React from 'react';
-// import {} from '../components/Layout/Home'
-import HomeLayout from '../components/Layout/Home';
-import HomeMenu from '../components/KanbanCard';
+import Loadable from 'react-loadable';
 
-export default function Home() {
+import HomeLayout from '../components/Layout/Home';
+
+const HomeMenu = Loadable({
+  loader: () => import('../components/KanbanCard'),
+  loading: () => null,
+});
+
+const Home: React.FunctionComponent = () => {
   return (
     <HomeLayout>
       <HomeMenu />
     </HomeLayout>
   );
-}
+};
+export default Home;
