@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'antd';
 import moment from 'moment';
-import AppDrawer from '../AppDrawer';
+import Loadable from 'react-loadable';
+
+const AppDrawer = Loadable({
+  loader: () => import('../AppDrawer'),
+  loading: () => null,
+});
 
 import styles from './home.module.css';
 
