@@ -15,9 +15,12 @@ const Page = Loadable({
   loading: () => null,
 });
 import { Category as SportCategory, Page as SportPage } from './Sport';
-import MyReservePage from './MyReserve';
 const AppDrawer = Loadable({
   loader: () => import('../components/AppDrawer'),
+  loading: () => null,
+});
+const MyReservePage = Loadable({
+  loader: () => import('./MyReserve'),
   loading: () => null,
 });
 
@@ -104,7 +107,13 @@ export default class PageRouter extends Component<
         <Route path="/my/reserve/">
           <Switch>
             <Route path="*/history">
-              <MyReservePage />
+              <MyReservePage type="history" />
+            </Route>
+            <Route path="*/wait">
+              <MyReservePage type="wait" />
+            </Route>
+            <Route path="*/request">
+              <MyReservePage type="request" />
             </Route>
           </Switch>
         </Route>
