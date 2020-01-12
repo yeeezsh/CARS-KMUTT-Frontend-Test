@@ -54,12 +54,10 @@ export default class PageRouter extends Component<
     // when first lunch
     const { location } = history;
     const onHome = location.pathname === '/';
-    console.log('onHone', onHome);
     if (!onHome) this.setState({ onHome });
 
     // on subscribe
     return history.listen(({ pathname }) => {
-      console.log('sub', pathname);
       const currentHome = pathname === '/';
       return this.setState({ onHome: currentHome });
     });
