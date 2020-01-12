@@ -1,20 +1,24 @@
 import React from 'react';
 import { Row, Col } from 'antd';
-import styles from './styles.module.css';
 import { Moment } from 'moment';
+
+// assets
+import styles from './styles.module.css';
 import StateBlue from '../../assets/icons/state.blue.svg';
 import StateYellow from '../../assets/icons/state.yellow.svg';
 
-export default function TitleCard(props: {
+import { ReserveState } from '../../models/reserve/interface';
+
+export default function StateCard(props: {
   name?: string;
-  state?: string;
+  desc?: string;
   reserve?: {
     date?: Moment;
     start?: Moment;
     stop?: Moment;
     detail?: string;
     state?: {
-      type?: 'wait' | 'reject' | 'accept' | 'undefined';
+      type?: ReserveState['type'];
       desc?: string;
     };
   };
