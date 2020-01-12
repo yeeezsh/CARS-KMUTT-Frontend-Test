@@ -5,7 +5,7 @@ import Loadable from 'react-loadable';
 
 import styles from './home.module.css';
 const StateCard = Loadable({
-  loader: () => import('../StateCard/StateCard'),
+  loader: () => import('../StateCard'),
   loading: () => null,
 });
 
