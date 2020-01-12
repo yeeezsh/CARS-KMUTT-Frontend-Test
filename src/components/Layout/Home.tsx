@@ -70,7 +70,7 @@ export default class Home extends Component<{}, { day: moment.Moment }> {
         </Row>
 
         {/* content */}
-        <Row style={{ marginTop: 30, padding: 0 }}>
+        <Row style={{ marginTop: 20, padding: 0 }}>
           <Col className={styles.content}>{this.props.children}</Col>
         </Row>
       </React.Fragment>
