@@ -52,8 +52,8 @@ export default class Home extends Component<{}, { day: moment.Moment }> {
         </Row>
 
         {/* card */}
-        <Row className={styles.card}>
-          <Col span={24}>
+        <Row type="flex" justify="center">
+          <Col span={23}>
             <StateCard
               name={'Badminton 1'}
               reserve={{
