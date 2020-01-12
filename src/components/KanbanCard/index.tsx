@@ -62,6 +62,7 @@ const defaultMenu: Menu[] = [
     key: '3',
     label: ['กำลังดำเนินการ'],
     icon: docs,
+    link: '/my/reserve/wait',
     setting: {
       labelColor: '#666666',
     },
@@ -70,6 +71,7 @@ const defaultMenu: Menu[] = [
     key: '4',
     label: ['รีเควสที่ต้องยืนยัน'],
     icon: check,
+    link: '/my/reserve/request',
     setting: {
       labelColor: '#666666',
     },

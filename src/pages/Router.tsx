@@ -15,6 +15,7 @@ const Page = Loadable({
   loading: () => null,
 });
 import { Category as SportCategory, Page as SportPage } from './Sport';
+import MyReservePage from './MyReserve';
 const AppDrawer = Loadable({
   loader: () => import('../components/AppDrawer'),
   loading: () => null,
@@ -96,6 +97,14 @@ export default class PageRouter extends Component<
             </Route>
             <Route path="*/([0-9])">
               <SportPage />
+            </Route>
+          </Switch>
+        </Route>
+
+        <Route path="/my/reserve/">
+          <Switch>
+            <Route path="*/history">
+              <MyReservePage />
             </Route>
           </Switch>
         </Route>
