@@ -1,12 +1,12 @@
 import { Moment } from 'moment';
 
 export interface ReserveState {
-  type: 'wait' | 'reject' | 'accept' | 'request' | 'undefined';
+  type: 'wait' | 'reject' | 'accept' | 'request' | 'undefined' | 'require';
 }
 
 export default interface Reserve {
   name?: string;
-  desc: string;
+  desc?: string;
   reserve?: {
     date?: Moment;
     start?: Moment;
