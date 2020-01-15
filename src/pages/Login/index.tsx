@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Row, Col, Input, Form, Icon } from 'antd';
 import Button from '../../components/Button';
+import { withRouter, RouteComponentProps } from 'react-router';
 
 import { FormComponentProps } from 'antd/lib/form';
 
@@ -10,14 +11,12 @@ import styles from './styles.module.css';
 import { RequestorLogin } from '../../models/user/';
 
 class LoginPage extends Component<
-  FormComponentProps,
+  FormComponentProps & RouteComponentProps,
   {
     loading: boolean;
-    auth: boolean;
   }
 > {
   state = {
-    auth: false,
     loading: false,
   };
 
@@ -29,14 +28,21 @@ class LoginPage extends Component<
 
   onSubmit = async (e: any) => {
     e.preventDefault();
-    const { validateFields } = this.props.form;
+    const { validateFields, setFields } = this.props.form;
     return validateFields((err, values: { username: string; password: string }) => {
       if (!err) {
         return this.setState({ loading: true }, async () => {
           const { username, password } = values;
           const res = await RequestorLogin(username, password);
           console.log(res);
-          return this.setState({ loading: false, auth: res.auth });
+          if (res.auth) return this.props.history.push('/');
+          setFields({
+            password: {
+              value: values.password,
+              errors: [new Error('รหัสผ่านไม่ถูกต้อง')],
+            },
+          });
+          return this.setState({ loading: false });
         });
       }
     });
@@ -53,7 +59,7 @@ class LoginPage extends Component<
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { loading, auth } = this.state;
+    const { loading } = this.state;
     return (
       <React.Fragment>
         <div style={{ height: '150px' }} />
@@ -101,4 +107,4 @@ class LoginPage extends Component<
 }
 
 const wrapped = Form.create()(LoginPage);
-export default wrapped;
+export default withRouter<RouteComponentProps, any>(wrapped);
