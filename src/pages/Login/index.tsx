@@ -43,9 +43,7 @@ class LoginPage extends Component<
   };
 
   onType = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // const value = e.target.value;
     const key = e.target.id;
-
     return this.props.form.setFields({
       [key]: {
         error: undefined,
