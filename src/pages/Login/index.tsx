@@ -42,7 +42,7 @@ class LoginPage extends Component<FormComponentProps, {}> {
     const { getFieldDecorator } = this.props.form;
     return (
       <React.Fragment>
-        <div style={{ height: '120px' }} />
+        <div style={{ height: '150px' }} />
         <Row type="flex" justify="center">
           <Col>
             <img src={logo} alt="logo" />
