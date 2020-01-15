@@ -1,45 +1,32 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import PageLayout from '../../components/Layout/Page';
 import StateCard from '../../components/StateCard';
 import Outline from '../../components/Outline';
 
-import Reserve from '../../models/reserve/interface';
-
+// models
 import { data as Data } from '../../models/reserve/data';
+import Reserve from '../../models/reserve/interface';
 
 // helpers
 import OutlineType from './helpers/outline.type';
 
-export default class MyReservePage extends Component<
-  { type: 'wait' | 'history' | 'request' },
-  {
-    type: string;
-    outline: string;
-    data: Reserve[];
-  }
-> {
-  state = { type: '', outline: '', data: [] };
+const MyReservePage: React.FunctionComponent<{
+  type: 'wait' | 'history' | 'request';
+}> = props => {
+  const { type } = props;
+  const outline = OutlineType(type);
+  const data = Data();
+  return (
+    <PageLayout titile={'การจองของฉัน'}>
+      <Outline>{outline}</Outline>
+      {data &&
+        data.map((e: Reserve, i) => {
+          const { name, reserve } = e;
+          return <StateCard key={i} name={name} reserve={reserve} />;
+        })}
+    </PageLayout>
+  );
+};
 
-  componentDidMount = () => {
-    const { type } = this.props;
-    const outline = OutlineType(type);
-    const data = Data();
-    return this.setState({ type, outline, data });
-  };
-  render() {
-    console.log('my reserve', this.state.data);
-    const { outline, data } = this.state;
-    return (
-      <PageLayout titile={'การจองของฉัน'}>
-        <Outline>{outline}</Outline>
-        {/* <StateCard /> */}
-        {data &&
-          data.map((e: Reserve, i) => {
-            const { name, reserve } = e;
-            return <StateCard key={i} name={name} reserve={reserve} />;
-          })}
-      </PageLayout>
-    );
-  }
-}
+export default MyReservePage;
