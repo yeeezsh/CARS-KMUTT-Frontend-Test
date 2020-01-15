@@ -15,12 +15,17 @@ const Page = Loadable({
   loading: () => null,
 });
 import { Category as SportCategory, Page as SportPage } from './Sport';
+
 const AppDrawer = Loadable({
   loader: () => import('../components/AppDrawer'),
   loading: () => null,
 });
 const MyReservePage = Loadable({
   loader: () => import('./MyReserve'),
+  loading: () => null,
+});
+const LoginPage = Loadable({
+  loader: () => import('./Login'),
   loading: () => null,
 });
 
@@ -65,21 +70,25 @@ export default class PageRouter extends Component<
 
   render() {
     const { drawer, onHome } = this.state;
+    const { location } = history;
+    const onLogin = location.pathname === '/login';
     return (
       <Router history={history}>
         {/* hamburger */}
-        <div onClick={this.onDrawer}>
-          <img
-            style={{
-              zIndex: 2,
-              position: 'fixed',
-              marginTop: '24px',
-              marginLeft: '20px',
-            }}
-            src={onHome ? hamburgerWhite : hamburgerOrange}
-            alt="hamburger"
-          />
-        </div>
+        {!onLogin && (
+          <div onClick={this.onDrawer}>
+            <img
+              style={{
+                zIndex: 2,
+                position: 'fixed',
+                marginTop: '24px',
+                marginLeft: '20px',
+              }}
+              src={onHome ? hamburgerWhite : hamburgerOrange}
+              alt="hamburger"
+            />
+          </div>
+        )}
 
         {/* AppDrawer */}
         <AppDrawer onDrawer={this.onDrawer} drawer={drawer} />
@@ -114,6 +123,10 @@ export default class PageRouter extends Component<
               <MyReservePage type="request" />
             </Route>
           </Switch>
+        </Route>
+
+        <Route path="/login">
+          <LoginPage />
         </Route>
       </Router>
     );
