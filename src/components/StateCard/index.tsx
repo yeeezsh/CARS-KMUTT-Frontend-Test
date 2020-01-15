@@ -6,6 +6,8 @@ import { Moment } from 'moment';
 import styles from './styles.module.css';
 import StateBlue from '../../assets/icons/state.blue.svg';
 import StateYellow from '../../assets/icons/state.yellow.svg';
+import StateGreen from '../../assets/icons/state.green.svg';
+import StateRed from '../../assets/icons/state.red.svg';
 
 import { ReserveState } from '../../models/reserve/interface';
 
@@ -36,6 +38,34 @@ export default function StateCard(props: {
     </span>
   );
   const detail = <span>blabalbalbalbalbals</span>;
+  const iconColor = (type: ReserveState['type'], desc?: string) => {
+    const label: React.CSSProperties = { marginLeft: '18px', marginTop: '-16px' };
+    switch (type) {
+      case 'wait' || 'request':
+        return (
+          <React.Fragment>
+            <img src={StateBlue} alt="state-blue" />
+            <p style={{ ...label, color: '#1890FF' }}>{desc}</p>
+          </React.Fragment>
+        );
+      case 'accept':
+        return (
+          <React.Fragment>
+            <img src={StateGreen} alt="state-green" />
+            <p style={{ ...label, color: '#52C41A' }}>{desc}</p>
+          </React.Fragment>
+        );
+      case 'reject':
+        return (
+          <React.Fragment>
+            <img src={StateRed} alt="state-red" />
+            <p style={{ ...label, color: '#F5222D' }}>{desc}</p>
+          </React.Fragment>
+        );
+      default:
+        return;
+    }
+  };
   const showCard = (
     <Row>
       <Row type="flex" justify="space-between">
@@ -59,14 +89,12 @@ export default function StateCard(props: {
       <Row className={styles.detail} type="flex" justify="start">
         <Col span={22}>
           <span className={styles.state}>
-            {reserve?.state?.type === 'wait' ? (
+            {/* {reserve?.state?.type === 'wait' ? (
               <img src={StateBlue} alt="state-blue" />
             ) : (
               <img src={StateYellow} alt="state-yellow" />
-            )}
-            <span className={reserve?.state?.type === 'wait' ? styles.blue : styles.yellow} style={{ marginLeft: 5 }}>
-              {reserve?.state?.desc}
-            </span>
+            )} */}
+            {iconColor(reserve?.state?.type || 'undefined', reserve?.state?.desc)}
           </span>
         </Col>
       </Row>
