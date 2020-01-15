@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Row, Col, Input, Form } from 'antd';
+import { Row, Col, Input, Form, Icon } from 'antd';
 import Button from '../../components/Button';
 
 import { FormComponentProps } from 'antd/lib/form';
@@ -9,7 +9,18 @@ import styles from './styles.module.css';
 
 import { RequestorLogin } from '../../models/user/';
 
-class LoginPage extends Component<FormComponentProps, {}> {
+class LoginPage extends Component<
+  FormComponentProps,
+  {
+    loading: boolean;
+    auth: boolean;
+  }
+> {
+  state = {
+    auth: false,
+    loading: false,
+  };
+
   onValidator = (rule: any, value: string, callback: any) => {
     if (value === undefined) return callback('โปรดกรอกรหัสนักศึกษาให้ถูกต้อง');
     if (value.length !== 11) return callback('โปรดกรอกรหัสนักศึกษาให้ถูกต้อง');
@@ -18,13 +29,15 @@ class LoginPage extends Component<FormComponentProps, {}> {
 
   onSubmit = async (e: any) => {
     e.preventDefault();
-    console.log('on login');
     const { validateFields } = this.props.form;
-    return validateFields(async (err, values: { username: string; password: string }) => {
+    return validateFields((err, values: { username: string; password: string }) => {
       if (!err) {
-        const { username, password } = values;
-        const res = await RequestorLogin(username, password);
-        console.log(res);
+        return this.setState({ loading: true }, async () => {
+          const { username, password } = values;
+          const res = await RequestorLogin(username, password);
+          console.log(res);
+          return this.setState({ loading: false, auth: res.auth });
+        });
       }
     });
   };
@@ -42,6 +55,7 @@ class LoginPage extends Component<FormComponentProps, {}> {
 
   render() {
     const { getFieldDecorator } = this.props.form;
+    const { loading, auth } = this.state;
     return (
       <React.Fragment>
         <div style={{ height: '150px' }} />
@@ -79,7 +93,7 @@ class LoginPage extends Component<FormComponentProps, {}> {
               </Form.Item>
             </Col>
             <Col span={18} lg={14}>
-              <Button>Login</Button>
+              <Button>{loading ? <Icon type="loading" /> : 'Login'}</Button>
             </Col>
           </Row>
         </Form>
