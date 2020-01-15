@@ -7,22 +7,24 @@ import { FormComponentProps } from 'antd/lib/form';
 import logo from '../../assets/logo.login.svg';
 import styles from './styles.module.css';
 
-class LoginPage extends Component<FormComponentProps, {}> {
-  state = {};
+import { RequestorLogin } from '../../models/user/';
 
+class LoginPage extends Component<FormComponentProps, {}> {
   onValidator = (rule: any, value: string, callback: any) => {
     if (value === undefined) return callback('โปรดกรอกรหัสนักศึกษาให้ถูกต้อง');
     if (value.length !== 11) return callback('โปรดกรอกรหัสนักศึกษาให้ถูกต้อง');
     return callback();
   };
 
-  onSubmit = (e: any) => {
+  onSubmit = async (e: any) => {
     e.preventDefault();
     console.log('on login');
     const { validateFields } = this.props.form;
-    return validateFields((err, values: { username: string; password: string }) => {
+    return validateFields(async (err, values: { username: string; password: string }) => {
       if (!err) {
-        console.log(values);
+        const { username, password } = values;
+        const res = await RequestorLogin(username, password);
+        console.log(res);
       }
     });
   };
