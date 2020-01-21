@@ -9,6 +9,7 @@ module.exports = {
     contentBase: path.join(__dirname, 'dist'),
     port: 5000,
     hot: true,
+    host: '0.0.0.0',
     historyApiFallback: true,
   },
   devtool: 'source-map',
