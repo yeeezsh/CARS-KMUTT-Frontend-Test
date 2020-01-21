@@ -81,19 +81,18 @@ class SportPage extends Component<
         };
       });
     }
-    let { step } = this.state;
     const { badge } = this.state;
     return this.setState(
       prevState => {
         return {
           timeSelected: time.value,
-          step: ++step,
+          step: 2,
           status: prevState.status.map((e, i) => (i === 0 ? true : e)),
         };
       },
       () => {
         return this.props.history.push({
-          pathname: step.toString(),
+          pathname: '2',
           state: {
             label: [badge],
           },
@@ -127,9 +126,9 @@ class SportPage extends Component<
 
     return this.setState(
       prevState => {
-        const { step, status } = prevState;
+        const { status } = prevState;
         return {
-          step: step + 1,
+          step: 3,
           status: status.map((e, i) => (i === 1 ? true : e)),
           users: d.users,
         };
