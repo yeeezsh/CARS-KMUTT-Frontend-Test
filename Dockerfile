@@ -1,9 +1,9 @@
 FROM node:12
 
 # cache dependencies
-ADD package-lock.json /tmp/yarn.json
+ADD yarn.lock /tmp/yarn.lock
 ADD package.json /tmp/package.json
-RUN cd /tmp && yarn install --production=false --no-lockfile
+RUN cd /tmp && yarn install
 RUN mkdir -p /src && cp -a /tmp/node_modules /src/
 
 ADD . ./src
