@@ -1,0 +1,48 @@
+.card {
+  background-color: #ffffff;
+  height: 90px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  padding: 12px;
+  margin-bottom: 8px;
+}
+
+.empty {
+  font-size: 16px;
+  color: #979797;
+  text-align: center;
+  margin-top: 24px;
+}
+
+.title {
+  font-size: 12px;
+  color: #ff682b;
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: bold;
+}
+
+.date {
+  color: #979797;
+  font-size: 12px;
+  line-height: 22px;
+  float: right;
+}
+
+.detail {
+  color: #666666;
+  margin-top: -14px;
+}
+
+.state {
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.blue {
+  color: #1890ff;
+}
+
+.yellow {
+  color: #ffbf00;
+}

@@ -1,0 +1,45 @@
+.desc {
+  margin-top: -20px;
+  color: #666666;
+  font-size: 12px;
+}
+
+.sideLabel {
+  font-size: 16px;
+  line-height: 32px;
+  color: #ff682b;
+  margin-left: 8px;
+}
+
+.innerFixedHeader {
+  position: fixed;
+  display: block;
+  width: 100%;
+  z-index: 1;
+  background-color: white;
+}
+
+.overview {
+  border: 1px solid #91d5ff;
+  box-sizing: border-box;
+  border-radius: 4px;
+  padding: 12px;
+}
+
+.overviewHeader {
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 28px;
+  color: #666666;
+  margin-right: 5px;
+}
+
+.overviewStudentIds {
+  font-size: 16px;
+  line-height: 28px;
+  color: #1890ff;
+}
+
+.studentId {
+  margin-bottom: -2px;
+}
