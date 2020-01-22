@@ -71,7 +71,7 @@ export default class TimeTable extends Component<TimeTableProps, TimeTableState>
     let table: TimeNode[] = [];
     let cur = moment(start);
 
-    while (cur < stop) {
+    while (cur <= stop) {
       table.push({
         value: cur,
         type: 'available',
