@@ -54,13 +54,13 @@ class QueryClass {
       .map(e => {
         const fetchIndex = fetch.findIndex(d => d.name === e.query?.name);
         if (fetchIndex < 0) return e;
-        const areaId = fetch[fetchIndex]._id;
+        const typeId = fetch[fetchIndex]._id;
         return {
           ...e,
-          link: `/reserve/sport/${areaId}/1`,
+          link: `/reserve/sport/${typeId}/1`,
           query: {
             ...e.query,
-            _id: areaId,
+            _id: typeId,
           },
         };
       })
