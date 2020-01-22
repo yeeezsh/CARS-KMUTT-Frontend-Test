@@ -10,6 +10,7 @@ const category: Menu[] = [
     state: {
       label: ['ฟุตบอล', 'football'],
     },
+    query: { name: 'football' },
   },
   {
     key: '2',
@@ -19,6 +20,7 @@ const category: Menu[] = [
     state: {
       label: ['แบดมินตัน', 'badminton'],
     },
+    query: { name: 'badminton' },
   },
   {
     key: '3',
