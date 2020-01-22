@@ -2,6 +2,7 @@ import { footballIcon, badmintonIcon, basketballIcon, tennisIcon, volleyballIcon
 import Menu from '../../menu/interface';
 import i from '../../axios.interface';
 import { FetchMenu } from './fetch.interface';
+import Area from '../../../pages/Sport/area.interface';
 
 const category: Menu[] = [
   {
@@ -53,16 +54,23 @@ class QueryClass {
       .map(e => {
         const fetchIndex = fetch.findIndex(d => d.name === e.query?.name);
         if (fetchIndex < 0) return e;
+        const areaId = fetch[fetchIndex]._id;
         return {
           ...e,
+          link: `/reserve/sport/${areaId}/1`,
           query: {
             ...e.query,
-            _id: fetch[fetchIndex]._id,
+            _id: areaId,
           },
         };
       })
       .filter(e => e.query?._id);
     return mainMenu;
+  }
+
+  async area(id: string): Promise<Area> {
+    const fetch: Area = (await i.instance.get(`/area/${id}`)).data;
+    return fetch;
   }
 }
 const Query = new QueryClass();
