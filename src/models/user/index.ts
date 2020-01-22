@@ -1,5 +1,3 @@
-export default () => null;
-
 import instance from './axios.interface';
 import User from './interface';
 
@@ -15,7 +13,12 @@ const SaveCredential = (data: User) => {
   }
 };
 
-const login = (type: 'staff' | 'requestor', data: { username: string; password: string }) => {
+const DeleteCredential = () => {
+  localStorage.removeItem('user');
+  return;
+};
+
+const loginAdapter = (type: 'staff' | 'requestor', data: { username: string; password: string }) => {
   let url = '/users/auth/requestor';
   if (type === 'staff') url = '/users/auth/staff';
   return instance.post(url, data);
@@ -26,7 +29,7 @@ const RequestorLogin = async (
   password: string,
 ): Promise<{ access_token?: string; Authorization?: string; auth: boolean }> => {
   try {
-    const res = (await login('requestor', { username, password })).data;
+    const res = (await loginAdapter('requestor', { username, password })).data;
     SaveCredential(res);
     return { ...res, auth: true };
   } catch (err) {
@@ -41,4 +44,11 @@ const RequestorLogin = async (
   }
 };
 
-export { RequestorLogin };
+const UserLogout = () => DeleteCredential();
+const GetUser = (): User => {
+  const data = localStorage.getItem('user');
+  if (!data) throw Error('no user data please login');
+  return JSON.parse(data);
+};
+
+export { RequestorLogin, UserLogout, GetUser };
