@@ -1,12 +1,13 @@
+import { hot } from 'react-hot-loader/root';
 import React, { Component } from 'react';
-import './App.css';
 import PageRouter from './pages/Router';
+import './App.css';
 
 // hotfix
 import { GetUserToken } from './models/user';
 import i from './models/axios.interface';
 
-export default class App extends Component {
+class App extends Component {
   componentDidMount() {
     try {
       // get token before initial app
@@ -22,3 +23,4 @@ export default class App extends Component {
     return <PageRouter />;
   }
 }
+export default hot(App);
