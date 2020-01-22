@@ -14,8 +14,13 @@ import greySquareIcon from '../../assets/icons/square/grey.svg';
 import blueSquareIcon from '../../assets/icons/square/blue.svg';
 
 import TimeAreaReserveType from '../../models/area/time.interface';
+import moment from 'moment';
 
 const TimePage: React.FunctionComponent<TimeAreaReserveType> = props => {
+  const today = moment().startOf('day');
+  const selectedDate = props.date.selected;
+  console.log('time page', props);
+
   let reserveSlot: number[] = props.areas.map(e => e.time.interval || 60);
   reserveSlot = reserveSlot.filter((e, i) => reserveSlot.indexOf(e) === i);
 
@@ -26,6 +31,7 @@ const TimePage: React.FunctionComponent<TimeAreaReserveType> = props => {
     reserveSlot = reserveSlot.map(e => e / 60);
   }
   const reserveDesc = reserveSlot.join(', ') + ' ' + unit;
+  const { date, onSelectDate } = props;
   return (
     <React.Fragment>
       {/* outliner n' desc */}
@@ -47,12 +53,7 @@ const TimePage: React.FunctionComponent<TimeAreaReserveType> = props => {
 
         {/* BadgeDaySelector */}
         <Col span={24}>
-          <BadgeDateSelector
-            start={props.date.start}
-            stop={props.date.stop}
-            select={props.date.selected}
-            onSelect={props.onSelectDate}
-          />
+          <BadgeDateSelector start={date.start} stop={date.stop} select={date.selected} onSelect={onSelectDate} />
         </Col>
       </Col>
 
@@ -72,7 +73,7 @@ const TimePage: React.FunctionComponent<TimeAreaReserveType> = props => {
                 fontSize: '16px',
               }}
             >
-              วันที่ {props.date.selected.format('DD MMMM YYYY')}
+              วันที่ {date.selected.format('DD MMMM YYYY')}
             </span>
           </Badge>
         </Row>
@@ -89,19 +90,23 @@ const TimePage: React.FunctionComponent<TimeAreaReserveType> = props => {
 
       {/* TimeTable */}
       {props.areas &&
-        props.areas.map((e, i) => (
-          <Col key={i} span={24}>
-            <TimeTable
-              onClick={() => props.onSelectArea(e.area)}
-              title={e.area.label}
-              start={e.time.start}
-              stop={e.time.stop}
-              interval={e.time.interval || 60}
-              onSelect={props.onSelectTime}
-              disabled={e.time.disabled}
-            />
-          </Col>
-        ))}
+        props.areas.map((e, i) => {
+          const { area, time } = e;
+          console.log(today, selectedDate.format('DD'), e.time.forward);
+          return (
+            <Col key={i} span={24}>
+              <TimeTable
+                onClick={() => props.onSelectArea(e.area)}
+                title={area.label}
+                start={time.start}
+                stop={time.stop}
+                interval={time.interval || 60}
+                onSelect={props.onSelectTime}
+                disabled={time.disabled}
+              />
+            </Col>
+          );
+        })}
     </React.Fragment>
   );
 };

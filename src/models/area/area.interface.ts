@@ -12,6 +12,8 @@ interface Area {
     stop: Moment;
     disabled?: TimeNode[];
     interval?: number;
+    week: string;
+    forward: number;
   };
 }
 

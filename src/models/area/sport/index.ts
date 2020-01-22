@@ -87,6 +87,8 @@ class QueryClass {
           stop: moment(maxTime.stop),
           disabled: [],
           interval: e.reserve[0].interval,
+          week: e.reserve[0].week,
+          forward: e.forward,
         },
       };
     });

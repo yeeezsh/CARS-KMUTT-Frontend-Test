@@ -54,6 +54,7 @@ class SportPage extends Component<
     interval: number;
     confirmModal: boolean;
     areas: Area[];
+    maxForward: number;
   }
 > {
   state = {
@@ -68,6 +69,7 @@ class SportPage extends Component<
     interval: 0,
     confirmModal: false,
     areas: [],
+    maxForward: 2,
   };
 
   onSelectDate = (date: Moment) => {
@@ -184,7 +186,8 @@ class SportPage extends Component<
     // area query
     const typeId = location.pathname.split('/')[3];
     const areas = await Query.area(typeId);
-    this.setState({ areas });
+    const maxForward = areas.reduce((prev, cur) => (prev.time.forward > cur.time.forward ? prev : cur)).time.forward;
+    this.setState({ areas, maxForward });
 
     // for setting badge
     const status = stepLists.map(e => false);
@@ -199,7 +202,17 @@ class SportPage extends Component<
 
   render() {
     console.log('page sport states', this.state);
-    const { confirmModal, users, step, backCard, areaSelected, dateSelected, timeSelected, interval } = this.state;
+    const {
+      confirmModal,
+      users,
+      step,
+      backCard,
+      areaSelected,
+      dateSelected,
+      timeSelected,
+      interval,
+      maxForward,
+    } = this.state;
 
     return (
       <React.Fragment>
@@ -240,8 +253,10 @@ class SportPage extends Component<
                 onSelectTime={this.onSelectTime}
                 onSelectArea={this.onSelectArea}
                 date={{
-                  start: moment(),
-                  stop: moment().add(12, 'hour'),
+                  start: moment().startOf('day'),
+                  stop: moment()
+                    .startOf('day')
+                    .add(maxForward - 1, 'day'),
                   selected: dateSelected,
                 }}
                 areas={this.state.areas}
