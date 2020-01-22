@@ -1,7 +1,7 @@
 import React from 'react';
 import { Col, Row } from 'antd';
 import styles from './card.module.css';
-import Menu from './menu.interface';
+import Menu from '../../models/menu/interface';
 
 export default function Card(props: { icon?: string; label: Array<string>; setting?: Menu['setting'] }) {
   const { label, icon, setting } = props;
