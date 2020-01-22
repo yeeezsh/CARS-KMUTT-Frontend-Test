@@ -51,4 +51,11 @@ const GetUser = (): User => {
   return JSON.parse(data);
 };
 
-export { RequestorLogin, UserLogout, GetUser };
+const GetUserToken = (): User['Authorization'] => {
+  const data = localStorage.getItem('user');
+  if (!data) throw Error('no user data please login');
+  const parse: User = JSON.parse(data);
+  return parse.Authorization;
+};
+
+export { RequestorLogin, UserLogout, GetUser, GetUserToken };
