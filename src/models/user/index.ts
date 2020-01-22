@@ -1,11 +1,13 @@
 import instance from './axios.interface';
 import User from './interface';
+import i from '../axios.interface';
 
 const SaveCredential = (data: User) => {
   try {
     const duplicated = localStorage.getItem('user');
     if (duplicated) localStorage.removeItem('user');
     localStorage.setItem('user', JSON.stringify(data));
+    i.addToken(data.Authorization);
     return true;
   } catch (err) {
     console.error(err);
@@ -15,6 +17,7 @@ const SaveCredential = (data: User) => {
 
 const DeleteCredential = () => {
   localStorage.removeItem('user');
+  i.removeToken();
   return;
 };
 
