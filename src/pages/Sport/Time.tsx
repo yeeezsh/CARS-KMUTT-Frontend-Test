@@ -16,10 +16,23 @@ import blueSquareIcon from '../../assets/icons/square/blue.svg';
 import TimeAreaReserveType from '../../models/area/time.interface';
 import moment from 'moment';
 
+const iconLabel: React.CSSProperties = {
+  color: '#3B4046',
+  fontSize: '14px',
+  marginLeft: '5px',
+  marginTop: '14px',
+};
+
+const iconSquare = (text?: string, icon?: string) => (
+  <div style={{ display: 'flex', padding: '0px 10px 0px 10px' }}>
+    <img src={icon} alt="icon" />
+    <p style={iconLabel}>{text || ''}</p>
+  </div>
+);
+
 const TimePage: React.FunctionComponent<TimeAreaReserveType> = props => {
-  const today = moment().startOf('day');
+  const today = moment();
   const selectedDate = props.date.selected;
-  console.log('time page', props);
 
   let reserveSlot: number[] = props.areas.map(e => e.time.interval || 60);
   reserveSlot = reserveSlot.filter((e, i) => reserveSlot.indexOf(e) === i);
@@ -92,7 +105,7 @@ const TimePage: React.FunctionComponent<TimeAreaReserveType> = props => {
       {props.areas &&
         props.areas.map((e, i) => {
           const { area, time } = e;
-          console.log(today, selectedDate.format('DD'), e.time.forward);
+          // console.log(today, selectedDate.format('DD'), e.time.forward);
           return (
             <Col key={i} span={24}>
               <TimeTable
@@ -102,7 +115,8 @@ const TimePage: React.FunctionComponent<TimeAreaReserveType> = props => {
                 stop={time.stop}
                 interval={time.interval || 60}
                 onSelect={props.onSelectTime}
-                disabled={time.disabled}
+                // disabled={time.disabled}
+                disabled={[]}
               />
             </Col>
           );
@@ -111,17 +125,3 @@ const TimePage: React.FunctionComponent<TimeAreaReserveType> = props => {
   );
 };
 export default TimePage;
-
-const iconLabel: React.CSSProperties = {
-  color: '#3B4046',
-  fontSize: '14px',
-  marginLeft: '5px',
-  marginTop: '14px',
-};
-
-const iconSquare = (text?: string, icon?: string) => (
-  <div style={{ display: 'flex', padding: '0px 10px 0px 10px' }}>
-    <img src={icon} alt="icon" />
-    <p style={iconLabel}>{text || ''}</p>
-  </div>
-);
