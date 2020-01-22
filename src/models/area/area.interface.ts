@@ -3,8 +3,8 @@ import TimeNode from '../../components/TimeTable/timetable.interface';
 
 interface Area {
   area: {
-    id: string;
-    label: string;
+    id: string | any;
+    label: string | undefined;
     required: number;
   };
   time: {

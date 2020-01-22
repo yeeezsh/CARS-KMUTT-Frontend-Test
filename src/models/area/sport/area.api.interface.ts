@@ -1,4 +1,4 @@
-interface Reserve {
+interface ReserveAPI {
   interval: number | -1 | 60;
   max: number;
   start?: Date;
@@ -7,7 +7,7 @@ interface Reserve {
   week: string | '1-7' | '1,2,3';
 }
 
-export interface Area {
+export interface AreaAPI {
   _id: string;
   name: string;
   label?: string;
@@ -17,7 +17,7 @@ export interface Area {
     staff?: string[];
     requestor: number;
   };
-  reserve: Reserve[];
+  reserve: ReserveAPI[];
   createAt: Date;
   updateAt: Date;
 }

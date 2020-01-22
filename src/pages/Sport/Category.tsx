@@ -14,7 +14,7 @@ export default class Category extends Component<
     category: [],
   };
   async componentDidMount() {
-    const data = await Query.all();
+    const data = await Query.type();
     const categoryMenu = data.map(e => {
       return {
         ...e,

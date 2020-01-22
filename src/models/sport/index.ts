@@ -1,5 +1,5 @@
 import moment from 'moment';
-import TimeAreaReserveType from '../../pages/Sport/time.interface';
+import TimeAreaReserveType from '../area/time.interface';
 import StepsType from '../../components/StateSteps/step.interface';
 
 const areas: TimeAreaReserveType['areas'] = [

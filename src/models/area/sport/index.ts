@@ -2,7 +2,9 @@ import { footballIcon, badmintonIcon, basketballIcon, tennisIcon, volleyballIcon
 import Menu from '../../menu/interface';
 import i from '../../axios.interface';
 import { FetchMenu } from './fetch.interface';
-import Area from '../../../pages/Sport/area.interface';
+import TimeAreaReserveType from '../time.interface';
+import { AreaAPI } from './area.api.interface';
+import moment from 'moment';
 
 const category: Menu[] = [
   {
@@ -48,7 +50,7 @@ class QueryClass {
     this.data = [];
   }
 
-  async all(): Promise<Menu[]> {
+  async type(): Promise<Menu[]> {
     const fetch: FetchMenu[] = (await i.instance.get('/area/sport/all')).data;
     const mainMenu = category
       .map(e => {
@@ -68,9 +70,28 @@ class QueryClass {
     return mainMenu;
   }
 
-  async area(id: string): Promise<Area> {
-    const fetch: Area = (await i.instance.get(`/area/${id}`)).data;
-    return fetch;
+  async area(id: string): Promise<TimeAreaReserveType['areas']> {
+    const fetch: AreaAPI[] = (await i.instance.get(`/area/sport/${id}`)).data;
+    const mapped = fetch.map(e => {
+      const minTime = e.reserve.reduce((prev, cur) => ((prev.start || 0) < (cur.start || 0) ? prev : cur));
+      const maxTime = e.reserve.reduce((prev, cur) => ((prev.stop || 0) > (cur.stop || 0) ? prev : cur));
+
+      return {
+        area: {
+          id: e._id,
+          label: e.label,
+          required: e.required.requestor,
+        },
+        time: {
+          start: moment(minTime.start),
+          stop: moment(maxTime.stop),
+          disabled: [],
+          interval: e.reserve[0].interval,
+        },
+      };
+    });
+
+    return mapped;
   }
 }
 const Query = new QueryClass();

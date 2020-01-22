@@ -25,10 +25,12 @@ import StateSteps from '../../components/StateSteps';
 import ConfirmModal from '../../components/ConfirmModal';
 
 import TimeNode from '../../components/TimeTable/timetable.interface';
-import Area from './area.interface';
+import Area from '../../models/area/area.interface';
 
-import { areas, stepLists } from '../../models/sport';
+// import { stepLists, areas } from '../../models/sport';
+import { stepLists } from '../../models/sport';
 import BackCard from '../../components/BackCard';
+import { Query } from '../../models/area/sport';
 
 const CATEGORY_PAGE = '/reserve/sport/category';
 const FIRST_STEP_PAGE = '/reserve/sport/1';
@@ -51,6 +53,7 @@ class SportPage extends Component<
     backCard: string[];
     interval: number;
     confirmModal: boolean;
+    areas: Area[];
   }
 > {
   state = {
@@ -64,6 +67,7 @@ class SportPage extends Component<
     backCard: ['เลือกประเภทกีฬา', 'เลือกช่วงเวลา', 'กรอกรหัสนักศึกษา'],
     interval: 0,
     confirmModal: false,
+    areas: [],
   };
 
   onSelectDate = (date: Moment) => {
@@ -117,6 +121,7 @@ class SportPage extends Component<
   };
 
   onSelectArea = (area: Area['area']) => {
+    const areas: Area[] = this.state.areas;
     const interval = areas.find(e => e.area.id === area.id)?.time.interval || 60;
     return this.setState({ areaSelected: area, interval });
   };
@@ -170,13 +175,18 @@ class SportPage extends Component<
 
   onModal = () => this.props.history.replace('/');
 
-  componentDidMount = () => {
+  componentDidMount = async () => {
     TimePage.preload();
     FormPage.preload();
     ConfirmPage.preload();
+    const { history, location } = this.props;
+
+    // area query
+    const typeId = location.pathname.split('/')[3];
+    const areas = await Query.area(typeId);
+    this.setState({ areas });
 
     // for setting badge
-    const { history, location } = this.props;
     const status = stepLists.map(e => false);
     const badge = history.location.state?.label[0];
     if (!badge) return history.replace(CATEGORY_PAGE);
@@ -188,7 +198,7 @@ class SportPage extends Component<
   };
 
   render() {
-    console.log(this.state);
+    console.log('page sport states', this.state);
     const { confirmModal, users, step, backCard, areaSelected, dateSelected, timeSelected, interval } = this.state;
 
     return (
@@ -234,7 +244,7 @@ class SportPage extends Component<
                   stop: moment().add(12, 'hour'),
                   selected: dateSelected,
                 }}
-                areas={areas}
+                areas={this.state.areas}
               />
             </Route>
 

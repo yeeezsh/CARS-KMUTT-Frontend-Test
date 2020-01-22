@@ -13,7 +13,7 @@ import orangeSquareIcon from '../../assets/icons/square/orange.svg';
 import greySquareIcon from '../../assets/icons/square/grey.svg';
 import blueSquareIcon from '../../assets/icons/square/blue.svg';
 
-import TimeAreaReserveType from './time.interface';
+import TimeAreaReserveType from '../../models/area/time.interface';
 
 const TimePage: React.FunctionComponent<TimeAreaReserveType> = props => {
   let reserveSlot: number[] = props.areas.map(e => e.time.interval || 60);
