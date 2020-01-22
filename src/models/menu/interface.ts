@@ -1,5 +1,10 @@
 import RouterStates from './states.interface';
 
+interface Query {
+  _id?: string;
+  name?: string;
+}
+
 export default interface Menu {
   key: string;
   label: string[];
@@ -12,4 +17,5 @@ export default interface Menu {
     iconSize?: number;
   };
   state?: RouterStates;
+  query?: Query;
 }
