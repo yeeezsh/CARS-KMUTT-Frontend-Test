@@ -1,5 +1,7 @@
 import { footballIcon, badmintonIcon, basketballIcon, tennisIcon, volleyballIcon } from './icon.import';
 import Menu from '../../menu/interface';
+import i from '../../axios.interface';
+import { FetchMenu } from './fetch.interface';
 
 const category: Menu[] = [
   {
@@ -39,4 +41,30 @@ const category: Menu[] = [
   },
 ];
 
-export { category };
+class QueryClass {
+  data: Menu[];
+  constructor() {
+    this.data = [];
+  }
+
+  async all(): Promise<Menu[]> {
+    const fetch: FetchMenu[] = (await i.instance.get('/area/sport/all')).data;
+    const mainMenu = category
+      .map(e => {
+        const fetchIndex = fetch.findIndex(d => d.name === e.query?.name);
+        if (fetchIndex < 0) return e;
+        return {
+          ...e,
+          query: {
+            ...e.query,
+            _id: fetch[fetchIndex]._id,
+          },
+        };
+      })
+      .filter(e => e.query?._id);
+    return mainMenu;
+  }
+}
+const Query = new QueryClass();
+
+export { category, Query };
