@@ -8,6 +8,10 @@ class Instance {
     this.instance = axios.create({
       baseURL: END_POINT,
       timeout: 5000,
+      proxy: {
+        host: 'http://157.245.147.102',
+        port: 3000,
+      },
     });
     this.token = '';
   }
@@ -18,6 +22,10 @@ class Instance {
     this.instance = axios.create({
       baseURL: END_POINT,
       timeout: 2000,
+      proxy: {
+        host: 'http://157.245.147.102',
+        port: 3000,
+      },
       headers: {
         Authorization: token,
       },
@@ -30,6 +38,10 @@ class Instance {
     this.instance = axios.create({
       baseURL: END_POINT,
       timeout: 2000,
+      proxy: {
+        host: 'http://157.245.147.102',
+        port: 3000,
+      },
     });
     return this;
   }
