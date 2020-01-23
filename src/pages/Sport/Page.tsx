@@ -31,6 +31,9 @@ import Area from '../../models/area/area.interface';
 import { stepLists } from '../../models/sport';
 import BackCard from '../../components/BackCard';
 import { Query } from '../../models/area/sport';
+import { GetUser } from '../../models/user';
+import { Mutate } from '../../models/task/sport';
+import { TaskSport } from '../../models/task/sport/sport.interface';
 
 const CATEGORY_PAGE = '/reserve/sport/category';
 const FIRST_STEP_PAGE = '/reserve/sport/1';
@@ -44,7 +47,7 @@ class SportPage extends Component<
   RouteComponentProps<any>,
   {
     dateSelected: Moment;
-    timeSelected: Moment | undefined;
+    timeSelected: Moment;
     areaSelected: Area['area'];
     step: number;
     badge: string | undefined;
@@ -55,11 +58,12 @@ class SportPage extends Component<
     confirmModal: boolean;
     areas: Area[];
     maxForward: number;
+    owner: string;
   }
 > {
   state = {
     dateSelected: moment().startOf('day'),
-    timeSelected: undefined,
+    timeSelected: moment().startOf('day'),
     areaSelected: DEFAULT_SELECTED_AREA,
     users: [],
     step: 1,
@@ -70,6 +74,7 @@ class SportPage extends Component<
     confirmModal: false,
     areas: [],
     maxForward: 2,
+    owner: '',
   };
 
   onSelectDate = (date: Moment) => {
@@ -156,7 +161,7 @@ class SportPage extends Component<
         return {
           step: step - 1,
           //   all reset when step 2 cause selected area, time is the same
-          timeSelected: step === 2 ? undefined : timeSelected,
+          timeSelected: step === 2 ? moment() : timeSelected,
           areaSelected: step === 2 ? DEFAULT_SELECTED_AREA : areaSelected,
         };
       },
@@ -171,7 +176,24 @@ class SportPage extends Component<
   };
 
   onConfirm = () => {
+    // on send
     console.log('confirm kaa');
+    const { owner, areaSelected, timeSelected, dateSelected, interval, users } = this.state;
+    const startTime = moment(
+      `${dateSelected.format('DD-MM-YYYY')}-${timeSelected.format('HH:mm')}`,
+      'DD-MM-YYYY-HH:mm',
+    ).subtract(interval, 'minute');
+    const stopTime = moment(startTime).add(interval, 'minute');
+    console.log('sssssssssss');
+    console.log('start', startTime.format('HH:mm'));
+    console.log('stop', stopTime.format('HH:mm'));
+    const parse: TaskSport = {
+      owner,
+      area: areaSelected.id,
+      time: [{ start: startTime, stop: stopTime }],
+      requestor: users,
+    };
+    Mutate.create(parse);
     return this.setState({ confirmModal: true });
   };
 
@@ -183,11 +205,14 @@ class SportPage extends Component<
     ConfirmPage.preload();
     const { history, location } = this.props;
 
+    // set owner
+    const owner = GetUser().username || '';
+
     // area query
     const typeId = location.pathname.split('/')[3];
     const areas = await Query.area(typeId);
     const maxForward = areas.reduce((prev, cur) => (prev.time.forward > cur.time.forward ? prev : cur)).time.forward;
-    this.setState({ areas, maxForward });
+    this.setState({ areas, maxForward, owner });
 
     // for setting badge
     const status = stepLists.map(() => false);
