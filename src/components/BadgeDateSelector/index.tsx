@@ -1,6 +1,6 @@
 import React from 'react';
 import moment, { Moment } from 'moment';
-import { Row, Col } from 'antd';
+import { Row } from 'antd';
 
 import styles from './styles.module.css';
 import Badge from './badge';

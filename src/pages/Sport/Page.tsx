@@ -108,7 +108,7 @@ class SportPage extends Component<
   };
 
   onClickStep = (n: number) => {
-    const { status } = this.state;
+    // const { status } = this.state;
     const canNext = false;
     // status.forEach((e, i) => {
     //   if (n - 1 === i && e) canNext = true;
@@ -190,7 +190,7 @@ class SportPage extends Component<
     this.setState({ areas, maxForward });
 
     // for setting badge
-    const status = stepLists.map(e => false);
+    const status = stepLists.map(() => false);
     const badge = history.location.state?.label[0];
     if (!badge) return history.replace(CATEGORY_PAGE);
     return this.setState({ badge, status }, () => {
