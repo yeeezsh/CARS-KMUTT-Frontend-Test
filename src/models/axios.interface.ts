@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
-const END_POINT = 'http://localhost:3000';
+const END_POINT = 'http://0.0.0.0:3000/api';
 
 class Instance {
   instance: AxiosInstance;
@@ -7,7 +7,7 @@ class Instance {
   constructor() {
     this.instance = axios.create({
       baseURL: END_POINT,
-      timeout: 2000,
+      timeout: 5000,
     });
     this.token = '';
   }
