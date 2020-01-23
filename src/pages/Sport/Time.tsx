@@ -33,8 +33,10 @@ const iconSquare = (text?: string, icon?: string) => (
 );
 
 const TimePage: React.FunctionComponent<TimeAreaReserveType> = props => {
-  const today = moment();
+  const now = moment(new Date());
+  const today = now;
   const selectedDate = props.date.selected;
+  const selectedWeek = Number(moment(selectedDate).format('E'));
 
   let reserveSlot: number[] = props.areas.map(e => e.time.interval || 60);
   reserveSlot = reserveSlot.filter((e, i) => reserveSlot.indexOf(e) === i);
@@ -109,7 +111,9 @@ const TimePage: React.FunctionComponent<TimeAreaReserveType> = props => {
           const { area, time } = e;
           const start = moment(time.start).startOf('hour');
           const weekParsed = WeekParseHelper(e.time.week);
-          console.log(weekParsed);
+          console.log(weekParsed, selectedWeek, weekParsed.includes(selectedWeek));
+          if (!weekParsed.includes(selectedWeek)) return null;
+          //   return <Col key={`${i}-${selectedDate.format('DD-MM-YYYY')}`} span={24}></Col>;
           // console.log('now', start.format('DD MM YYYY hh-mm'));
 
           let disabledMapped: TimeNode[] = [];
@@ -126,17 +130,18 @@ const TimePage: React.FunctionComponent<TimeAreaReserveType> = props => {
                 Number(selectedDate.format('DD')),
               );
               const disabled: TimeNode = { type: 'disabled', value: moment(valueMapped) };
-              console.log(disabled.value.format('HH:mm DD-MM-YYY'), 'd - t', today.format('HH:mm DD-MM-YYY'));
-              console.log(today.diff(valueMapped));
+              // console.log(disabled.value.format('HH:mm DD-MM-YYY'), 'd - t', today.format('HH:mm DD-MM-YYY'));
+              // console.log(today.diff(valueMapped));
               const pastDate = today.diff(valueMapped) > 0;
-              console.log('pastdate', pastDate);
+              // console.log('pastdate', pastDate);
               if (pastDate) return disabled;
 
               return e;
             })
             .filter(({ type }) => type !== 'available');
-          console.log('dsm', disabledMapped);
+          // console.log('dsm', disabledMapped);
           // console.log(today, selectedDate.format('DD'), e.time.forward);
+
           return (
             <Col key={`${i}-${selectedDate.format('DD-MM-YYYY')}`} span={24}>
               <TimeTable
