@@ -79,9 +79,9 @@ export default class TimeTable extends Component<TimeTableProps, TimeTableState>
       cur = moment(cur.add(interval, 'minute'));
     }
 
-    const disabledMapped = disabled?.map(e => e.value.format('hh.mm'));
+    const disabledMapped = disabled?.map(e => e.value.format('HH.mm'));
     table = table.map(e => {
-      const type = disabledMapped?.includes(e.value.format('hh.mm'));
+      const type = disabledMapped?.includes(e.value.format('HH.mm'));
       if (type) {
         return {
           ...e,
@@ -119,7 +119,7 @@ export default class TimeTable extends Component<TimeTableProps, TimeTableState>
                 justify="center"
               >
                 <p style={cardStyle(type)} className={styles.card}>
-                  {value.format('hh.mm')}
+                  {value.format('HH.mm')}
                 </p>
               </Row>
             ))}
