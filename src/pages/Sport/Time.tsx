@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import moment from 'moment';
+import moment, { Moment } from 'moment';
 import { Col, Row } from 'antd';
 import Loadable from 'react-loadable';
 
@@ -41,11 +41,31 @@ const iconSquare = (text?: string, icon?: string) => (
   </div>
 );
 
-export default class TimePage extends Component<TimeAreaReserveType, {}> {
+export default class TimePage extends Component<
+  TimeAreaReserveType,
+  {
+    selectedDate: Moment;
+    data: any;
+  }
+> {
+  state = {
+    selectedDate: moment(new Date()),
+    data: [],
+  };
+
+  onSelectDate = (d: Moment) => {
+    this.setState({ selectedDate: d });
+    return this.props.onSelectDate(d);
+  };
+  componentDidMount = () => {
+    const selectedDate = this.props.date.selected;
+    this.setState({ selectedDate });
+  };
+
   render() {
     const now = moment(new Date());
     const today = now;
-    const selectedDate = this.props.date.selected;
+    const selectedDate = this.state.selectedDate;
     const selectedWeek = Number(moment(selectedDate).format('E'));
 
     let reserveSlot: number[] = this.props.areas.map(e => e.time.interval || 60);
@@ -80,7 +100,12 @@ export default class TimePage extends Component<TimeAreaReserveType, {}> {
 
           {/* BadgeDaySelector */}
           <Col span={24}>
-            <BadgeDateSelector start={date.start} stop={date.stop} select={date.selected} onSelect={onSelectDate} />
+            <BadgeDateSelector
+              start={date.start}
+              stop={date.stop}
+              select={date.selected}
+              onSelect={this.onSelectDate}
+            />
           </Col>
         </Col>
 
