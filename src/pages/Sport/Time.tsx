@@ -15,6 +15,8 @@ import blueSquareIcon from '../../assets/icons/square/blue.svg';
 
 import TimeAreaReserveType from '../../models/area/time.interface';
 import moment from 'moment';
+import WeekParseHelper from './helpers/week.parse';
+import TimeNode from '../../components/TimeTable/timetable.interface';
 
 const iconLabel: React.CSSProperties = {
   color: '#3B4046',
@@ -105,9 +107,38 @@ const TimePage: React.FunctionComponent<TimeAreaReserveType> = props => {
       {props.areas &&
         props.areas.map((e, i) => {
           const { area, time } = e;
+          const start = moment(time.start).startOf('hour');
+          const weekParsed = WeekParseHelper(e.time.week);
+          console.log(weekParsed);
+          // console.log('now', start.format('DD MM YYYY hh-mm'));
+
+          let disabledMapped: TimeNode[] = [];
+          const cur = start;
+          while (cur <= time.stop) {
+            disabledMapped.push({ value: moment(cur), type: 'available' });
+            cur.add(time.interval || 60, 'minute');
+          }
+          disabledMapped.push({ value: moment(cur), type: 'available' });
+          disabledMapped = disabledMapped
+            .map(e => {
+              const valueMapped = moment(e.value.format('HH.mm'), 'HH.mm').set(
+                'date',
+                Number(selectedDate.format('DD')),
+              );
+              const disabled: TimeNode = { type: 'disabled', value: moment(valueMapped) };
+              console.log(disabled.value.format('HH:mm DD-MM-YYY'), 'd - t', today.format('HH:mm DD-MM-YYY'));
+              console.log(today.diff(valueMapped));
+              const pastDate = today.diff(valueMapped) > 0;
+              console.log('pastdate', pastDate);
+              if (pastDate) return disabled;
+
+              return e;
+            })
+            .filter(({ type }) => type !== 'available');
+          console.log('dsm', disabledMapped);
           // console.log(today, selectedDate.format('DD'), e.time.forward);
           return (
-            <Col key={i} span={24}>
+            <Col key={`${i}-${selectedDate.format('DD-MM-YYYY')}`} span={24}>
               <TimeTable
                 onClick={() => props.onSelectArea(e.area)}
                 title={area.label}
@@ -115,8 +146,8 @@ const TimePage: React.FunctionComponent<TimeAreaReserveType> = props => {
                 stop={time.stop}
                 interval={time.interval || 60}
                 onSelect={props.onSelectTime}
-                // disabled={time.disabled}
-                disabled={[]}
+                disabled={disabledMapped}
+                // disabled={[]}
               />
             </Col>
           );
