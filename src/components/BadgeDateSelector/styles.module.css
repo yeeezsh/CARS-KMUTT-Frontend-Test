@@ -13,9 +13,11 @@
   background: #ff682b;
   border-radius: 4px;
   border: 1px solid #ff682b;
+  transition: background-color 0.2s ease-out;
 }
 
 .unselected p {
+  transition: background-color 0.2s ease-out;
   color: #ff682b;
 }
 

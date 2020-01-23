@@ -110,6 +110,7 @@ export default class TimeTable extends Component<TimeTableProps, TimeTableState>
           {table[0] &&
             table.map(({ value, type }, i) => (
               <Row
+                className={styles.table}
                 key={i}
                 onClick={() => {
                   this.onSelect(value, type);
