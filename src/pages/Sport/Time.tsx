@@ -7,8 +7,11 @@ import styles from './styles.module.css';
 
 import BreakingLine from '../../components/BreakingLine';
 import Outline from '../../components/Outline';
-import BadgeDateSelector from '../../components/BadgeDateSelector';
 import Badge from '../../components/Badge';
+const BadgeDateSelector = Loadable({
+  loader: () => import('../../components/BadgeDateSelector'),
+  loading: () => null,
+});
 const TimeTable = Loadable({
   loader: () => import('../../components/TimeTable'),
   loading: () => null,
