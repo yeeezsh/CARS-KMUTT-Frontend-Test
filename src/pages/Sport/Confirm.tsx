@@ -14,7 +14,7 @@ export default class ConfirmPage extends Component<
     time: Moment | undefined;
     interval: number;
     date: Moment;
-    users?: string[];
+    users: string[];
   },
   {}
 > {
@@ -59,7 +59,7 @@ export default class ConfirmPage extends Component<
             <Row type="flex" justify="center">
               <Col span={22}>
                 <Button style={{ backgroundColor: '#1890FF' }} onClick={this.props.onConfirm}>
-                  ส่งรีเควสไปให้เพื่อน
+                  {users?.length > 1 ? 'ส่งรีเควสไปให้เพื่อน' : 'ยืนยันการจอง'}
                 </Button>
               </Col>
             </Row>
