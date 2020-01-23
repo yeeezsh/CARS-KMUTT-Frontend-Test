@@ -51,10 +51,11 @@ export default class PageRouter extends Component<
 
   componentDidMount = () => {
     // preload other components
+    LoginPage.preload();
     Home.preload();
     AppDrawer.preload();
-    SportCategory.preload();
-    SportPage.preload();
+    // SportCategory.preload();
+    // SportPage.preload();
 
     // when first lunch
     const { location } = history;

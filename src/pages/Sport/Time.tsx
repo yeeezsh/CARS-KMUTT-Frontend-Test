@@ -1,22 +1,28 @@
 import React from 'react';
+import moment from 'moment';
 import { Col, Row } from 'antd';
+import Loadable from 'react-loadable';
 
 import styles from './styles.module.css';
 
 import BreakingLine from '../../components/BreakingLine';
 import Outline from '../../components/Outline';
 import BadgeDateSelector from '../../components/BadgeDateSelector';
-import TimeTable from '../../components/TimeTable';
 import Badge from '../../components/Badge';
+const TimeTable = Loadable({
+  loader: () => import('../../components/TimeTable'),
+  loading: () => null,
+});
 
 import orangeSquareIcon from '../../assets/icons/square/orange.svg';
 import greySquareIcon from '../../assets/icons/square/grey.svg';
 import blueSquareIcon from '../../assets/icons/square/blue.svg';
 
+// interfaces
 import TimeAreaReserveType from '../../models/area/time.interface';
-import moment from 'moment';
-import WeekParseHelper from './helpers/week.parse';
 import TimeNode from '../../components/TimeTable/timetable.interface';
+
+import WeekParseHelper from './helpers/week.parse';
 
 const iconLabel: React.CSSProperties = {
   color: '#3B4046',
@@ -111,10 +117,8 @@ const TimePage: React.FunctionComponent<TimeAreaReserveType> = props => {
           const { area, time } = e;
           const start = moment(time.start).startOf('hour');
           const weekParsed = WeekParseHelper(e.time.week);
-          console.log(weekParsed, selectedWeek, weekParsed.includes(selectedWeek));
+          // console.log(weekParsed, selectedWeek, weekParsed.includes(selectedWeek));
           if (!weekParsed.includes(selectedWeek)) return null;
-          //   return <Col key={`${i}-${selectedDate.format('DD-MM-YYYY')}`} span={24}></Col>;
-          // console.log('now', start.format('DD MM YYYY hh-mm'));
 
           let disabledMapped: TimeNode[] = [];
           const cur = start;

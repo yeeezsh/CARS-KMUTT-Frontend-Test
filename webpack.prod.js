@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   mode: 'production',
   entry: './src/index',
-  devtool: 'source-map',
+  // devtool: 'source-map',
   output: {
     path: path.join(__dirname, '/dist'),
     filename: 'bundle.js',
@@ -64,9 +65,17 @@ module.exports = {
     new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en|th/),
   ],
   optimization: {
+    minimize: true,
     runtimeChunk: 'single',
     splitChunks: {
       chunks: 'all',
     },
+    minimizer: [
+      new TerserPlugin({
+        parallel: true,
+        // sourceMap: true,
+        extractComments: 'all',
+      }),
+    ],
   },
 };
