@@ -23,4 +23,5 @@ class App extends Component {
     return <PageRouter />;
   }
 }
-export default hot(App);
+// export default hot(App);
+export default App;
