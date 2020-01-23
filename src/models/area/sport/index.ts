@@ -50,7 +50,7 @@ class QueryClass {
     this.data = [];
   }
 
-  async type(): Promise<Menu[]> {
+  async areas(): Promise<Menu[]> {
     const fetch: FetchMenu[] = (await i.instance.get('/area/sport/area/all')).data;
     const mainMenu = category
       .map(e => {
@@ -70,7 +70,7 @@ class QueryClass {
     return mainMenu;
   }
 
-  async area(id: string): Promise<TimeAreaReserveType['areas']> {
+  async fields(id: string): Promise<TimeAreaReserveType['areas']> {
     const fetch: AreaAPI[] = (await i.instance.get(`/area/sport/fields/${id}`)).data;
     const mapped = fetch.map(e => {
       const minTime = e.reserve.reduce((prev, cur) => ((prev.start || 0) < (cur.start || 0) ? prev : cur));

@@ -4,7 +4,7 @@ import KanBanLayout from '../../components/Layout/Kanban';
 import KanbanCard from '../../components/KanbanCard';
 import Menu from '../../models/menu/interface';
 
-export default class Category extends Component<
+export default class Areas extends Component<
   {},
   {
     category: Menu[];
@@ -14,7 +14,7 @@ export default class Category extends Component<
     category: [],
   };
   async componentDidMount() {
-    const data = await Query.type();
+    const data = await Query.areas();
     const categoryMenu = data.map(e => {
       return {
         ...e,

@@ -210,7 +210,7 @@ class SportPage extends Component<
 
     // area query
     const typeId = location.pathname.split('/')[3];
-    const areas = await Query.area(typeId);
+    const areas = await Query.fields(typeId);
     const maxForward = areas.reduce((prev, cur) => (prev.time.forward > cur.time.forward ? prev : cur)).time.forward;
     this.setState({ areas, maxForward, owner });
 

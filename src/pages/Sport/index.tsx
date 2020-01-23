@@ -1,7 +1,7 @@
 import Loadable from 'react-loadable';
 
 const Category = Loadable({
-  loader: () => import('./Category'),
+  loader: () => import('./Areas'),
   loading: () => null,
 });
 const PageSport = Loadable({
