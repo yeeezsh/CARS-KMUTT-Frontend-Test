@@ -6,6 +6,10 @@ import history from './history';
 import hamburgerWhite from '../assets/icons/hamburger-white.svg';
 import hamburgerOrange from '../assets/icons/hamburger-orange.svg';
 
+const LoginPage = Loadable({
+  loader: () => import('./Login'),
+  loading: () => null,
+});
 const Home = Loadable({
   loader: () => import('./Home'),
   loading: () => null,
@@ -22,10 +26,6 @@ const AppDrawer = Loadable({
 });
 const MyReservePage = Loadable({
   loader: () => import('./MyReserve'),
-  loading: () => null,
-});
-const LoginPage = Loadable({
-  loader: () => import('./Login'),
   loading: () => null,
 });
 
