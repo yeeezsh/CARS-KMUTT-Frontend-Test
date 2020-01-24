@@ -17,6 +17,7 @@ export interface AreaAPI {
     staff?: string[];
     requestor: number;
   };
+  disabled: string[];
   forward: number;
   reserve: ReserveAPI[];
   createAt: Date;
