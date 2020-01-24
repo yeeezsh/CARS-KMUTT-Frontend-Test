@@ -4,7 +4,7 @@ import i from '../../axios.interface';
 import { FetchMenu } from './fetch.interface';
 import TimeAreaReserveType from '../time.interface';
 import { AreaAPI } from './area.api.interface';
-import moment from 'moment';
+import moment, { Moment } from 'moment';
 
 const category: Menu[] = [
   {
@@ -70,30 +70,35 @@ class QueryClass {
     return mainMenu;
   }
 
-  async fields(id: string): Promise<TimeAreaReserveType['areas']> {
-    const fetch: AreaAPI[] = (await i.instance.get(`/area/sport/fields/${id}`)).data;
-    const mapped = fetch.map(e => {
-      const minTime = e.reserve.reduce((prev, cur) => ((prev.start || 0) < (cur.start || 0) ? prev : cur));
-      const maxTime = e.reserve.reduce((prev, cur) => ((prev.stop || 0) > (cur.stop || 0) ? prev : cur));
-
-      return {
-        area: {
-          id: e._id,
-          label: e.label,
-          required: e.required.requestor,
-        },
-        time: {
-          start: moment(minTime.start),
-          stop: moment(maxTime.stop),
-          disabled: [],
-          interval: e.reserve[0].interval,
-          week: e.reserve[0].week,
-          forward: e.forward,
-        },
-      };
-    });
-
-    return mapped;
+  async fields(id: string, date: Moment): Promise<TimeAreaReserveType['areas']> {
+    try {
+      const fetch: AreaAPI[] = (await i.instance.get(`/area/sport/fields/${id}/${date.toISOString()}`)).data;
+      const mapped = fetch.map(e => {
+        const minTime = e.reserve.reduce((prev, cur) => ((prev.start || 0) < (cur.start || 0) ? prev : cur));
+        const maxTime = e.reserve.reduce((prev, cur) => ((prev.stop || 0) > (cur.stop || 0) ? prev : cur));
+        console.log('api', e.disabled);
+        return {
+          area: {
+            id: e._id,
+            label: e.label,
+            required: e.required.requestor,
+          },
+          time: {
+            start: moment(minTime.start),
+            stop: moment(maxTime.stop),
+            disabled: e.disabled ? e.disabled.map((e: string) => ({ value: moment(e) })) : [],
+            interval: e.reserve[0].interval,
+            week: e.reserve[0].week,
+            forward: e.forward,
+          },
+        };
+      });
+      console.log('yahhhhhhhhhh', mapped);
+      return mapped;
+    } catch (err) {
+      console.error(err);
+      throw new Error(err);
+    }
   }
 }
 const Query = new QueryClass();
