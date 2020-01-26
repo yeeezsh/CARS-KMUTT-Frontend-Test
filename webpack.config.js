@@ -12,7 +12,7 @@ module.exports = {
     host: '0.0.0.0',
     historyApiFallback: true,
     proxy: {
-      '/api': {
+      '/api/*': {
         target: 'http://localhost:3000',
         // pathRewrite: {'^/api' : ''},
         changeOrigin: true,
