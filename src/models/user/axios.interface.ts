@@ -1,5 +1,6 @@
 import axios from 'axios';
-const END_POINT = 'http://0.0.0.0:3000/api';
+// const END_POINT = 'http://0.0.0.0:3000/api';
+const END_POINT = 'http://157.245.147.102:3000/api';
 
 const instance = axios.create({
   baseURL: END_POINT,
