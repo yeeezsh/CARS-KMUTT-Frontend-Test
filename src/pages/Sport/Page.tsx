@@ -77,7 +77,12 @@ class SportPage extends Component<
     owner: '',
   };
 
-  onSelectDate = (date: Moment) => {
+  onSelectDate = async (date: Moment) => {
+    const areaId = location.pathname.split('/')[3];
+    Query.fields(areaId, this.state.dateSelected).then(d => {
+      console.log('on selecting date', areaId, this.state.dateSelected.format('DD-MM'), d);
+      this.setState({ areas: d });
+    });
     return this.setState({
       dateSelected: date,
     });
@@ -209,8 +214,8 @@ class SportPage extends Component<
     const owner = GetUser().username || '';
 
     // area query
-    const typeId = location.pathname.split('/')[3];
-    const areas = await Query.fields(typeId);
+    const areaId = location.pathname.split('/')[3];
+    const areas = await Query.fields(areaId, this.state.dateSelected);
     const maxForward = areas.reduce((prev, cur) => (prev.time.forward > cur.time.forward ? prev : cur)).time.forward;
     this.setState({ areas, maxForward, owner });
 

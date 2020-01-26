@@ -45,12 +45,10 @@ export default class TimePage extends Component<
   TimeAreaReserveType,
   {
     selectedDate: Moment;
-    data: any;
   }
 > {
   state = {
     selectedDate: moment(new Date()),
-    data: [],
   };
 
   onSelectDate = (d: Moment) => {
@@ -63,9 +61,10 @@ export default class TimePage extends Component<
   };
 
   render() {
+    console.log('time component', this.state.selectedDate.format('DD'));
+    const { selectedDate } = this.state;
     const now = moment(new Date());
     const today = now;
-    const selectedDate = this.state.selectedDate;
     const selectedWeek = Number(moment(selectedDate).format('E'));
 
     let reserveSlot: number[] = this.props.areas.map(e => e.time.interval || 60);
@@ -78,7 +77,7 @@ export default class TimePage extends Component<
       reserveSlot = reserveSlot.map(e => e / 60);
     }
     const reserveDesc = reserveSlot.join(', ') + ' ' + unit;
-    const { date, onSelectDate } = this.props;
+    const { date } = this.props;
     return (
       <React.Fragment>
         {/* outliner n' desc */}
@@ -174,6 +173,7 @@ export default class TimePage extends Component<
               .filter(({ type }) => type !== 'available');
             // console.log('dsm', disabledMapped);
             // console.log(today, selectedDate.format('DD'), e.time.forward);
+            const disabledMappedAPI = [...disabledMapped, ...(time.disabled || [])];
 
             return (
               <Col key={`${i}-${selectedDate.format('DD-MM-YYYY')}`} span={24}>
@@ -184,7 +184,8 @@ export default class TimePage extends Component<
                   stop={time.stop}
                   interval={time.interval || 60}
                   onSelect={this.props.onSelectTime}
-                  disabled={disabledMapped}
+                  disabled={disabledMappedAPI}
+                  // disabled={disabledMapped}
                   // disabled={[]}
                 />
               </Col>
