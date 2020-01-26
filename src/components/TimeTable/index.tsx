@@ -111,7 +111,7 @@ export default class TimeTable extends Component<TimeTableProps, TimeTableState>
             table.map(({ value, type }, i) => (
               <Row
                 className={styles.table}
-                key={i}
+                key={`${value.format('DD-MM-YYYY HH:mm')}`}
                 onClick={() => {
                   this.onSelect(value, type);
                   this.props.onClick();
