@@ -31,9 +31,9 @@ import Area from '../../models/area/area.interface';
 import { stepLists } from '../../models/sport';
 import BackCard from '../../components/BackCard';
 import { Query } from '../../models/area/sport';
-import { GetUser } from '../../models/user';
 import { Mutate } from '../../models/task/sport';
 import { TaskSport } from '../../models/task/sport/sport.interface';
+import { u } from '../../models/user';
 
 const CATEGORY_PAGE = '/reserve/sport/category';
 const FIRST_STEP_PAGE = '/reserve/sport/1';
@@ -211,7 +211,7 @@ class SportPage extends Component<
     const { history, location } = this.props;
 
     // set owner
-    const owner = GetUser().username || '';
+    const owner = u.GetUser()?.username || '';
 
     // area query
     const areaId = location.pathname.split('/')[3];

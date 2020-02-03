@@ -7,8 +7,7 @@ import { FormComponentProps } from 'antd/lib/form';
 
 import logo from '../../assets/logo.login.svg';
 import styles from './styles.module.css';
-
-import { RequestorLogin } from '../../models/user/';
+import { u } from '../../models/user';
 
 class LoginPage extends Component<
   FormComponentProps & RouteComponentProps,
@@ -18,6 +17,11 @@ class LoginPage extends Component<
 > {
   state = {
     loading: false,
+  };
+
+  componentDidMount = async () => {
+    console.log(u.GetUser());
+    if (u.GetUser()) await u.UserLogout();
   };
 
   onValidator = (rule: any, value: string, callback: any) => {
@@ -33,7 +37,7 @@ class LoginPage extends Component<
       if (!err) {
         return this.setState({ loading: true }, async () => {
           const { username, password } = values;
-          const res = await RequestorLogin(username, password);
+          const res = await u.RequestorLogin(username, password);
           console.log(res);
           if (res.auth) return this.props.history.push('/');
           setFields({
