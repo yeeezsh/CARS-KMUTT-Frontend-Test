@@ -1,11 +1,10 @@
-import { hot } from 'react-hot-loader/root';
+// import { hot } from 'react-hot-loader/root';
 import React, { Component } from 'react';
 import PageRouter from './pages/Router';
 import './App.css';
+import { u } from './models/user';
 
 // hotfix
-import { GetUserToken } from './models/user';
-import i from './models/axios.interface';
 
 class App extends Component {
   componentDidMount() {
@@ -13,7 +12,7 @@ class App extends Component {
       // get token before initial app
       const exceptPath = window.location.pathname === '/login';
       if (exceptPath) return;
-      i.addToken(GetUserToken());
+      if (!u.GetUser) throw Error('user need login');
     } catch (err) {
       window.location.replace('/login');
     }
