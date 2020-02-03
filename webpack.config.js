@@ -8,13 +8,12 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     port: 5000,
-    hot: true,
+    // hot: true,
     host: '0.0.0.0',
     historyApiFallback: true,
     proxy: {
       '/api/*': {
         target: 'http://localhost:3000',
-        // pathRewrite: {'^/api' : ''},
         changeOrigin: true,
         secure: false,
       }
