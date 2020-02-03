@@ -12,7 +12,7 @@ class App extends Component {
       // get token before initial app
       const exceptPath = window.location.pathname === '/login';
       if (exceptPath) return;
-      if (!u.GetUser) throw Error('user need login');
+      if (!u.GetUser()._id) throw Error('user need login');
     } catch (err) {
       window.location.replace('/login');
     }

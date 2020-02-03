@@ -8,7 +8,7 @@ const loginAdapter = (type: 'staff' | 'requestor', data: { username: string; pas
 };
 
 class UserClass {
-  user: User | undefined;
+  user: User;
   constructor() {
     const data = localStorage.getItem('user');
     this.user = JSON.parse(data || '{}');
@@ -54,7 +54,7 @@ class UserClass {
     await i.instance.get('/users/auth/logout');
   };
 
-  GetUser = (): User | undefined => {
+  GetUser = (): User => {
     return this.user;
   };
 }
