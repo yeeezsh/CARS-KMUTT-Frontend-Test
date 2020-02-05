@@ -1,8 +1,7 @@
 import { Moment } from 'moment';
 
-export interface ReserveState {
-  type: 'wait' | 'reject' | 'accept' | 'request' | 'undefined' | 'require';
-}
+export type ReserveState = 'wait' | 'approve' | 'reject' | 'accept' | 'drop' | undefined;
+export type ReserveStateHistory = Array<ReserveState>;
 
 export default interface Reserve {
   name?: string;
@@ -13,7 +12,7 @@ export default interface Reserve {
     stop?: Moment;
     detail?: string;
     state?: {
-      type?: ReserveState['type'];
+      type?: ReserveState;
       desc?: 'ได้รับการอนุมัติ' | 'ไม่ได้รับการอนุมัติ' | 'รอการยืนยันจากเพื่อน' | string;
     };
   };

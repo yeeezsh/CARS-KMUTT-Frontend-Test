@@ -1,12 +1,9 @@
-interface TimeSlot {
-  start?: Date;
-  stop?: Date;
-  allDay?: boolean;
-}
+import { Moment } from 'moment';
 
-interface Requestor {
-  username: string;
-  confirm: boolean;
+interface TimeSlot {
+  start?: Moment;
+  stop?: Moment;
+  allDay?: boolean;
 }
 
 interface Area {
@@ -22,6 +19,6 @@ export interface Task {
   area: Area;
 
   cancle: boolean;
-  createAt: Date;
-  updateAt: Date;
+  createAt: Moment;
+  updateAt: Moment;
 }
