@@ -108,22 +108,24 @@ export default class TimeTable extends Component<TimeTableProps, TimeTableState>
         {/* timetable */}
         <Row type="flex" justify="start">
           {table[0] &&
-            table.map(({ value, type }, i) => (
-              <Row
-                className={styles.table}
-                key={`${value.format('DD-MM-YYYY HH:mm')}`}
-                onClick={() => {
-                  this.onSelect(value, type);
-                  this.props.onClick();
-                }}
-                type="flex"
-                justify="center"
-              >
-                <p style={cardStyle(type)} className={styles.card}>
-                  {value.format('HH.mm')}
-                </p>
-              </Row>
-            ))}
+            table.map(({ value, type }) => {
+              return (
+                <Row
+                  className={styles.table}
+                  key={`${value.format('DD-MM-YYYY HH:mm')}`}
+                  onClick={() => {
+                    this.onSelect(value, type);
+                    this.props.onClick();
+                  }}
+                  type="flex"
+                  justify="center"
+                >
+                  <p style={cardStyle(type)} className={styles.card}>
+                    {value.format('HH.mm')}
+                  </p>
+                </Row>
+              );
+            })}
         </Row>
 
         {/* borderline */}
