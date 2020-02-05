@@ -1,7 +1,7 @@
 import { footballIcon, badmintonIcon, basketballIcon, tennisIcon, volleyballIcon } from './icon.import';
 import Menu from '../../menu/interface';
 import i from '../../axios.interface';
-import { FetchMenu } from './fetch.interface';
+import { FetchMenu } from './fetch.menu.interface';
 import TimeAreaReserveType from '../time.interface';
 import { AreaAPI } from './area.api.interface';
 import moment, { Moment } from 'moment';
