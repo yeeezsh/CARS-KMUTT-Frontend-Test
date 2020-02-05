@@ -78,17 +78,13 @@ class SportPage extends Component<
   };
 
   onSelectDate = async (date: Moment) => {
-    // const { dateSelected } = this.state;
     const areaId = location.pathname.split('/')[3];
-    await this.queryAreaDate(areaId, date);
-    return this.setState({
-      dateSelected: date,
-    });
-    // const areas = await sport.getFields(areaId, dateSelected);
-    // return this.setState({
-    //   dateSelected: date,
-    //   areas,
-    // });
+    return this.setState(
+      {
+        dateSelected: date,
+      },
+      async () => await this.queryAreaDate(areaId, date),
+    );
   };
 
   onSelectTime = (time: TimeNode) => {
@@ -193,8 +189,9 @@ class SportPage extends Component<
     ).subtract(interval, 'minute');
     const stopTime = moment(startTime).add(interval, 'minute');
     console.log('sssssssssss');
-    console.log('start', startTime.format('HH:mm'));
-    console.log('stop', stopTime.format('HH:mm'));
+    console.log('start time', startTime.format('DD'));
+    // console.log('start', startTime.format('HH:mm'));
+    // console.log('stop', stopTime.format('HH:mm'));
     const parse: TaskSport = {
       owner,
       area: areaSelected.id,
