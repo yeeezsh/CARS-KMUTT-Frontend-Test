@@ -1,7 +1,7 @@
 import i from '../../axios.interface';
 import { TaskSport } from './sport.interface';
 
-class MutateClass {
+class TaskSportClass {
   async create(data: TaskSport) {
     try {
       await i.instance.post('/task/sport', data);
@@ -12,4 +12,4 @@ class MutateClass {
   }
 }
 
-export const Mutate = new MutateClass();
+export const Mutate = new TaskSportClass();
