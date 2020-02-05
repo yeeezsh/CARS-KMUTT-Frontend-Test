@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { category, Query } from '../../models/area/sport';
+import { category, sport } from '../../models/area/sport';
 import KanBanLayout from '../../components/Layout/Kanban';
 import KanbanCard from '../../components/KanbanCard';
 import Menu from '../../models/menu/interface';
@@ -14,7 +14,7 @@ export default class Areas extends Component<
     category: [],
   };
   async componentDidMount() {
-    const data = await Query.areas();
+    const data = await sport.getAreas();
     const categoryMenu = data.map(e => {
       return {
         ...e,

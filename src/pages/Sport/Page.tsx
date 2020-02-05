@@ -30,7 +30,7 @@ import Area from '../../models/area/area.interface';
 // import { stepLists, areas } from '../../models/sport';
 import { stepLists } from '../../models/sport';
 import BackCard from '../../components/BackCard';
-import { Query } from '../../models/area/sport';
+import { sport } from '../../models/area/sport';
 import { Mutate } from '../../models/task/sport';
 import { TaskSport } from '../../models/task/sport/sport.interface';
 import { u } from '../../models/user';
@@ -79,7 +79,7 @@ class SportPage extends Component<
 
   onSelectDate = async (date: Moment) => {
     const areaId = location.pathname.split('/')[3];
-    Query.fields(areaId, this.state.dateSelected).then(d => {
+    sport.getFields(areaId, this.state.dateSelected).then(d => {
       console.log('on selecting date', areaId, this.state.dateSelected.format('DD-MM'), d);
       this.setState({ areas: d });
     });
@@ -215,7 +215,7 @@ class SportPage extends Component<
 
     // area query
     const areaId = location.pathname.split('/')[3];
-    const areas = await Query.fields(areaId, this.state.dateSelected);
+    const areas = await sport.getFields(areaId, this.state.dateSelected);
     const maxForward = areas.reduce((prev, cur) => (prev.time.forward > cur.time.forward ? prev : cur)).time.forward;
     this.setState({ areas, maxForward, owner });
 

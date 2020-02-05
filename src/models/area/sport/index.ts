@@ -44,13 +44,13 @@ const category: Menu[] = [
   },
 ];
 
-class QueryClass {
+class SportClass {
   data: Menu[];
   constructor() {
     this.data = [];
   }
 
-  async areas(): Promise<Menu[]> {
+  async getAreas(): Promise<Menu[]> {
     const fetch: FetchMenu[] = (await i.instance.get('/area/sport/area/all')).data;
     const mainMenu = category
       .map(e => {
@@ -70,7 +70,7 @@ class QueryClass {
     return mainMenu;
   }
 
-  async fields(id: string, date: Moment): Promise<TimeAreaReserveType['areas']> {
+  async getFields(id: string, date: Moment): Promise<TimeAreaReserveType['areas']> {
     try {
       const fetch: AreaAPI[] = (await i.instance.get(`/area/sport/fields/${id}/${date.toISOString()}`)).data;
       const mapped = fetch.map(e => {
@@ -101,6 +101,6 @@ class QueryClass {
     }
   }
 }
-const Query = new QueryClass();
+const sport = new SportClass();
 
-export { category, Query };
+export { category, sport };
