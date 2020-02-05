@@ -7,6 +7,7 @@ import { FormComponentProps } from 'antd/lib/form/Form';
 
 import Outline from '../../components/Outline';
 import Button from '../../components/Button';
+import { u } from '../../models/user';
 
 interface PropsTypes extends FormComponentProps {
   required?: number;
@@ -17,6 +18,7 @@ interface StateTypes {
   users: string[];
   required: number;
   status: boolean;
+  owner?: string;
 }
 
 let CACHE_STATE: StateTypes = {
@@ -30,11 +32,14 @@ class FormPage extends Component<PropsTypes, StateTypes> {
     users: [],
     required: 2,
     status: false,
+    owner: '',
   };
 
   componentDidMount = () => {
     // auto scroll
     window.scroll(0, 0);
+    const owner = u.GetUser().studentId;
+    this.setState({ owner });
 
     const required = this.props.required;
     const load = CACHE_STATE.users.length !== 0 && required === CACHE_STATE.users.length;
@@ -73,7 +78,7 @@ class FormPage extends Component<PropsTypes, StateTypes> {
     const ids: string[] = form.getFieldValue('users').filter((e: string) => e);
     const sets = new Set(ids).size;
 
-    if (value === undefined) return callback('โปรดกรอกรหัสนักศึกษาให้ถูกต้อง');
+    if (value === undefined) return callback('โปรดกรอกรหัสนักศึกษา');
     if (value.length !== 11) return callback('โปรดกรอกรหัสนักศึกษาให้ถูกต้อง');
 
     if (ids.length !== sets && ids.length !== 0) return callback('รหัสนักศึกษาซ้ำ');
@@ -82,27 +87,23 @@ class FormPage extends Component<PropsTypes, StateTypes> {
 
   onType = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    const key = e.target.id.split('[')[1].split(']')[0];
+    const key = Number(e.target.id.split('[')[1].split(']')[0]);
     const { users } = this.state;
-    this.setState(
-      {
-        users: users.map((e, i) => (Number(key) === i ? value : e)),
-      },
-      () => {
-        //   error exception when type
-        return this.props.form.setFields({
-          'users[0]': {
-            error: undefined,
-          },
-        });
-      },
-    );
+    const { setFields } = this.props.form;
+    return this.setState({ users: users.map((e, i) => (Number(key) === i ? value : e)) }, () => {
+      //   error exception when type
+      return setFields({
+        [`users[${key}]`]: {
+          errors: undefined,
+        },
+      });
+    });
   };
 
   render() {
     console.log('form states', this.state);
     const { getFieldDecorator } = this.props.form;
-    const { users } = this.state;
+    const { users, owner } = this.state;
     return (
       <React.Fragment>
         {/* outliner n' desc */}
@@ -130,12 +131,12 @@ class FormPage extends Component<PropsTypes, StateTypes> {
                         rules: [
                           {
                             required: true,
-                            // message: 'โปรดกรอกรหัสนักศึกษาให้ถูกต้อง',
-                            max: 11,
                             validator: this.onValidator,
+                            max: 11,
+                            message: 'โปรดกรอกรหัสนักศึกษาให้ถูกต้อง',
                           },
                         ],
-                        initialValue: e,
+                        initialValue: i === 0 ? owner : e,
                         validateTrigger: ['onBlur'],
                       })(
                         <Input
@@ -143,6 +144,7 @@ class FormPage extends Component<PropsTypes, StateTypes> {
                           onChange={this.onType}
                           placeholder={`รหัสนักศึกษาคนที่ ${i + 1}`}
                           type={'number'}
+                          disabled={i === 0}
                         />,
                       )}
                     </Form.Item>
