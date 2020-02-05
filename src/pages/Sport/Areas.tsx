@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { category, sport } from '../../models/area/sport';
+import { sport } from '../../models/area/sport';
 import KanBanLayout from '../../components/Layout/Kanban';
 import KanbanCard from '../../components/KanbanCard';
 import Menu from '../../models/menu/interface';
