@@ -1,6 +1,7 @@
 import i from '../axios.interface';
 import { Task } from './task.interface';
 import moment from 'moment';
+import stateDesc from './helpers/state.desc';
 
 class TaskClass {
   async getLastTask(): Promise<Task | undefined> {
@@ -17,6 +18,7 @@ class TaskClass {
             start: moment(e.start),
             stop: moment(e.stop),
           })),
+        desc: stateDesc(data.state[data.state.length - 1]),
       };
     } catch (err) {
       console.error(err);

@@ -33,7 +33,7 @@ const Home: React.FunctionComponent<{ lastCard?: Task }> = props => {
               stop: lastCard?.reserve[0].stop,
               state: {
                 type: lastCard?.state[lastCard.state.length - 1],
-                desc: 'ยืนยันจ้า',
+                desc: lastCard.desc,
               },
             }
           : undefined

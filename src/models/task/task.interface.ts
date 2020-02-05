@@ -1,4 +1,5 @@
 import { Moment } from 'moment';
+import { ReserveStateDesc } from '../reserve/interface';
 
 interface TimeSlot {
   start?: Moment;
@@ -17,6 +18,7 @@ export interface Task {
   reserve: TimeSlot[];
   state: Array<'wait' | 'approve' | 'reject' | 'accept' | 'drop'>;
   area: Area;
+  desc?: ReserveStateDesc;
 
   cancle: boolean;
   createAt: Moment;
