@@ -19,6 +19,28 @@ const Home: React.FunctionComponent<{ lastCard?: Task }> = props => {
   const date = day.format('D');
   const month = day.format('MMMM');
   const year = day.format('YYYY');
+
+  const { lastCard } = props;
+  console.log('laygout home last card', lastCard);
+  const LastCard: React.FunctionComponent = () => (
+    <StateCard
+      name={lastCard ? lastCard?.area.label || lastCard?.area.name : undefined}
+      reserve={
+        lastCard
+          ? {
+              date: lastCard?.reserve[0].start,
+              start: lastCard?.reserve[0].start,
+              stop: lastCard?.reserve[0].stop,
+              state: {
+                type: lastCard?.state[lastCard.state.length - 1],
+                desc: 'ยืนยันจ้า',
+              },
+            }
+          : undefined
+      }
+    />
+  );
+
   return (
     <React.Fragment>
       <Row type="flex" justify="center" className={styles.header}>
@@ -52,18 +74,7 @@ const Home: React.FunctionComponent<{ lastCard?: Task }> = props => {
       {/* card */}
       <Row type="flex" justify="center">
         <Col span={23}>
-          <StateCard
-            name={'Badminton 1'}
-            reserve={{
-              date: moment(),
-              start: moment(),
-              stop: moment().add(1, 'hour'),
-              state: {
-                type: 'wait',
-                desc: 'รอการยืนยัน',
-              },
-            }}
-          />
+          <LastCard />
         </Col>
       </Row>
 
