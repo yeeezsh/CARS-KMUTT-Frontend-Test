@@ -11,7 +11,7 @@ import StateRed from '../../assets/icons/state.red.svg';
 import { ReserveState } from '../../models/reserve/interface';
 
 export default function StateCard(props: {
-  name?: string;
+  name?: string | undefined;
   desc?: string;
   reserve?: {
     date?: Moment;
@@ -87,17 +87,12 @@ export default function StateCard(props: {
       </Row>
       <Row className={styles.detail} type="flex" justify="start">
         <Col span={22}>
-          <span className={styles.state}>
-            {/* {reserve?.state?.type === 'wait' ? (
-              <img src={StateBlue} alt="state-blue" />
-            ) : (
-              <img src={StateYellow} alt="state-yellow" />
-            )} */}
-            {iconColor(reserve?.state?.type || undefined, reserve?.state?.desc)}
-          </span>
+          <span className={styles.state}>{iconColor(reserve?.state?.type || undefined, reserve?.state?.desc)}</span>
         </Col>
       </Row>
     </Row>
   );
+
+  // final render
   return <div className={styles.card}>{name === undefined ? empty : showCard}</div>;
 }
