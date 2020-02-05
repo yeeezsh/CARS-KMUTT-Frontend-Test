@@ -8,7 +8,6 @@ import StateBlue from '../../assets/icons/state.blue.svg';
 import StateYellow from '../../assets/icons/state.yellow.svg';
 import StateGreen from '../../assets/icons/state.green.svg';
 import StateRed from '../../assets/icons/state.red.svg';
-
 import { ReserveState } from '../../models/reserve/interface';
 
 export default function StateCard(props: {
@@ -20,7 +19,7 @@ export default function StateCard(props: {
     stop?: Moment;
     detail?: string;
     state?: {
-      type?: ReserveState['type'];
+      type?: ReserveState;
       desc?: string;
     };
   };
@@ -38,7 +37,7 @@ export default function StateCard(props: {
     </span>
   );
   const detail = <span>blabalbalbalbalbals</span>;
-  const iconColor = (type: ReserveState['type'], desc?: string) => {
+  const iconColor = (type: ReserveState, desc?: string) => {
     const label: React.CSSProperties = { marginLeft: '18px', marginTop: '-16px' };
     switch (type) {
       case 'wait' || 'request':
@@ -94,7 +93,7 @@ export default function StateCard(props: {
             ) : (
               <img src={StateYellow} alt="state-yellow" />
             )} */}
-            {iconColor(reserve?.state?.type || 'undefined', reserve?.state?.desc)}
+            {iconColor(reserve?.state?.type || undefined, reserve?.state?.desc)}
           </span>
         </Col>
       </Row>

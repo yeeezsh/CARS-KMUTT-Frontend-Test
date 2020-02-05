@@ -1,7 +1,7 @@
 import Reserve, { ReserveState } from './interface';
 import moment from 'moment';
 
-export const query = (type: ReserveState['type']) => {
+export const query = (type: ReserveState) => {
   return type;
 };
 
