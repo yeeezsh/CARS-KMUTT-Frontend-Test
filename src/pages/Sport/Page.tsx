@@ -78,14 +78,17 @@ class SportPage extends Component<
   };
 
   onSelectDate = async (date: Moment) => {
+    // const { dateSelected } = this.state;
     const areaId = location.pathname.split('/')[3];
-    sport.getFields(areaId, this.state.dateSelected).then(d => {
-      console.log('on selecting date', areaId, this.state.dateSelected.format('DD-MM'), d);
-      this.setState({ areas: d });
-    });
+    await this.queryAreaDate(areaId, date);
     return this.setState({
       dateSelected: date,
     });
+    // const areas = await sport.getFields(areaId, dateSelected);
+    // return this.setState({
+    //   dateSelected: date,
+    //   areas,
+    // });
   };
 
   onSelectTime = (time: TimeNode) => {
@@ -204,20 +207,28 @@ class SportPage extends Component<
 
   onModal = () => this.props.history.replace('/');
 
+  queryAreaDate = async (id: string, date: Moment) => {
+    const areas = await sport.getFields(id, date);
+    const maxForward = areas.reduce((prev, cur) => (prev.time.forward > cur.time.forward ? prev : cur)).time.forward;
+    return this.setState({ areas, maxForward });
+  };
+
   componentDidMount = async () => {
     TimePage.preload();
     FormPage.preload();
     ConfirmPage.preload();
     const { history, location } = this.props;
+    const { dateSelected } = this.state;
 
     // set owner
     const owner = u.GetUser()?.username || '';
 
     // area query
     const areaId = location.pathname.split('/')[3];
-    const areas = await sport.getFields(areaId, this.state.dateSelected);
-    const maxForward = areas.reduce((prev, cur) => (prev.time.forward > cur.time.forward ? prev : cur)).time.forward;
-    this.setState({ areas, maxForward, owner });
+    await this.queryAreaDate(areaId, dateSelected);
+    // const areas = await sport.getFields(areaId, this.state.dateSelected);
+    // const maxForward = areas.reduce((prev, cur) => (prev.time.forward > cur.time.forward ? prev : cur)).time.forward;
+    this.setState({ owner });
 
     // for setting badge
     const status = stepLists.map(() => false);
@@ -231,7 +242,7 @@ class SportPage extends Component<
   };
 
   render() {
-    console.log('page sport states', this.state);
+    console.log('page sport states', this.state.dateSelected.format('DD-MM-YYYY'));
     const {
       confirmModal,
       users,

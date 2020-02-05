@@ -52,8 +52,8 @@ export default class TimePage extends Component<
   };
 
   onSelectDate = (d: Moment) => {
-    this.setState({ selectedDate: d });
-    return this.props.onSelectDate(d);
+    // console.log('badge select date', d.format('DD'));
+    return this.setState({ selectedDate: d }, () => this.props.onSelectDate(d));
   };
   componentDidMount = () => {
     const selectedDate = this.props.date.selected;
@@ -61,7 +61,8 @@ export default class TimePage extends Component<
   };
 
   render() {
-    console.log('time component', this.state.selectedDate.format('DD'));
+    // console.log('time : ', this.props);
+    // console.log('time component', this.state.selectedDate.format('DD'));
     const { selectedDate } = this.state;
     const now = moment(new Date());
     const today = now;
@@ -175,8 +176,9 @@ export default class TimePage extends Component<
             // console.log(today, selectedDate.format('DD'), e.time.forward);
             const disabledMappedAPI = [...disabledMapped, ...(time.disabled || [])];
 
+            // console.log('wowza', `${i}-${selectedDate.format('DD-MM-YYYY')}-${area.id}`);
             return (
-              <Col key={`${i}-${selectedDate.format('DD-MM-YYYY')}`} span={24}>
+              <Col key={`${i}-${selectedDate.format('DD-MM-YYYY')}-${area.id}`} span={24}>
                 <TimeTable
                   onClick={() => this.props.onSelectArea(e.area)}
                   title={area.label}
