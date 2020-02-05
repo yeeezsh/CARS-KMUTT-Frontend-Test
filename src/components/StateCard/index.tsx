@@ -33,7 +33,7 @@ export default function StateCard(props: {
   const empty = <p className={styles.empty}>ไม่มีข้อมูลการจอง</p>;
   const range = (
     <span>
-      {date?.format('DD MMMM YYYY')} เวลา {reserve?.start?.format('HH:MM')}-{reserve?.stop?.format('HH:MM')} น.
+      {date?.format('DD MMMM YYYY')} เวลา {reserve?.start?.format('HH:mm')}-{reserve?.stop?.format('HH:mm')} น.
     </span>
   );
   const detail = <span>blabalbalbalbalbals</span>;
