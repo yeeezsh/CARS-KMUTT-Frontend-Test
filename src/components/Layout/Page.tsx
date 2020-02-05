@@ -1,8 +1,6 @@
 import React, { Component, Props as PageProps } from 'react';
-import { Row, Col, Drawer } from 'antd';
+import { Row, Col } from 'antd';
 import styles from './page.module.css';
-import hamburgerOrange from '../../assets/icons/hamburger-orange.svg';
-import AppDrawer from '../AppDrawer';
 
 export default class PageLayout extends Component<{
   titile: string;
