@@ -4,18 +4,22 @@ interface TimeSlot {
   allDay?: boolean;
 }
 
-export interface Requestor {
+interface Requestor {
   username: string;
   confirm: boolean;
 }
 
+interface Area {
+  _id: string;
+  name: string;
+  label?: string;
+  building?: string;
+}
+
 export interface Task {
   reserve: TimeSlot[];
-  requestor: Requestor[];
   state: Array<'wait' | 'approve' | 'reject' | 'accept' | 'drop'>;
-  staff?: string[];
-  area: string; // required area module
-  form?: string; // required form module
+  area: Area;
 
   cancle: boolean;
   createAt: Date;
