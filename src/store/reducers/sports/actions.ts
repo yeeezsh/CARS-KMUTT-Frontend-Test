@@ -9,6 +9,7 @@ export const SET_AREA_SELECTED = 'SET_AREA_SELECTED';
 export const SET_AREAID_SELECTED = 'SET_AREAID_SELECTED';
 export const SET_OWNER = 'SET_OWNER';
 export const QUERY_AREA = 'QUERY_AREA';
+export const SET_USERS = 'SET_USERS';
 
 export const queryArea = () => async (
   dispatch: any,
@@ -56,3 +57,8 @@ export const setOwner = (ownerId: string) => ({
 });
 
 export const setAreaId = (id: string) => ({ type: SET_AREAID_SELECTED, areaId: id });
+
+export const setUsers = (users: string[]) => ({
+  type: SET_USERS,
+  users,
+});

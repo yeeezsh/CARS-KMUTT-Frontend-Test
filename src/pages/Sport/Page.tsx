@@ -43,37 +43,41 @@ import {
   setOwner,
   setAreaId,
   queryArea,
+  setUsers,
 } from '../../store/reducers/sports/actions';
 
 const CATEGORY_PAGE = '/reserve/sport/category';
 const FIRST_STEP_PAGE = '/reserve/sport/1';
 
-interface MapToStateI {
+interface MaptoDispatchI {
   setDateSelected: any;
   setTimeSelected: any;
   setAreaSelected: any;
   setOwner: any;
   setAreaId: any;
   queryArea: () => any;
+  setUsers: (users: string[]) => any;
 }
-interface MaptoDispatchI {
+interface MapToStateI {
   dateSelected: Moment;
-  areas: Area[];
   areaSelected: Area['area'];
+  timeSelected: Moment;
+  areas: Area[];
   maxForward: number;
   owner: string;
+  users: string[];
 }
 
 class SportPage extends Component<
   RouteComponentProps<any> & MapToStateI & MaptoDispatchI,
   {
-    timeSelected: Moment;
+    // timeSelected: Moment;
     step: number;
     badge: string | undefined;
     status: boolean[];
-    users: string[];
+    // users: string[];
     backCard: string[];
-    interval: number;
+    // interval: number;
     confirmModal: boolean;
     // maxForward: number;
     // owner: string;
@@ -118,7 +122,7 @@ class SportPage extends Component<
     return this.setState(
       prevState => {
         return {
-          timeSelected: time.value,
+          // timeSelected: time.value,
           step: 2,
           status: prevState.status.map((e, i) => (i === 0 ? true : e)),
         };
@@ -160,14 +164,16 @@ class SportPage extends Component<
 
   onForm = (d: { status: boolean; users: string[] }) => {
     if (!d.status) return;
-
+    const { setUsers } = this.props;
+    // console.log('set users', d.users);
+    setUsers(d.users);
     return this.setState(
       prevState => {
         const { status } = prevState;
         return {
           step: 3,
           status: status.map((e, i) => (i === 1 ? true : e)),
-          users: d.users,
+          // users: d.users,
         };
       },
       () => {
@@ -182,11 +188,12 @@ class SportPage extends Component<
   onBackCard = () => {
     return this.setState(
       prevState => {
-        const { step, timeSelected } = prevState;
+        const { step } = prevState;
+        // const { timeSelected } = this.props;
         return {
           step: step - 1,
           //   all reset when step 2 cause selected area, time is the same
-          timeSelected: step === 2 ? moment() : timeSelected,
+          // timeSelected: step === 2 ? moment() : timeSelected,
           // areaSelected: step === 2 ? DEFAULT_SELECTED_AREA : areaSelected,
         };
       },
@@ -362,6 +369,7 @@ const mapDispatchToProps = (dispatch: any) => {
     setOwner: (ownerId: string) => dispatch(setOwner(ownerId)),
     setAreaId: (areaId: string) => dispatch(setAreaId(areaId)),
     queryArea: () => dispatch(queryArea()),
+    setUsers: (d: any) => dispatch(setUsers(d)),
   };
 };
 

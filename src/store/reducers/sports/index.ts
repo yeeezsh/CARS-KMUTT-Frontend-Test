@@ -7,6 +7,7 @@ import {
   SET_AREAID_SELECTED,
   SET_OWNER,
   QUERY_AREA,
+  SET_USERS,
 } from './actions';
 import TimeAreaReserveType from '../../../models/area/time.interface';
 
@@ -18,6 +19,8 @@ export interface SportPagesStore {
   owner: string;
   areas: TimeAreaReserveType['areas'];
   areaId: string;
+  users: string[];
+  interval: number;
 }
 
 export const DEFAULT_SELECTED_AREA = {
@@ -34,6 +37,8 @@ const initialState = {
   maxForward: 0,
   owner: '',
   areaId: '',
+  users: [],
+  interval: 0,
 };
 
 export const SportReducers = (state: SportPagesStore = initialState, action: any) => {
@@ -50,6 +55,8 @@ export const SportReducers = (state: SportPagesStore = initialState, action: any
       return { ...state, areaId: action.areaId };
     case SET_OWNER:
       return { ...state, owner: action.owner };
+    case SET_USERS:
+      return { ...state, users: action.users };
     default:
       return state;
   }
