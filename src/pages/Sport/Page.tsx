@@ -121,6 +121,8 @@ class SportPage extends Component<
       });
     }
     const { badge } = this.state;
+    const { setTimeSelected } = this.props;
+    setTimeSelected(time.value);
 
     return this.setState(
       prevState => {
@@ -131,8 +133,6 @@ class SportPage extends Component<
         };
       },
       () => {
-        const { setTimeSelected } = this.props;
-        setTimeSelected(time.value);
         return this.props.history.push({
           pathname: '2',
           state: {
@@ -220,10 +220,10 @@ class SportPage extends Component<
     const startTime = moment(
       `${dateSelected.format('DD-MM-YYYY')}-${timeSelected.format('HH:mm')}`,
       'DD-MM-YYYY-HH:mm',
-    ).subtract(interval, 'minute');
+    );
     const stopTime = moment(startTime).add(interval, 'minute');
     console.log('sssssssssss');
-    console.log('start time', startTime.format('DD'));
+    console.log('start time', startTime.format('DD HH mm'));
     // console.log('start', startTime.format('HH:mm'));
     // console.log('stop', stopTime.format('HH:mm'));
     const parse: TaskSport = {
@@ -370,7 +370,7 @@ const mapDispatchToProps = (dispatch: any) => {
   return {
     setDateSelected: (date: Moment) => dispatch(setDateSelected(date)),
     setTimeSelected: (time: Moment) => {
-      console.log('dispatch time', time);
+      // console.log('dispatch time', time.format('HH mm'));
       return dispatch(setTimeSelected(time));
     },
     setAreaSelected: (area: Area['area']) => dispatch(setAreaSelected(area)),
