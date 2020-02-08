@@ -17,6 +17,7 @@
     "jsx": "react",
     "importHelpers": true,
     "outDir": "./dist/",
+    "noImplicitAny": false,
   },
   "include": ["src", ".eslintrc.js"]
 }
