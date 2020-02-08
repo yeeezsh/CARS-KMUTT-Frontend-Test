@@ -10,7 +10,7 @@ import Button from '../../components/Button';
 export default class ConfirmPage extends Component<
   {
     onConfirm?: any;
-    areaLabel: string;
+    areaLabel: string | undefined;
     time: Moment | undefined;
     interval: number;
     date: Moment;
