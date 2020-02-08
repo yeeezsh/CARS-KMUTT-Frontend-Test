@@ -79,12 +79,10 @@ class SportPage extends Component<
 
   onSelectDate = async (date: Moment) => {
     const areaId = location.pathname.split('/')[3];
-    return this.setState(
-      {
-        dateSelected: date,
-      },
-      async () => await this.queryAreaDate(areaId, date),
-    );
+    await this.queryAreaDate(areaId, date);
+    return this.setState({
+      dateSelected: date,
+    });
   };
 
   onSelectTime = (time: TimeNode) => {
@@ -207,7 +205,7 @@ class SportPage extends Component<
   queryAreaDate = async (id: string, date: Moment) => {
     const areas = await sport.getFields(id, date);
     const maxForward = areas.reduce((prev, cur) => (prev.time.forward > cur.time.forward ? prev : cur)).time.forward;
-    return this.setState({ areas, maxForward });
+    return this.setState({ areas, maxForward, dateSelected: date });
   };
 
   componentDidMount = async () => {

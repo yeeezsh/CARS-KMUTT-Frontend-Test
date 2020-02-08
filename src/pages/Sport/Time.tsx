@@ -55,10 +55,10 @@ export default class TimePage extends Component<
     // console.log('badge select date', d.format('DD'));
     return this.setState({ selectedDate: d }, () => this.props.onSelectDate(d));
   };
-  componentDidMount = () => {
-    const selectedDate = this.props.date.selected;
-    this.setState({ selectedDate });
-  };
+  // componentDidMount = () => {
+  //   const selectedDate = this.props.date.selected;
+  //   this.setState({ selectedDate });
+  // };
 
   render() {
     // console.log('time : ', this.props);
@@ -100,12 +100,7 @@ export default class TimePage extends Component<
 
           {/* BadgeDaySelector */}
           <Col span={24}>
-            <BadgeDateSelector
-              start={date.start}
-              stop={date.stop}
-              select={date.selected}
-              onSelect={this.onSelectDate}
-            />
+            <BadgeDateSelector start={date.start} stop={date.stop} select={selectedDate} onSelect={this.onSelectDate} />
           </Col>
         </Col>
 
@@ -178,7 +173,7 @@ export default class TimePage extends Component<
 
             // console.log('wowza', `${i}-${selectedDate.format('DD-MM-YYYY')}-${area.id}`);
             return (
-              <Col key={`${i}-${selectedDate.format('DD-MM-YYYY')}-${area.id}`} span={24}>
+              <Col key={`${i}-${selectedDate.format('DD-MM')}-${area.id}`} span={24}>
                 <TimeTable
                   onClick={() => this.props.onSelectArea(e.area)}
                   title={area.label}

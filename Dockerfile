@@ -19,4 +19,4 @@ WORKDIR /src
 RUN yarn global add serve
 RUN yarn build
 CMD ["serve", "-l", "5000", "-s", "./dist"]
-EXPOSE 500
+EXPOSE 5000
