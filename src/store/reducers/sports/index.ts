@@ -1,28 +1,55 @@
-import { Moment } from 'moment';
+import moment, { Moment } from 'moment';
 import Area from '../../../models/area/area.interface';
-import { SET_DATE_SELECTED } from './actions';
+import {
+  SET_DATE_SELECTED,
+  SET_TIME_SELECTED,
+  SET_AREA_SELECTED,
+  SET_AREAID_SELECTED,
+  SET_OWNER,
+  QUERY_AREA,
+} from './actions';
+import TimeAreaReserveType from '../../../models/area/time.interface';
 
-interface SportPagesState {
-  dateSelected: Moment | undefined;
+export interface SportPagesStore {
+  dateSelected: Moment;
   timeSelected: Moment | undefined;
-  areaSelected: Area['area'] | undefined;
+  areaSelected: Area['area'];
   maxForward: number;
   owner: string;
+  areas: TimeAreaReserveType['areas'];
+  areaId: string;
 }
 
-const initialState = {
-  dateSelected: undefined,
-  timeSelected: undefined,
-  areaSelected: undefined,
-  areas: undefined,
-  maxForward: 0,
-  owner: '',
+export const DEFAULT_SELECTED_AREA = {
+  id: '',
+  label: '',
+  required: 0,
 };
 
-export const SportReducers = (state: SportPagesState = initialState, action: { action: string } & any) => {
+const initialState = {
+  dateSelected: moment(),
+  timeSelected: undefined,
+  areaSelected: DEFAULT_SELECTED_AREA,
+  areas: [],
+  maxForward: 0,
+  owner: '',
+  areaId: '',
+};
+
+export const SportReducers = (state: SportPagesStore = initialState, action: any) => {
   switch (action.type) {
     case SET_DATE_SELECTED:
-      return { ...state, dateSelected: action.dateSelected };
+      return { ...state, ...action };
+    case QUERY_AREA:
+      return { ...state, ...action };
+    case SET_TIME_SELECTED:
+      return { ...state, timeSelected: action.timeSelected };
+    case SET_AREA_SELECTED:
+      return { ...state, areaSelected: action.areaSelected };
+    case SET_AREAID_SELECTED:
+      return { ...state, areaId: action.areaId };
+    case SET_OWNER:
+      return { ...state, owner: action.owner };
     default:
       return state;
   }

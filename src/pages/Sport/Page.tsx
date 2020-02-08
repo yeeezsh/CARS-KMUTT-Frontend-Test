@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Row, Col } from 'antd';
 import moment, { Moment } from 'moment';
 import { Route, Switch, withRouter, RouteComponentProps } from 'react-router';
+import { connect } from 'react-redux';
 import Loadable from 'react-loadable';
 
 import styles from './styles.module.css';
@@ -34,21 +35,39 @@ import { sport } from '../../models/area/sport';
 import { Mutate } from '../../models/task/sport';
 import { TaskSport } from '../../models/task/sport/sport.interface';
 import { u } from '../../models/user';
+import { SportPagesStore, DEFAULT_SELECTED_AREA } from '../../store/reducers/sports';
+import {
+  setDateSelected,
+  setTimeSelected,
+  setAreaSelected,
+  setOwner,
+  setAreaId,
+  queryArea,
+} from '../../store/reducers/sports/actions';
 
 const CATEGORY_PAGE = '/reserve/sport/category';
 const FIRST_STEP_PAGE = '/reserve/sport/1';
-const DEFAULT_SELECTED_AREA = {
-  id: '',
-  label: '',
-  required: 0,
-};
+
+interface MapToStateI {
+  setDateSelected: any;
+  setTimeSelected: any;
+  setAreaSelected: any;
+  setOwner: any;
+  setAreaId: any;
+  queryArea: () => any;
+}
+interface MaptoDispatchI {
+  dateSelected: Moment;
+  areas: Area[];
+  areaSelected: Area['area'];
+  maxForward: number;
+  owner: string;
+}
 
 class SportPage extends Component<
-  RouteComponentProps<any>,
+  RouteComponentProps<any> & MapToStateI & MaptoDispatchI,
   {
-    dateSelected: Moment;
     timeSelected: Moment;
-    areaSelected: Area['area'];
     step: number;
     badge: string | undefined;
     status: boolean[];
@@ -56,15 +75,14 @@ class SportPage extends Component<
     backCard: string[];
     interval: number;
     confirmModal: boolean;
-    areas: Area[];
-    maxForward: number;
-    owner: string;
+    // maxForward: number;
+    // owner: string;
   }
 > {
   state = {
     dateSelected: moment().startOf('day'),
     timeSelected: moment().startOf('day'),
-    areaSelected: DEFAULT_SELECTED_AREA,
+    // areaSelected: DEFAULT_SELECTED_AREA,
     users: [],
     step: 1,
     badge: '',
@@ -73,16 +91,18 @@ class SportPage extends Component<
     interval: 0,
     confirmModal: false,
     areas: [],
-    maxForward: 2,
-    owner: '',
+    // maxForward: 2,
+    // owner: '',
   };
 
   onSelectDate = async (date: Moment) => {
+    const { setDateSelected: setSelectedDate } = this.props;
     const areaId = location.pathname.split('/')[3];
-    await this.queryAreaDate(areaId, date);
-    return this.setState({
-      dateSelected: date,
-    });
+    setSelectedDate(date);
+    // await this.queryAreaDate(areaId, date);
+    // return this.setState({
+    //   dateSelected: date,
+    // });
   };
 
   onSelectTime = (time: TimeNode) => {
@@ -130,9 +150,12 @@ class SportPage extends Component<
   };
 
   onSelectArea = (area: Area['area']) => {
-    const areas: Area[] = this.state.areas;
-    const interval = areas.find(e => e.area.id === area.id)?.time.interval || 60;
-    return this.setState({ areaSelected: area, interval });
+    const { setAreaSelected } = this.props;
+    setAreaSelected(area);
+    // console.log('on sleected area', area);
+    // const areas: Area[] = this.state.areas;
+    // const interval = areas.find(e => e.area.id === area.id)?.time.interval || 60;
+    // return this.setState({ areaSelected: area, interval });
   };
 
   onForm = (d: { status: boolean; users: string[] }) => {
@@ -159,12 +182,12 @@ class SportPage extends Component<
   onBackCard = () => {
     return this.setState(
       prevState => {
-        const { step, timeSelected, areaSelected } = prevState;
+        const { step, timeSelected } = prevState;
         return {
           step: step - 1,
           //   all reset when step 2 cause selected area, time is the same
           timeSelected: step === 2 ? moment() : timeSelected,
-          areaSelected: step === 2 ? DEFAULT_SELECTED_AREA : areaSelected,
+          // areaSelected: step === 2 ? DEFAULT_SELECTED_AREA : areaSelected,
         };
       },
       () => {
@@ -180,7 +203,8 @@ class SportPage extends Component<
   onConfirm = () => {
     // on send
     console.log('confirm kaa');
-    const { owner, areaSelected, timeSelected, dateSelected, interval, users } = this.state;
+    const { timeSelected, dateSelected, interval, users } = this.state;
+    const { areaSelected, owner } = this.props;
     const startTime = moment(
       `${dateSelected.format('DD-MM-YYYY')}-${timeSelected.format('HH:mm')}`,
       'DD-MM-YYYY-HH:mm',
@@ -205,25 +229,25 @@ class SportPage extends Component<
   queryAreaDate = async (id: string, date: Moment) => {
     const areas = await sport.getFields(id, date);
     const maxForward = areas.reduce((prev, cur) => (prev.time.forward > cur.time.forward ? prev : cur)).time.forward;
-    return this.setState({ areas, maxForward, dateSelected: date });
+    // return this.setState({ areas, maxForward });
   };
 
   componentDidMount = async () => {
     TimePage.preload();
     FormPage.preload();
     ConfirmPage.preload();
-    const { history, location } = this.props;
-    const { dateSelected } = this.state;
 
-    // set owner
+    const { history, location, setAreaId, setOwner, queryArea } = this.props;
+
     const owner = u.GetUser()?.username || '';
-
-    // area query
     const areaId = location.pathname.split('/')[3];
-    await this.queryAreaDate(areaId, dateSelected);
+    setOwner(owner);
+    setAreaId(areaId);
+    queryArea();
+    // await this.queryAreaDate(areaId, dateSelected);
     // const areas = await sport.getFields(areaId, this.state.dateSelected);
     // const maxForward = areas.reduce((prev, cur) => (prev.time.forward > cur.time.forward ? prev : cur)).time.forward;
-    this.setState({ owner });
+    // this.setState({ owner });
 
     // for setting badge
     const status = stepLists.map(() => false);
@@ -237,18 +261,21 @@ class SportPage extends Component<
   };
 
   render() {
-    console.log('page sport states', this.state.dateSelected.format('DD-MM-YYYY'));
+    console.log('page sport states', this.props.dateSelected.format('DD-MM-YYYY'));
+    console.log('page sport states', this.props);
     const {
       confirmModal,
       users,
       step,
       backCard,
-      areaSelected,
-      dateSelected,
+      // areaSelected,
+      // dateSelected,
       timeSelected,
       interval,
-      maxForward,
+      // maxForward,
     } = this.state;
+
+    const { dateSelected, areas, areaSelected, maxForward } = this.props;
 
     return (
       <React.Fragment>
@@ -295,7 +322,7 @@ class SportPage extends Component<
                     .add(maxForward - 1, 'day'),
                   selected: dateSelected,
                 }}
-                areas={this.state.areas}
+                areas={areas}
               />
             </Route>
 
@@ -320,4 +347,23 @@ class SportPage extends Component<
   }
 }
 
-export default withRouter<RouteComponentProps, any>(SportPage);
+const mapStateToProps = (rootReducers: any) => {
+  const { SportReducers } = rootReducers;
+  return {
+    ...SportReducers,
+  };
+};
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    setDateSelected: (date: Moment) => dispatch(setDateSelected(date)),
+    setTimeSelected: (time: Moment) => dispatch(setTimeSelected(time)),
+    setAreaSelected: (area: Area['area']) => dispatch(setAreaSelected(area)),
+    setOwner: (ownerId: string) => dispatch(setOwner(ownerId)),
+    setAreaId: (areaId: string) => dispatch(setAreaId(areaId)),
+    queryArea: () => dispatch(queryArea()),
+  };
+};
+
+// export default connect(mapStateToProps, mapDispatchToProps)(withRouter<RouteComponentProps, any>(SportPage));
+export default withRouter<RouteComponentProps, any>(connect(mapStateToProps, mapDispatchToProps)(SportPage));
