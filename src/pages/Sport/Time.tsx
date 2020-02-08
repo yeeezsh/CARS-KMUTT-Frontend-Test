@@ -22,10 +22,12 @@ import greySquareIcon from '../../assets/icons/square/grey.svg';
 import blueSquareIcon from '../../assets/icons/square/blue.svg';
 
 // interfaces
-import TimeAreaReserveType from '../../models/area/time.interface';
+// import TimeAreaReserveType from '../../models/area/time.interface';
 import TimeNode from '../../components/TimeTable/timetable.interface';
 
 import WeekParseHelper from './helpers/week.parse';
+import { connect } from 'react-redux';
+import Area from '../../models/area/area.interface';
 
 const iconLabel: React.CSSProperties = {
   color: '#3B4046',
@@ -41,15 +43,17 @@ const iconSquare = (text?: string, icon?: string) => (
   </div>
 );
 
-export default class TimePage extends Component<
-  TimeAreaReserveType,
-  {
-    selectedDate: Moment;
-  }
-> {
-  state = {
-    selectedDate: moment(new Date()),
-  };
+interface OwnProps {
+  onSelectDate: any;
+  onSelectTime: any;
+  onSelectArea: any;
+}
+
+// class TimePage extends Component<TimeAreaReserveType> {
+class TimePage extends Component<OwnProps & StateProps, any> {
+  // state = {
+  //   selectedDate: moment(new Date()),
+  // };
 
   onSelectDate = (d: Moment) => {
     // console.log('badge select date', d.format('DD'));
@@ -63,7 +67,9 @@ export default class TimePage extends Component<
   render() {
     // console.log('time : ', this.props);
     // console.log('time component', this.state.selectedDate.format('DD'));
-    const { selectedDate } = this.state;
+    // const { selectedDate } = this.state;
+    const { selected: selectedDate } = this.props.date;
+
     const now = moment(new Date());
     const today = now;
     const selectedWeek = Number(moment(selectedDate).format('E'));
@@ -78,7 +84,7 @@ export default class TimePage extends Component<
       reserveSlot = reserveSlot.map(e => e / 60);
     }
     const reserveDesc = reserveSlot.join(', ') + ' ' + unit;
-    const { date } = this.props;
+    const { date, areas } = this.props;
     return (
       <React.Fragment>
         {/* outliner n' desc */}
@@ -136,8 +142,8 @@ export default class TimePage extends Component<
         </Col>
 
         {/* TimeTable */}
-        {this.props.areas &&
-          this.props.areas.map((e, i) => {
+        {areas &&
+          areas.map((e, i) => {
             const { area, time } = e;
             const start = moment(time.start).startOf('hour');
             const weekParsed = WeekParseHelper(e.time.week);
@@ -171,9 +177,9 @@ export default class TimePage extends Component<
             // console.log(today, selectedDate.format('DD'), e.time.forward);
             const disabledMappedAPI = [...disabledMapped, ...(time.disabled || [])];
 
-            // console.log('wowza', `${i}-${selectedDate.format('DD-MM-YYYY')}-${area.id}`);
+            // console.log('wowza', `${selectedDate.format('DD-MM')}-${e.area.id}`);
             return (
-              <Col key={`${i}-${selectedDate.format('DD-MM')}-${area.id}`} span={24}>
+              <Col key={`${selectedDate.format('DD-MM')}-${e.area.id}-${Math.random()}`} span={24}>
                 <TimeTable
                   onClick={() => this.props.onSelectArea(e.area)}
                   title={area.label}
@@ -192,3 +198,30 @@ export default class TimePage extends Component<
     );
   }
 }
+
+const mapStateToProps = (rootReducers: any): StateProps => {
+  const { SportReducers } = rootReducers;
+  const { dateSelected, maxForward, areas } = SportReducers;
+  return {
+    date: {
+      selected: dateSelected,
+      start: moment().startOf('day'),
+      stop: moment()
+        .startOf('day')
+        .add(maxForward - 1, 'day'),
+    },
+    areas,
+  };
+};
+
+interface StateProps {
+  date: {
+    start: Moment;
+    stop: Moment;
+    selected: Moment;
+  };
+  areas: Area[];
+}
+
+// export default connect<StateProps, null, OwnProps>(mapStateToProps, null)(TimePage);
+export default connect<StateProps, {}, OwnProps>(mapStateToProps, {})(TimePage);

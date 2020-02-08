@@ -66,6 +66,7 @@ interface MapToStateI {
   maxForward: number;
   owner: string;
   users: string[];
+  interval: number;
 }
 
 class SportPage extends Component<
@@ -100,9 +101,10 @@ class SportPage extends Component<
   };
 
   onSelectDate = async (date: Moment) => {
-    const { setDateSelected: setSelectedDate } = this.props;
+    const { setDateSelected, queryArea } = this.props;
     const areaId = location.pathname.split('/')[3];
-    setSelectedDate(date);
+    setDateSelected(date);
+    queryArea();
     // await this.queryAreaDate(areaId, date);
     // return this.setState({
     //   dateSelected: date,
@@ -119,6 +121,7 @@ class SportPage extends Component<
       });
     }
     const { badge } = this.state;
+
     return this.setState(
       prevState => {
         return {
@@ -128,6 +131,8 @@ class SportPage extends Component<
         };
       },
       () => {
+        const { setTimeSelected } = this.props;
+        setTimeSelected(time.value);
         return this.props.history.push({
           pathname: '2',
           state: {
@@ -210,8 +215,8 @@ class SportPage extends Component<
   onConfirm = () => {
     // on send
     console.log('confirm kaa');
-    const { interval } = this.state;
-    const { areaSelected, owner, users, dateSelected, timeSelected } = this.props;
+    // const {  } = this.state;
+    const { areaSelected, owner, users, dateSelected, timeSelected, interval } = this.props;
     const startTime = moment(
       `${dateSelected.format('DD-MM-YYYY')}-${timeSelected.format('HH:mm')}`,
       'DD-MM-YYYY-HH:mm',
@@ -235,7 +240,7 @@ class SportPage extends Component<
 
   queryAreaDate = async (id: string, date: Moment) => {
     const areas = await sport.getFields(id, date);
-    const maxForward = areas.reduce((prev, cur) => (prev.time.forward > cur.time.forward ? prev : cur)).time.forward;
+    // const maxForward = areas.reduce((prev, cur) => (prev.time.forward > cur.time.forward ? prev : cur)).time.forward;
     // return this.setState({ areas, maxForward });
   };
 
@@ -322,14 +327,14 @@ class SportPage extends Component<
                 onSelectDate={this.onSelectDate}
                 onSelectTime={this.onSelectTime}
                 onSelectArea={this.onSelectArea}
-                date={{
-                  start: moment().startOf('day'),
-                  stop: moment()
-                    .startOf('day')
-                    .add(maxForward - 1, 'day'),
-                  selected: dateSelected,
-                }}
-                areas={areas}
+                // date={{
+                //   start: moment().startOf('day'),
+                //   stop: moment()
+                //     .startOf('day')
+                //     .add(maxForward - 1, 'day'),
+                //   selected: dateSelected,
+                // }}
+                // areas={areas}
               />
             </Route>
 
@@ -364,7 +369,10 @@ const mapStateToProps = (rootReducers: any) => {
 const mapDispatchToProps = (dispatch: any) => {
   return {
     setDateSelected: (date: Moment) => dispatch(setDateSelected(date)),
-    setTimeSelected: (time: Moment) => dispatch(setTimeSelected(time)),
+    setTimeSelected: (time: Moment) => {
+      console.log('dispatch time', time);
+      return dispatch(setTimeSelected(time));
+    },
     setAreaSelected: (area: Area['area']) => dispatch(setAreaSelected(area)),
     setOwner: (ownerId: string) => dispatch(setOwner(ownerId)),
     setAreaId: (areaId: string) => dispatch(setAreaId(areaId)),
