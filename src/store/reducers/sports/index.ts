@@ -43,12 +43,12 @@ const initialState = {
 
 export const SportReducers = (state: SportPagesStore = initialState, action: any) => {
   switch (action.type) {
+    case SET_TIME_SELECTED:
+      return { ...state, timeSelected: action.timeSelected };
     case SET_DATE_SELECTED:
       return { ...state, ...action };
     case QUERY_AREA:
-      return { ...state, ...action };
-    case SET_TIME_SELECTED:
-      return { ...state, timeSelected: action.timeSelected };
+      return { ...state, areas: action.areas, maxForward: action.maxForward };
     case SET_AREA_SELECTED:
       return { ...state, areaSelected: action.areaSelected, interval: action.interval };
     case SET_AREAID_SELECTED:

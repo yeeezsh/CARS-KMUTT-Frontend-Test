@@ -1,6 +1,10 @@
 import { combineReducers } from 'redux';
-import { SportReducers } from './sports';
+import { SportReducers, SportPagesStore } from './sports';
 
 export default combineReducers({
   SportReducers,
 });
+
+export interface RootReducers {
+  SportReducers: SportPagesStore;
+}

@@ -16,9 +16,12 @@ export const queryArea = () => async (
   getState: () => { (): any; new (): any; SportReducers: { areaId: any; dateSelected: any } },
 ) => {
   const { areaId, dateSelected } = getState().SportReducers;
+
+  console.log('query area date', dateSelected);
   const areas = await sport.getFields(areaId, dateSelected);
   const maxForward = areas.reduce((prev, cur) => (prev.time.forward > cur.time.forward ? prev : cur)).time.forward;
-  dispatch({
+
+  return dispatch({
     type: 'QUERY_AREA',
     areas,
     maxForward,
@@ -31,18 +34,13 @@ export const setDateSelected = (date: Moment) => {
       type: SET_DATE_SELECTED,
       dateSelected: date,
     });
-    queryArea();
   };
 };
 
-export const setTimeSelected = (time: Moment) => {
-  return (dispatch: any) => {
-    dispatch({
-      type: SET_TIME_SELECTED,
-      timeSelected: time,
-    });
-  };
-};
+export const setTimeSelected = (time: Moment) => ({
+  type: SET_TIME_SELECTED,
+  timeSelected: time,
+});
 
 export const setAreaSelected = (area: Area['area']) => {
   return (dispatch: any, getState: () => { SportReducers: SportPagesStore }) => {
