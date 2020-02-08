@@ -50,7 +50,7 @@ export const SportReducers = (state: SportPagesStore = initialState, action: any
     case SET_TIME_SELECTED:
       return { ...state, timeSelected: action.timeSelected };
     case SET_AREA_SELECTED:
-      return { ...state, areaSelected: action.areaSelected };
+      return { ...state, areaSelected: action.areaSelected, interval: action.interval };
     case SET_AREAID_SELECTED:
       return { ...state, areaId: action.areaId };
     case SET_OWNER:

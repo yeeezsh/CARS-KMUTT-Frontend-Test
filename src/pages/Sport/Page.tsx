@@ -210,8 +210,8 @@ class SportPage extends Component<
   onConfirm = () => {
     // on send
     console.log('confirm kaa');
-    const { timeSelected, dateSelected, interval, users } = this.state;
-    const { areaSelected, owner } = this.props;
+    const { interval } = this.state;
+    const { areaSelected, owner, users, dateSelected, timeSelected } = this.props;
     const startTime = moment(
       `${dateSelected.format('DD-MM-YYYY')}-${timeSelected.format('HH:mm')}`,
       'DD-MM-YYYY-HH:mm',

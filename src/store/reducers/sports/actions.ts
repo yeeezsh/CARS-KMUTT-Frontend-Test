@@ -44,10 +44,15 @@ export const setTimeSelected = (time: Moment) => {
   };
 };
 
-export const setAreaSelected = (area: Area['area']): { type: 'SET_AREA_SELECTED'; areaSelected: Area['area'] } => {
-  return {
-    type: SET_AREA_SELECTED,
-    areaSelected: area,
+export const setAreaSelected = (area: Area['area']) => {
+  return (dispatch: any, getState: () => { SportReducers: SportPagesStore }) => {
+    const { areas } = getState().SportReducers;
+    const interval = areas.find(e => e.area.id === area.id)?.time.interval || 60;
+    dispatch({
+      type: SET_AREA_SELECTED,
+      areaSelected: area,
+      interval,
+    });
   };
 };
 
