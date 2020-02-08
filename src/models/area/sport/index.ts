@@ -93,7 +93,6 @@ class SportClass {
           },
         };
       });
-      console.log('yahhhhhhhhhh', mapped);
       return mapped;
     } catch (err) {
       console.error(err);
