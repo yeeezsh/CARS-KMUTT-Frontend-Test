@@ -16,8 +16,7 @@
     "sourceMap": true,
     "jsx": "react",
     "importHelpers": true,
-    "outDir": "./dist/",
-    "noImplicitAny": false,
+    "outDir": "./dist/"
   },
   "include": ["src", ".eslintrc.js"]
 }
