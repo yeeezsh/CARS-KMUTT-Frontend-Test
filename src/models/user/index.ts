@@ -1,4 +1,5 @@
 import User from './interface';
+import { QuotaType } from './quota.interface';
 import i from '../axios.interface';
 
 const loginAdapter = (type: 'staff' | 'requestor', data: { username: string; password: string }) => {
@@ -56,6 +57,12 @@ class UserClass {
 
   GetUser = (): User => {
     return this.user;
+  };
+
+  GetQuota = async (): Promise<QuotaType> => {
+    const res = (await i.instance.get('/users/quota')).data;
+    console.log('quota', res);
+    return res;
   };
 }
 
