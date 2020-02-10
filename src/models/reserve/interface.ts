@@ -18,3 +18,5 @@ export default interface Reserve {
     };
   };
 }
+
+export type ReserveType = Reserve[];
