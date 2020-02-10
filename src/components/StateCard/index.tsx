@@ -40,7 +40,14 @@ export default function StateCard(props: {
   const iconColor = (type: ReserveState, desc?: string) => {
     const label: React.CSSProperties = { marginLeft: '18px', marginTop: '-16px' };
     switch (type) {
-      case 'wait' || 'requested':
+      case 'wait':
+        return (
+          <React.Fragment>
+            <img src={StateBlue} alt="state-blue" />
+            <p style={{ ...label, color: '#1890FF' }}>{desc}</p>
+          </React.Fragment>
+        );
+      case 'requested':
         return (
           <React.Fragment>
             <img src={StateBlue} alt="state-blue" />
