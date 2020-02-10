@@ -8,7 +8,7 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     port: 5000,
-    // hot: true,
+    hot: true,
     host: '0.0.0.0',
     historyApiFallback: true,
     proxy: {
@@ -16,9 +16,8 @@ module.exports = {
         target: 'http://localhost:3000',
         changeOrigin: true,
         secure: false,
-      }
-    }
-
+      },
+    },
   },
   devtool: 'source-map',
   entry: './src/index',
