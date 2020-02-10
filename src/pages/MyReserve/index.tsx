@@ -10,6 +10,9 @@ import Reserve from '../../models/reserve/interface';
 // helpers
 import OutlineType from './helpers/outline.type';
 import { r } from '../../models/reserve';
+import { Route, Switch } from 'react-router';
+import { Link } from 'react-router-dom';
+import ReservationInfo from '../../components/ReservationInfo';
 
 export default class MyReservePage extends Component<
   {
@@ -35,11 +38,22 @@ export default class MyReservePage extends Component<
     return (
       <PageLayout titile={'การจองของฉัน'}>
         <Outline>{outline}</Outline>
-        {data &&
-          data.map((e: Reserve, i) => {
-            const { name, reserve } = e;
-            return <StateCard key={i} name={name} reserve={reserve} />;
-          })}
+        <Switch>
+          <Route path="/my/reserve/*/:id">
+            <ReservationInfo />
+          </Route>
+          <Route path="/">
+            {data &&
+              data.map((e: Reserve, i) => {
+                const { name, reserve } = e;
+                return (
+                  <Link key={i} to={`/my/reserve/${type}/${e._id}`}>
+                    <StateCard name={name} reserve={reserve} />
+                  </Link>
+                );
+              })}
+          </Route>
+        </Switch>
       </PageLayout>
     );
   }
