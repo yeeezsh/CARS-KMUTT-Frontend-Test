@@ -25,6 +25,7 @@ class UserClass {
 
   SaveCredential = (data: User) => {
     try {
+      store.dispatch(setUser(data));
       const duplicated = localStorage.getItem('user');
       if (duplicated) localStorage.removeItem('user');
       localStorage.setItem('user', JSON.stringify(data));
@@ -38,13 +39,12 @@ class UserClass {
   RestoreUser = () => {
     const user = localStorage.getItem('user');
     if (!user) throw Error('user need login');
-    store.dispatch(setUser(user));
+    store.dispatch(setUser(JSON.parse(user)));
   };
 
   RequestorLogin = async (username: string, password: string): Promise<{ auth: boolean }> => {
     try {
       const res = (await loginAdapter('requestor', { username, password })).data;
-      store.dispatch(setUser(res));
       this.SaveCredential(res);
       return { auth: true };
     } catch (err) {
