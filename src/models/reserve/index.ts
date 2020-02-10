@@ -39,6 +39,10 @@ class ReservedClass {
       const res: TaskAPI[] = (await i.instance.get('/task/requested')).data;
       const parsed = this.parser(res);
       return parsed;
+    } else if (type === 'wait') {
+      const res: TaskAPI[] = (await i.instance.get('/task/wait')).data;
+      const parsed = this.parser(res);
+      return parsed;
     }
     return [];
   };
