@@ -120,13 +120,13 @@ export default class PageRouter extends Component<
         <Route path="/my/reserve/">
           <Switch>
             <Route path="*/history">
-              <MyReservePage type="history" />
+              <MyReservePage key={'history'} type="history" />
             </Route>
             <Route path="*/wait">
-              <MyReservePage type="wait" />
+              <MyReservePage key={'wait'} type="wait" />
             </Route>
             <Route path="*/request">
-              <MyReservePage type="requested" />
+              <MyReservePage key={'requested'} type="requested" />
             </Route>
           </Switch>
         </Route>
