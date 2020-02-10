@@ -28,12 +28,17 @@ class UserClass {
       const duplicated = localStorage.getItem('user');
       if (duplicated) localStorage.removeItem('user');
       localStorage.setItem('user', JSON.stringify(data));
-
       return true;
     } catch (err) {
       console.error(err);
       return false;
     }
+  };
+
+  RestoreUser = () => {
+    const user = localStorage.getItem('user');
+    if (!user) throw Error('user need login');
+    store.dispatch(setUser(user));
   };
 
   RequestorLogin = async (username: string, password: string): Promise<{ auth: boolean }> => {
