@@ -34,8 +34,10 @@ class ReservedClass {
     if (type === 'history') {
       const res: TaskAPI[] = (await i.instance.get('/task/history')).data;
       const parsed = this.parser(res);
-      console.log('res', res);
-      console.log('after pased', parsed);
+      return parsed;
+    } else if (type === 'requested') {
+      const res: TaskAPI[] = (await i.instance.get('/task/requested')).data;
+      const parsed = this.parser(res);
       return parsed;
     }
     return [];
