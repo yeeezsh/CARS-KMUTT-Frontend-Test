@@ -21,8 +21,10 @@ export const UserReducers = (state: UserStore = initialState, action: any) => {
         ...action.user,
       };
     case DELETE_USER:
-      u.DeleteCredential();
-      return initialState;
+      return {
+        ...state,
+        ...initialState,
+      };
 
     default:
       return state;
