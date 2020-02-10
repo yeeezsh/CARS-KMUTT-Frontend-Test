@@ -1,6 +1,8 @@
 import User from './interface';
 import { QuotaType } from './quota.interface';
 import i from '../axios.interface';
+import { store } from '../../index';
+import { setUser, deleteUser } from '../../store/reducers/users/actions';
 
 const loginAdapter = (type: 'staff' | 'requestor', data: { username: string; password: string }) => {
   let url = '/users/auth/requestor';
@@ -16,6 +18,7 @@ class UserClass {
   }
 
   DeleteCredential = () => {
+    store.dispatch(deleteUser());
     localStorage.removeItem('user');
     return;
   };
@@ -36,6 +39,7 @@ class UserClass {
   RequestorLogin = async (username: string, password: string): Promise<{ auth: boolean }> => {
     try {
       const res = (await loginAdapter('requestor', { username, password })).data;
+      store.dispatch(setUser(res));
       this.SaveCredential(res);
       return { auth: true };
     } catch (err) {
