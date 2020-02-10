@@ -1,6 +1,6 @@
 import { Moment } from 'moment';
 
-export type ReserveState = 'wait' | 'approve' | 'reject' | 'accept' | 'drop' | undefined;
+export type ReserveState = 'wait' | 'approve' | 'reject' | 'accept' | 'drop' | 'requested';
 export type ReserveStateHistory = Array<ReserveState>;
 export type ReserveStateDesc = 'ได้รับการอนุมัติ' | 'ไม่ได้รับการอนุมัติ' | 'รอการยืนยันจากเพื่อน' | string;
 

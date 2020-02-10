@@ -16,7 +16,7 @@ interface Area {
 
 export interface Task {
   reserve: TimeSlot[];
-  state: Array<'wait' | 'approve' | 'reject' | 'accept' | 'drop'>;
+  state: Array<'wait' | 'approve' | 'reject' | 'accept' | 'drop' | 'requested'>;
   area: Area;
   desc?: ReserveStateDesc;
 
