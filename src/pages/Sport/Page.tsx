@@ -72,23 +72,16 @@ interface MapToStateI {
 class SportPage extends Component<
   RouteComponentProps<any> & MapToStateI & MaptoDispatchI,
   {
-    // timeSelected: Moment;
     step: number;
     badge: string | undefined;
     status: boolean[];
-    // users: string[];
     backCard: string[];
-    // interval: number;
     confirmModal: boolean;
-    // maxForward: number;
-    // owner: string;
   }
 > {
   state = {
     dateSelected: moment().startOf('day'),
     timeSelected: moment().startOf('day'),
-    // areaSelected: DEFAULT_SELECTED_AREA,
-    // users: [],
     step: 1,
     badge: '',
     status: [],
@@ -96,19 +89,12 @@ class SportPage extends Component<
     interval: 0,
     confirmModal: false,
     areas: [],
-    // maxForward: 2,
-    // owner: '',
   };
 
   onSelectDate = async (date: Moment) => {
     const { setDateSelected, queryArea } = this.props;
-    const areaId = location.pathname.split('/')[3];
     setDateSelected(date);
     queryArea();
-    // await this.queryAreaDate(areaId, date);
-    // return this.setState({
-    //   dateSelected: date,
-    // });
   };
 
   onSelectTime = (time: TimeNode) => {
@@ -161,16 +147,13 @@ class SportPage extends Component<
   onSelectArea = (area: Area['area']) => {
     const { setAreaSelected } = this.props;
     setAreaSelected(area);
-    // console.log('on sleected area', area);
-    // const areas: Area[] = this.state.areas;
-    // const interval = areas.find(e => e.area.id === area.id)?.time.interval || 60;
-    // return this.setState({ areaSelected: area, interval });
   };
 
   onForm = (d: { status: boolean; users: string[] }) => {
     if (!d.status) return;
     const { setUsers } = this.props;
-    // console.log('set users', d.users);
+
+    // set to store
     setUsers(d.users);
     return this.setState(
       prevState => {
@@ -178,7 +161,6 @@ class SportPage extends Component<
         return {
           step: 3,
           status: status.map((e, i) => (i === 1 ? true : e)),
-          // users: d.users,
         };
       },
       () => {
@@ -214,8 +196,6 @@ class SportPage extends Component<
 
   onConfirm = () => {
     // on send
-    console.log('confirm kaa');
-    // const {  } = this.state;
     const { areaSelected, owner, users, dateSelected, timeSelected, interval } = this.props;
     const startTime = moment(
       `${dateSelected.format('DD-MM-YYYY')}-${timeSelected.format('HH:mm')}`,
@@ -238,12 +218,6 @@ class SportPage extends Component<
 
   onModal = () => this.props.history.replace('/');
 
-  queryAreaDate = async (id: string, date: Moment) => {
-    const areas = await sport.getFields(id, date);
-    // const maxForward = areas.reduce((prev, cur) => (prev.time.forward > cur.time.forward ? prev : cur)).time.forward;
-    // return this.setState({ areas, maxForward });
-  };
-
   componentDidMount = async () => {
     TimePage.preload();
     FormPage.preload();
@@ -256,10 +230,6 @@ class SportPage extends Component<
     setOwner(owner);
     setAreaId(areaId);
     queryArea();
-    // await this.queryAreaDate(areaId, dateSelected);
-    // const areas = await sport.getFields(areaId, this.state.dateSelected);
-    // const maxForward = areas.reduce((prev, cur) => (prev.time.forward > cur.time.forward ? prev : cur)).time.forward;
-    // this.setState({ owner });
 
     // for setting badge
     const status = stepLists.map(() => false);
@@ -273,20 +243,11 @@ class SportPage extends Component<
   };
 
   render() {
-    console.log('page sport states', this.props.dateSelected.format('DD-MM-YYYY'));
-    console.log('page sport states', this.props);
-    const {
-      confirmModal,
-      step,
-      backCard,
-      // areaSelected,
-      // dateSelected,
-      timeSelected,
-      interval,
-      // maxForward,
-    } = this.state;
+    // console.log('page sport states', this.props.dateSelected.format('DD-MM-YYYY'));
+    // console.log('page sport states', this.props);
+    const { confirmModal, step, backCard, timeSelected, interval } = this.state;
 
-    const { dateSelected, areas, areaSelected, maxForward, users } = this.props;
+    const { dateSelected, areaSelected, users } = this.props;
 
     return (
       <React.Fragment>
@@ -326,14 +287,6 @@ class SportPage extends Component<
                 onSelectDate={this.onSelectDate}
                 onSelectTime={this.onSelectTime}
                 onSelectArea={this.onSelectArea}
-                // date={{
-                //   start: moment().startOf('day'),
-                //   stop: moment()
-                //     .startOf('day')
-                //     .add(maxForward - 1, 'day'),
-                //   selected: dateSelected,
-                // }}
-                // areas={areas}
               />
             </Route>
 
