@@ -18,6 +18,11 @@ const Page = Loadable({
   loader: () => import('./Page'),
   loading: () => null,
 });
+const LogoutPage = Loadable({
+  loader: () => import('./Logout'),
+  loading: () => null,
+});
+
 import { Category as SportCategory, Page as SportPage } from './Sport';
 
 const AppDrawer = Loadable({
@@ -128,6 +133,10 @@ export default class PageRouter extends Component<
 
         <Route path="/login">
           <LoginPage />
+        </Route>
+
+        <Route path="/logout">
+          <LogoutPage />
         </Route>
       </Router>
     );
