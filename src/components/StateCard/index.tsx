@@ -87,7 +87,7 @@ export default function StateCard(props: {
       </Row>
       <Row className={styles.detail} type="flex" justify="start">
         <Col span={22}>
-          <span className={styles.state}>{iconColor(reserve?.state?.type || undefined, reserve?.state?.desc)}</span>
+          <span className={styles.state}>{iconColor(reserve?.state?.type || 'drop', reserve?.state?.desc)}</span>
         </Col>
       </Row>
     </Row>
