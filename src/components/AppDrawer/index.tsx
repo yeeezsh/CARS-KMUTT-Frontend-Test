@@ -16,6 +16,7 @@ import {
   checkedIcon,
   timeIcon,
   hamburgerWhite,
+  logoutIcon,
 } from './icon.import';
 
 export default function AppDrawer(props: { drawer: boolean; onDrawer: any }) {
@@ -52,6 +53,11 @@ export default function AppDrawer(props: { drawer: boolean; onDrawer: any }) {
               </React.Fragment>
             );
           })}
+      </Row>
+
+      {/* logout */}
+      <Row style={{ position: 'absolute', width: '100%', bottom: 50 }}>
+        <CardMain link={'/logout'} onClick={onDrawer} label={['ออกจากระบบ']} icon={logoutIcon} />
       </Row>
     </Drawer>
   );

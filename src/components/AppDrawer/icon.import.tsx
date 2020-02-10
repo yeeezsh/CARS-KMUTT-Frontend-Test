@@ -6,5 +6,16 @@ import ticketIcon from '../../assets/icons/drawer/ticket.svg';
 import docsIcon from '../../assets/icons/drawer/docs.svg';
 import checkedIcon from '../../assets/icons/drawer/checked.svg';
 import timeIcon from '../../assets/icons/drawer/time.svg';
+import logoutIcon from '../../assets/icons/drawer/logout.svg';
 
-export { hamburgerWhite, homeIcon, basketballIcon, footballareaIcon, ticketIcon, docsIcon, checkedIcon, timeIcon };
+export {
+  hamburgerWhite,
+  homeIcon,
+  basketballIcon,
+  footballareaIcon,
+  ticketIcon,
+  docsIcon,
+  checkedIcon,
+  timeIcon,
+  logoutIcon,
+};
