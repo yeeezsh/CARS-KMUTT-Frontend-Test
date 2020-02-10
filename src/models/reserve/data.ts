@@ -8,6 +8,7 @@ export const query = (type: ReserveState) => {
 export const data = (): Reserve[] => {
   return [
     {
+      _id: '1',
       name: 'แบดมินตัน 1',
       desc: '',
       reserve: {
@@ -23,6 +24,7 @@ export const data = (): Reserve[] => {
       },
     },
     {
+      _id: '2',
       name: 'ฟุตบอล 1',
       reserve: {
         date: moment(),

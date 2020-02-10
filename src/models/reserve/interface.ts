@@ -5,6 +5,7 @@ export type ReserveStateHistory = Array<ReserveState>;
 export type ReserveStateDesc = 'ได้รับการอนุมัติ' | 'ไม่ได้รับการอนุมัติ' | 'รอการยืนยันจากเพื่อน' | string;
 
 export default interface Reserve {
+  _id: string;
   name?: string;
   desc?: string;
   reserve?: {

@@ -17,6 +17,7 @@ export interface RequestorAPI {
 }
 
 export interface TaskAPI {
+  _id: string;
   reserve: TimeSlot[];
   requestor: RequestorAPI[];
   state: Array<'wait' | 'approve' | 'reject' | 'accept' | 'drop' | 'requested'>;

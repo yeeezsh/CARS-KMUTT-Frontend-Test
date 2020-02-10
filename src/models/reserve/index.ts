@@ -15,6 +15,7 @@ class ReservedClass {
       const curState = e.state[e.state.length - 1];
       console.log('cur state', curState);
       return {
+        _id: e._id,
         name: e.area.label,
         reserve: {
           date: moment(e.reserve[0].start),
