@@ -88,7 +88,7 @@ class SportPage extends Component<
     dateSelected: moment().startOf('day'),
     timeSelected: moment().startOf('day'),
     // areaSelected: DEFAULT_SELECTED_AREA,
-    users: [],
+    // users: [],
     step: 1,
     badge: '',
     status: [],
@@ -277,7 +277,6 @@ class SportPage extends Component<
     console.log('page sport states', this.props);
     const {
       confirmModal,
-      users,
       step,
       backCard,
       // areaSelected,
@@ -287,7 +286,7 @@ class SportPage extends Component<
       // maxForward,
     } = this.state;
 
-    const { dateSelected, areas, areaSelected, maxForward } = this.props;
+    const { dateSelected, areas, areaSelected, maxForward, users } = this.props;
 
     return (
       <React.Fragment>
