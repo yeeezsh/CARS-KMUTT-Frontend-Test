@@ -55,8 +55,8 @@ class UserClass {
   };
 
   UserLogout = async () => {
-    this.DeleteCredential();
     await i.instance.get('/users/auth/logout');
+    this.DeleteCredential();
   };
 
   GetUser = (): User => {

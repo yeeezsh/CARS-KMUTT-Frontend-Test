@@ -6,7 +6,7 @@ import styles from './styles.module.css';
 import { Drawer } from './drawer.interface';
 
 export default function CardMain(props: {
-  settings: Drawer['settings'];
+  settings?: Drawer['settings'];
   icon: Drawer['icon'];
   label: Drawer['label'];
   link?: Drawer['link'];
