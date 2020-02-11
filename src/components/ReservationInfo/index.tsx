@@ -65,7 +65,7 @@ export default class ReservationInfo extends Component<
       <React.Fragment>
         {/* <Row> */}
         <Col span={24} className={styles.overview}>
-          <Outline>ข้อมูลการจอง</Outline>
+          <Outline className={styles.header}>ข้อมูลการจอง</Outline>
           {/* sub header */}
           <Row>
             <Col span={10}>

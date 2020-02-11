@@ -2,7 +2,7 @@
   border: 1px solid #fbbe9b;
   box-sizing: border-box;
   border-radius: 4px;
-  padding: 12px;
+  padding: 18px;
 }
 
 .status {
@@ -15,6 +15,7 @@
 .statusBadge {
   font-size: 16px;
   text-align: center;
+  margin: 0px;
 }
 
 .overviewStudentIds {
@@ -47,4 +48,7 @@
   height: 12px;
   margin-top: -3px;
   margin-left: 3px;
+}
+.header {
+  margin-bottom: 16px;
 }
