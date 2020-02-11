@@ -6,9 +6,13 @@ import StateYellow from '../../assets/icons/state.yellow.svg';
 import StateGreen from '../../assets/icons/state.green.svg';
 import StateRed from '../../assets/icons/state.red.svg';
 
-const StateCardIconColor: React.FunctionComponent<{ type: ReserveState; desc?: string }> = props => {
-  const label: React.CSSProperties = { marginLeft: '18px', marginTop: '-16px' };
-  const { type, desc } = props;
+const StateCardIconColor: React.FunctionComponent<{
+  type: ReserveState;
+  desc?: string;
+  style?: React.CSSProperties;
+}> = props => {
+  const { type, desc, style } = props;
+  const label: React.CSSProperties = { marginLeft: '18px', marginTop: '-16px', ...style };
   switch (type) {
     case 'wait':
       return (
