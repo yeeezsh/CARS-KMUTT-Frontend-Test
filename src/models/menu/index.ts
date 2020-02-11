@@ -36,7 +36,7 @@ const defaultMenu: Menu[] = [
     key: '4',
     label: ['รีเควสที่ต้องยืนยัน'],
     icon: check,
-    link: '/my/reserve/request',
+    link: '/my/reserve/requested',
     setting: {
       labelColor: '#666666',
     },
