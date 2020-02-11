@@ -1,10 +1,10 @@
 import i from '../axios.interface';
-import { Task } from './task.interface';
+import { Task, TaskDetail } from './task.interface';
 import moment from 'moment';
 import stateDesc from './helpers/state.desc';
 
 class TaskClass {
-  async getTaskById(id: string): Promise<Task | undefined> {
+  async getTaskById(id: string): Promise<TaskDetail | undefined> {
     try {
       const data = (await i.instance.get('/task/' + id)).data;
       return data;

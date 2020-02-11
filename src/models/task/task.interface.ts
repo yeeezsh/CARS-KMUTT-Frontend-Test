@@ -25,7 +25,7 @@ export interface Task {
   updateAt: Moment;
 }
 
-interface TaskDetailRequestor {
+export interface TaskDetailRequestor {
   username: string;
   confirm: boolean;
 }
