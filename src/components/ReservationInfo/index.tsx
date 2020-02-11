@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { RouteComponentProps } from 'react-router';
+import { RouteComponentProps, withRouter } from 'react-router';
 import { Row, Col } from 'antd';
 import moment from 'moment';
 
@@ -13,10 +13,11 @@ import stateDesc from '../../models/task/helpers/state.desc';
 import BreakingLine from '../BreakingLine';
 
 import CheckIcon from '../../assets/icons/checked.user.svg';
+import Button from '../Button';
 
 // const initState
 
-export default class ReservationInfo extends Component<
+class ReservationInfo extends Component<
   RouteComponentProps,
   {
     reserve: TaskDetail['reserve'];
@@ -40,6 +41,12 @@ export default class ReservationInfo extends Component<
       loading: true,
     };
   }
+
+  goBack = () => {
+    const { goBack } = this.props.history;
+    return goBack();
+  };
+
   componentDidMount = async () => {
     const { match } = this.props;
     const params: any = match.params;
@@ -61,6 +68,7 @@ export default class ReservationInfo extends Component<
   render() {
     console.log('this', this.state);
     const { state, area, reserve, requestor } = this.state;
+
     return (
       <React.Fragment>
         {/* <Row> */}
@@ -106,6 +114,18 @@ export default class ReservationInfo extends Component<
                 </p>
               ))}
           </Col>
+
+          {/* btn action */}
+          <Col span={24} style={{ marginTop: '55px' }}>
+            <Row type="flex" justify="space-around">
+              <Col span={11}>
+                <Button style={{ backgroundColor: '#979797' }}>ยกเลิก</Button>
+              </Col>
+              <Col span={11}>
+                <Button onClick={this.goBack}>ย้อนกลับ</Button>
+              </Col>
+            </Row>
+          </Col>
         </Col>
 
         {/* </Row> */}
@@ -113,3 +133,5 @@ export default class ReservationInfo extends Component<
     );
   }
 }
+
+export default withRouter(ReservationInfo);
