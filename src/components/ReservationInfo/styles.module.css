@@ -1,6 +1,18 @@
 .overview {
-    border: 1px solid #FBBE9B;
-    box-sizing: border-box;
-    border-radius: 4px;
-    padding: 12px;
-  }
+  border: 1px solid #fbbe9b;
+  box-sizing: border-box;
+  border-radius: 4px;
+  padding: 12px;
+}
+
+.status {
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 18px;
+  margin-top: 6px;
+}
+
+.statusBadge {
+  font-size: 16px;
+  text-align: center;
+}
