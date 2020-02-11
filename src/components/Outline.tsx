@@ -7,7 +7,11 @@ const style: React.CSSProperties = {
   fontWeight: 'bold',
 };
 
-const Outline: React.FunctionComponent<{ style?: React.CSSProperties }> = props => {
-  return <p style={{ ...style, ...props.style }}>{props.children}</p>;
+const Outline: React.FunctionComponent<{ style?: React.CSSProperties; className?: string }> = props => {
+  return (
+    <p className={props.className} style={{ ...style, ...props.style }}>
+      {props.children}
+    </p>
+  );
 };
 export default Outline;
