@@ -97,7 +97,7 @@ const menu: DrawerType[] = [
         key: '2',
         label: ['รีเควสที่ต้องยืนยัน'],
         icon: checkedIcon,
-        link: '/my/reserve/request',
+        link: '/my/reserve/requested',
       },
       {
         key: '3',

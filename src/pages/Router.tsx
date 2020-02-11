@@ -125,7 +125,7 @@ export default class PageRouter extends Component<
             <Route path="*/wait">
               <MyReservePage key={'wait'} type="wait" />
             </Route>
-            <Route path="*/request">
+            <Route path="*/requested">
               <MyReservePage key={'requested'} type="requested" />
             </Route>
           </Switch>
