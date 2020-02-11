@@ -4,6 +4,14 @@ import moment from 'moment';
 import stateDesc from './helpers/state.desc';
 
 class TaskClass {
+  async getTaskById(id: string): Promise<Task | undefined> {
+    try {
+      const data = (await i.instance.get('/task/' + id)).data;
+      return data;
+    } catch (err) {
+      throw new Error(err);
+    }
+  }
   async getLastTask(): Promise<Task | undefined> {
     try {
       const data = (await i.instance.get('/task/last')).data;

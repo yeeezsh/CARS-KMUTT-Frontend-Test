@@ -24,3 +24,15 @@ export interface Task {
   createAt: Moment;
   updateAt: Moment;
 }
+
+interface TaskDetailRequestor {
+  username: string;
+  confirm: boolean;
+}
+
+export interface TaskDetail extends Task {
+  staff: [];
+  requestor: TaskDetailRequestor[];
+}
+
+export type TaskDetailType = TaskDetail;
