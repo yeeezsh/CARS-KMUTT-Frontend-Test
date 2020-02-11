@@ -39,9 +39,8 @@ export default class MyReservePage extends Component<
       <PageLayout titile={'การจองของฉัน'}>
         <Outline>{outline}</Outline>
         <Switch>
-          <Route path="/my/reserve/*/:id">
-            <ReservationInfo />
-          </Route>
+          <Route path="/my/reserve/*/:id" component={ReservationInfo} />
+
           <Route path="/">
             {data &&
               data.map((e: Reserve, i) => {
