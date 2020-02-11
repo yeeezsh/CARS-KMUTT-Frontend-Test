@@ -16,3 +16,35 @@
   font-size: 16px;
   text-align: center;
 }
+
+.overviewStudentIds {
+  margin: 0px;
+  margin-left: 12px;
+  font-size: 16px;
+  line-height: 28px;
+  color: #ff682b;
+}
+
+.studentId {
+  margin-bottom: 0px;
+  margin-left: 6px;
+  color: #666666;
+}
+
+.info p {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 28px;
+  color: #666666;
+  padding: 0px;
+  margin: 0px;
+}
+.info {
+  margin: 12px;
+}
+.icon {
+  height: 12px;
+  margin-top: -3px;
+  margin-left: 3px;
+}
