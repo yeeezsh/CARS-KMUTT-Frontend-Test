@@ -1,11 +1,16 @@
 import React from 'react';
 import { Row, Col } from 'antd';
 import { Moment } from 'moment';
+import Loadable from 'react-loadable';
 
 // assets
 import styles from './styles.module.css';
 import { ReserveState } from '../../models/reserve/interface';
-import StateCardIconColor from './icon';
+
+const StateCardIconColor = Loadable({
+  loader: () => import('./icon'),
+  loading: () => null,
+});
 
 export default function StateCard(props: {
   name?: string | undefined;
