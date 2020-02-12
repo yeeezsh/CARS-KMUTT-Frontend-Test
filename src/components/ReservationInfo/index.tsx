@@ -18,6 +18,7 @@ import ActionModal from './model';
 import { u } from '../../models/user';
 
 // const initState
+const MODAL_REJECT_MSG = 'ท่านต้องการยกเลิกรีเควส';
 
 class ReservationInfo extends Component<
   RouteComponentProps,
@@ -61,6 +62,9 @@ class ReservationInfo extends Component<
 
   onModalAction = (action: boolean) => {
     console.log('modal action', action);
+    const { owner } = this.state;
+    const cancle = owner && action;
+    console.log('owner canle', cancle);
     return this.setState({ modal: false });
   };
 
@@ -74,7 +78,9 @@ class ReservationInfo extends Component<
     const data = await task.getTaskById(id);
     const owner = username === (data && data.requestor[0].username);
     const ownConfirm =
-      data?.requestor.filter(e => e.username === username)[0].confirm || false;
+      data?.requestor.filter(e => e.username === username)[0].confirm ||
+      false;
+
     console.log(data);
     if (!data) return;
     const state = data.state;
@@ -91,7 +97,17 @@ class ReservationInfo extends Component<
 
   render() {
     console.log('this', this.state);
-    const { state, area, reserve, requestor, modal } = this.state;
+    const {
+      state,
+      area,
+      reserve,
+      requestor,
+      modal,
+      ownConfirm,
+      owner,
+    } = this.state;
+
+    const modalMsg = owner ? MODAL_REJECT_MSG : undefined;
 
     return (
       <React.Fragment>
@@ -118,7 +134,9 @@ class ReservationInfo extends Component<
           {/* area info */}
           <div className={styles.info}>
             <p>สถานที่: {area.label || area.name}</p>
-            <p>วันที่จอง: {moment(reserve[0].start).format('DD MMMM YYYY')}</p>
+            <p>
+              วันที่จอง: {moment(reserve[0].start).format('DD MMMM YYYY')}
+            </p>
             <p>
               เวลา: {moment(reserve[0].start).format('HH.mm')} -{' '}
               {moment(reserve[0].stop).format('HH.mm')}
@@ -149,21 +167,46 @@ class ReservationInfo extends Component<
           {/* btn action */}
           <Col span={24} style={{ marginTop: '55px' }}>
             <Row type="flex" justify="space-around">
-              <Col span={11}>
-                <Button
-                  style={{ backgroundColor: '#979797' }}
-                  onClick={this.onModal}
-                >
-                  ยกเลิก
-                </Button>
-              </Col>
-              <Col span={11}>
-                <Button onClick={this.goBack}>ย้อนกลับ</Button>
-              </Col>
+              {owner ? (
+                <React.Fragment>
+                  <Col span={11}>
+                    <Button
+                      style={{ backgroundColor: '#979797' }}
+                      onClick={this.onModal}
+                    >
+                      ยกเลิก
+                    </Button>
+                  </Col>
+                  <Col span={11}>
+                    <Button onClick={this.goBack}>ย้อนกลับ</Button>
+                  </Col>
+                </React.Fragment>
+              ) : ownConfirm === true ? (
+                <React.Fragment>
+                  <Col span={11}>
+                    <Button onClick={this.goBack}>ย้อนกลับ</Button>
+                  </Col>
+                  <Col span={11}>
+                    <Button style={{ backgroundColor: '#1890FF' }}>
+                      ยืนยัน
+                    </Button>
+                  </Col>
+                </React.Fragment>
+              ) : (
+                <React.Fragment>
+                  <Col span={24}>
+                    <Button onClick={this.goBack}>ย้อนกลับ</Button>
+                  </Col>
+                </React.Fragment>
+              )}
             </Row>
           </Col>
         </Col>
-        <ActionModal visible={modal} onModal={this.onModalAction} />
+        <ActionModal
+          desc={modalMsg}
+          visible={modal}
+          onModal={this.onModalAction}
+        />
         {/* </Row> */}
       </React.Fragment>
     );
