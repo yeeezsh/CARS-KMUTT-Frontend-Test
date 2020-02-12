@@ -12,7 +12,11 @@ const StateCardIconColor: React.FunctionComponent<{
   style?: React.CSSProperties;
 }> = props => {
   const { type, desc, style } = props;
-  const label: React.CSSProperties = { marginLeft: '18px', marginTop: '-16px', ...style };
+  const label: React.CSSProperties = {
+    marginLeft: '18px',
+    marginTop: '-16px',
+    ...style,
+  };
   switch (type) {
     case 'wait':
       return (
@@ -36,6 +40,13 @@ const StateCardIconColor: React.FunctionComponent<{
         </React.Fragment>
       );
     case 'reject':
+      return (
+        <React.Fragment>
+          <img src={StateRed} alt="state-red" />
+          <p style={{ ...label, color: '#F5222D' }}>{desc}</p>
+        </React.Fragment>
+      );
+    case 'drop':
       return (
         <React.Fragment>
           <img src={StateRed} alt="state-red" />

@@ -13,6 +13,8 @@ export default (state: ReserveState): ReserveStateDesc => {
       return 'รอการยืนยัน';
     case 'requested':
       return 'รอการยืนยันจากเพื่อน';
+    case 'drop':
+      return 'ยกเลิก';
     default:
       return 'undefined';
   }
