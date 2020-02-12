@@ -14,6 +14,8 @@ import BreakingLine from '../BreakingLine';
 
 import CheckIcon from '../../assets/icons/checked.user.svg';
 import Button from '../Button';
+import ActionModal from './model';
+import { u } from '../../models/user';
 
 // const initState
 
@@ -25,6 +27,9 @@ class ReservationInfo extends Component<
     area: TaskDetail['area'];
     requestor: TaskDetail['requestor'];
     loading: boolean;
+    modal: boolean;
+    owner: boolean;
+    ownConfirm: boolean;
   }
 > {
   constructor(props: RouteComponentProps) {
@@ -39,6 +44,9 @@ class ReservationInfo extends Component<
       },
       requestor: [],
       loading: true,
+      modal: false,
+      owner: false,
+      ownConfirm: false,
     };
   }
 
@@ -47,13 +55,26 @@ class ReservationInfo extends Component<
     return goBack();
   };
 
+  onModal = () => {
+    return this.setState(prevState => ({ modal: !prevState.modal }));
+  };
+
+  onModalAction = (action: boolean) => {
+    console.log('modal action', action);
+    return this.setState({ modal: false });
+  };
+
   componentDidMount = async () => {
     const { match } = this.props;
     const params: any = match.params;
     const id = params.id;
     if (!id) throw new Error('invalid id');
-    console.log('wowza', id);
+    // console.log('wowza', id);
+    const username = u.GetUser().username;
     const data = await task.getTaskById(id);
+    const owner = username === (data && data.requestor[0].username);
+    const ownConfirm =
+      data?.requestor.filter(e => e.username === username)[0].confirm || false;
     console.log(data);
     if (!data) return;
     const state = data.state;
@@ -63,11 +84,14 @@ class ReservationInfo extends Component<
       state: (state && state[state.length - 1]) || [],
       area: data?.area,
       requestor: data.requestor,
+      owner,
+      ownConfirm,
     });
   };
+
   render() {
     console.log('this', this.state);
-    const { state, area, reserve, requestor } = this.state;
+    const { state, area, reserve, requestor, modal } = this.state;
 
     return (
       <React.Fragment>
@@ -96,7 +120,8 @@ class ReservationInfo extends Component<
             <p>สถานที่: {area.label || area.name}</p>
             <p>วันที่จอง: {moment(reserve[0].start).format('DD MMMM YYYY')}</p>
             <p>
-              เวลา: {moment(reserve[0].start).format('HH.mm')} - {moment(reserve[0].stop).format('HH.mm')}
+              เวลา: {moment(reserve[0].start).format('HH.mm')} -{' '}
+              {moment(reserve[0].stop).format('HH.mm')}
             </p>
           </div>
 
@@ -110,7 +135,13 @@ class ReservationInfo extends Component<
                 <p className={styles.studentId} key={i}>
                   {/* {i + 1}) {e.username} */}
                   {i + 1}) {e.username}{' '}
-                  {e.confirm && <img className={styles.icon} src={CheckIcon} alt="checked icon" />}
+                  {e.confirm && (
+                    <img
+                      className={styles.icon}
+                      src={CheckIcon}
+                      alt="checked icon"
+                    />
+                  )}
                 </p>
               ))}
           </Col>
@@ -119,7 +150,12 @@ class ReservationInfo extends Component<
           <Col span={24} style={{ marginTop: '55px' }}>
             <Row type="flex" justify="space-around">
               <Col span={11}>
-                <Button style={{ backgroundColor: '#979797' }}>ยกเลิก</Button>
+                <Button
+                  style={{ backgroundColor: '#979797' }}
+                  onClick={this.onModal}
+                >
+                  ยกเลิก
+                </Button>
               </Col>
               <Col span={11}>
                 <Button onClick={this.goBack}>ย้อนกลับ</Button>
@@ -127,7 +163,7 @@ class ReservationInfo extends Component<
             </Row>
           </Col>
         </Col>
-
+        <ActionModal visible={modal} onModal={this.onModalAction} />
         {/* </Row> */}
       </React.Fragment>
     );
