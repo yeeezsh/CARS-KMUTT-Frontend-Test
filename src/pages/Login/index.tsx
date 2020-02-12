@@ -25,31 +25,35 @@ class LoginPage extends Component<
   };
 
   onValidator = (rule: any, value: string, callback: any) => {
-    if (value === undefined) return callback('โปรดกรอกรหัสนักศึกษาให้ถูกต้อง');
-    if (value.length !== 11) return callback('โปรดกรอกรหัสนักศึกษาให้ถูกต้อง');
+    if (value === undefined)
+      return callback('โปรดกรอกรหัสนักศึกษาให้ถูกต้อง');
+    if (value.length !== 11)
+      return callback('โปรดกรอกรหัสนักศึกษาให้ถูกต้อง');
     return callback();
   };
 
   onSubmit = async (e: any) => {
     e.preventDefault();
     const { validateFields, setFields } = this.props.form;
-    return validateFields((err, values: { username: string; password: string }) => {
-      if (!err) {
-        return this.setState({ loading: true }, async () => {
-          const { username, password } = values;
-          const res = await u.RequestorLogin(username, password);
-          console.log(res);
-          if (res.auth) return this.props.history.push('/');
-          setFields({
-            password: {
-              value: values.password,
-              errors: [new Error('รหัสผ่านไม่ถูกต้อง')],
-            },
+    return validateFields(
+      (err, values: { username: string; password: string }) => {
+        if (!err) {
+          return this.setState({ loading: true }, async () => {
+            const { username, password } = values;
+            const res = await u.RequestorLogin(username, password);
+            console.log(res);
+            if (res.auth) return this.props.history.push('/');
+            setFields({
+              password: {
+                value: values.password,
+                errors: [new Error('รหัสผ่านไม่ถูกต้อง')],
+              },
+            });
+            return this.setState({ loading: false });
           });
-          return this.setState({ loading: false });
-        });
-      }
-    });
+        }
+      },
+    );
   };
 
   onType = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,7 +75,7 @@ class LoginPage extends Component<
           <Col>
             <img src={logo} alt="logo" />
           </Col>
-          <Col span={20}>
+          <Col span={22}>
             <p className={styles.label}>common area reservation systems</p>
           </Col>
         </Row>
@@ -89,7 +93,14 @@ class LoginPage extends Component<
                     },
                   ],
                   validateTrigger: ['onBlur'],
-                })(<Input onChange={this.onType} placeholder="Username" pattern="[0-9]*" type="number" />)}
+                })(
+                  <Input
+                    onChange={this.onType}
+                    placeholder="Username"
+                    pattern="[0-9]*"
+                    type="number"
+                  />,
+                )}
               </Form.Item>
             </Col>
             <Col span={18} lg={14} className={styles.input}>
@@ -97,11 +108,19 @@ class LoginPage extends Component<
                 {getFieldDecorator('password', {
                   rules: [{ required: true, message: 'โปรดกรอกรหัสผ่าน' }],
                   validateTrigger: ['onBlur'],
-                })(<Input onChange={this.onType} placeholder="Password" type="password" />)}
+                })(
+                  <Input
+                    onChange={this.onType}
+                    placeholder="Password"
+                    type="password"
+                  />,
+                )}
               </Form.Item>
             </Col>
             <Col span={18} lg={14}>
-              <Button>{loading ? <Icon type="loading" /> : 'Login'}</Button>
+              <Button>
+                {loading ? <Icon type="loading" /> : 'Login'}
+              </Button>
             </Col>
           </Row>
         </Form>
