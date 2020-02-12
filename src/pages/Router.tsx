@@ -56,8 +56,8 @@ export default class PageRouter extends Component<
 
   componentDidMount = () => {
     // preload other components
-    LoginPage.preload();
     Home.preload();
+    LoginPage.preload();
     AppDrawer.preload();
     // SportCategory.preload();
     // SportPage.preload();
@@ -99,6 +99,10 @@ export default class PageRouter extends Component<
         {/* AppDrawer */}
         <AppDrawer onDrawer={this.onDrawer} drawer={drawer} />
 
+        <Route path="/login">
+          <LoginPage />
+        </Route>
+
         <Route exact={true} path="/">
           <Home />
         </Route>
@@ -129,10 +133,6 @@ export default class PageRouter extends Component<
               <MyReservePage key={'requested'} type="requested" />
             </Route>
           </Switch>
-        </Route>
-
-        <Route path="/login">
-          <LoginPage />
         </Route>
 
         <Route path="/logout">

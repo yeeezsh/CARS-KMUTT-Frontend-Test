@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { Row, Col, Input, Form, Icon } from 'antd';
-import Button from '../../components/Button';
 import { withRouter, RouteComponentProps } from 'react-router';
-
 import { FormComponentProps } from 'antd/lib/form';
+
+import Button from '../../components/Button';
+
+import { u } from '../../models/user';
 
 import logo from '../../assets/logo.login.svg';
 import styles from './styles.module.css';
-import { u } from '../../models/user';
 
 class LoginPage extends Component<
   FormComponentProps & RouteComponentProps,
