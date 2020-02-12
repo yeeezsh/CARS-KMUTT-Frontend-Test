@@ -10,7 +10,9 @@ const style: React.CSSProperties = {
   padding: '5px 15px 5px 15px',
 };
 
-const Badge: React.FunctionComponent = props => {
-  return <p style={style}>{props.children}</p>;
+const Badge: React.FunctionComponent<{
+  style?: React.CSSProperties;
+}> = props => {
+  return <p style={{ ...style, ...props.style }}>{props.children}</p>;
 };
 export default Badge;
