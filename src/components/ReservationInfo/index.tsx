@@ -35,6 +35,7 @@ class ReservationInfo extends Component<
     owner: boolean;
     ownConfirm: boolean;
     _id: string;
+    cancle: boolean;
   }
 > {
   constructor(props: PropTypes) {
@@ -53,6 +54,7 @@ class ReservationInfo extends Component<
       owner: false,
       ownConfirm: false,
       _id: '',
+      cancle: false,
     };
   }
 
@@ -110,6 +112,7 @@ class ReservationInfo extends Component<
       requestor: data.requestor,
       owner,
       ownConfirm,
+      cancle: data.cancle,
     });
   };
 
@@ -128,9 +131,60 @@ class ReservationInfo extends Component<
       modal,
       ownConfirm,
       owner,
+      cancle,
     } = this.state;
 
     const modalMsg = owner ? MODAL_REJECT_MSG : undefined;
+
+    const ActionBtn = () => {
+      if (owner && !cancle && state !== 'accept' && state !== 'drop') {
+        return (
+          <React.Fragment>
+            <Col span={11}>
+              <Button onClick={this.goBack}>ย้อนกลับ</Button>
+            </Col>
+            <Col span={11}>
+              <Button
+                style={{ backgroundColor: '#979797' }}
+                onClick={this.onModal}
+              >
+                ยกเลิก
+              </Button>
+            </Col>
+          </React.Fragment>
+        );
+      } else if (
+        !owner &&
+        !cancle &&
+        !ownConfirm &&
+        state !== 'accept' &&
+        state !== 'drop'
+      ) {
+        return (
+          <React.Fragment>
+            <Col span={11}>
+              <Button onClick={this.goBack}>ย้อนกลับ</Button>
+            </Col>
+            <Col span={11}>
+              <Button
+                style={{ backgroundColor: '#1890FF' }}
+                onClick={this.onModal}
+              >
+                ยืนยัน
+              </Button>
+            </Col>
+          </React.Fragment>
+        );
+      } else {
+        return (
+          <React.Fragment>
+            <Col span={24}>
+              <Button onClick={this.goBack}>ย้อนกลับ</Button>
+            </Col>
+          </React.Fragment>
+        );
+      }
+    };
 
     return (
       <React.Fragment>
@@ -190,41 +244,7 @@ class ReservationInfo extends Component<
           {/* btn action */}
           <Col span={24} style={{ marginTop: '55px' }}>
             <Row type="flex" justify="space-around">
-              {owner ? (
-                <React.Fragment>
-                  <Col span={11}>
-                    <Button onClick={this.goBack}>ย้อนกลับ</Button>
-                  </Col>
-                  <Col span={11}>
-                    <Button
-                      style={{ backgroundColor: '#979797' }}
-                      onClick={this.onModal}
-                    >
-                      ยกเลิก
-                    </Button>
-                  </Col>
-                </React.Fragment>
-              ) : ownConfirm === false ? (
-                <React.Fragment>
-                  <Col span={11}>
-                    <Button onClick={this.goBack}>ย้อนกลับ</Button>
-                  </Col>
-                  <Col span={11}>
-                    <Button
-                      style={{ backgroundColor: '#1890FF' }}
-                      onClick={this.onModal}
-                    >
-                      ยืนยัน
-                    </Button>
-                  </Col>
-                </React.Fragment>
-              ) : (
-                <React.Fragment>
-                  <Col span={24}>
-                    <Button onClick={this.goBack}>ย้อนกลับ</Button>
-                  </Col>
-                </React.Fragment>
-              )}
+              <ActionBtn />
             </Row>
           </Col>
         </Col>
