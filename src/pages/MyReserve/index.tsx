@@ -62,7 +62,8 @@ export default class MyReservePage extends Component<
           </Route>
 
           <Route path="/">
-            {data &&
+            {!data[0] && <StateCard />}
+            {data[0] &&
               data.map((e: Reserve, i) => {
                 const { name, reserve } = e;
                 return (
