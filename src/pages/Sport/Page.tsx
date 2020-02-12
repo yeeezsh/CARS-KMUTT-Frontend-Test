@@ -52,6 +52,7 @@ import {
   setAreaId,
   queryArea,
   setUsers,
+  resetState,
 } from '../../store/reducers/sports/actions';
 
 const CATEGORY_PAGE = '/reserve/sport/category';
@@ -65,6 +66,7 @@ interface MaptoDispatchI {
   setAreaId: any;
   queryArea: () => any;
   setUsers: (users: string[]) => any;
+  resetState: () => void;
 }
 interface MapToStateI {
   dateSelected: Moment;
@@ -265,6 +267,11 @@ class SportPage extends Component<
     });
   };
 
+  componentWillUnmount() {
+    const { resetState } = this.props;
+    resetState();
+  }
+
   render() {
     // console.log('page sport states', this.props.dateSelected.format('DD-MM-YYYY'));
     // console.log('page sport states', this.props);
@@ -378,6 +385,7 @@ const mapDispatchToProps = (dispatch: any) => {
     setAreaId: (areaId: string) => dispatch(setAreaId(areaId)),
     queryArea: () => dispatch(queryArea()),
     setUsers: (d: any) => dispatch(setUsers(d)),
+    resetState: () => dispatch(resetState()),
   };
 };
 

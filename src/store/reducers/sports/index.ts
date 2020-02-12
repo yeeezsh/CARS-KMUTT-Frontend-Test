@@ -8,6 +8,7 @@ import {
   SET_OWNER,
   QUERY_AREA,
   SET_USERS,
+  RESET_STATE,
 } from './actions';
 import TimeAreaReserveType from '../../../models/area/time.interface';
 
@@ -41,22 +42,35 @@ const initialState = {
   interval: 0,
 };
 
-export const SportReducers = (state: SportPagesStore = initialState, action: any) => {
+export const SportReducers = (
+  state: SportPagesStore = initialState,
+  action: any,
+) => {
   switch (action.type) {
     case SET_TIME_SELECTED:
       return { ...state, timeSelected: action.timeSelected };
     case SET_DATE_SELECTED:
       return { ...state, ...action };
     case QUERY_AREA:
-      return { ...state, areas: action.areas, maxForward: action.maxForward };
+      return {
+        ...state,
+        areas: action.areas,
+        maxForward: action.maxForward,
+      };
     case SET_AREA_SELECTED:
-      return { ...state, areaSelected: action.areaSelected, interval: action.interval };
+      return {
+        ...state,
+        areaSelected: action.areaSelected,
+        interval: action.interval,
+      };
     case SET_AREAID_SELECTED:
       return { ...state, areaId: action.areaId };
     case SET_OWNER:
       return { ...state, owner: action.owner };
     case SET_USERS:
       return { ...state, users: action.users };
+    case RESET_STATE:
+      return initialState;
     default:
       return state;
   }
