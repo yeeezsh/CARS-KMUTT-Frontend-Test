@@ -14,7 +14,7 @@ import BreakingLine from '../BreakingLine';
 
 import CheckIcon from '../../assets/icons/checked.user.svg';
 import Button from '../Button';
-import ActionModal from './model';
+import ActionModal from './modal';
 import { u } from '../../models/user';
 
 // const initState
@@ -31,6 +31,7 @@ class ReservationInfo extends Component<
     modal: boolean;
     owner: boolean;
     ownConfirm: boolean;
+    _id: string;
   }
 > {
   constructor(props: RouteComponentProps) {
@@ -48,6 +49,7 @@ class ReservationInfo extends Component<
       modal: false,
       owner: false,
       ownConfirm: false,
+      _id: '',
     };
   }
 
@@ -62,8 +64,12 @@ class ReservationInfo extends Component<
 
   onModalAction = (action: boolean) => {
     console.log('modal action', action);
-    const { owner } = this.state;
+
+    const { owner, _id } = this.state;
     const cancle = owner && action;
+    if (cancle)
+      task.cancleTaskById(_id).then(() => this.setState({ modal: false }));
+
     console.log('owner canle', cancle);
     return this.setState({ modal: false });
   };
@@ -86,6 +92,7 @@ class ReservationInfo extends Component<
     if (!data) return;
     const state = data.state;
     return this.setState({
+      _id: data._id,
       loading: false,
       reserve: data?.reserve || [],
       state: (state && state[state.length - 1]) || [],
