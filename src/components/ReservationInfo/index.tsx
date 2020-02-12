@@ -194,13 +194,13 @@ class ReservationInfo extends Component<
         <Col span={24} className={styles.overview}>
           <Outline className={styles.header}>ข้อมูลการจอง</Outline>
           {/* sub header */}
-          <Row>
-            <Col span={10}>
+          <Row type="flex" justify="start">
+            <Col>
               <Badge>
                 <span className={styles.statusBadge}>สถานะการจอง</span>
               </Badge>
             </Col>
-            <Col offset={1} span={12}>
+            <Col>
               <div className={styles.status}>
                 <StateCardIconColor type={state} desc={stateDesc(state)} />
               </div>
