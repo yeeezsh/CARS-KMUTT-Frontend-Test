@@ -3,7 +3,11 @@ import { Col, Row } from 'antd';
 import styles from './card.module.css';
 import Menu from '../../models/menu/interface';
 
-export default function Card(props: { icon?: string; label: Array<string>; setting?: Menu['setting'] }) {
+export default function Card(props: {
+  icon?: string;
+  label: Array<string>;
+  setting?: Menu['setting'];
+}) {
   const { label, icon, setting } = props;
   return (
     <div

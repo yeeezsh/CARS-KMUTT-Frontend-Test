@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'antd';
 import moment, { Moment } from 'moment';
-import { Route, Switch, withRouter, RouteComponentProps } from 'react-router';
+import {
+  Route,
+  Switch,
+  withRouter,
+  RouteComponentProps,
+} from 'react-router';
 import { connect } from 'react-redux';
 import Loadable from 'react-loadable';
 
@@ -35,7 +40,10 @@ import { sport } from '../../models/area/sport';
 import { Mutate } from '../../models/task/sport';
 import { TaskSport } from '../../models/task/sport/sport.interface';
 import { u } from '../../models/user';
-import { SportPagesStore, DEFAULT_SELECTED_AREA } from '../../store/reducers/sports';
+import {
+  SportPagesStore,
+  DEFAULT_SELECTED_AREA,
+} from '../../store/reducers/sports';
 import {
   setDateSelected,
   setTimeSelected,
@@ -196,9 +204,18 @@ class SportPage extends Component<
 
   onConfirm = () => {
     // on send
-    const { areaSelected, owner, users, dateSelected, timeSelected, interval } = this.props;
+    const {
+      areaSelected,
+      owner,
+      users,
+      dateSelected,
+      timeSelected,
+      interval,
+    } = this.props;
     const startTime = moment(
-      `${dateSelected.format('DD-MM-YYYY')}-${timeSelected.format('HH:mm')}`,
+      `${dateSelected.format('DD-MM-YYYY')}-${timeSelected.format(
+        'HH:mm',
+      )}`,
       'DD-MM-YYYY-HH:mm',
     );
     const stopTime = moment(startTime).add(interval, 'minute');
@@ -223,7 +240,13 @@ class SportPage extends Component<
     FormPage.preload();
     ConfirmPage.preload();
 
-    const { history, location, setAreaId, setOwner, queryArea } = this.props;
+    const {
+      history,
+      location,
+      setAreaId,
+      setOwner,
+      queryArea,
+    } = this.props;
 
     const owner = u.GetUser()?.username || '';
     const areaId = location.pathname.split('/')[3];
@@ -245,7 +268,13 @@ class SportPage extends Component<
   render() {
     // console.log('page sport states', this.props.dateSelected.format('DD-MM-YYYY'));
     // console.log('page sport states', this.props);
-    const { confirmModal, step, backCard, timeSelected, interval } = this.state;
+    const {
+      confirmModal,
+      step,
+      backCard,
+      timeSelected,
+      interval,
+    } = this.state;
 
     const { dateSelected, areaSelected, users } = this.props;
 
@@ -254,26 +283,41 @@ class SportPage extends Component<
         <ConfirmModal visible={confirmModal} onClick={this.onModal} />
 
         <PageLayout titile={'จองสนามกีฬา'}>
-          <Row type="flex" justify="center" className={styles.innerFixedHeader}>
+          <Row
+            type="flex"
+            justify="center"
+            className={styles.innerFixedHeader}
+          >
             {/* steps */}
             <Col style={{ marginTop: '-12px' }} offset={2} span={18}>
               <Row type="flex" justify="center">
                 <Col span={20}>
-                  <StateSteps onClick={this.onClickStep} current={step - 1} steps={stepLists} />
+                  <StateSteps
+                    onClick={this.onClickStep}
+                    current={step - 1}
+                    steps={stepLists}
+                  />
                 </Col>
               </Row>
             </Col>
 
             {/* back card */}
-            <Col style={{ marginTop: '4px', marginBottom: '4px' }} span={10}>
-              <BackCard onClick={() => this.onBackCard()}>{backCard[step - 1]}</BackCard>
+            <Col
+              style={{ marginTop: '4px', marginBottom: '4px' }}
+              span={10}
+            >
+              <BackCard onClick={() => this.onBackCard()}>
+                {backCard[step - 1]}
+              </BackCard>
             </Col>
 
             {/* Badge */}
             <Col style={{ marginBottom: '-8px' }} span={24}>
               <Row type="flex" justify="start">
                 <Badge>{this.state.badge}</Badge>
-                <span className={styles.sideLabel}>{areaSelected && areaSelected.label}</span>
+                <span className={styles.sideLabel}>
+                  {areaSelected && areaSelected.label}
+                </span>
               </Row>
             </Col>
           </Row>
@@ -291,7 +335,10 @@ class SportPage extends Component<
             </Route>
 
             <Route path="*/2">
-              <FormPage required={areaSelected.required} onSubmit={this.onForm} />
+              <FormPage
+                required={areaSelected.required}
+                onSubmit={this.onForm}
+              />
             </Route>
 
             <Route path="*/3">
@@ -325,7 +372,8 @@ const mapDispatchToProps = (dispatch: any) => {
       // console.log('dispatch time', time.format('HH mm'));
       return dispatch(setTimeSelected(time));
     },
-    setAreaSelected: (area: Area['area']) => dispatch(setAreaSelected(area)),
+    setAreaSelected: (area: Area['area']) =>
+      dispatch(setAreaSelected(area)),
     setOwner: (ownerId: string) => dispatch(setOwner(ownerId)),
     setAreaId: (areaId: string) => dispatch(setAreaId(areaId)),
     queryArea: () => dispatch(queryArea()),
@@ -334,4 +382,6 @@ const mapDispatchToProps = (dispatch: any) => {
 };
 
 // export default connect(mapStateToProps, mapDispatchToProps)(withRouter<RouteComponentProps, any>(SportPage));
-export default withRouter<RouteComponentProps, any>(connect(mapStateToProps, mapDispatchToProps)(SportPage));
+export default withRouter<RouteComponentProps, any>(
+  connect(mapStateToProps, mapDispatchToProps)(SportPage),
+);

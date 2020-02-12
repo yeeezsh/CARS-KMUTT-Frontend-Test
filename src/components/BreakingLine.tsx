@@ -1,7 +1,10 @@
 import React from 'react';
 import { Col, Row } from 'antd';
 
-const BreakingLine: React.FunctionComponent<{ lineSize?: number; color?: string }> = props => {
+const BreakingLine: React.FunctionComponent<{
+  lineSize?: number;
+  color?: string;
+}> = props => {
   const { lineSize, color } = props;
   return (
     <Row type="flex" justify="center">

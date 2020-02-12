@@ -39,12 +39,15 @@ export default class ConfirmPage extends Component<
             <Col span={20}>
               <span className={styles.overviewHeader}>เวลา</span>
               <span>
-                เวลา {time && time.format('hh.mm')} - {time && time.add(interval, 'minute').format('hh.mm')}
+                เวลา {time && time.format('hh.mm')} -{' '}
+                {time && time.add(interval, 'minute').format('hh.mm')}
               </span>
             </Col>
 
             <Col style={{ marginTop: '6px' }} span={20}>
-              <span className={styles.overviewStudentIds}>รหัสนักศึกษา</span>
+              <span className={styles.overviewStudentIds}>
+                รหัสนักศึกษา
+              </span>
               {users &&
                 users.map((e, i) => (
                   <p className={styles.studentId} key={i}>
@@ -58,8 +61,13 @@ export default class ConfirmPage extends Component<
           <Col style={{ marginTop: '16px' }} span={24}>
             <Row type="flex" justify="center">
               <Col span={22}>
-                <Button style={{ backgroundColor: '#1890FF' }} onClick={this.props.onConfirm}>
-                  {users?.length > 1 ? 'ส่งรีเควสไปให้เพื่อน' : 'ยืนยันการจอง'}
+                <Button
+                  style={{ backgroundColor: '#1890FF' }}
+                  onClick={this.props.onConfirm}
+                >
+                  {users?.length > 1
+                    ? 'ส่งรีเควสไปให้เพื่อน'
+                    : 'ยืนยันการจอง'}
                 </Button>
               </Col>
             </Row>

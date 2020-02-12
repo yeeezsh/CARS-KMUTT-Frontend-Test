@@ -45,7 +45,10 @@ const cardStyle = (type: TimeNode['type']): React.CSSProperties => {
   }
 };
 
-export default class TimeTable extends Component<TimeTableProps, TimeTableState> {
+export default class TimeTable extends Component<
+  TimeTableProps,
+  TimeTableState
+> {
   constructor(props: TimeTableProps) {
     super(props);
     this.state = {
@@ -102,7 +105,9 @@ export default class TimeTable extends Component<TimeTableProps, TimeTableState>
       <React.Fragment>
         {/* outliner */}
         <Outline>
-          <span style={{ fontSize: '14px' }}>{this.props.title || 'Unknown'}</span>
+          <span style={{ fontSize: '14px' }}>
+            {this.props.title || 'Unknown'}
+          </span>
         </Outline>
 
         {/* timetable */}

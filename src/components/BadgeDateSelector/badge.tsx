@@ -13,7 +13,11 @@ const styles = (active: boolean): React.CSSProperties => {
 const Badge: React.FunctionComponent<{ active: boolean }> = props => {
   return (
     <React.Fragment>
-      <img src={blueCheckedIcon} alt="blue-checked" style={styles(props.active)} />
+      <img
+        src={blueCheckedIcon}
+        alt="blue-checked"
+        style={styles(props.active)}
+      />
       {props.children}
     </React.Fragment>
   );

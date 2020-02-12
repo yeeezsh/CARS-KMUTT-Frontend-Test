@@ -15,8 +15,11 @@ interface Area {
 }
 
 export interface Task {
+  _id: string;
   reserve: TimeSlot[];
-  state: Array<'wait' | 'approve' | 'reject' | 'accept' | 'drop' | 'requested'>;
+  state: Array<
+    'wait' | 'approve' | 'reject' | 'accept' | 'drop' | 'requested'
+  >;
   area: Area;
   desc?: ReserveStateDesc;
 

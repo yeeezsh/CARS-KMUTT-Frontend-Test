@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 import Loadable from 'react-loadable';
 
-const PageLayout = Loadable({ loader: () => import('../../components/Layout/Page'), loading: () => null });
-const StateCard = Loadable({ loader: () => import('../../components/StateCard'), loading: () => null });
+const PageLayout = Loadable({
+  loader: () => import('../../components/Layout/Page'),
+  loading: () => null,
+});
+const StateCard = Loadable({
+  loader: () => import('../../components/StateCard'),
+  loading: () => null,
+});
 import Outline from '../../components/Outline';
 
 // models

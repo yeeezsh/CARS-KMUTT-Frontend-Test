@@ -48,25 +48,38 @@ export default class ConfirmModal extends Component<
         {/* header */}
         <Row style={{ marginTop: '12px' }} type="flex" justify="center">
           <Col>
-            <Outline style={{ color: '#666666' }}>{header || 'ส่งรีเควสสำเร็จ'}</Outline>
+            <Outline style={{ color: '#666666' }}>
+              {header || 'ส่งรีเควสสำเร็จ'}
+            </Outline>
           </Col>
         </Row>
 
         {/* description */}
         <Row style={{ marginTop: '-12px' }} type="flex" justify="center">
           <p style={{ textAlign: 'center' }}>
-            {desc?.main || 'เมื่อเพื่อนร่วมการจองทุกคนกดยืนยันเรียบร้อยแล้ว ระบบจึงจะส่งข้อมูลการจองไปยังเจ้าหน้าที่'}
+            {desc?.main ||
+              'เมื่อเพื่อนร่วมการจองทุกคนกดยืนยันเรียบร้อยแล้ว ระบบจึงจะส่งข้อมูลการจองไปยังเจ้าหน้าที่'}
           </p>
         </Row>
 
         {/* sub-description */}
         <Row style={{ marginTop: '16px' }} type="flex" justify="center">
           {desc?.sub ? (
-            <p style={{ textAlign: 'center', color: '#979797' }}>{desc.sub}</p>
+            <p style={{ textAlign: 'center', color: '#979797' }}>
+              {desc.sub}
+            </p>
           ) : (
             <React.Fragment>
-              <p style={{ textAlign: 'center', color: '#979797' }}>ดูสถานะการยืนยันการจอง</p>
-              <p style={{ textAlign: 'center', color: '#979797', marginTop: '-8px' }}>
+              <p style={{ textAlign: 'center', color: '#979797' }}>
+                ดูสถานะการยืนยันการจอง
+              </p>
+              <p
+                style={{
+                  textAlign: 'center',
+                  color: '#979797',
+                  marginTop: '-8px',
+                }}
+              >
                 เมนู &gt; การจองของฉัน &gt; กำลังดำเนินการ
               </p>
             </React.Fragment>

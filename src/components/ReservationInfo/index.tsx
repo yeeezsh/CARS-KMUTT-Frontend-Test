@@ -68,7 +68,13 @@ class ReservationInfo extends Component<
     const { owner, _id } = this.state;
     const cancle = owner && action;
     if (cancle)
-      task.cancleTaskById(_id).then(() => this.setState({ modal: false }));
+      return task
+        .cancleTaskById(_id)
+        .then(() => this.setState({ modal: false }));
+    if (action)
+      return task
+        .confirmTaskById(_id)
+        .then(() => this.setState({ modal: false }));
 
     console.log('owner canle', cancle);
     return this.setState({ modal: false });
@@ -178,15 +184,15 @@ class ReservationInfo extends Component<
               {owner ? (
                 <React.Fragment>
                   <Col span={11}>
+                    <Button onClick={this.goBack}>ย้อนกลับ</Button>
+                  </Col>
+                  <Col span={11}>
                     <Button
                       style={{ backgroundColor: '#979797' }}
                       onClick={this.onModal}
                     >
                       ยกเลิก
                     </Button>
-                  </Col>
-                  <Col span={11}>
-                    <Button onClick={this.goBack}>ย้อนกลับ</Button>
                   </Col>
                 </React.Fragment>
               ) : ownConfirm === false ? (

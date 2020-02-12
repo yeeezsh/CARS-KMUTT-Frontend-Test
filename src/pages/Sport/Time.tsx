@@ -57,7 +57,9 @@ class TimePage extends Component<OwnProps & StateProps, any> {
 
   onSelectDate = (d: Moment) => {
     // console.log('badge select date', d.format('DD'));
-    return this.setState({ selectedDate: d }, () => this.props.onSelectDate(d));
+    return this.setState({ selectedDate: d }, () =>
+      this.props.onSelectDate(d),
+    );
   };
   // componentDidMount = () => {
   //   const selectedDate = this.props.date.selected;
@@ -74,8 +76,12 @@ class TimePage extends Component<OwnProps & StateProps, any> {
     const today = now;
     const selectedWeek = Number(moment(selectedDate).format('E'));
 
-    let reserveSlot: number[] = this.props.areas.map(e => e.time.interval || 60);
-    reserveSlot = reserveSlot.filter((e, i) => reserveSlot.indexOf(e) === i);
+    let reserveSlot: number[] = this.props.areas.map(
+      e => e.time.interval || 60,
+    );
+    reserveSlot = reserveSlot.filter(
+      (e, i) => reserveSlot.indexOf(e) === i,
+    );
 
     let unit: 'ชั่วโมง' | 'นาที' = 'นาที';
     const useHourUnit = reserveSlot.some(e => e >= 60);
@@ -95,7 +101,10 @@ class TimePage extends Component<OwnProps & StateProps, any> {
 
             {/* description */}
             <Col className={styles.desc} span={24}>
-              <p>เลือกช่วงเวลาที่ต้องการจอง สามารถจองได้ครั้งละ {reserveDesc}</p>
+              <p>
+                เลือกช่วงเวลาที่ต้องการจอง สามารถจองได้ครั้งละ{' '}
+                {reserveDesc}
+              </p>
             </Col>
 
             {/* borderline */}
@@ -106,7 +115,12 @@ class TimePage extends Component<OwnProps & StateProps, any> {
 
           {/* BadgeDaySelector */}
           <Col span={24}>
-            <BadgeDateSelector start={date.start} stop={date.stop} select={selectedDate} onSelect={this.onSelectDate} />
+            <BadgeDateSelector
+              start={date.start}
+              stop={date.stop}
+              select={selectedDate}
+              onSelect={this.onSelectDate}
+            />
           </Col>
         </Col>
 
@@ -153,17 +167,23 @@ class TimePage extends Component<OwnProps & StateProps, any> {
             let disabledMapped: TimeNode[] = [];
             const cur = start;
             while (cur <= time.stop) {
-              disabledMapped.push({ value: moment(cur), type: 'available' });
+              disabledMapped.push({
+                value: moment(cur),
+                type: 'available',
+              });
               cur.add(time.interval || 60, 'minute');
             }
             disabledMapped.push({ value: moment(cur), type: 'available' });
             disabledMapped = disabledMapped
               .map(e => {
-                const valueMapped = moment(e.value.format('HH.mm'), 'HH.mm').set(
-                  'date',
-                  Number(selectedDate.format('DD')),
-                );
-                const disabled: TimeNode = { type: 'disabled', value: moment(valueMapped) };
+                const valueMapped = moment(
+                  e.value.format('HH.mm'),
+                  'HH.mm',
+                ).set('date', Number(selectedDate.format('DD')));
+                const disabled: TimeNode = {
+                  type: 'disabled',
+                  value: moment(valueMapped),
+                };
                 // console.log(disabled.value.format('HH:mm DD-MM-YYY'), 'd - t', today.format('HH:mm DD-MM-YYY'));
                 // console.log(today.diff(valueMapped));
                 const pastDate = today.diff(valueMapped) > 0;
@@ -175,11 +195,19 @@ class TimePage extends Component<OwnProps & StateProps, any> {
               .filter(({ type }) => type !== 'available');
             // console.log('dsm', disabledMapped);
             // console.log(today, selectedDate.format('DD'), e.time.forward);
-            const disabledMappedAPI = [...disabledMapped, ...(time.disabled || [])];
+            const disabledMappedAPI = [
+              ...disabledMapped,
+              ...(time.disabled || []),
+            ];
 
             // console.log('wowza', `${selectedDate.format('DD-MM')}-${e.area.id}`);
             return (
-              <Col key={`${selectedDate.format('DD-MM')}-${e.area.id}-${Math.random()}`} span={24}>
+              <Col
+                key={`${selectedDate.format('DD-MM')}-${
+                  e.area.id
+                }-${Math.random()}`}
+                span={24}
+              >
                 <TimeTable
                   onClick={() => this.props.onSelectArea(e.area)}
                   title={area.label}
@@ -224,4 +252,7 @@ interface StateProps {
 }
 
 // export default connect<StateProps, null, OwnProps>(mapStateToProps, null)(TimePage);
-export default connect<StateProps, {}, OwnProps>(mapStateToProps, {})(TimePage);
+export default connect<StateProps, {}, OwnProps>(
+  mapStateToProps,
+  {},
+)(TimePage);

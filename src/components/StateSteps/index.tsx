@@ -4,7 +4,9 @@ import StepsType from './step.interface';
 
 import styles from './styles.module.css';
 
-const dotStyle = (styles?: 'passed' | 'current' | 'next'): React.CSSProperties => {
+const dotStyle = (
+  styles?: 'passed' | 'current' | 'next',
+): React.CSSProperties => {
   switch (styles) {
     case 'passed':
       return {
@@ -33,13 +35,23 @@ const StateSteps: React.FunctionComponent<{
   return (
     <React.Fragment>
       <div className={styles.dash} />
-      <Row className={styles.container} type="flex" justify={'space-between'}>
+      <Row
+        className={styles.container}
+        type="flex"
+        justify={'space-between'}
+      >
         {steps.map((e, i) => {
           let dot: 'next' | 'current' | 'passed' = 'next';
           if (i < current) dot = 'passed';
           if (i === current) dot = 'current';
           return (
-            <Col onClick={() => onClick(i + 1)} key={i} className={styles.dot} span={2} style={dotStyle(dot)}>
+            <Col
+              onClick={() => onClick(i + 1)}
+              key={i}
+              className={styles.dot}
+              span={2}
+              style={dotStyle(dot)}
+            >
               <p className={styles.label}>{e.label}</p>
             </Col>
           );

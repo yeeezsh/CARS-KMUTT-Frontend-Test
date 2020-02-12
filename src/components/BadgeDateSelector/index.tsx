@@ -42,7 +42,11 @@ const BadgeDateSelector: React.FunctionComponent<{
         dates.map((d, i) => {
           return (
             <div onClick={() => onSelect(d)} key={i}>
-              {<Badge active={DateCmp(d, select)}>{card(d, DateCmp(d, select))}</Badge>}
+              {
+                <Badge active={DateCmp(d, select)}>
+                  {card(d, DateCmp(d, select))}
+                </Badge>
+              }
             </div>
           );
         })}

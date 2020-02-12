@@ -24,7 +24,9 @@ const Home: React.FunctionComponent<{ lastCard?: Task }> = props => {
   console.log('laygout home last card', lastCard);
   const LastCard: React.FunctionComponent = () => (
     <StateCard
-      name={lastCard ? lastCard?.area.label || lastCard?.area.name : undefined}
+      name={
+        lastCard ? lastCard?.area.label || lastCard?.area.name : undefined
+      }
       reserve={
         lastCard
           ? {

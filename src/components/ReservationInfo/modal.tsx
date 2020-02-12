@@ -35,7 +35,11 @@ export default class ActionModal extends Component<
       >
         <Row type="flex" justify="center">
           <p
-            style={{ fontSize: '24px', lineHeight: '36px', fontWeight: 'bold' }}
+            style={{
+              fontSize: '24px',
+              lineHeight: '36px',
+              fontWeight: 'bold',
+            }}
           >
             {desc || 'ท่านต้องการยืนยันรีเควส'}
           </p>

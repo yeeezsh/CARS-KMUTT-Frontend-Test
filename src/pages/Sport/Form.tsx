@@ -42,7 +42,9 @@ class FormPage extends Component<PropsTypes, StateTypes> {
     this.setState({ owner });
 
     const required = this.props.required;
-    const load = CACHE_STATE.users.length !== 0 && required === CACHE_STATE.users.length;
+    const load =
+      CACHE_STATE.users.length !== 0 &&
+      required === CACHE_STATE.users.length;
     if (load) {
       return this.setState(CACHE_STATE);
     }
@@ -75,13 +77,17 @@ class FormPage extends Component<PropsTypes, StateTypes> {
 
   onValidator = (rule: any, value: string, callback: any) => {
     const { form } = this.props;
-    const ids: string[] = form.getFieldValue('users').filter((e: string) => e);
+    const ids: string[] = form
+      .getFieldValue('users')
+      .filter((e: string) => e);
     const sets = new Set(ids).size;
 
     if (value === undefined) return callback('โปรดกรอกรหัสนักศึกษา');
-    if (value.length !== 11) return callback('โปรดกรอกรหัสนักศึกษาให้ถูกต้อง');
+    if (value.length !== 11)
+      return callback('โปรดกรอกรหัสนักศึกษาให้ถูกต้อง');
 
-    if (ids.length !== sets && ids.length !== 0) return callback('รหัสนักศึกษาซ้ำ');
+    if (ids.length !== sets && ids.length !== 0)
+      return callback('รหัสนักศึกษาซ้ำ');
     return callback();
   };
 
@@ -90,14 +96,17 @@ class FormPage extends Component<PropsTypes, StateTypes> {
     const key = Number(e.target.id.split('[')[1].split(']')[0]);
     const { users } = this.state;
     const { setFields } = this.props.form;
-    return this.setState({ users: users.map((e, i) => (Number(key) === i ? value : e)) }, () => {
-      //   error exception when type
-      return setFields({
-        [`users[${key}]`]: {
-          errors: undefined,
-        },
-      });
-    });
+    return this.setState(
+      { users: users.map((e, i) => (Number(key) === i ? value : e)) },
+      () => {
+        //   error exception when type
+        return setFields({
+          [`users[${key}]`]: {
+            errors: undefined,
+          },
+        });
+      },
+    );
   };
 
   render() {
@@ -114,7 +123,10 @@ class FormPage extends Component<PropsTypes, StateTypes> {
 
             {/* description */}
             <Col className={styles.desc} span={20}>
-              <p>ใช้รหัสนักศึกษา {users.length} คน สำหรับการจองพื้นที่กีฬาแบดมินตัน</p>
+              <p>
+                ใช้รหัสนักศึกษา {users.length} คน
+                สำหรับการจองพื้นที่กีฬาแบดมินตัน
+              </p>
             </Col>
           </Row>
         </Col>

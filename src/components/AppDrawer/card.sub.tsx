@@ -20,7 +20,11 @@ export default function CardSub(props: {
           <Col span={3}>
             <Row type="flex" justify="center">
               <Col>
-                <img height={settings?.iconSize || undefined} src={icon} alt={label[0]} />
+                <img
+                  height={settings?.iconSize || undefined}
+                  src={icon}
+                  alt={label[0]}
+                />
               </Col>
             </Row>
           </Col>

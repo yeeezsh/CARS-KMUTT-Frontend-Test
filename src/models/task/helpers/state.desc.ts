@@ -1,7 +1,6 @@
 import { ReserveState, ReserveStateDesc } from '../../reserve/interface';
 
 export default (state: ReserveState): ReserveStateDesc => {
-  // console.log('wowowowowow', state);
   switch (state) {
     case 'accept':
       return 'ได้รับการอนุมัติ';

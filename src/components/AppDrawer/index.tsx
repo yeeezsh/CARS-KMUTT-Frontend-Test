@@ -19,7 +19,10 @@ import {
   logoutIcon,
 } from './icon.import';
 
-export default function AppDrawer(props: { drawer: boolean; onDrawer: any }) {
+export default function AppDrawer(props: {
+  drawer: boolean;
+  onDrawer: any;
+}) {
   const { drawer, onDrawer } = props;
   return (
     <Drawer
@@ -38,7 +41,13 @@ export default function AppDrawer(props: { drawer: boolean; onDrawer: any }) {
           menu.map(({ key, label, icon, settings, sub, link }) => {
             return (
               <React.Fragment key={key}>
-                <CardMain onClick={onDrawer} label={label} icon={icon} settings={settings} link={link} />
+                <CardMain
+                  onClick={onDrawer}
+                  label={label}
+                  icon={icon}
+                  settings={settings}
+                  link={link}
+                />
                 {sub &&
                   sub.map(e => (
                     <CardSub
@@ -57,7 +66,12 @@ export default function AppDrawer(props: { drawer: boolean; onDrawer: any }) {
 
       {/* logout */}
       <Row style={{ position: 'absolute', width: '100%', bottom: 50 }}>
-        <CardMain link={'/logout'} onClick={onDrawer} label={['ออกจากระบบ']} icon={logoutIcon} />
+        <CardMain
+          link={'/logout'}
+          onClick={onDrawer}
+          label={['ออกจากระบบ']}
+          icon={logoutIcon}
+        />
       </Row>
     </Drawer>
   );

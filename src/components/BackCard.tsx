@@ -14,7 +14,10 @@ const BackCard: React.FunctionComponent<{
   styles?: React.CSSProperties;
 }> = props => {
   return (
-    <div onClick={() => props.onClick()} style={{ ...styles, ...props.styles }}>
+    <div
+      onClick={() => props.onClick()}
+      style={{ ...styles, ...props.styles }}
+    >
       {'< '}
       {props.children}
     </div>

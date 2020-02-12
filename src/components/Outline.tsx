@@ -7,7 +7,10 @@ const style: React.CSSProperties = {
   fontWeight: 'bold',
 };
 
-const Outline: React.FunctionComponent<{ style?: React.CSSProperties; className?: string }> = props => {
+const Outline: React.FunctionComponent<{
+  style?: React.CSSProperties;
+  className?: string;
+}> = props => {
   return (
     <p className={props.className} style={{ ...style, ...props.style }}>
       {props.children}

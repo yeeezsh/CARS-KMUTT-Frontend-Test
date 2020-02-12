@@ -35,7 +35,8 @@ export default function StateCard(props: {
   const empty = <p className={styles.empty}>ไม่มีข้อมูลการจอง</p>;
   const range = (
     <span>
-      {date?.format('DD MMMM YYYY')} เวลา {reserve?.start?.format('HH:mm')}-{reserve?.stop?.format('HH:mm')} น.
+      {date?.format('DD MMMM YYYY')} เวลา {reserve?.start?.format('HH:mm')}
+      -{reserve?.stop?.format('HH:mm')} น.
     </span>
   );
   const detail = <span>blabalbalbalbalbals</span>;
@@ -63,7 +64,10 @@ export default function StateCard(props: {
       <Row className={styles.detail} type="flex" justify="start">
         <Col span={22}>
           <span className={styles.state}>
-            <StateCardIconColor type={reserve?.state?.type || 'drop'} desc={reserve?.state?.desc} />
+            <StateCardIconColor
+              type={reserve?.state?.type || 'drop'}
+              desc={reserve?.state?.desc}
+            />
           </span>
         </Col>
       </Row>
@@ -71,5 +75,9 @@ export default function StateCard(props: {
   );
 
   // final render
-  return <div className={styles.card}>{name === undefined ? empty : showCard}</div>;
+  return (
+    <div className={styles.card}>
+      {name === undefined ? empty : showCard}
+    </div>
+  );
 }
