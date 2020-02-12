@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Loadable from 'react-loadable';
+import { Route, Switch } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const PageLayout = Loadable({
   loader: () => import('../../components/Layout/Page'),
@@ -10,6 +12,10 @@ const StateCard = Loadable({
   loading: () => null,
 });
 import Outline from '../../components/Outline';
+const ReservationInfo = Loadable({
+  loader: () => import('../../components/ReservationInfo'),
+  loading: () => null,
+});
 
 // models
 import Reserve from '../../models/reserve/interface';
@@ -17,9 +23,6 @@ import Reserve from '../../models/reserve/interface';
 // helpers
 import OutlineType from './helpers/outline.type';
 import { r } from '../../models/reserve';
-import { Route, Switch } from 'react-router';
-import { Link } from 'react-router-dom';
-import ReservationInfo from '../../components/ReservationInfo';
 
 export default class MyReservePage extends Component<
   {
@@ -32,7 +35,9 @@ export default class MyReservePage extends Component<
   };
 
   componentDidMount = async () => {
+    StateCard.preload();
     await this.fetchData();
+    ReservationInfo.preload();
     return;
   };
 
