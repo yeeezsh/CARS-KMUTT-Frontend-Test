@@ -12,6 +12,22 @@ class TaskClass {
       throw new Error(err);
     }
   }
+
+  async confirmTaskById(id: string): Promise<void> {
+    try {
+      await i.instance.get('/task' + '/' + id + '/confirm');
+    } catch (err) {
+      throw new Error(err);
+    }
+  }
+
+  async cancleTaskById(id: string): Promise<void> {
+    try {
+      await i.instance.get('/task' + '/' + id + '/cancle');
+    } catch (err) {
+      throw new Error(err);
+    }
+  }
   async getLastTask(): Promise<Task | undefined> {
     try {
       const data = (await i.instance.get('/task/last')).data;
