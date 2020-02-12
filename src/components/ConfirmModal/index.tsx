@@ -65,11 +65,13 @@ export default class ConfirmModal extends Component<
         {/* sub-description */}
         <Row style={{ marginTop: '16px' }} type="flex" justify="center">
           {desc?.sub ? (
-            <p style={{ textAlign: 'center', color: '#979797' }}>
-              {desc.sub}
-            </p>
+            <Col span={22}>
+              <p style={{ textAlign: 'center', color: '#979797' }}>
+                {desc.sub}
+              </p>
+            </Col>
           ) : (
-            <React.Fragment>
+            <Col span={22}>
               <p style={{ textAlign: 'center', color: '#979797' }}>
                 ดูสถานะการยืนยันการจอง
               </p>
@@ -82,7 +84,7 @@ export default class ConfirmModal extends Component<
               >
                 เมนู &gt; การจองของฉัน &gt; กำลังดำเนินการ
               </p>
-            </React.Fragment>
+            </Col>
           )}
         </Row>
 
