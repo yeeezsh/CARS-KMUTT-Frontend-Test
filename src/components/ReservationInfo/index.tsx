@@ -4,18 +4,21 @@ import { Row, Col } from 'antd';
 import moment from 'moment';
 
 import Outline from '../Outline';
-import { task } from '../../models/task';
-import styles from './styles.module.css';
 import Badge from '../Badge';
 import StateCardIconColor from '../StateCard/icon';
-import { TaskDetail } from '../../models/task/task.interface';
-import stateDesc from '../../models/task/helpers/state.desc';
 import BreakingLine from '../BreakingLine';
 
-import CheckIcon from '../../assets/icons/checked.user.svg';
+import { u } from '../../models/user';
+import { task } from '../../models/task';
+import { TaskDetail } from '../../models/task/task.interface';
+import stateDesc from '../../models/task/helpers/state.desc';
+
 import Button from '../Button';
 import ActionModal from './modal';
-import { u } from '../../models/user';
+
+// styles sheet
+import styles from './styles.module.css';
+import CheckIcon from '../../assets/icons/checked.user.svg';
 
 // const initState
 const MODAL_REJECT_MSG = 'ท่านต้องการยกเลิกรีเควส';
@@ -188,7 +191,6 @@ class ReservationInfo extends Component<
 
     return (
       <React.Fragment>
-        {/* <Row> */}
         <Col span={24} className={styles.overview}>
           <Outline className={styles.header}>ข้อมูลการจอง</Outline>
           {/* sub header */}
@@ -253,7 +255,6 @@ class ReservationInfo extends Component<
           visible={modal}
           onModal={this.onModalAction}
         />
-        {/* </Row> */}
       </React.Fragment>
     );
   }
