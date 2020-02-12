@@ -82,6 +82,7 @@ class ReservationInfo extends Component<
       false;
 
     console.log(data);
+    console.log('owner', owner, 'ownCon', ownConfirm);
     if (!data) return;
     const state = data.state;
     return this.setState({
@@ -181,13 +182,16 @@ class ReservationInfo extends Component<
                     <Button onClick={this.goBack}>ย้อนกลับ</Button>
                   </Col>
                 </React.Fragment>
-              ) : ownConfirm === true ? (
+              ) : ownConfirm === false ? (
                 <React.Fragment>
                   <Col span={11}>
                     <Button onClick={this.goBack}>ย้อนกลับ</Button>
                   </Col>
                   <Col span={11}>
-                    <Button style={{ backgroundColor: '#1890FF' }}>
+                    <Button
+                      style={{ backgroundColor: '#1890FF' }}
+                      onClick={this.onModal}
+                    >
                       ยืนยัน
                     </Button>
                   </Col>
