@@ -7,6 +7,7 @@ import Loadable from 'react-loadable';
 import { Task } from '../../models/task/task.interface';
 
 import styles from './home.module.css';
+import { Link } from 'react-router-dom';
 
 const StateCard = Loadable({
   loader: () => import('../StateCard'),
@@ -21,27 +22,35 @@ const Home: React.FunctionComponent<{ lastCard?: Task }> = props => {
   const year = day.format('YYYY');
 
   const { lastCard } = props;
-  console.log('laygout home last card', lastCard);
-  const LastCard: React.FunctionComponent = () => (
-    <StateCard
-      name={
-        lastCard ? lastCard?.area.label || lastCard?.area.name : undefined
-      }
-      reserve={
-        lastCard
-          ? {
-              date: lastCard?.reserve[0].start,
-              start: lastCard?.reserve[0].start,
-              stop: lastCard?.reserve[0].stop,
-              state: {
-                type: lastCard?.state[lastCard.state.length - 1],
-                desc: lastCard.desc,
-              },
-            }
-          : undefined
-      }
-    />
-  );
+
+  const LastCard: React.FunctionComponent = () => {
+    const taskId = lastCard?._id;
+    const link = !taskId ? '/' : `/my/reserve/history/${taskId}`;
+    return (
+      <Link to={link}>
+        <StateCard
+          name={
+            lastCard
+              ? lastCard?.area.label || lastCard?.area.name
+              : undefined
+          }
+          reserve={
+            lastCard
+              ? {
+                  date: lastCard?.reserve[0].start,
+                  start: lastCard?.reserve[0].start,
+                  stop: lastCard?.reserve[0].stop,
+                  state: {
+                    type: lastCard?.state[lastCard.state.length - 1],
+                    desc: lastCard.desc,
+                  },
+                }
+              : undefined
+          }
+        />
+      </Link>
+    );
+  };
 
   return (
     <React.Fragment>
