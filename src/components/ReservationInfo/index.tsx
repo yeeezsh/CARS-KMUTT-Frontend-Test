@@ -19,9 +19,12 @@ import { u } from '../../models/user';
 
 // const initState
 const MODAL_REJECT_MSG = 'ท่านต้องการยกเลิกรีเควส';
+type PropTypes = RouteComponentProps & {
+  onUnmount: () => void;
+};
 
 class ReservationInfo extends Component<
-  RouteComponentProps,
+  PropTypes,
   {
     reserve: TaskDetail['reserve'];
     state: TaskDetail['state'][0];
@@ -34,7 +37,7 @@ class ReservationInfo extends Component<
     _id: string;
   }
 > {
-  constructor(props: RouteComponentProps) {
+  constructor(props: PropTypes) {
     super(props);
     this.state = {
       reserve: [{ start: undefined, stop: undefined, allDay: false }],
@@ -66,18 +69,19 @@ class ReservationInfo extends Component<
     console.log('modal action', action);
 
     const { owner, _id } = this.state;
+    const { goBack } = this.props.history;
     const cancle = owner && action;
     if (cancle)
       return task
         .cancleTaskById(_id)
-        .then(() => this.setState({ modal: false }));
+        .then(() => this.setState({ modal: false }, () => goBack()));
     if (action)
       return task
         .confirmTaskById(_id)
-        .then(() => this.setState({ modal: false }));
+        .then(() => this.setState({ modal: false }, () => goBack()));
 
     console.log('owner canle', cancle);
-    return this.setState({ modal: false });
+    // return this.setState({ modal: false });
   };
 
   componentDidMount = async () => {
@@ -107,6 +111,11 @@ class ReservationInfo extends Component<
       owner,
       ownConfirm,
     });
+  };
+
+  componentWillUnmount = () => {
+    const { onUnmount } = this.props;
+    onUnmount();
   };
 
   render() {

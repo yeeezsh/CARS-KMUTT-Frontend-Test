@@ -32,12 +32,23 @@ export default class MyReservePage extends Component<
   };
 
   componentDidMount = async () => {
+    await this.fetchData();
+    return;
+  };
+
+  requireFetch = () => {
+    console.log('require fetch');
+    this.fetchData();
+  };
+
+  fetchData = async () => {
     const { type } = this.props;
     const data = await r.query(type);
     console.log('my reserve page mount', type);
     console.log(data);
     return this.setState({ data });
   };
+
   render() {
     const { data } = this.state;
     const { type } = this.props;
@@ -46,7 +57,9 @@ export default class MyReservePage extends Component<
       <PageLayout titile={'การจองของฉัน'}>
         <Outline>{outline}</Outline>
         <Switch>
-          <Route path="/my/reserve/*/:id" component={ReservationInfo} />
+          <Route path="/my/reserve/*/:id">
+            <ReservationInfo onUnmount={this.requireFetch} />
+          </Route>
 
           <Route path="/">
             {data &&
