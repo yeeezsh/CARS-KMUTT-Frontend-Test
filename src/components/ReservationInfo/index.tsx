@@ -20,7 +20,7 @@ import { u } from '../../models/user';
 // const initState
 const MODAL_REJECT_MSG = 'ท่านต้องการยกเลิกรีเควส';
 type PropTypes = RouteComponentProps & {
-  onUnmount: () => void;
+  onUnmount?: () => void;
 };
 
 class ReservationInfo extends Component<
@@ -115,7 +115,7 @@ class ReservationInfo extends Component<
 
   componentWillUnmount = () => {
     const { onUnmount } = this.props;
-    onUnmount();
+    onUnmount && onUnmount();
   };
 
   render() {

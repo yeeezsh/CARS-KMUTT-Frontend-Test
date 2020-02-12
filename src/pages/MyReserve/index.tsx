@@ -44,8 +44,6 @@ export default class MyReservePage extends Component<
   fetchData = async () => {
     const { type } = this.props;
     const data = await r.query(type);
-    console.log('my reserve page mount', type);
-    console.log(data);
     return this.setState({ data });
   };
 
