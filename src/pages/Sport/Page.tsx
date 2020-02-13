@@ -384,7 +384,10 @@ class SportPage extends Component<
         <ConfirmModal visible={confirmModal} onClick={this.onModal} />
         {quota && (
           <Snackbar show={true}>
-            สิทธิ์การจองสนามกีฬาของคุณเต็มแล้ว (1 คน /1 การจองสนามกีฬา)
+            <p style={{ fontWeight: 'bold' }}>
+              สิทธิ์การจองสนามกีฬาของคุณเต็มแล้ว
+            </p>{' '}
+            <p>(1 คน /1 การจองสนามกีฬา)</p>
           </Snackbar>
         )}
       </React.Fragment>
