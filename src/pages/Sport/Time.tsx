@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
+import Loadable from 'react-loadable';
+import { connect } from 'react-redux';
 import moment, { Moment } from 'moment';
 import { Col, Row } from 'antd';
-import Loadable from 'react-loadable';
 
-import styles from './styles.module.css';
-
-import BreakingLine from '../../components/BreakingLine';
-import Outline from '../../components/Outline';
-import Badge from '../../components/Badge';
 const BadgeDateSelector = Loadable({
   loader: () => import('../../components/BadgeDateSelector'),
   loading: () => null,
@@ -17,17 +13,22 @@ const TimeTable = Loadable({
   loading: () => null,
 });
 
+import BreakingLine from '../../components/BreakingLine';
+import Outline from '../../components/Outline';
+import Badge from '../../components/Badge';
+
+import styles from './styles.module.css';
+
 import orangeSquareIcon from '../../assets/icons/square/orange.svg';
 import greySquareIcon from '../../assets/icons/square/grey.svg';
 import blueSquareIcon from '../../assets/icons/square/blue.svg';
 
 // interfaces
-// import TimeAreaReserveType from '../../models/area/time.interface';
 import TimeNode from '../../components/TimeTable/timetable.interface';
-
-import WeekParseHelper from './helpers/week.parse';
-import { connect } from 'react-redux';
 import Area from '../../models/area/area.interface';
+
+// helpers
+import WeekParseHelper from './helpers/week.parse';
 
 const iconLabel: React.CSSProperties = {
   color: '#3B4046',
@@ -157,7 +158,7 @@ class TimePage extends Component<OwnProps & StateProps, any> {
 
         {/* TimeTable */}
         {areas &&
-          areas.map((e, i) => {
+          areas.map(e => {
             const { area, time } = e;
             const start = moment(time.start).startOf('hour');
             const weekParsed = WeekParseHelper(e.time.week);
@@ -201,6 +202,7 @@ class TimePage extends Component<OwnProps & StateProps, any> {
             ];
 
             // console.log('wowza', `${selectedDate.format('DD-MM')}-${e.area.id}`);
+            const { onSelectArea, onSelectTime } = this.props;
             return (
               <Col
                 key={`${selectedDate.format('DD-MM')}-${
@@ -209,15 +211,13 @@ class TimePage extends Component<OwnProps & StateProps, any> {
                 span={24}
               >
                 <TimeTable
-                  onClick={() => this.props.onSelectArea(e.area)}
+                  onClick={() => onSelectArea(e.area)}
                   title={area.label}
                   start={time.start}
                   stop={time.stop}
                   interval={time.interval || 60}
-                  onSelect={this.props.onSelectTime}
+                  onSelect={onSelectTime}
                   disabled={disabledMappedAPI}
-                  // disabled={disabledMapped}
-                  // disabled={[]}
                 />
               </Col>
             );
@@ -251,7 +251,6 @@ interface StateProps {
   areas: Area[];
 }
 
-// export default connect<StateProps, null, OwnProps>(mapStateToProps, null)(TimePage);
 export default connect<StateProps, {}, OwnProps>(
   mapStateToProps,
   {},
