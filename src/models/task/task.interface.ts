@@ -28,6 +28,10 @@ export interface Task {
   updateAt: Moment;
 }
 
+export interface TaskLastCard extends Task {
+  owner: string;
+}
+
 export interface TaskDetailRequestor {
   username: string;
   confirm: boolean;

@@ -1,6 +1,6 @@
-import i from '../axios.interface';
-import { Task, TaskDetail } from './task.interface';
 import moment from 'moment';
+import i from '../axios.interface';
+import { TaskDetail, TaskLastCard } from './task.interface';
 import stateDesc from './helpers/state.desc';
 
 class TaskClass {
@@ -28,7 +28,7 @@ class TaskClass {
       throw new Error(err);
     }
   }
-  async getLastTask(): Promise<Task | undefined> {
+  async getLastTask(): Promise<TaskLastCard | undefined> {
     try {
       const data = (await i.instance.get('/task/last')).data;
       if (!data) return undefined;
