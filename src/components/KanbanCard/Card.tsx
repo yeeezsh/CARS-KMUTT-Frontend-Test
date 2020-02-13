@@ -1,7 +1,21 @@
 import React from 'react';
 import { Col, Row } from 'antd';
-import styles from './card.module.css';
 import Menu from '../../models/menu/interface';
+
+import styles from './card.module.css';
+
+const NeedActionDot: React.FunctionComponent = () => (
+  <div
+    style={{
+      background: '#1890FF',
+      width: '12px',
+      height: '12px',
+      borderRadius: '50%',
+      position: 'absolute',
+      right: '10px',
+    }}
+  />
+);
 
 export default function Card(props: {
   icon?: string;
@@ -9,6 +23,7 @@ export default function Card(props: {
   setting?: Menu['setting'];
 }) {
   const { label, icon, setting } = props;
+
   return (
     <div
       style={{
@@ -19,6 +34,10 @@ export default function Card(props: {
       className={styles.card}
     >
       <div className={styles.container}>
+        {/* need action dot */}
+        {setting?.needAction && <NeedActionDot />}
+
+        {/* large icon */}
         <div
           style={{
             display: 'flex',
@@ -33,6 +52,7 @@ export default function Card(props: {
             alt={label[0]}
           />
         </div>
+
         {!setting?.center ? (
           <p
             style={{
