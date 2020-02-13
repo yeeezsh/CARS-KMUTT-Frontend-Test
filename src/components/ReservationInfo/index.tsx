@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { Row, Col } from 'antd';
 import moment from 'moment';
@@ -8,7 +9,6 @@ import Badge from '../Badge';
 import StateCardIconColor from '../StateCard/icon';
 import BreakingLine from '../BreakingLine';
 
-import { u } from '../../models/user';
 import { task } from '../../models/task';
 import { TaskDetail } from '../../models/task/task.interface';
 import stateDesc from '../../models/task/helpers/state.desc';
@@ -24,6 +24,7 @@ import CheckIcon from '../../assets/icons/checked.user.svg';
 const MODAL_REJECT_MSG = 'ท่านต้องการยกเลิกรีเควส';
 type PropTypes = RouteComponentProps & {
   onUnmount?: () => void;
+  username: string;
 };
 
 class ReservationInfo extends Component<
@@ -90,20 +91,17 @@ class ReservationInfo extends Component<
   };
 
   componentDidMount = async () => {
-    const { match } = this.props;
+    const { match, username } = this.props;
     const params: any = match.params;
     const id = params.id;
     if (!id) throw new Error('invalid id');
-    // console.log('wowza', id);
-    const username = u.GetUser().username;
+
     const data = await task.getTaskById(id);
     const owner = username === (data && data.requestor[0].username);
     const ownConfirm =
       data?.requestor.filter(e => e.username === username)[0].confirm ||
       false;
 
-    console.log(data);
-    console.log('owner', owner, 'ownCon', ownConfirm);
     if (!data) return;
     const state = data.state;
     return this.setState({
@@ -260,4 +258,11 @@ class ReservationInfo extends Component<
   }
 }
 
-export default withRouter(ReservationInfo);
+const mapStateToProps = (rootReducers: any) => {
+  const { UserReducers } = rootReducers;
+  return {
+    username: UserReducers.username,
+  };
+};
+
+export default withRouter(connect(mapStateToProps)(ReservationInfo));
