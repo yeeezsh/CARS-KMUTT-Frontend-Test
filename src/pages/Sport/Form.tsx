@@ -24,11 +24,11 @@ interface StateTypes {
   status: boolean;
 }
 
-// let CACHE_STATE: StateTypes = {
-//   users: [],
-//   required: 2,
-//   status: false,
-// };
+let CACHE_STATE: StateTypes = {
+  users: [],
+  required: 2,
+  status: false,
+};
 
 class FormPage extends Component<PropsTypes, StateTypes> {
   constructor(props: PropsTypes) {
@@ -45,17 +45,17 @@ class FormPage extends Component<PropsTypes, StateTypes> {
     window.scroll(0, 0);
 
     const required = this.props.required;
-    // const load =
-    //   CACHE_STATE.users.length !== 0 &&
-    //   required === CACHE_STATE.users.length;
-    // if (load) this.setState(CACHE_STATE);
-
     const users = Array(required).fill('');
+    const load =
+      CACHE_STATE.users.length !== 0 &&
+      required === CACHE_STATE.users.length;
+    if (load) return this.setState(CACHE_STATE);
+
     return this.setState({ users });
   };
 
   componentWillUnmount = () => {
-    // CACHE_STATE = this.state;
+    CACHE_STATE = this.state;
   };
 
   onSubmit = (e: any): void => {
