@@ -24,6 +24,9 @@ import Reserve from '../../models/reserve/interface';
 import OutlineType from './helpers/outline.type';
 import { r } from '../../models/reserve';
 
+// icons
+import emptyIcon from '../../assets/icons/empty.box.svg';
+
 export default class MyReservePage extends Component<
   {
     type: 'wait' | 'history' | 'requested';
@@ -65,7 +68,19 @@ export default class MyReservePage extends Component<
           </Route>
 
           <Route path="/">
-            {!data[0] && <StateCard />}
+            {!data[0] && (
+              <div
+                style={{
+                  marginTop: '30%',
+                  textAlign: 'center',
+                  fontSize: '14px',
+                  color: '#979797',
+                }}
+              >
+                <img src={emptyIcon} alt="empty icon" />
+                <p>ไม่มีข้อมูลการจอง</p>
+              </div>
+            )}
             {data[0] &&
               data.map((e: Reserve, i) => {
                 const { name, reserve } = e;
