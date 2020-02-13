@@ -1,7 +1,6 @@
 import User from '../../../models/user/interface';
 import { QuotaType } from '../../../models/user/quota.interface';
 import { SET_USER, DELETE_USER } from './actions';
-import { u } from '../../../models/user';
 
 export type UserStore = User & QuotaType;
 
@@ -14,7 +13,10 @@ const initialState: UserStore = {
   n: 0,
 };
 
-export const UserReducers = (state: UserStore = initialState, action: any) => {
+export const UserReducers = (
+  state: UserStore = initialState,
+  action: any,
+) => {
   switch (action.type) {
     case SET_USER:
       return {

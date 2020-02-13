@@ -4,7 +4,10 @@ import i from '../axios.interface';
 import { store } from '../../index';
 import { setUser, deleteUser } from '../../store/reducers/users/actions';
 
-const loginAdapter = (type: 'staff' | 'requestor', data: { username: string; password: string }) => {
+const loginAdapter = (
+  type: 'staff' | 'requestor',
+  data: { username: string; password: string },
+) => {
   let url = '/users/auth/requestor';
   if (type === 'staff') url = '/users/auth/staff';
   return i.instance.post(url, data);
@@ -18,8 +21,8 @@ class UserClass {
   }
 
   DeleteCredential = () => {
-    store.dispatch(deleteUser());
     localStorage.removeItem('user');
+    store.dispatch(deleteUser());
     return;
   };
 
@@ -42,9 +45,13 @@ class UserClass {
     store.dispatch(setUser(JSON.parse(user)));
   };
 
-  RequestorLogin = async (username: string, password: string): Promise<{ auth: boolean }> => {
+  RequestorLogin = async (
+    username: string,
+    password: string,
+  ): Promise<{ auth: boolean }> => {
     try {
-      const res = (await loginAdapter('requestor', { username, password })).data;
+      const res = (await loginAdapter('requestor', { username, password }))
+        .data;
       this.SaveCredential(res);
       return { auth: true };
     } catch (err) {
@@ -59,9 +66,10 @@ class UserClass {
     }
   };
 
-  UserLogout = async () => {
-    await i.instance.get('/users/auth/logout');
+  UserLogout = async (): Promise<void> => {
     this.DeleteCredential();
+    await i.instance.get('/users/auth/logout');
+    return;
   };
 
   GetUser = (): User => {
