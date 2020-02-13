@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Loadable from 'react-loadable';
 
 const HomeMenu = Loadable({
@@ -13,14 +14,17 @@ const HomeLayout = Loadable({
 import { task } from '../models/task';
 import { Task } from '../models/task/task.interface';
 
-export default class Home extends Component<
-  {},
-  {
-    lastCard: Task | undefined;
-    needAction: boolean;
-  }
-> {
-  constructor(props: Record<string, any>) {
+type StateTypes = {
+  lastCard: Task | undefined;
+  needAction: boolean;
+};
+
+type PropsTypes = {
+  owner: string;
+};
+
+class Home extends Component<PropsTypes, StateTypes> {
+  constructor(props: PropsTypes) {
     super(props);
     this.state = { lastCard: undefined, needAction: false };
   }
@@ -28,8 +32,14 @@ export default class Home extends Component<
   componentDidMount = async () => {
     HomeMenu.preload();
     HomeLayout.preload();
+
     const lastCard = await task.getLastTask();
-    const needAction = lastCard?.state.slice(-1)[0] === 'requested';
+    const curState = lastCard?.state.slice(-1)[0];
+    const firstRequestor = lastCard?.owner;
+    const { owner } = this.props;
+
+    const needAction =
+      curState === 'requested' && owner !== firstRequestor;
 
     return this.setState({ lastCard, needAction });
   };
@@ -42,3 +52,12 @@ export default class Home extends Component<
     );
   }
 }
+
+const mapStateToProps = (rootReducers: any) => {
+  const { UserReducers } = rootReducers;
+  return {
+    owner: UserReducers.username,
+  };
+};
+
+export default connect<PropsTypes>(mapStateToProps)(Home);
