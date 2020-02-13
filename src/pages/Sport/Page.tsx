@@ -10,7 +10,7 @@ import {
 import { connect } from 'react-redux';
 import Loadable from 'react-loadable';
 
-import styles from './styles.module.css';
+import PageLayout from '../../components/Layout/Page';
 
 const TimePage = Loadable({
   loader: () => import('./Time'),
@@ -24,8 +24,11 @@ const ConfirmPage = Loadable({
   loader: () => import('./Confirm'),
   loading: () => null,
 });
+const Snackbar = Loadable({
+  loader: () => import('../../components/Snackbar'),
+  loading: () => null,
+});
 
-import PageLayout from '../../components/Layout/Page';
 import Badge from '../../components/Badge';
 import StateSteps from '../../components/StateSteps';
 import ConfirmModal from '../../components/ConfirmModal';
@@ -36,14 +39,12 @@ import Area from '../../models/area/area.interface';
 // import { stepLists, areas } from '../../models/sport';
 import { stepLists } from '../../models/sport';
 import BackCard from '../../components/BackCard';
-import { sport } from '../../models/area/sport';
 import { Mutate } from '../../models/task/sport';
 import { TaskSport } from '../../models/task/sport/sport.interface';
 import { u } from '../../models/user';
-import {
-  SportPagesStore,
-  DEFAULT_SELECTED_AREA,
-} from '../../store/reducers/sports';
+
+import styles from './styles.module.css';
+
 import {
   setDateSelected,
   setTimeSelected,
@@ -287,8 +288,6 @@ class SportPage extends Component<
 
     return (
       <React.Fragment>
-        <ConfirmModal visible={confirmModal} onClick={this.onModal} />
-
         <PageLayout titile={'จองสนามกีฬา'}>
           <Row
             type="flex"
@@ -360,6 +359,10 @@ class SportPage extends Component<
             </Route>
           </Switch>
         </PageLayout>
+
+        {/* overlay element */}
+        <ConfirmModal visible={confirmModal} onClick={this.onModal} />
+        <Snackbar show={true}>จองไปแล้วหน้าโง่</Snackbar>
       </React.Fragment>
     );
   }
