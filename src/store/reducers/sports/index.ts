@@ -66,7 +66,7 @@ export const SportReducers = (
     case SET_AREAID_SELECTED:
       return { ...state, areaId: action.areaId };
     case SET_OWNER:
-      return { ...state, owner: action.owner };
+      return { ...state, owner: action.owner, users: [action.owner] };
     case SET_USERS:
       return { ...state, users: action.users };
     case RESET_STATE:
