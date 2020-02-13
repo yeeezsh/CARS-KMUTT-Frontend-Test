@@ -60,11 +60,11 @@ const CATEGORY_PAGE = '/reserve/sport/category';
 const FIRST_STEP_PAGE = '/reserve/sport/1';
 
 interface MaptoDispatchI {
-  setDateSelected: any;
-  setTimeSelected: any;
-  setAreaSelected: any;
-  setOwner: any;
-  setAreaId: any;
+  setDateSelected: (d: Moment) => void;
+  setTimeSelected: (d: Moment) => void;
+  setAreaSelected: (area: Area['area']) => void;
+  setOwner: (u: string) => void;
+  setAreaId: (areaId: string) => void;
   queryArea: () => any;
   setUsers: (users: string[]) => any;
   resetState: () => void;
@@ -88,6 +88,7 @@ class SportPage extends Component<
     status: boolean[];
     backCard: string[];
     confirmModal: boolean;
+    quota: boolean;
   }
 > {
   state = {
@@ -100,6 +101,7 @@ class SportPage extends Component<
     interval: 0,
     confirmModal: false,
     areas: [],
+    quota: true,
   };
 
   onSelectDate = async (date: Moment) => {
@@ -371,7 +373,9 @@ class SportPage extends Component<
 
         {/* overlay element */}
         <ConfirmModal visible={confirmModal} onClick={this.onModal} />
-        <Snackbar show={true}>จองไปแล้วหน้าโง่</Snackbar>
+        <Snackbar show={true}>
+          สิทธิ์การจองสนามกีฬาของคุณเต็มแล้ว (1 คน /1 การจองสนามกีฬา)
+        </Snackbar>
       </React.Fragment>
     );
   }
