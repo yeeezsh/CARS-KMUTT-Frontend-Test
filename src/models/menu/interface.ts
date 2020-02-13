@@ -15,6 +15,7 @@ export default interface Menu {
     backgroundColor?: string;
     labelColor?: string;
     iconSize?: number;
+    needAction?: boolean;
   };
   state?: RouterStates;
   query?: Query;
