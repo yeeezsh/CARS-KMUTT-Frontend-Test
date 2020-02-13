@@ -6,18 +6,15 @@ import { FormComponentProps } from 'antd/lib/form/Form';
 import Outline from '../../components/Outline';
 import Button from '../../components/Button';
 
-import { u } from '../../models/user';
 import usernameValidator from '../../utils/username.validator';
 
 import styles from './styles.module.css';
 import { connect } from 'react-redux';
 import { RootReducers } from '../../store/reducers';
-import { setUsers, resetState } from '../../store/reducers/sports/actions';
 
 interface PropsTypes extends FormComponentProps {
   required?: number;
   onSubmit?: any;
-  // users: string[];
   owner?: string;
 }
 
@@ -46,8 +43,6 @@ class FormPage extends Component<PropsTypes, StateTypes> {
   componentDidMount = () => {
     // auto scroll
     window.scroll(0, 0);
-    // const owner = u.GetUser().studentId;
-    // this.setState({ owner });
 
     const required = this.props.required;
     // const load =
@@ -121,9 +116,6 @@ class FormPage extends Component<PropsTypes, StateTypes> {
     const { getFieldDecorator } = this.props.form;
     const { users } = this.state;
     const { owner } = this.props;
-    // let users = [];
-    // if (owner) users = Array(required).fill('');
-    // const users = Array(required).fill('');
 
     console.log('owner from props jaaa', owner);
     return (
