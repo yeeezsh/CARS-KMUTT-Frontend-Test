@@ -200,7 +200,7 @@ class ReservationInfo extends Component<
                 <span className={styles.statusBadge}>สถานะการจอง</span>
               </Badge>
             </Col>
-            <Col>
+            <Col style={{ marginLeft: '8px' }}>
               <div className={styles.status}>
                 <StateCardIconColor type={state} desc={stateDesc(state)} />
               </div>
