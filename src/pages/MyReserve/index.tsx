@@ -64,10 +64,7 @@ export default class MyReservePage extends Component<
         <Outline>{outline}</Outline>
         <Switch>
           <Route path="/my/reserve/*/:id">
-            <ReservationInfo
-              key={Math.random()}
-              onUnmount={this.requireFetch}
-            />
+            <ReservationInfo onUnmount={this.requireFetch} />
           </Route>
 
           <Route path="/">
@@ -88,7 +85,7 @@ export default class MyReservePage extends Component<
               data.map((e: Reserve, i) => {
                 const { name, reserve } = e;
                 return (
-                  <Link key={i} to={`/my/reserve/${type}/${e._id}`}>
+                  <Link key={i + type} to={`/my/reserve/${type}/${e._id}`}>
                     <StateCard name={name} reserve={reserve} />
                   </Link>
                 );
