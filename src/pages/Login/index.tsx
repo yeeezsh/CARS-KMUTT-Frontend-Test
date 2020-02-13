@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import { FormComponentProps } from 'antd/lib/form';
 import { Row, Col, Input, Form, Icon } from 'antd';
 import { withRouter, RouteComponentProps } from 'react-router';
-import { FormComponentProps } from 'antd/lib/form';
 
 import Button from '../../components/Button';
 
@@ -9,6 +9,8 @@ import { u } from '../../models/user';
 
 import logo from '../../assets/logo.login.svg';
 import styles from './styles.module.css';
+
+// utils
 import usernameValidator from '../../utils/username.validator';
 
 class LoginPage extends Component<
@@ -26,7 +28,7 @@ class LoginPage extends Component<
     if (u.GetUser()) await u.UserLogout();
   };
 
-  onValidator = (rule: any, value: string, callback: any) => {
+  onValidator = (_rule: any, value: string, callback: any) => {
     if (value.length === 0) return callback();
     const valid = usernameValidator(value);
     if (!valid) return callback('โปรดกรอกชื่อผู้ใช้งานให้ถูกต้อง');
