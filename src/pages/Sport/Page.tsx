@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import Loadable from 'react-loadable';
 import { Row, Col } from 'antd';
 import moment, { Moment } from 'moment';
 import {
@@ -7,8 +9,6 @@ import {
   withRouter,
   RouteComponentProps,
 } from 'react-router';
-import { connect } from 'react-redux';
-import Loadable from 'react-loadable';
 
 import PageLayout from '../../components/Layout/Page';
 
@@ -28,19 +28,22 @@ const Snackbar = Loadable({
   loader: () => import('../../components/Snackbar'),
   loading: () => null,
 });
+const ConfirmModal = Loadable({
+  loader: () => import('../../components/ConfirmModal'),
+  loading: () => null,
+});
 
 import Badge from '../../components/Badge';
 import StateSteps from '../../components/StateSteps';
-import ConfirmModal from '../../components/ConfirmModal';
+import BackCard from '../../components/BackCard';
 
 import TimeNode from '../../components/TimeTable/timetable.interface';
 import Area from '../../models/area/area.interface';
+import { TaskSport } from '../../models/task/sport/sport.interface';
 
 // import { stepLists, areas } from '../../models/sport';
 import { stepLists } from '../../models/sport';
-import BackCard from '../../components/BackCard';
 import { Mutate } from '../../models/task/sport';
-import { TaskSport } from '../../models/task/sport/sport.interface';
 import { u } from '../../models/user';
 
 import styles from './styles.module.css';
@@ -253,6 +256,10 @@ class SportPage extends Component<
       queryArea,
     } = this.props;
 
+    const fetchQuota = await u.GetQuota();
+    const quota = fetchQuota.n < 1;
+    // console.log('quota', quota);
+
     const owner = u.GetUser()?.username || '';
     const areaId = location.pathname.split('/')[3];
     setOwner(owner);
@@ -263,7 +270,7 @@ class SportPage extends Component<
     const status = stepLists.map(() => false);
     const badge = history.location.state?.label[0];
     if (!badge) return history.replace(CATEGORY_PAGE);
-    return this.setState({ badge, status }, () => {
+    return this.setState({ badge, status, quota }, () => {
       const paths = location.pathname.split('/');
       const step = paths[paths.length - 1];
       if (step !== '1') return history.replace(FIRST_STEP_PAGE);
@@ -284,6 +291,7 @@ class SportPage extends Component<
       backCard,
       timeSelected,
       interval,
+      quota,
     } = this.state;
 
     const { dateSelected, areaSelected, users } = this.props;
@@ -373,9 +381,11 @@ class SportPage extends Component<
 
         {/* overlay element */}
         <ConfirmModal visible={confirmModal} onClick={this.onModal} />
-        <Snackbar show={true}>
-          สิทธิ์การจองสนามกีฬาของคุณเต็มแล้ว (1 คน /1 การจองสนามกีฬา)
-        </Snackbar>
+        {quota && (
+          <Snackbar show={true}>
+            สิทธิ์การจองสนามกีฬาของคุณเต็มแล้ว (1 คน /1 การจองสนามกีฬา)
+          </Snackbar>
+        )}
       </React.Fragment>
     );
   }
