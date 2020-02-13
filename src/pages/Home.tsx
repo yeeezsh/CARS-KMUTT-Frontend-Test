@@ -34,10 +34,10 @@ export default class Home extends Component<
     return this.setState({ lastCard, needAction });
   };
   render() {
-    const { lastCard } = this.state;
+    const { lastCard, needAction } = this.state;
     return (
       <HomeLayout lastCard={lastCard}>
-        <HomeMenu />
+        <HomeMenu needActions={needAction ? ['4'] : []} />
       </HomeLayout>
     );
   }
