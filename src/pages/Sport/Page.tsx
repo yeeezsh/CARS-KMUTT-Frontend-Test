@@ -114,7 +114,8 @@ class SportPage extends Component<
   };
 
   onSelectTime = (time: TimeNode) => {
-    if (time.type === 'disabled') {
+    const { badge, quota } = this.state;
+    if (time.type === 'disabled' || quota) {
       return this.setState(prevState => {
         const { status } = prevState;
         return {
@@ -122,7 +123,7 @@ class SportPage extends Component<
         };
       });
     }
-    const { badge } = this.state;
+
     const { setTimeSelected } = this.props;
     setTimeSelected(time.value);
 
