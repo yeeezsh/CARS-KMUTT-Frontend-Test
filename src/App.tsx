@@ -15,8 +15,6 @@ class App extends Component {
     } catch (err) {
       window.location.replace('/login');
     }
-
-    // u.GetQuota();
   }
 
   render() {
