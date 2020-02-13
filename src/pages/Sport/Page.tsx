@@ -338,6 +338,9 @@ class SportPage extends Component<
                 onSelectTime={this.onSelectTime}
                 onSelectArea={this.onSelectArea}
               />
+
+              {/* traling spaces */}
+              <Col span={24} style={{ height: '150px' }} />
             </Route>
 
             <Route path="*/2">
@@ -345,6 +348,9 @@ class SportPage extends Component<
                 required={areaSelected.required}
                 onSubmit={this.onForm}
               />
+
+              {/* traling spaces */}
+              <Col span={24} style={{ height: '150px' }} />
             </Route>
 
             <Route path="*/3">
@@ -356,6 +362,9 @@ class SportPage extends Component<
                 date={dateSelected}
                 onConfirm={this.onConfirm}
               />
+
+              {/* traling spaces */}
+              <Col span={24} style={{ height: '150px' }} />
             </Route>
           </Switch>
         </PageLayout>
