@@ -23,11 +23,11 @@ interface StateTypes {
   owner?: string;
 }
 
-let CACHE_STATE: StateTypes = {
-  users: [],
-  required: 2,
-  status: false,
-};
+// let CACHE_STATE: StateTypes = {
+//   users: [],
+//   required: 2,
+//   status: false,
+// };
 
 class FormPage extends Component<PropsTypes, StateTypes> {
   constructor(props: PropsTypes) {
@@ -47,17 +47,17 @@ class FormPage extends Component<PropsTypes, StateTypes> {
     this.setState({ owner });
 
     const required = this.props.required;
-    const load =
-      CACHE_STATE.users.length !== 0 &&
-      required === CACHE_STATE.users.length;
-    if (load) this.setState(CACHE_STATE);
+    // const load =
+    //   CACHE_STATE.users.length !== 0 &&
+    //   required === CACHE_STATE.users.length;
+    // if (load) this.setState(CACHE_STATE);
 
     const users = Array(required).fill('');
     return this.setState({ users });
   };
 
   componentWillUnmount = () => {
-    CACHE_STATE = this.state;
+    // CACHE_STATE = this.state;
   };
 
   onSubmit = (e: any): void => {
