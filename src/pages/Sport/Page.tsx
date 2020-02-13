@@ -58,7 +58,6 @@ import {
   setUsers,
   resetState,
 } from '../../store/reducers/sports/actions';
-import { RootReducers } from '../../store/reducers';
 
 const CATEGORY_PAGE = '/reserve/sport/category';
 const FIRST_STEP_PAGE = '/reserve/sport/1';
@@ -248,8 +247,8 @@ class SportPage extends Component<
 
   componentDidMount = async () => {
     TimePage.preload();
-    // FormPage.preload();
-    // ConfirmPage.preload();
+    FormPage.preload();
+    ConfirmPage.preload();
 
     const {
       history,
@@ -262,7 +261,6 @@ class SportPage extends Component<
 
     const fetchQuota = await u.GetQuota();
     const quota = fetchQuota.n < 1;
-    // console.log('quota', quota);
 
     const owner = username;
     const areaId = location.pathname.split('/')[3];
@@ -287,8 +285,6 @@ class SportPage extends Component<
   }
 
   render() {
-    // console.log('page sport states', this.props.dateSelected.format('DD-MM-YYYY'));
-    // console.log('page sport states', this.props);
     const {
       confirmModal,
       step,
@@ -411,7 +407,6 @@ const mapDispatchToProps = (dispatch: any) => {
   return {
     setDateSelected: (date: Moment) => dispatch(setDateSelected(date)),
     setTimeSelected: (time: Moment) => {
-      // console.log('dispatch time', time.format('HH mm'));
       return dispatch(setTimeSelected(time));
     },
     setAreaSelected: (area: Area['area']) =>
@@ -424,7 +419,6 @@ const mapDispatchToProps = (dispatch: any) => {
   };
 };
 
-// export default connect(mapStateToProps, mapDispatchToProps)(withRouter<RouteComponentProps, any>(SportPage));
 export default withRouter<RouteComponentProps, any>(
   connect(mapStateToProps, mapDispatchToProps)(SportPage),
 );
