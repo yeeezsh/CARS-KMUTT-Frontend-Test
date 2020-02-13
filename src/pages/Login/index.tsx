@@ -9,6 +9,7 @@ import { u } from '../../models/user';
 
 import logo from '../../assets/logo.login.svg';
 import styles from './styles.module.css';
+import usernameValidator from '../../utils/username.validator';
 
 class LoginPage extends Component<
   FormComponentProps & RouteComponentProps,
@@ -26,10 +27,9 @@ class LoginPage extends Component<
   };
 
   onValidator = (rule: any, value: string, callback: any) => {
-    if (value === undefined)
-      return callback('โปรดกรอกรหัสนักศึกษาให้ถูกต้อง');
-    if (value.length !== 11)
-      return callback('โปรดกรอกรหัสนักศึกษาให้ถูกต้อง');
+    if (value.length === 0) return callback();
+    const valid = usernameValidator(value);
+    if (!valid) return callback('โปรดกรอกชื่อผู้ใช้งานให้ถูกต้อง');
     return callback();
   };
 
@@ -87,20 +87,14 @@ class LoginPage extends Component<
               <Form.Item>
                 {getFieldDecorator('username', {
                   rules: [
+                    { required: true, message: 'โปรดกรอกชื่อผู้ใช้งาน' },
                     {
-                      required: true,
-                      max: 11,
                       validator: this.onValidator,
                     },
                   ],
                   validateTrigger: ['onBlur'],
                 })(
-                  <Input
-                    onChange={this.onType}
-                    placeholder="Username"
-                    pattern="[0-9]*"
-                    type="number"
-                  />,
+                  <Input onChange={this.onType} placeholder="Username" />,
                 )}
               </Form.Item>
             </Col>
