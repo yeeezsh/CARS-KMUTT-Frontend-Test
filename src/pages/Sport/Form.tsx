@@ -8,6 +8,7 @@ import { FormComponentProps } from 'antd/lib/form/Form';
 import Outline from '../../components/Outline';
 import Button from '../../components/Button';
 import { u } from '../../models/user';
+import usernameValidator from '../../utils/username.validator';
 
 interface PropsTypes extends FormComponentProps {
   required?: number;
@@ -75,19 +76,21 @@ class FormPage extends Component<PropsTypes, StateTypes> {
     });
   };
 
-  onValidator = (rule: any, value: string, callback: any) => {
+  onValidator = (_rule: any, value: string, callback: any) => {
     const { form } = this.props;
     const ids: string[] = form
       .getFieldValue('users')
       .filter((e: string) => e);
     const sets = new Set(ids).size;
 
-    if (value === undefined) return callback('โปรดกรอกรหัสนักศึกษา');
-    if (value.length !== 11)
-      return callback('โปรดกรอกรหัสนักศึกษาให้ถูกต้อง');
+    if (value === undefined) return callback('โปรดกรอกรหัสผู้ใช้งาน');
+    const valid = usernameValidator(value);
+    if (!valid) return callback('โปรดกรอกรหัสผู้ใช้งานให้ถูกต้อง');
+    // if (value.length !== 11)
+    //   return callback('โปรดกรอกรหัสนักศึกษาให้ถูกต้อง');
 
     if (ids.length !== sets && ids.length !== 0)
-      return callback('รหัสนักศึกษาซ้ำ');
+      return callback('รหัสผู้ใช้งานซ้ำ');
     return callback();
   };
 
@@ -143,19 +146,20 @@ class FormPage extends Component<PropsTypes, StateTypes> {
                         rules: [
                           {
                             required: true,
+                            message: 'โปรดกรอกรหัสผู้ใช้งาน',
+                          },
+                          {
                             validator: this.onValidator,
-                            max: 11,
-                            message: 'โปรดกรอกรหัสนักศึกษาให้ถูกต้อง',
                           },
                         ],
                         initialValue: i === 0 ? owner : e,
                         validateTrigger: ['onBlur'],
                       })(
                         <Input
-                          pattern="[0-9]*"
+                          // pattern="[0-9]*"
                           onChange={this.onType}
-                          placeholder={`รหัสนักศึกษาคนที่ ${i + 1}`}
-                          type={'number'}
+                          placeholder={`รหัสผู้ใช้งานคนที่ ${i + 1}`}
+                          // type={'number'}
                           disabled={i === 0}
                         />,
                       )}
