@@ -10,17 +10,21 @@ import { u } from '../../models/user';
 import usernameValidator from '../../utils/username.validator';
 
 import styles from './styles.module.css';
+import { connect } from 'react-redux';
+import { RootReducers } from '../../store/reducers';
+import { setUsers, resetState } from '../../store/reducers/sports/actions';
 
 interface PropsTypes extends FormComponentProps {
   required?: number;
   onSubmit?: any;
+  // users: string[];
+  owner?: string;
 }
 
 interface StateTypes {
   users: string[];
   required: number;
   status: boolean;
-  owner?: string;
 }
 
 // let CACHE_STATE: StateTypes = {
@@ -36,15 +40,14 @@ class FormPage extends Component<PropsTypes, StateTypes> {
       users: [],
       required: 2,
       status: false,
-      owner: '',
     };
   }
 
   componentDidMount = () => {
     // auto scroll
     window.scroll(0, 0);
-    const owner = u.GetUser().studentId;
-    this.setState({ owner });
+    // const owner = u.GetUser().studentId;
+    // this.setState({ owner });
 
     const required = this.props.required;
     // const load =
@@ -116,7 +119,13 @@ class FormPage extends Component<PropsTypes, StateTypes> {
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { users, owner } = this.state;
+    const { users } = this.state;
+    const { owner } = this.props;
+    // let users = [];
+    // if (owner) users = Array(required).fill('');
+    // const users = Array(required).fill('');
+
+    console.log('owner from props jaaa', owner);
     return (
       <React.Fragment>
         {/* outliner n' desc */}
@@ -140,7 +149,7 @@ class FormPage extends Component<PropsTypes, StateTypes> {
           <Row type="flex" justify="center">
             <Col span={20}>
               <Form onSubmit={this.onSubmit}>
-                {this.state.users.map((e, i) => {
+                {users.map((e, i) => {
                   return (
                     <Form.Item key={i}>
                       {getFieldDecorator(`users[${i}]`, {
@@ -183,6 +192,13 @@ class FormPage extends Component<PropsTypes, StateTypes> {
   }
 }
 
+const mapStateToProps = (rootReducers: RootReducers) => {
+  const { SportReducers } = rootReducers;
+  return {
+    owner: SportReducers.owner,
+  };
+};
+
 const wrapped = Form.create<PropsTypes>({})(FormPage);
 
-export default wrapped;
+export default connect(mapStateToProps)(wrapped);

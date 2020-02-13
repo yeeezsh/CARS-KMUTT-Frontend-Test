@@ -58,6 +58,7 @@ import {
   setUsers,
   resetState,
 } from '../../store/reducers/sports/actions';
+import { RootReducers } from '../../store/reducers';
 
 const CATEGORY_PAGE = '/reserve/sport/category';
 const FIRST_STEP_PAGE = '/reserve/sport/1';
@@ -81,6 +82,7 @@ interface MapToStateI {
   owner: string;
   users: string[];
   interval: number;
+  username: string;
 }
 
 class SportPage extends Component<
@@ -246,8 +248,8 @@ class SportPage extends Component<
 
   componentDidMount = async () => {
     TimePage.preload();
-    FormPage.preload();
-    ConfirmPage.preload();
+    // FormPage.preload();
+    // ConfirmPage.preload();
 
     const {
       history,
@@ -255,13 +257,14 @@ class SportPage extends Component<
       setAreaId,
       setOwner,
       queryArea,
+      username,
     } = this.props;
 
     const fetchQuota = await u.GetQuota();
     const quota = fetchQuota.n < 1;
     // console.log('quota', quota);
 
-    const owner = u.GetUser()?.username || '';
+    const owner = username;
     const areaId = location.pathname.split('/')[3];
     setOwner(owner);
     setAreaId(areaId);
@@ -356,6 +359,7 @@ class SportPage extends Component<
 
             <Route path="*/2">
               <FormPage
+                key={areaSelected.id}
                 required={areaSelected.required}
                 onSubmit={this.onForm}
               />
@@ -396,9 +400,10 @@ class SportPage extends Component<
 }
 
 const mapStateToProps = (rootReducers: any) => {
-  const { SportReducers } = rootReducers;
+  const { SportReducers, UserReducers } = rootReducers;
   return {
     ...SportReducers,
+    username: UserReducers.username,
   };
 };
 
