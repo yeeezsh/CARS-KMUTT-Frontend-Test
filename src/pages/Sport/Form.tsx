@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { Form, Col, Row, Input } from 'antd';
 
-import styles from './styles.module.css';
-
 import { FormComponentProps } from 'antd/lib/form/Form';
 
 import Outline from '../../components/Outline';
 import Button from '../../components/Button';
+
 import { u } from '../../models/user';
 import usernameValidator from '../../utils/username.validator';
+
+import styles from './styles.module.css';
 
 interface PropsTypes extends FormComponentProps {
   required?: number;
@@ -86,8 +87,6 @@ class FormPage extends Component<PropsTypes, StateTypes> {
     if (value === undefined) return callback('โปรดกรอกรหัสผู้ใช้งาน');
     const valid = usernameValidator(value);
     if (!valid) return callback('โปรดกรอกรหัสผู้ใช้งานให้ถูกต้อง');
-    // if (value.length !== 11)
-    //   return callback('โปรดกรอกรหัสนักศึกษาให้ถูกต้อง');
 
     if (ids.length !== sets && ids.length !== 0)
       return callback('รหัสผู้ใช้งานซ้ำ');
@@ -113,7 +112,6 @@ class FormPage extends Component<PropsTypes, StateTypes> {
   };
 
   render() {
-    console.log('form states', this.state);
     const { getFieldDecorator } = this.props.form;
     const { users, owner } = this.state;
     return (
@@ -156,10 +154,8 @@ class FormPage extends Component<PropsTypes, StateTypes> {
                         validateTrigger: ['onBlur'],
                       })(
                         <Input
-                          // pattern="[0-9]*"
                           onChange={this.onType}
                           placeholder={`รหัสผู้ใช้งานคนที่ ${i + 1}`}
-                          // type={'number'}
                           disabled={i === 0}
                         />,
                       )}
