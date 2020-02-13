@@ -64,7 +64,10 @@ export default class MyReservePage extends Component<
         <Outline>{outline}</Outline>
         <Switch>
           <Route path="/my/reserve/*/:id">
-            <ReservationInfo onUnmount={this.requireFetch} />
+            <ReservationInfo
+              key={Math.random()}
+              onUnmount={this.requireFetch}
+            />
           </Route>
 
           <Route path="/">
