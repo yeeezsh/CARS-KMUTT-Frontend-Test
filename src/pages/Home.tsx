@@ -14,14 +14,19 @@ export default class Home extends Component<
   {},
   {
     lastCard: Task | undefined;
+    needAction: boolean;
   }
 > {
-  state = { lastCard: undefined };
+  constructor(props: Record<string, any>) {
+    super(props);
+    this.state = { lastCard: undefined, needAction: false };
+  }
 
   componentDidMount = async () => {
-    const data = await task.getLastTask();
+    const lastCard = await task.getLastTask();
+    const needAction = lastCard?.state.slice(-1)[0] === 'requested';
 
-    return this.setState({ lastCard: data });
+    return this.setState({ lastCard, needAction });
   };
   render() {
     const { lastCard } = this.state;
