@@ -30,12 +30,15 @@ let CACHE_STATE: StateTypes = {
 };
 
 class FormPage extends Component<PropsTypes, StateTypes> {
-  state = {
-    users: [],
-    required: 2,
-    status: false,
-    owner: '',
-  };
+  constructor(props: PropsTypes) {
+    super(props);
+    this.state = {
+      users: [],
+      required: 2,
+      status: false,
+      owner: '',
+    };
+  }
 
   componentDidMount = () => {
     // auto scroll
@@ -47,9 +50,8 @@ class FormPage extends Component<PropsTypes, StateTypes> {
     const load =
       CACHE_STATE.users.length !== 0 &&
       required === CACHE_STATE.users.length;
-    if (load) {
-      return this.setState(CACHE_STATE);
-    }
+    if (load) this.setState(CACHE_STATE);
+
     const users = Array(required).fill('');
     return this.setState({ users });
   };
@@ -78,13 +80,14 @@ class FormPage extends Component<PropsTypes, StateTypes> {
   };
 
   onValidator = (_rule: any, value: string, callback: any) => {
+    if (value.length === 0) return callback();
+
     const { form } = this.props;
     const ids: string[] = form
       .getFieldValue('users')
       .filter((e: string) => e);
     const sets = new Set(ids).size;
 
-    if (value === undefined) return callback('โปรดกรอกรหัสผู้ใช้งาน');
     const valid = usernameValidator(value);
     if (!valid) return callback('โปรดกรอกรหัสผู้ใช้งานให้ถูกต้อง');
 
