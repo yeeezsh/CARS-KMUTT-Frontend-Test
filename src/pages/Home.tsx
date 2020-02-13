@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import Loadable from 'react-loadable';
 
-import HomeLayout from '../components/Layout/Home';
-import { task } from '../models/task';
-import { Task } from '../models/task/task.interface';
-
 const HomeMenu = Loadable({
   loader: () => import('../components/KanbanCard'),
   loading: () => null,
 });
+const HomeLayout = Loadable({
+  loader: () => import('../components/Layout/Home'),
+  loading: () => null,
+});
+
+import { task } from '../models/task';
+import { Task } from '../models/task/task.interface';
 
 export default class Home extends Component<
   {},
@@ -30,7 +33,6 @@ export default class Home extends Component<
   };
   render() {
     const { lastCard } = this.state;
-    // console.log(lastCard?.reserve[0].start?.format('HH MM DD'));
     return (
       <HomeLayout lastCard={lastCard}>
         <HomeMenu />
