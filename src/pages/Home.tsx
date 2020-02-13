@@ -26,6 +26,8 @@ export default class Home extends Component<
   }
 
   componentDidMount = async () => {
+    HomeMenu.preload();
+    HomeLayout.preload();
     const lastCard = await task.getLastTask();
     const needAction = lastCard?.state.slice(-1)[0] === 'requested';
 
