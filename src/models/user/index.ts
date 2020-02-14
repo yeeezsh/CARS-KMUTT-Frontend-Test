@@ -3,6 +3,7 @@ import { QuotaType } from './quota.interface';
 import i from '../axios.interface';
 import { store } from '../../index';
 import { setUser, deleteUser } from '../../store/reducers/users/actions';
+import { MSG_BAD_PASSWORD, MSG_INTERNAL_ERROR } from './default.msg';
 
 const loginAdapter = (
   type: 'staff' | 'requestor',
@@ -48,7 +49,7 @@ class UserClass {
   RequestorLogin = async (
     username: string,
     password: string,
-  ): Promise<{ auth: boolean }> => {
+  ): Promise<{ auth: boolean; msg?: string }> => {
     try {
       const res = (await loginAdapter('requestor', { username, password }))
         .data;
@@ -59,12 +60,16 @@ class UserClass {
       if (status === 401)
         return {
           auth: false,
+          msg: MSG_BAD_PASSWORD,
         };
       return {
         auth: false,
+        msg: MSG_INTERNAL_ERROR,
       };
     }
   };
+
+  StaffLogin = async (username: string, password: string) => [];
 
   UserLogout = async (): Promise<void> => {
     this.DeleteCredential();
