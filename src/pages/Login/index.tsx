@@ -12,6 +12,11 @@ import styles from './styles.module.css';
 
 // utils
 import usernameValidator from '../../utils/username.validator';
+import {
+  MSG_BAD_USERNAME,
+  MSG_REQUIRE_USERNAME,
+  MSG_REQUIRE_PASSWORD,
+} from '../../models/user/default.msg';
 
 class LoginPage extends Component<
   FormComponentProps & RouteComponentProps,
@@ -31,7 +36,8 @@ class LoginPage extends Component<
   onValidator = (_rule: any, value: string, callback: any) => {
     if (value.length === 0) return callback();
     const valid = usernameValidator(value);
-    if (!valid) return callback('โปรดกรอกชื่อผู้ใช้งานให้ถูกต้อง');
+
+    if (!valid) return callback(MSG_BAD_USERNAME);
     return callback();
   };
 
@@ -43,13 +49,16 @@ class LoginPage extends Component<
         if (!err) {
           return this.setState({ loading: true }, async () => {
             const { username, password } = values;
-            const res = await u.RequestorLogin(username, password);
-            console.log(res);
-            if (res.auth) return this.props.history.push('/');
+            const { auth, msg } = await u.RequestorLogin(
+              username,
+              password,
+            );
+
+            if (auth) return this.props.history.push('/');
             setFields({
               password: {
                 value: values.password,
-                errors: [new Error('รหัสผ่านไม่ถูกต้อง')],
+                errors: [new Error(msg)],
               },
             });
             return this.setState({ loading: false });
@@ -89,7 +98,7 @@ class LoginPage extends Component<
               <Form.Item>
                 {getFieldDecorator('username', {
                   rules: [
-                    { required: true, message: 'โปรดกรอกชื่อผู้ใช้งาน' },
+                    { required: true, message: MSG_REQUIRE_USERNAME },
                     {
                       validator: this.onValidator,
                     },
@@ -103,7 +112,9 @@ class LoginPage extends Component<
             <Col span={18} lg={14} className={styles.input}>
               <Form.Item>
                 {getFieldDecorator('password', {
-                  rules: [{ required: true, message: 'โปรดกรอกรหัสผ่าน' }],
+                  rules: [
+                    { required: true, message: MSG_REQUIRE_PASSWORD },
+                  ],
                   validateTrigger: ['onBlur'],
                 })(
                   <Input
