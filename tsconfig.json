@@ -17,10 +17,11 @@
     "jsx": "react",
     "importHelpers": true,
     "outDir": "./dist/",
-    "baseUrl": "src",
+    "baseUrl": "./src",
     "paths": {
       "Models/*": ["models/*"],
-      "Assets/*": ["assets/*"]
+      "Assets/*": ["assets/*"],
+      "Components/*": ["components/*"]
     }
   },
   "include": ["src", ".eslintrc.js"]
