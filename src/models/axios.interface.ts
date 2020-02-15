@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
 // const END_POINT = 'http://157.245.147.102:3000/api';
-// const END_POINT = 'http://localhost:3000/api';
-const END_POINT = 'http://10.26.100.205:3000/api';
+const END_POINT = 'http://localhost:3000/api';
+// const END_POINT = 'http://10.26.100.205:3000/api';
 
 class Instance {
   instance: AxiosInstance;

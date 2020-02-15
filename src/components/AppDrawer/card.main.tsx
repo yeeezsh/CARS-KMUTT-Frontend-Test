@@ -3,7 +3,7 @@ import { Row, Col } from 'antd';
 import { Link } from 'react-router-dom';
 
 import styles from './styles.module.css';
-import { Drawer } from './drawer.interface';
+import { Drawer } from '../../models/drawer/interface';
 
 export default function CardMain(props: {
   settings?: Drawer['settings'];
