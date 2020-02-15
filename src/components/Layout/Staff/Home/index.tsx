@@ -2,35 +2,23 @@ import React from 'react';
 import { Layout } from 'antd';
 import Sidebar from 'Components/Sidebar';
 
+import styles from './styles.module.css';
+
 const { Header, Content, Sider } = Layout;
 
 const StaffLayout: React.FunctionComponent = props => {
   return (
-    <Layout
-      style={{ height: '100%', width: '100%', position: 'absolute' }}
-    >
+    <Layout className={styles.main}>
       {/* sidebar */}
       <Layout>
-        <Sider
-          width={250}
-          style={{ background: '#FF682B', minHeight: '100%' }}
-        >
+        <Sider width={250} className={styles.sider}>
           <Sidebar />
         </Sider>
 
         {/* <Layout style={{ padding: '0 24px 24px' }}> */}
         <Layout>
           <Header>header ja</Header>
-          <Content
-            style={{
-              background: '#fff',
-              padding: 24,
-              margin: 0,
-              minHeight: 280,
-            }}
-          >
-            {props.children}
-          </Content>
+          <Content className={styles.content}>{props.children}</Content>
         </Layout>
       </Layout>
     </Layout>

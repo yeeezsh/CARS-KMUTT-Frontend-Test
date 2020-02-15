@@ -1,0 +1,17 @@
+.main {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
+.sider {
+  background: #ff682b;
+  min-height: 100%;
+}
+
+.content {
+    background: #fff;
+    padding: 24px;
+    margin: 0px;
+    min-width: 280px;
+}
