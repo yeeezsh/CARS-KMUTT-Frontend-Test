@@ -7,34 +7,37 @@ import hamburgerWhite from '../assets/icons/hamburger-white.svg';
 import hamburgerOrange from '../assets/icons/hamburger-orange.svg';
 
 const LoginPage = Loadable({
-  loader: () => import('./Login'),
+  loader: () => import('../pages/Login'),
   loading: () => null,
 });
 const Home = Loadable({
-  loader: () => import('./Home'),
+  loader: () => import('../pages/Home'),
   loading: () => null,
 });
 const Page = Loadable({
-  loader: () => import('./Page'),
+  loader: () => import('../pages/Page'),
   loading: () => null,
 });
 const LogoutPage = Loadable({
-  loader: () => import('./Logout'),
+  loader: () => import('../pages/Logout'),
   loading: () => null,
 });
 
-import { Category as SportCategory, Page as SportPage } from './Sport';
+import {
+  Category as SportCategory,
+  Page as SportPage,
+} from '../pages/Sport';
 
 const AppDrawer = Loadable({
   loader: () => import('../components/AppDrawer'),
   loading: () => null,
 });
 const MyReservePage = Loadable({
-  loader: () => import('./MyReserve'),
+  loader: () => import('../pages/MyReserve'),
   loading: () => null,
 });
 
-export default class PageRouter extends Component<
+export default class PageUserRouter extends Component<
   {},
   {
     drawer: boolean;
@@ -137,9 +140,6 @@ export default class PageRouter extends Component<
         <Route path="/logout">
           <LogoutPage />
         </Route>
-
-        {/* staff zone */}
-        <Route path="/staff/login">staff zone ja</Route>
       </Router>
     );
   }

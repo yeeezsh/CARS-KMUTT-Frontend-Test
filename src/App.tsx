@@ -1,6 +1,6 @@
 // import { hot } from 'react-hot-loader/root';
 import React, { Component } from 'react';
-import PageRouter from './pages/Router';
+import RootRouter from './Router/';
 import './App.css';
 import { u } from './models/user';
 
@@ -18,7 +18,7 @@ class App extends Component {
   }
 
   render() {
-    return <PageRouter />;
+    return <RootRouter />;
   }
 }
 // export default hot(App);

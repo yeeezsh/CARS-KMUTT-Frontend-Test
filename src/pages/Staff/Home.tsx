@@ -1,7 +1,7 @@
 import React from 'react';
 
-function HomeStaff() {
-  return <div></div>;
+function StaffHome() {
+  return <div>home staff ja</div>;
 }
 
-export default HomeStaff;
+export default StaffHome;
