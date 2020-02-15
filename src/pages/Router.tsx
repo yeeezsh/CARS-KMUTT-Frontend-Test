@@ -137,6 +137,9 @@ export default class PageRouter extends Component<
         <Route path="/logout">
           <LogoutPage />
         </Route>
+
+        {/* staff zone */}
+        <Route path="/staff/login">staff zone ja</Route>
       </Router>
     );
   }
