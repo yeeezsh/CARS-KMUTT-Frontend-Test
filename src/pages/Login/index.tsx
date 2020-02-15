@@ -7,7 +7,7 @@ import Button from '../../components/Button';
 
 import { u } from '../../models/user';
 
-import logo from '../../assets/logo.login.svg';
+import logo from '../../assets/login.logo.svg';
 import styles from './styles.module.css';
 
 // utils

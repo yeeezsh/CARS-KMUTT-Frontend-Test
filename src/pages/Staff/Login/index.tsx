@@ -7,8 +7,8 @@ import Button from '../../../components/Button';
 
 import { u } from '../../../models/user';
 
-import logo from '../../assets/logo.login.svg';
 import styles from './styles.module.css';
+import logo from '../../../assets/login.logo.svg';
 
 // utils
 import usernameValidator from '../../../utils/username.validator';
@@ -88,6 +88,7 @@ class StaffLoginPage extends Component<
             <img src={logo} alt="logo" />
           </Col>
           <Col span={22}>
+            <p className={styles.label}>STAFF</p>
             <p className={styles.label}>common area reservation systems</p>
           </Col>
         </Row>
