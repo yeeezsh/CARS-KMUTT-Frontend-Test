@@ -1,0 +1,9 @@
+.input {
+    margin-bottom: -2px;
+}
+
+.label {
+    text-transform: capitalize;
+    color: #979797;
+    text-align: center;
+}

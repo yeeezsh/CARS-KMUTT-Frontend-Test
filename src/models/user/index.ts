@@ -69,7 +69,28 @@ class UserClass {
     }
   };
 
-  StaffLogin = async (username: string, password: string) => [];
+  StaffLogin = async (
+    username: string,
+    password: string,
+  ): Promise<{ auth: boolean; msg?: string }> => {
+    try {
+      const res = (await loginAdapter('staff', { username, password }))
+        .data;
+      this.SaveCredential(res);
+      return { auth: true };
+    } catch (err) {
+      const status: number = err.response.status;
+      if (status === 401)
+        return {
+          auth: false,
+          msg: MSG_BAD_PASSWORD,
+        };
+      return {
+        auth: false,
+        msg: MSG_INTERNAL_ERROR,
+      };
+    }
+  };
 
   UserLogout = async (): Promise<void> => {
     this.DeleteCredential();
