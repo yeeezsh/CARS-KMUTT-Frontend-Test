@@ -49,12 +49,9 @@ class StaffLoginPage extends Component<
         if (!err) {
           return this.setState({ loading: true }, async () => {
             const { username, password } = values;
-            const { auth, msg } = await u.RequestorLogin(
-              username,
-              password,
-            );
+            const { auth, msg } = await u.StaffLogin(username, password);
 
-            if (auth) return this.props.history.push('/');
+            if (auth) return this.props.history.push('/staff');
             setFields({
               password: {
                 value: values.password,
@@ -88,7 +85,15 @@ class StaffLoginPage extends Component<
             <img src={logo} alt="logo" />
           </Col>
           <Col span={22}>
-            <p className={styles.label}>STAFF</p>
+            <p
+              style={{
+                fontSize: '48px',
+                fontWeight: 'bold',
+                textAlign: 'center',
+              }}
+            >
+              STAFF JAAA
+            </p>
             <p className={styles.label}>common area reservation systems</p>
           </Col>
         </Row>
