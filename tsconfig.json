@@ -16,7 +16,11 @@
     "sourceMap": true,
     "jsx": "react",
     "importHelpers": true,
-    "outDir": "./dist/"
+    "outDir": "./dist/",
+    "baseUrl": "src",
+    "paths": {
+      "Models/*": ["models/*"]
+    }
   },
   "include": ["src", ".eslintrc.js"]
 }
