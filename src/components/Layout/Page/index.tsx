@@ -1,4 +1,4 @@
-import React, { Component, Props as PageProps } from 'react';
+import React, { Component } from 'react';
 import { Row, Col } from 'antd';
 import styles from './page.module.css';
 
