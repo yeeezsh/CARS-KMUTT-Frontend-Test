@@ -4,7 +4,7 @@ import moment from 'moment';
 import Loadable from 'react-loadable';
 
 // interfaces
-import { Task } from '../../../models/task/task.interface';
+import { Task } from 'Models/task/task.interface';
 
 import styles from './home.module.css';
 import { Link } from 'react-router-dom';

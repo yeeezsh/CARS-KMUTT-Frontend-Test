@@ -3,7 +3,7 @@ import { Row, Col } from 'antd';
 import { Link } from 'react-router-dom';
 
 import styles from './styles.module.css';
-import { Drawer } from '../../models/drawer/interface';
+import { Drawer } from 'Models/drawer/interface';
 
 export default function CardSub(props: {
   settings?: Drawer['settings'];

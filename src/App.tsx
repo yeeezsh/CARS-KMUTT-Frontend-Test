@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import RootRouter from './Router/';
 import './App.css';
-import { u } from './models/user';
+import { u } from 'Models/user';
 
 const EXCEPION_PATH = ['/login', '/staff/login'];
 

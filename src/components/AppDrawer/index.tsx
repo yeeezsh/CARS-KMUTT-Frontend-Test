@@ -1,6 +1,6 @@
 import React from 'react';
 import { Drawer, Row } from 'antd';
-import { Drawer as DrawerType } from '../../models/drawer/interface';
+import { Drawer as DrawerType } from 'Models/drawer/interface';
 
 import CardMain from './card.main';
 import CardSub from './card.sub';

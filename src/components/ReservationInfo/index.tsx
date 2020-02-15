@@ -9,9 +9,10 @@ import Badge from '../Badge';
 import StateCardIconColor from '../StateCard/icon';
 import BreakingLine from '../BreakingLine';
 
-import { task } from '../../models/task';
-import { TaskDetail } from '../../models/task/task.interface';
-import stateDesc from '../../models/task/helpers/state.desc';
+// Models
+import { TaskDetail } from 'Models/task/task.interface';
+import { task } from 'Models/task';
+import stateDesc from 'Models/task/helpers/state.desc';
 
 import Button from '../Button';
 import ActionModal from './modal';
