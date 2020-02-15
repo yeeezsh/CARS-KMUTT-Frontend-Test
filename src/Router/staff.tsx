@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Router, Route } from 'react-router';
+import { Router, Route, Switch } from 'react-router';
 import Loadable from 'react-loadable';
 import history from './history';
 
@@ -14,15 +14,18 @@ const Login = Loadable({
 
 export default class PageStaffRouter extends Component {
   render() {
+    // console.log('staff render laew jaa');
     return (
-      <Router history={history}>
-        <Route path="/" exact>
+      <Switch>
+        <Route path="**/login">
+          <Login />
+          {/* <Home /> */}
+        </Route>
+
+        <Route path="**/">
           <Home />
         </Route>
-        <Route path="/login">
-          <Login />
-        </Route>
-      </Router>
+      </Switch>
     );
   }
 }
