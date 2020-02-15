@@ -1,6 +1,7 @@
 import React from 'react';
 import { Layout } from 'antd';
 import Sidebar from 'Components/Sidebar';
+import SearchBar from 'Components/SearchBar';
 
 import styles from './styles.module.css';
 
@@ -17,7 +18,9 @@ const StaffLayout: React.FunctionComponent = props => {
 
         {/* <Layout style={{ padding: '0 24px 24px' }}> */}
         <Layout>
-          <Header>header ja</Header>
+          <Header className={styles.header}>
+            <SearchBar />
+          </Header>
           <Content className={styles.content}>{props.children}</Content>
         </Layout>
       </Layout>
