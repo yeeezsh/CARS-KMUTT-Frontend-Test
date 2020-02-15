@@ -8,7 +8,7 @@ const SearchBar: React.FunctionComponent<{
   return (
     <div>
       <Input
-        style={{ width: '40%' }}
+        style={{ width: '80%' }}
         prefix={<Icon type="search" />}
         onChange={e => onSearch && onSearch(e.target.value)}
       />
