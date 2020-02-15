@@ -17,7 +17,8 @@ module.exports = {
     extensions: ['.ts', '.tsx', '.js'],
     alias: {
       Models: path.resolve(__dirname, 'src/models'),
-    }
+      Assets: path.resolve(__dirname, 'src/assets'),
+    },
   },
   module: {
     rules: [

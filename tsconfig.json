@@ -19,7 +19,8 @@
     "outDir": "./dist/",
     "baseUrl": "src",
     "paths": {
-      "Models/*": ["models/*"]
+      "Models/*": ["models/*"],
+      "Assets/*": ["assets/*"]
     }
   },
   "include": ["src", ".eslintrc.js"]
