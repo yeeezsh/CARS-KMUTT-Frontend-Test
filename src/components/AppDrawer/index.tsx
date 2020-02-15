@@ -19,11 +19,12 @@ import {
   logoutIcon,
 } from './icon.import';
 
-export default function AppDrawer(props: {
+const AppDrawer: React.FunctionComponent<{
   drawer: boolean;
-  onDrawer: any;
-}) {
-  const { drawer, onDrawer } = props;
+  onDrawer: () => void;
+  header?: React.FunctionComponent;
+}> = props => {
+  const { drawer, onDrawer, header } = props;
   return (
     <Drawer
       placement={'left'}
@@ -33,7 +34,13 @@ export default function AppDrawer(props: {
       visible={drawer}
       drawerStyle={{ backgroundColor: '#FF682B' }}
     >
-      <img onClick={props.onDrawer} src={hamburgerWhite} alt="hamburger" />
+      {header || (
+        <img
+          onClick={props.onDrawer}
+          src={hamburgerWhite}
+          alt="hamburger"
+        />
+      )}
 
       {/* menu */}
       <Row className={styles.container} type="flex" justify="space-around">
@@ -75,7 +82,7 @@ export default function AppDrawer(props: {
       </Row>
     </Drawer>
   );
-}
+};
 
 const menu: DrawerType[] = [
   {
@@ -122,3 +129,5 @@ const menu: DrawerType[] = [
     ],
   },
 ];
+
+export default AppDrawer;
