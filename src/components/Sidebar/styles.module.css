@@ -1,10 +1,5 @@
-.container {
-  width: 100%;
-  margin-top: 40px;
-}
-
 .main {
-  margin: 4px;
+  margin: 8px;
   display: inline;
   font-size: 18px;
   line-height: 28px;
@@ -12,6 +7,11 @@
   font-size: 18px;
   line-height: 28px;
   color: #ffffff;
+}
+
+.list {
+  margin-top: 8px;
+  margin-left: 20px;
 }
 
 .sub {
@@ -22,4 +22,9 @@
   font-size: 18px;
   line-height: 28px;
   color: #ffffff;
+}
+
+.logo {
+  text-align: center;
+  padding: 15px;
 }
