@@ -18,6 +18,7 @@ const menu: Drawer[] = [
     key: '1',
     label: ['รายการทั้งหมด'],
     icon: allDocs,
+    link: '/staff',
     sub: [
       {
         key: '1',
