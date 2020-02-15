@@ -9,9 +9,11 @@ import {
   acceptDocs,
   dropDocs,
   sidebarIcon,
+  logoutIcon,
 } from './icon.import';
 import CardMain from 'Components/AppDrawer/card.main';
 import CardSub from 'Components/AppDrawer/card.sub';
+import { Row } from 'antd';
 
 const menu: Drawer[] = [
   {
@@ -82,6 +84,18 @@ function Sidebar() {
             );
           })}
       </div>
+
+      {/* logout */}
+      <Row
+        className={styles.list}
+        style={{ position: 'absolute', width: '100%', bottom: 50 }}
+      >
+        <CardMain
+          link={'/staff/logout'}
+          label={['ออกจากระบบ']}
+          icon={logoutIcon}
+        />
+      </Row>
     </div>
   );
 }
