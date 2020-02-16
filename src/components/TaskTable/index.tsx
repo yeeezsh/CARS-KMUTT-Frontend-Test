@@ -40,8 +40,9 @@ const TaskTable: React.FC<Props> = props => {
 
       <Row></Row>
       <Row>
+        <ListTable header={true} />
         {data &&
-          data.map((e, i) => <ListTable key={e._id} header={i !== 0} />)}
+          data.map(e => <ListTable header={false} key={e._id} data={e} />)}
       </Row>
     </div>
   );

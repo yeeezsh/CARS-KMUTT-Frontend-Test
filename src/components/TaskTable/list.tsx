@@ -17,7 +17,7 @@ const ListTable: React.FC<{
   };
 
   // return header col
-  if (!header)
+  if (header)
     return (
       <Row
         type="flex"
@@ -42,6 +42,7 @@ const ListTable: React.FC<{
     );
 
   // return data col
+  console.log(data);
   return (
     <Row
       type="flex"
