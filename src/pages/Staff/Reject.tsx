@@ -17,7 +17,7 @@ function StaffReject() {
 
   // fetching
   useEffect(() => {
-    taskTable.getAllTask(now, pagination).then(e => setData(e));
+    taskTable.getRejectTask(now, pagination).then(e => setData(e));
   }, []);
 
   return (
