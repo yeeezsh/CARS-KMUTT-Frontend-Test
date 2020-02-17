@@ -5,9 +5,9 @@ import TaskTable from 'Components/TaskTable';
 import { taskTable } from 'Models/taskTable';
 import { TaskTableType } from 'Models/taskTable/interface';
 
-import allDocsIcon from 'Assets/icons/staff/alldocs.svg';
+import rejectDocsIcon from 'Assets/icons/staff/rejectdocs.svg';
 
-function StaffHome() {
+function StaffReject() {
   const now = moment().startOf('day');
   const pagination = moment(now).subtract(2, 'day');
   const initState: TaskTableType = [];
@@ -22,9 +22,9 @@ function StaffHome() {
 
   return (
     <StaffLayout>
-      <TaskTable title="รายการทั้งหมด" icon={allDocsIcon} data={data} />
+      <TaskTable title="ตีกลับ" icon={rejectDocsIcon} data={data} />
     </StaffLayout>
   );
 }
 
-export default StaffHome;
+export default StaffReject;

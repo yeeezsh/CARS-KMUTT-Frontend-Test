@@ -1,9 +1,9 @@
 import React from 'react';
 import { Row, Col } from 'antd';
-
-import { TaskTable } from 'Models/taskTable/interface';
 import moment from 'moment';
+
 import State from './state';
+import { TaskTable } from 'Models/taskTable/interface';
 import typeDescHelper from './type.desc.helper';
 
 const ListTable: React.FC<{
@@ -46,7 +46,6 @@ const ListTable: React.FC<{
     );
 
   // return data col
-  console.log(data);
   return (
     <Row
       type="flex"

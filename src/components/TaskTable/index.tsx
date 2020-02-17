@@ -38,7 +38,8 @@ const TaskTable: React.FC<Props> = props => {
         </Col>
       </Row>
 
-      <Row></Row>
+      {/* <Row></Row> */}
+      {/* data display */}
       <Row>
         <ListTable header={true} />
         {data &&
