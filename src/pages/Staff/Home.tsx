@@ -8,8 +8,10 @@ import allDocsIcon from 'Assets/icons/staff/alldocs.svg';
 
 function StaffHome() {
   const now = moment().startOf('day');
-  const pagination = moment(now).add(1, 'day');
+  const pagination = moment(now).subtract(2, 'day');
   const [data, setData] = useState([]);
+  console.log(now.format('DD-MM-YYYY'));
+  console.log(pagination.format('DD-MM-YYYY'));
 
   // fetching
   useEffect(() => {
