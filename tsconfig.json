@@ -21,7 +21,8 @@
     "paths": {
       "Models/*": ["models/*"],
       "Assets/*": ["assets/*"],
-      "Components/*": ["components/*"]
+      "Components/*": ["components/*"],
+      "Pages/*": ["pages/*"]
     }
   },
   "include": ["src", ".eslintrc.js"]
