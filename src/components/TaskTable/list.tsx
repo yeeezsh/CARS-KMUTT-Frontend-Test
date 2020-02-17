@@ -2,6 +2,8 @@ import React from 'react';
 import { Row, Col } from 'antd';
 import { data } from 'Models/reserve/data';
 import { TaskTable } from 'Models/taskTable/interface';
+import moment from 'moment';
+import typeDescHelper from './type.desc.helper';
 
 const ListTable: React.FC<{
   header?: boolean;
@@ -14,6 +16,7 @@ const ListTable: React.FC<{
     boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.15)',
     borderRadius: '2px',
     padding: '12px',
+    textAlign: 'center',
   };
 
   // return header col
@@ -32,12 +35,12 @@ const ListTable: React.FC<{
           },
         }}
       >
-        <Col>วันที่</Col>
-        <Col>รหัสการจอง</Col>
-        <Col>ประเภทการจอง</Col>
-        <Col>สถานที่</Col>
-        <Col>รหัสผู้จอง</Col>
-        <Col>สถานะ</Col>
+        <Col span={4}>วันที่</Col>
+        <Col span={4}>รหัสการจอง</Col>
+        <Col span={4}>ประเภทการจอง</Col>
+        <Col span={6}>สถานที่</Col>
+        <Col span={4}>รหัสผู้จอง</Col>
+        <Col span={2}>สถานะ</Col>
       </Row>
     );
 
@@ -56,12 +59,14 @@ const ListTable: React.FC<{
         },
       }}
     >
-      <Col>{data?.createAt}</Col>
-      <Col>{data?._id}</Col>
-      <Col>{data?.type}</Col>
-      <Col>{data?.area.label || data?.area.name}</Col>
-      <Col>{data?.requestor[0].username}</Col>
-      <Col>{data?.state}</Col>
+      <Col span={4}>{moment(data?.createAt).format('DD-MM-YYYY')}</Col>
+      <Col span={4}>
+        {String(data?._id).slice(0, 3) + '.' + String(data?._id).slice(-4)}
+      </Col>
+      <Col span={4}>{typeDescHelper(data?.type)}</Col>
+      <Col span={6}>{data?.area.label || data?.area.name}</Col>
+      <Col span={4}>{data?.requestor[0].username}</Col>
+      <Col span={2}>{data?.state.slice(-1)}</Col>
     </Row>
   );
 };
