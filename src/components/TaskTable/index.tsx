@@ -2,6 +2,7 @@ import React from 'react';
 import { TaskTableType } from 'Models/taskTable/interface';
 import { Row, Col } from 'antd';
 import ListTable from './list';
+import SortByTools from 'Components/SortByTools';
 
 interface Props {
   title?: string;
@@ -35,6 +36,7 @@ const TaskTable: React.FC<Props> = props => {
         {/* tools */}
         <Col offset={10} span={8} style={{ textAlign: 'right' }}>
           Sort ja
+          <SortByTools />
         </Col>
       </Row>
 
