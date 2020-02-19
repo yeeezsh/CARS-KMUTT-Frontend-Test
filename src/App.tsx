@@ -1,4 +1,3 @@
-// import { hot } from 'react-hot-loader/root';
 import React, { Component } from 'react';
 import RootRouter from './Router/';
 import './App.css';
@@ -25,5 +24,5 @@ class App extends Component {
     return <RootRouter />;
   }
 }
-// export default hot(App);
+
 export default App;
