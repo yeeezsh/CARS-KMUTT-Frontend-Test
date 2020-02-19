@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
-import { Router, Route } from 'react-router';
+import React from 'react';
+import { Router, Route, useLocation } from 'react-router';
 import Loadable from 'react-loadable';
-import history from './history';
 import StaffSiderLayout from 'Components/Layout/Staff/Sider';
+
+import history from './history';
 
 const Home = Loadable({
   loader: () => import('Pages/Staff/Home'),
@@ -30,37 +31,38 @@ const Login = Loadable({
   loading: () => null,
 });
 
-export default class PageStaffRouter extends Component {
-  render() {
-    // console.log('staff render laew jaa');
-    return (
-      <Router history={history}>
-        <Route path="/">
-          <StaffSiderLayout />
-        </Route>
-        <Route path="**/login">
-          <Login />
-          {/* <Home /> */}
-        </Route>
+const StaffRouter: React.FunctionComponent = () => {
+  const location = useLocation();
+  const currentLoginPage = location.pathname.match('/login');
 
-        <Route path="**/reject">
-          <Reject />
-        </Route>
-        <Route path="**/accept">
-          <Accept />
-        </Route>
-        <Route path="**/drop">
-          <Drop />
-        </Route>
-        <Route path="**/wait">
-          <Wait />
-        </Route>
+  return (
+    <Router history={history}>
+      <Route path="/">{!currentLoginPage && <StaffSiderLayout />}</Route>
 
-        {/* home */}
-        <Route path="/staff" exact>
-          <Home />
-        </Route>
-      </Router>
-    );
-  }
-}
+      <Route path="**/login">
+        <Login />
+        {/* <Home /> */}
+      </Route>
+
+      <Route path="**/reject">
+        <Reject />
+      </Route>
+      <Route path="**/accept">
+        <Accept />
+      </Route>
+      <Route path="**/drop">
+        <Drop />
+      </Route>
+      <Route path="**/wait">
+        <Wait />
+      </Route>
+
+      {/* home */}
+      <Route path="/staff" exact>
+        <Home />
+      </Route>
+    </Router>
+  );
+};
+
+export default StaffRouter;
