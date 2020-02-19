@@ -20,6 +20,11 @@ const Drop = Loadable({
   loader: () => import('Pages/Staff/Drop'),
   loading: () => null,
 });
+const Wait = Loadable({
+  loader: () => import('Pages/Staff/Wait'),
+  loading: () => null,
+});
+
 const Login = Loadable({
   loader: () => import('Pages/Staff/Login'),
   loading: () => null,
@@ -41,13 +46,14 @@ export default class PageStaffRouter extends Component {
         <Route path="**/reject">
           <Reject />
         </Route>
-
         <Route path="**/accept">
           <Accept />
         </Route>
-
         <Route path="**/drop">
           <Drop />
+        </Route>
+        <Route path="**/wait">
+          <Wait />
         </Route>
 
         {/* home */}
