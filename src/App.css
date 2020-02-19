@@ -59,3 +59,9 @@ a:hover {
 .ant-select-selection--single {
   padding-left: 8px;
 }
+.ant-select-selection__placeholder {
+  color: #ff682b;
+}
+.ant-select-arrow-icon svg{
+  color: #ff682b; 
+}
