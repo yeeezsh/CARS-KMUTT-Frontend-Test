@@ -51,3 +51,11 @@ a:hover {
   border-right-width: none;
   box-shadow: none;
 }
+
+/* select components */
+.ant-select-selection {
+  border-radius: 20px;
+}
+.ant-select-selection--single {
+  padding-left: 8px;
+}
