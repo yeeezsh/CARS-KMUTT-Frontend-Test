@@ -6,7 +6,7 @@ class TaskTable {
   async getTask(
     offset?: Moment,
     limit?: Moment,
-    taskType?: 'all' | 'wait' | 'reject' | 'accept',
+    taskType?: 'all' | 'wait' | 'reject' | 'accept' | 'drop',
   ): Promise<TaskTableType> {
     const res = await i.instance.get(`/task/manage/${taskType}`, {
       params: {
@@ -28,6 +28,9 @@ class TaskTable {
   }
   async getWaitTask(offset?: Moment, limit?: Moment) {
     return this.getTask(offset, limit, 'wait');
+  }
+  async getDropTask(offset?: Moment, limit?: Moment) {
+    return this.getTask(offset, limit, 'drop');
   }
 }
 
