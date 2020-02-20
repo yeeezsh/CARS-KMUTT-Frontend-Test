@@ -30,6 +30,10 @@ const Login = Loadable({
   loader: () => import('Pages/Staff/Login'),
   loading: () => null,
 });
+const Logout = Loadable({
+  loader: () => import('Pages/Staff/Logout'),
+  loading: () => null,
+});
 
 const StaffRouter: React.FunctionComponent = () => {
   const location = useLocation();
@@ -60,6 +64,10 @@ const StaffRouter: React.FunctionComponent = () => {
       {/* home */}
       <Route path="/staff" exact>
         <Home />
+      </Route>
+
+      <Route path="**/logout">
+        <Logout />
       </Route>
     </Router>
   );
