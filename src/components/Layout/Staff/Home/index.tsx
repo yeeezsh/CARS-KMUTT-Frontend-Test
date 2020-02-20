@@ -1,6 +1,5 @@
 import React from 'react';
 import { Layout, Row, Col } from 'antd';
-import Sidebar from 'Components/Sidebar';
 import SearchBar from 'Components/SearchBar';
 
 import styles from './styles.module.css';
