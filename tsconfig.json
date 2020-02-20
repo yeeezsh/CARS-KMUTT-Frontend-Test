@@ -22,7 +22,8 @@
       "Models/*": ["models/*"],
       "Assets/*": ["assets/*"],
       "Components/*": ["components/*"],
-      "Pages/*": ["pages/*"]
+      "Pages/*": ["pages/*"],
+      "Store/*": ["store/*"],
     }
   },
   "include": ["src", ".eslintrc.js"]
