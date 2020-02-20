@@ -20,7 +20,7 @@ const SortByTools: React.FunctionComponent<{
       className={styles.selector}
       {...props}
       placeholder="Sort by"
-      onSelect={e => props.onSelected && props.onSelected(e)}
+      onChange={e => props.onSelected && props.onSelected(e)}
       dropdownClassName={styles.dropdown}
       dropdownMenuStyle={{ borderRadius: '25px' }}
       allowClear={true}
