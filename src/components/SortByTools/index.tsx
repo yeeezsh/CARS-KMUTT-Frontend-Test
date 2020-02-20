@@ -4,7 +4,7 @@ import styles from './styles.module.css';
 
 const { Option } = Select;
 
-type OnSelectedType = 'createAt' | '_id' | 'type' | 'area' | 'state';
+type OnSelectedType = 'createAt' | '_id' | 'type' | 'area' | 'state' | any;
 
 const SortByTools: React.FunctionComponent<{
   onSelected?: (s: OnSelectedType) => void;
@@ -12,11 +12,11 @@ const SortByTools: React.FunctionComponent<{
   return (
     <Select
       className={styles.selector}
-      style={{ borderRadius: '25px' }}
       {...props}
       placeholder="Sort by"
-      onSelect={e => console.log(e)}
-      // dropdownStyle={{ color: '#FF682B' }}
+      onSelect={e => props.onSelected && props.onSelected(e)}
+      dropdownClassName={styles.dropdown}
+      dropdownMenuStyle={{ borderRadius: '25px' }}
     >
       <Option value="createAt">วันที่</Option>
       <Option value="_id">รหัสการจอง</Option>

@@ -1,6 +1,12 @@
 .selector {
   width: 155px;
   margin-left: 20px;
-  color: #FF682B;
-  border: 1px solid #FF682B;
+  color: #ff682b;
+  border: 1px solid #ff682b;
+  border-radius: 25px;
+}
+
+.dropdown {
+  margin-top: 8px;
+  border-radius: 25px;
 }
