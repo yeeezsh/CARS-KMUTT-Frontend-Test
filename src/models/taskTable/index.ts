@@ -1,6 +1,9 @@
-import { Moment } from 'moment';
+import moment, { Moment } from 'moment';
 import i from 'Models/axios.interface';
-import { TaskTableType } from './interface';
+import {
+  TaskTableType,
+  TaskTable as TaskTableInterface,
+} from './interface';
 
 class TaskTable {
   async getTask(
@@ -14,7 +17,10 @@ class TaskTable {
         limit: limit?.toISOString(),
       },
     });
-    return res.data;
+    return res.data.map((e: TaskTableInterface) => ({
+      ...e,
+      createAt: moment(e.createAt),
+    }));
   }
 
   async getAllTask(offset?: Moment, limit?: Moment) {
