@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { TaskTableType } from 'Models/taskTable/interface';
 import { Row, Col } from 'antd';
 import ListTable from './list';
 import SortByTools from 'Components/SortByTools';
+import sortHelper from './sort.helper';
 
 interface Props {
   title?: string;
@@ -12,6 +13,9 @@ interface Props {
 
 const TaskTable: React.FC<Props> = props => {
   const { data, icon, title } = props;
+  const [sortSelect, setSortSelect] = useState(undefined);
+  console.log('task table', data);
+
   return (
     <div>
       <Row>
@@ -36,7 +40,7 @@ const TaskTable: React.FC<Props> = props => {
         {/* tools */}
         <Col offset={10} span={8} style={{ textAlign: 'right' }}>
           Sort ja
-          <SortByTools />
+          <SortByTools onSelected={e => setSortSelect(e)} />
         </Col>
       </Row>
 
@@ -45,7 +49,9 @@ const TaskTable: React.FC<Props> = props => {
       <Row>
         <ListTable header={true} />
         {data &&
-          data.map(e => <ListTable header={false} key={e._id} data={e} />)}
+          data
+            .sort(sortHelper(sortSelect))
+            .map(e => <ListTable header={false} key={e._id} data={e} />)}
       </Row>
     </div>
   );
