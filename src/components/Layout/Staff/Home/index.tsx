@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Row, Col } from 'antd';
+import { Layout, Row } from 'antd';
 import SearchBar from 'Components/SearchBar';
 
 import styles from './styles.module.css';
@@ -11,12 +11,10 @@ const StaffLayout: React.FunctionComponent = props => {
     <Layout>
       <Header className={styles.header}>
         <Row>
-          <Col span={12}>
+          <div style={{ width: 400 }}>
             <SearchBar />
-          </Col>
-          <Col span={3}>
-            <p className={styles.username}>เจ้าที่ 1</p>
-          </Col>
+          </div>
+          <p className={styles.username}>เจ้าที่ 1</p>
         </Row>
       </Header>
 
