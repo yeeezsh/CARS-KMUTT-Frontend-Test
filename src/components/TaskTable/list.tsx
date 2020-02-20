@@ -18,6 +18,7 @@ const ListTable: React.FC<{
     borderRadius: '2px',
     padding: '12px',
     textAlign: 'center',
+    whiteSpace: 'nowrap',
   };
 
   // return header col
@@ -40,8 +41,8 @@ const ListTable: React.FC<{
         <Col span={4}>รหัสการจอง</Col>
         <Col span={3}>ประเภทการจอง</Col>
         <Col span={6}>สถานที่</Col>
-        <Col span={5}>รหัสผู้จอง</Col>
-        <Col span={2}>สถานะ</Col>
+        <Col span={4}>รหัสผู้จอง</Col>
+        <Col span={3}>สถานะ</Col>
       </Row>
     );
 
@@ -65,8 +66,8 @@ const ListTable: React.FC<{
       </Col>
       <Col span={3}>{typeDescHelper(data?.type)}</Col>
       <Col span={6}>{data?.area.label || data?.area.name}</Col>
-      <Col span={5}>{data?.requestor[0].username}</Col>
-      <Col span={2}>{<State state={data?.state.slice(-1)[0]} />}</Col>
+      <Col span={4}>{data?.requestor[0].username}</Col>
+      <Col span={3}>{<State state={data?.state.slice(-1)[0]} />}</Col>
     </Row>
   );
 };
