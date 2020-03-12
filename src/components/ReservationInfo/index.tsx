@@ -210,12 +210,15 @@ class ReservationInfo extends Component<
 
           {/* area info */}
           <div className={styles.info}>
-            <p>สถานที่: {area.label || area.name}</p>
             <p>
-              วันที่จอง: {moment(reserve[0].start).format('DD MMMM YYYY')}
+              <b>สถานที่:</b> {area.label || area.name}
             </p>
             <p>
-              เวลา: {moment(reserve[0].start).format('HH.mm')} -{' '}
+              <b>วันที่จอง:</b>{' '}
+              {moment(reserve[0].start).format('DD MMMM YYYY')}
+            </p>
+            <p>
+              <b>เวลา:</b> {moment(reserve[0].start).format('HH.mm')} -{' '}
               {moment(reserve[0].stop).format('HH.mm')}
             </p>
           </div>

@@ -14,7 +14,6 @@ const UsersReserveList: React.FC<{
       {users &&
         users.map((e, i) => (
           <p className={styles.studentId} key={i}>
-            {/* {i + 1}) {e.username} */}
             {i + 1}) {e.username}{' '}
             {e.confirm && (
               <img
