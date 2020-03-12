@@ -10,8 +10,10 @@ import {
   RouteComponentProps,
 } from 'react-router';
 
-import PageLayout from '../../components/Layout/Page';
-
+const PageLayout = Loadable({
+  loader: () => import('Components/Layout/Page'),
+  loading: () => null,
+});
 const TimePage = Loadable({
   loader: () => import('./Time'),
   loading: () => null,
@@ -25,26 +27,34 @@ const ConfirmPage = Loadable({
   loading: () => null,
 });
 const Snackbar = Loadable({
-  loader: () => import('../../components/Snackbar'),
+  loader: () => import('Components/Snackbar'),
   loading: () => null,
 });
 const ConfirmModal = Loadable({
-  loader: () => import('../../components/ConfirmModal'),
+  loader: () => import('Components/AcceptedModal'),
+  loading: () => null,
+});
+const Badge = Loadable({
+  loader: () => import('Components/Badge'),
+  loading: () => null,
+});
+const StateSteps = Loadable({
+  loader: () => import('Components/StateSteps'),
+  loading: () => null,
+});
+const BackCard = Loadable({
+  loader: () => import('Components/BackCard'),
   loading: () => null,
 });
 
-import Badge from '../../components/Badge';
-import StateSteps from '../../components/StateSteps';
-import BackCard from '../../components/BackCard';
+import TimeNode from 'Components/TimeTable/timetable.interface';
+import Area from 'Models/area/area.interface';
+import { TaskSport } from 'Models/task/sport/sport.interface';
 
-import TimeNode from '../../components/TimeTable/timetable.interface';
-import Area from '../../models/area/area.interface';
-import { TaskSport } from '../../models/task/sport/sport.interface';
-
-// import { stepLists, areas } from '../../models/sport';
-import { stepLists } from '../../models/sport';
-import { Mutate } from '../../models/task/sport';
-import { u } from '../../models/user';
+// import { stepLists, areas } from 'Models/sport';
+import { stepLists } from 'Models/sport';
+import { Mutate } from 'Models/task/sport';
+import { u } from 'Models/user';
 
 import styles from './styles.module.css';
 
