@@ -12,6 +12,7 @@ interface Area {
   name: string;
   label?: string;
   building?: string;
+  type?: string;
 }
 
 export interface Task {

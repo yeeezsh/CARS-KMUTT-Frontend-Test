@@ -11,7 +11,7 @@ import BreakingLine from '../BreakingLine';
 
 // Models
 import { TaskDetail } from 'Models/task/task.interface';
-import { task } from 'Models/task';
+import { taskAPI } from 'Models/task';
 import stateDesc from 'Models/task/helpers/state.desc';
 
 import Button from '../Button';
@@ -79,11 +79,11 @@ class ReservationInfo extends Component<
     const { goBack } = this.props.history;
     const cancle = owner && action;
     if (cancle)
-      return task
+      return taskAPI
         .cancleTaskById(_id)
         .then(() => this.setState({ modal: false }, () => goBack()));
     if (action)
-      return task
+      return taskAPI
         .confirmTaskById(_id)
         .then(() => this.setState({ modal: false }, () => goBack()));
 
@@ -97,7 +97,7 @@ class ReservationInfo extends Component<
     const id = params.id;
     if (!id) throw new Error('invalid id');
 
-    const data = await task.getTaskById(id);
+    const data = await taskAPI.getTaskById(id);
     const owner = username === (data && data.requestor[0].username);
     const ownConfirm =
       data?.requestor.filter(e => e.username === username)[0].confirm ||

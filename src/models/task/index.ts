@@ -7,7 +7,11 @@ class TaskClass {
   async getTaskById(id: string): Promise<TaskDetail | undefined> {
     try {
       const data = (await i.instance.get('/task/' + id)).data;
-      return data;
+      return {
+        ...data,
+        createAt: moment(data.createAt),
+        updateAt: moment(data.updateAt),
+      };
     } catch (err) {
       throw new Error(err);
     }
@@ -51,4 +55,4 @@ class TaskClass {
   }
 }
 
-export const task = new TaskClass();
+export const taskAPI = new TaskClass();

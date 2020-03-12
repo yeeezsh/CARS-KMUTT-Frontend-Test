@@ -11,7 +11,7 @@ const HomeLayout = Loadable({
   loading: () => null,
 });
 
-import { task } from 'Models/task';
+import { taskAPI } from 'Models/task';
 import { Task } from 'Models/task/task.interface';
 
 type StateTypes = {
@@ -33,7 +33,7 @@ class Home extends Component<PropsTypes, StateTypes> {
     HomeMenu.preload();
     HomeLayout.preload();
 
-    const lastCard = await task.getLastTask();
+    const lastCard = await taskAPI.getLastTask();
     const curState = lastCard?.state.slice(-1)[0];
     const firstRequestor = lastCard?.owner;
     const { owner } = this.props;
