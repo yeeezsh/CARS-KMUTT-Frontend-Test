@@ -4,21 +4,21 @@ import { RouteComponentProps, withRouter } from 'react-router';
 import { Row, Col } from 'antd';
 import moment from 'moment';
 
-import Outline from '../Outline';
-import Badge from '../Badge';
-import StateCardIconColor from '../StateCard/icon';
-import BreakingLine from '../BreakingLine';
+import Outline from 'Components/Outline';
+import Badge from 'Components/Badge';
+import StateCardIconColor from 'Components/StateCard/icon';
+import BreakingLine from 'Components/BreakingLine';
+import Button from 'Components/Button';
 
 // Models
 import { TaskDetail } from 'Models/task/task.interface';
 import { taskAPI } from 'Models/task';
 
-import Button from '../Button';
 import ActionModal from './modal';
 
 // styles sheet
 import styles from './styles.module.css';
-import CheckIcon from '../../assets/icons/checked.user.svg';
+import UsersReserveList from 'Components/UsersReserveList';
 
 // const initState
 const MODAL_REJECT_MSG = 'ท่านต้องการยกเลิกรีเควส';
@@ -224,21 +224,7 @@ class ReservationInfo extends Component<
 
           {/* users */}
           <Col className={styles.overviewStudentIds} offset={1} span={22}>
-            {/* 1) 2) */}
-            {requestor &&
-              requestor.map((e, i) => (
-                <p className={styles.studentId} key={i}>
-                  {/* {i + 1}) {e.username} */}
-                  {i + 1}) {e.username}{' '}
-                  {e.confirm && (
-                    <img
-                      className={styles.icon}
-                      src={CheckIcon}
-                      alt="checked icon"
-                    />
-                  )}
-                </p>
-              ))}
+            <UsersReserveList users={requestor} />
           </Col>
 
           {/* btn action */}

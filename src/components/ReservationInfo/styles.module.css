@@ -20,16 +20,10 @@
 
 .overviewStudentIds {
   margin: 0px;
-  margin-left: 12px;
+  margin-left: 16px;
   font-size: 16px;
   line-height: 28px;
   color: #ff682b;
-}
-
-.studentId {
-  margin-bottom: 0px;
-  margin-left: 6px;
-  color: #666666;
 }
 
 .info p {
@@ -44,11 +38,7 @@
 .info {
   margin: 12px;
 }
-.icon {
-  height: 12px;
-  margin-top: -3px;
-  margin-left: 3px;
-}
+
 .header {
   margin-bottom: 16px;
 }
