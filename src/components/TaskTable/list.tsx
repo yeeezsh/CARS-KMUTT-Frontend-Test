@@ -5,6 +5,7 @@ import moment from 'moment';
 import State from './state';
 import { TaskTable } from 'Models/taskTable/interface';
 import typeDescHelper from './type.desc.helper';
+import { Link } from 'react-router-dom';
 
 const ListTable: React.FC<{
   header?: boolean;
@@ -48,27 +49,31 @@ const ListTable: React.FC<{
 
   // return data col
   return (
-    <Row
-      type="flex"
-      justify="space-around"
-      style={{
-        ...mainStyle,
-        ...{
-          background: '#FFFFFF',
-          color: '#979797',
-          marginBottom: '6px',
-        },
-      }}
-    >
-      <Col span={4}>{moment(data?.createAt).format('DD-MM-YYYY')}</Col>
-      <Col span={4}>
-        {String(data?._id).slice(0, 3) + '.' + String(data?._id).slice(-4)}
-      </Col>
-      <Col span={3}>{typeDescHelper(data?.type)}</Col>
-      <Col span={6}>{data?.area.label || data?.area.name}</Col>
-      <Col span={4}>{data?.requestor[0].username}</Col>
-      <Col span={3}>{<State state={data?.state.slice(-1)[0]} />}</Col>
-    </Row>
+    <Link to={`/staff/task/${data?._id}`}>
+      <Row
+        type="flex"
+        justify="space-around"
+        style={{
+          ...mainStyle,
+          ...{
+            background: '#FFFFFF',
+            color: '#979797',
+            marginBottom: '6px',
+          },
+        }}
+      >
+        <Col span={4}>{moment(data?.createAt).format('DD-MM-YYYY')}</Col>
+        <Col span={4}>
+          {String(data?._id).slice(0, 3) +
+            '.' +
+            String(data?._id).slice(-4)}
+        </Col>
+        <Col span={3}>{typeDescHelper(data?.type)}</Col>
+        <Col span={6}>{data?.area.label || data?.area.name}</Col>
+        <Col span={4}>{data?.requestor[0].username}</Col>
+        <Col span={3}>{<State state={data?.state.slice(-1)[0]} />}</Col>
+      </Row>
+    </Link>
   );
 };
 
