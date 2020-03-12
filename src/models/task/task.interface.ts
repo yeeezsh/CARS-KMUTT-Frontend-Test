@@ -25,12 +25,19 @@ export interface Task {
   desc?: ReserveStateDesc;
 
   cancle: boolean;
-  createAt: Moment;
-  updateAt: Moment;
+  createAt: Moment | Date;
+  updateAt: Moment | Date;
 }
 
 export interface TaskLastCard extends Task {
   owner: string;
+  createAt: Moment;
+  updateAt: Moment;
+}
+export interface TaskLastCardAPI extends Task {
+  owner: string;
+  createAt: Date;
+  updateAt: Date;
 }
 
 export interface TaskDetailRequestor {
@@ -38,9 +45,18 @@ export interface TaskDetailRequestor {
   confirm: boolean;
 }
 
+export interface TaskDetailAPI extends Task {
+  staff: [];
+  requestor: TaskDetailRequestor[];
+  createAt: Date;
+  updateAt: Date;
+}
+
 export interface TaskDetail extends Task {
   staff: [];
   requestor: TaskDetailRequestor[];
+  createAt: Moment;
+  updateAt: Moment;
 }
 
 export type TaskDetailType = TaskDetail;

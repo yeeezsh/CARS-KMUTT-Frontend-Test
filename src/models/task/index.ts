@@ -1,24 +1,14 @@
-import moment from 'moment';
 import i from '../axios.interface';
 import { TaskDetail, TaskLastCard } from './task.interface';
-import stateDesc from './helpers/state.desc';
+import taskDetailParse from './parser/task.detail.parse';
+import taskLastParse from './parser/task.last.parse';
 
 class TaskClass {
   async getTaskById(id: string): Promise<TaskDetail | undefined> {
     try {
       const data = (await i.instance.get('/task/' + id)).data;
-      return {
-        ...data,
-        reserve:
-          data.reserve &&
-          data.reserve.map((e: { start: string; stop: string }) => ({
-            ...e,
-            start: moment(e.start),
-            stop: moment(e.stop),
-          })),
-        createAt: moment(data.createAt),
-        updateAt: moment(data.updateAt),
-      };
+      console.log(data);
+      return taskDetailParse(data);
     } catch (err) {
       throw new Error(err);
     }
@@ -43,18 +33,7 @@ class TaskClass {
     try {
       const data = (await i.instance.get('/task/last')).data;
       if (!data) return undefined;
-
-      return {
-        ...data,
-        reserve:
-          data.reserve &&
-          data.reserve.map((e: { start: string; stop: string }) => ({
-            ...e,
-            start: moment(e.start),
-            stop: moment(e.stop),
-          })),
-        desc: stateDesc(data.state[data.state.length - 1]),
-      };
+      return taskLastParse(data);
     } catch (err) {
       console.error(err);
       throw new Error(err);
