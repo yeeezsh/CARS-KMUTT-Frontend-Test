@@ -49,6 +49,7 @@ export interface TaskDetailRequestor {
 export interface TaskDetailAPI extends Task {
   staff: [];
   requestor: TaskDetailRequestor[];
+  building: AreaBuilding;
   createAt: Date;
   updateAt: Date;
 }
