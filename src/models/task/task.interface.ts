@@ -1,5 +1,6 @@
 import { Moment } from 'moment';
 import { ReserveStateDesc } from '../reserve/interface';
+import { AreaBuilding } from 'Models/area/area.building.interfaces';
 
 interface TimeSlot {
   start?: Moment;
@@ -11,7 +12,7 @@ interface Area {
   _id: string;
   name: string;
   label?: string;
-  building?: string;
+  building?: AreaBuilding;
   type?: string;
 }
 
@@ -55,6 +56,7 @@ export interface TaskDetailAPI extends Task {
 export interface TaskDetail extends Task {
   staff: [];
   requestor: TaskDetailRequestor[];
+  building: AreaBuilding;
   createAt: Moment;
   updateAt: Moment;
 }

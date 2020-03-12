@@ -1,5 +1,5 @@
 import { Moment } from 'moment';
-import TimeNode from '../../components/TimeTable/timetable.interface';
+import TimeNode from 'Components/TimeTable/timetable.interface';
 
 interface Area {
   area: {
