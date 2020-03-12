@@ -39,7 +39,6 @@ const TaskTable: React.FC<Props> = props => {
 
         {/* tools */}
         <Col offset={10} span={8} style={{ textAlign: 'right' }}>
-          Sort ja
           <SortByTools onSelected={e => setSortSelect(e)} />
         </Col>
       </Row>

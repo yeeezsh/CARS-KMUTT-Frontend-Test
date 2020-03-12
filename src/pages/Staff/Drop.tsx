@@ -1,11 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
-import StaffLayout from 'Components/Layout/Staff/Home';
-import TaskTable from 'Components/TaskTable';
+import Loadable from 'react-loadable';
 import { taskTable } from 'Models/taskTable';
 import { TaskTableType } from 'Models/taskTable/interface';
 
+// assets
 import acceptDocsIcon from 'Assets/icons/staff/acceptdocs.svg';
+
+const StaffLayout = Loadable({
+  loader: () => import('Components/Layout/Staff/Home'),
+  loading: () => null,
+});
+const TaskTable = Loadable({
+  loader: () => import('Components/TaskTable'),
+  loading: () => null,
+});
 
 function StaffDrop() {
   const now = moment().startOf('day');

@@ -3,12 +3,12 @@ import { FormComponentProps } from 'antd/lib/form';
 import { Row, Col, Input, Form, Icon } from 'antd';
 import { withRouter, RouteComponentProps } from 'react-router';
 
-import Button from '../../../components/Button';
+import Button from 'Components/Button';
 
-import { u } from '../../../models/user';
+import { u } from 'Models/user';
 
 import styles from './styles.module.css';
-import logo from '../../../assets/login.logo.svg';
+import logo from 'Assets/login.logo.svg';
 
 // utils
 import usernameValidator from '../../../utils/username.validator';
@@ -16,7 +16,7 @@ import {
   MSG_BAD_USERNAME,
   MSG_REQUIRE_USERNAME,
   MSG_REQUIRE_PASSWORD,
-} from '../../../models/user/default.msg';
+} from 'Models/user/default.msg';
 
 class StaffLoginPage extends Component<
   FormComponentProps & RouteComponentProps,

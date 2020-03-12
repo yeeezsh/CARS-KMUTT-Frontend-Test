@@ -1,6 +1,6 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import { u } from '../models/user';
+import { u } from 'Models/user';
 
 const LogoutPage: React.FunctionComponent = () => {
   u.UserLogout();

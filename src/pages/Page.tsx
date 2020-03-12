@@ -1,5 +1,5 @@
 import React from 'react';
-import PageLayout from '../components/Layout/Page';
+import PageLayout from 'Components/Layout/Page';
 
 export default function Page() {
   return (

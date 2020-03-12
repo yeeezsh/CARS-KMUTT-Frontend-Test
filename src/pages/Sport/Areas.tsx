@@ -1,8 +1,16 @@
 import React, { Component } from 'react';
-import { sport } from '../../models/area/sport';
-import KanBanLayout from '../../components/Layout/Kanban';
-import KanbanCard from '../../components/KanbanCard';
-import Menu from '../../models/menu/interface';
+import Loadable from 'react-loadable';
+import { sport } from 'Models/area/sport';
+import Menu from 'Models/menu/interface';
+
+const KanBanLayout = Loadable({
+  loader: () => import('Components/Layout/Kanban'),
+  loading: () => null,
+});
+const KanbanCard = Loadable({
+  loader: () => import('Components/KanbanCard'),
+  loading: () => null,
+});
 
 export default class Areas extends Component<
   {},

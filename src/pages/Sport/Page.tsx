@@ -270,7 +270,8 @@ class SportPage extends Component<
 
     // for setting badge
     const status = stepLists.map(() => false);
-    const badge = history.location.state?.label[0];
+    const locationState: any = history.location.state;
+    const badge = locationState.label[0];
     if (!badge) return history.replace(CATEGORY_PAGE);
     return this.setState({ badge, status, quota }, () => {
       const paths = location.pathname.split('/');

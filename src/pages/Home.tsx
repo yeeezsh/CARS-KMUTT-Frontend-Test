@@ -3,16 +3,16 @@ import { connect } from 'react-redux';
 import Loadable from 'react-loadable';
 
 const HomeMenu = Loadable({
-  loader: () => import('../components/KanbanCard'),
+  loader: () => import('Components/KanbanCard'),
   loading: () => null,
 });
 const HomeLayout = Loadable({
-  loader: () => import('../components/Layout/Home'),
+  loader: () => import('Components/Layout/Home'),
   loading: () => null,
 });
 
-import { task } from '../models/task';
-import { Task } from '../models/task/task.interface';
+import { task } from 'Models/task';
+import { Task } from 'Models/task/task.interface';
 
 type StateTypes = {
   lastCard: Task | undefined;
