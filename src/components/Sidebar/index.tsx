@@ -10,12 +10,19 @@ import {
   dropDocs,
   sidebarIcon,
   logoutIcon,
+  calendarIcon,
 } from './icon.import';
 import CardMain from 'Components/AppDrawer/card.main';
 import CardSub from 'Components/AppDrawer/card.sub';
 import { Row } from 'antd';
 
 const menu: Drawer[] = [
+  {
+    key: '0',
+    label: ['ตารางการจอง'],
+    icon: calendarIcon,
+    link: '/calendar',
+  },
   {
     key: '1',
     label: ['รายการทั้งหมด'],
