@@ -1,39 +1,47 @@
 import React, { useEffect, useState } from 'react';
-import StaffLayout from 'Components/Layout/Staff/Home';
-import { useLocation } from 'react-router';
+import Loadable from 'react-loadable';
 import { Row, Col } from 'antd';
-import BackCard from 'Components/BackCard';
-import BreakingLine from 'Components/BreakingLine';
-import { taskAPI } from 'Models/task';
-import { TaskDetail } from 'Models/task/task.interface';
 import moment from 'moment';
-import Badge from 'Components/Badge';
-import StateCardIconColor from 'Components/StateCard/icon';
-import UsersReserveList from 'Components/UsersReserveList';
+import { useLocation, useHistory } from 'react-router';
+import { TaskDetail } from 'Models/task/task.interface';
+import { taskAPI } from 'Models/task';
 
-const CustomBrakeLine: React.FC = () => (
-  <Col style={{ margin: '24px 0px 12px 0px' }} span={24}>
-    <BreakingLine lineSize={0.25} />
-  </Col>
-);
+const StaffLayout = Loadable({
+  loader: () => import('Components/Layout/Staff/Home'),
+  loading: () => null,
+});
+const BackCard = Loadable({
+  loader: () => import('Components/BackCard'),
+  loading: () => null,
+});
+const Badge = Loadable({
+  loader: () => import('Components/Badge'),
+  loading: () => null,
+});
+const StateCardIconColor = Loadable({
+  loader: () => import('Components/StateCard/icon'),
+  loading: () => null,
+});
+const UsersReserveList = Loadable({
+  loader: () => import('Components/UsersReserveList'),
+  loading: () => null,
+});
+const Button = Loadable({
+  loader: () => import('Components/Button'),
+  loading: () => null,
+});
 
-const mainStyle: React.CSSProperties = {
-  borderRadius: 4,
-  padding: '12px 24px 12px 24px',
-  color: '#FFFFFF',
-  fontSize: '18px',
-  fontWeight: 'bold',
-  background: '#FF682B',
-  boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.15)',
-};
-
-const detailStyle: React.CSSProperties = {
-  fontWeight: 'normal',
-};
+import xIcon from 'Assets/icons/button/x.svg';
+import { mainStyle, detailStyle, CustomBrakeLine } from './helper';
 
 const TaskPage: React.FC = () => {
   const location = useLocation();
   const taskId = location.pathname.split('/')[3];
+
+  const history = useHistory();
+  function onBack() {
+    return history.goBack();
+  }
 
   const initTask: TaskDetail = {
     _id: '',
@@ -70,7 +78,10 @@ const TaskPage: React.FC = () => {
     <StaffLayout>
       <Row>
         <Col>
-          <BackCard styles={{ fontSize: '18px', fontWeight: 'bold' }}>
+          <BackCard
+            onClick={onBack}
+            styles={{ fontSize: '18px', fontWeight: 'bold' }}
+          >
             ข้อมูลการจอง
           </BackCard>
         </Col>
@@ -170,6 +181,20 @@ const TaskPage: React.FC = () => {
               </p>
               <UsersReserveList users={task.requestor} />
             </Col>
+
+            <CustomBrakeLine />
+
+            <Button
+              style={{
+                width: '175px',
+                backgroundColor: '#F5222D',
+              }}
+              fontSize={16}
+              padding={4}
+            >
+              <img style={{ padding: 4 }} src={xIcon} alt="x-icon" />
+              ยกเลิกการจอง
+            </Button>
           </Row>
         </Col>
       </Row>
