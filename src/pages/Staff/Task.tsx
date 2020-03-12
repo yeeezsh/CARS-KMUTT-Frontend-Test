@@ -9,11 +9,11 @@ import { TaskDetail } from 'Models/task/task.interface';
 import moment from 'moment';
 import Badge from 'Components/Badge';
 import StateCardIconColor from 'Components/StateCard/icon';
+import UsersReserveList from 'Components/UsersReserveList';
 
 const CustomBrakeLine: React.FC = () => (
-  <Col span={24}>
-    <div style={{ height: '24px' }} />
-    <BreakingLine />
+  <Col style={{ margin: '24px 0px 12px 0px' }} span={24}>
+    <BreakingLine lineSize={0.25} />
   </Col>
 );
 
@@ -45,7 +45,12 @@ const TaskPage: React.FC = () => {
       _id: '',
       name: '',
       label: '',
-      building: '',
+      type: '',
+    },
+    building: {
+      _id: '',
+      name: '',
+      label: '',
       type: '',
     },
     cancle: false,
@@ -130,6 +135,41 @@ const TaskPage: React.FC = () => {
             </Col>
 
             <CustomBrakeLine />
+
+            {/* bottom detail */}
+            {/* area */}
+            <Col span={24}>
+              <b>สนามกีฬา</b>{' '}
+              <span style={detailStyle}>
+                {task.area.building && task.area.label}
+              </span>
+            </Col>
+
+            {/* date */}
+            <Col span={24}>
+              <b>วันที่จอง</b>{' '}
+              <span style={detailStyle}>
+                {task.reserve[0] &&
+                  task.reserve[0].start?.format('DD-MM-YYYY')}
+              </span>
+            </Col>
+
+            {/* time */}
+            <Col span={24}>
+              <b>เวลาที่จอง</b>{' '}
+              <span style={detailStyle}>
+                {task.reserve[0] && task.reserve[0].start?.format('HH.mm')}{' '}
+                -{task.reserve[0] && task.reserve[0].stop?.format('HH.mm')}
+              </span>
+            </Col>
+
+            {/* requestor status list */}
+            <Col style={{ fontWeight: 'normal' }} span={24}>
+              <p style={{ color: '#1890FF', padding: 0, margin: 0 }}>
+                <b>รหัสนักศึกษา</b>
+              </p>
+              <UsersReserveList users={task.requestor} />
+            </Col>
           </Row>
         </Col>
       </Row>
