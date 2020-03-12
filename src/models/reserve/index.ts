@@ -5,11 +5,6 @@ import stateDesc from '../task/helpers/state.desc';
 import moment from 'moment';
 
 class ReservedClass {
-  //   data: Reserve[] | undefined;
-  //   constructor() {
-  //     this.data = undefined;
-  //   }
-
   private parser(data: TaskAPI[]): ReserveType {
     const output = data.map(e => {
       const curState = e.state[e.state.length - 1];
@@ -31,13 +26,16 @@ class ReservedClass {
     return output;
   }
 
-  query = async (type: 'history' | 'wait' | 'requested'): Promise<Reserve[]> => {
+  query = async (
+    type: 'history' | 'wait' | 'requested',
+  ): Promise<Reserve[]> => {
     if (type === 'history') {
       const res: TaskAPI[] = (await i.instance.get('/task/history')).data;
       const parsed = this.parser(res);
       return parsed;
     } else if (type === 'requested') {
-      const res: TaskAPI[] = (await i.instance.get('/task/requested')).data;
+      const res: TaskAPI[] = (await i.instance.get('/task/requested'))
+        .data;
       const parsed = this.parser(res);
       return parsed;
     } else if (type === 'wait') {
