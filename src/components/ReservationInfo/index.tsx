@@ -12,7 +12,6 @@ import BreakingLine from '../BreakingLine';
 // Models
 import { TaskDetail } from 'Models/task/task.interface';
 import { taskAPI } from 'Models/task';
-import stateDesc from 'Models/task/helpers/state.desc';
 
 import Button from '../Button';
 import ActionModal from './modal';
@@ -201,7 +200,7 @@ class ReservationInfo extends Component<
             </Col>
             <Col style={{ marginLeft: '8px' }}>
               <div className={styles.status}>
-                <StateCardIconColor type={state} desc={stateDesc(state)} />
+                <StateCardIconColor type={state} />
               </div>
             </Col>
           </Row>

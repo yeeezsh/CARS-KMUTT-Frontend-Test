@@ -1,6 +1,9 @@
 import React from 'react';
 import { ReserveState } from '../../models/reserve/interface';
 
+// Models
+import stateDesc from 'Models/task/helpers/state.desc';
+
 import StateBlue from '../../assets/icons/state.blue.svg';
 import StateYellow from '../../assets/icons/state.yellow.svg';
 import StateGreen from '../../assets/icons/state.green.svg';
@@ -22,35 +25,45 @@ const StateCardIconColor: React.FunctionComponent<{
       return (
         <React.Fragment>
           <img src={StateBlue} alt="state-blue" />
-          <p style={{ ...label, color: '#1890FF' }}>{desc}</p>
+          <p style={{ ...label, color: '#1890FF' }}>
+            {desc || stateDesc(type)}
+          </p>
         </React.Fragment>
       );
     case 'requested':
       return (
         <React.Fragment>
           <img src={StateBlue} alt="state-blue" />
-          <p style={{ ...label, color: '#1890FF' }}>{desc}</p>
+          <p style={{ ...label, color: '#1890FF' }}>
+            {desc || stateDesc(type)}
+          </p>
         </React.Fragment>
       );
     case 'accept':
       return (
         <React.Fragment>
           <img src={StateGreen} alt="state-green" />
-          <p style={{ ...label, color: '#52C41A' }}>{desc}</p>
+          <p style={{ ...label, color: '#52C41A' }}>
+            {desc || stateDesc(type)}
+          </p>
         </React.Fragment>
       );
     case 'reject':
       return (
         <React.Fragment>
           <img src={StateRed} alt="state-red" />
-          <p style={{ ...label, color: '#F5222D' }}>{desc}</p>
+          <p style={{ ...label, color: '#F5222D' }}>
+            {desc || stateDesc(type)}
+          </p>
         </React.Fragment>
       );
     case 'drop':
       return (
         <React.Fragment>
           <img src={StateRed} alt="state-red" />
-          <p style={{ ...label, color: '#F5222D' }}>{desc}</p>
+          <p style={{ ...label, color: '#F5222D' }}>
+            {desc || stateDesc(type)}
+          </p>
         </React.Fragment>
       );
     default:
