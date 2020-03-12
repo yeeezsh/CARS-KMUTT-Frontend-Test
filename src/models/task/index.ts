@@ -9,6 +9,13 @@ class TaskClass {
       const data = (await i.instance.get('/task/' + id)).data;
       return {
         ...data,
+        reserve:
+          data.reserve &&
+          data.reserve.map((e: { start: string; stop: string }) => ({
+            ...e,
+            start: moment(e.start),
+            stop: moment(e.stop),
+          })),
         createAt: moment(data.createAt),
         updateAt: moment(data.updateAt),
       };
@@ -40,7 +47,7 @@ class TaskClass {
       return {
         ...data,
         reserve:
-          data &&
+          data.reserve &&
           data.reserve.map((e: { start: string; stop: string }) => ({
             ...e,
             start: moment(e.start),
