@@ -29,6 +29,18 @@ class TaskClass {
       throw new Error(err);
     }
   }
+
+  async cancleTaskByStaff(_id: string, desc?: string): Promise<void> {
+    try {
+      await i.instance.post('/task/cancle/byStaff', {
+        _id,
+        desc,
+      });
+    } catch (err) {
+      throw new Error(err);
+    }
+  }
+
   async getLastTask(): Promise<TaskLastCard | undefined> {
     try {
       const data = (await i.instance.get('/task/last')).data;
