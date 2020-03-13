@@ -25,6 +25,12 @@ const menu: Drawer[] = [
   },
   {
     key: '1',
+    label: ['พื้นที่ทั้งหมด'],
+    icon: calendarIcon,
+    link: '/staff/areas',
+  },
+  {
+    key: '2',
     label: ['รายการทั้งหมด'],
     icon: allDocs,
     link: '/staff',
