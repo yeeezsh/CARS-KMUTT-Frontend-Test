@@ -21,7 +21,7 @@ const menu: Drawer[] = [
     key: '0',
     label: ['ตารางการจอง'],
     icon: calendarIcon,
-    link: '/calendar',
+    link: '/staff/calendar',
   },
   {
     key: '1',
