@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Loadable from 'react-loadable';
 import { ConfirmMoalType } from './interface';
 import { Modal, Row, Col, Button, Input } from 'antd';
@@ -12,16 +12,23 @@ const ConfirmModal: React.FC<{
   header?: string;
   desc?: (msg: string) => void;
   type: ConfirmMoalType;
+  visible?: boolean;
 }> = props => {
-  const { type } = props;
-  const visibleState = true;
+  const { type, desc, visible: visibleProps, onClick } = props;
+  const [visible, setVisible] = useState(visibleProps || true);
+  const [text, setText] = useState('');
 
   function onBack() {
-    console.log('on back clicked');
+    setVisible(false);
   }
+  function onAction() {
+    desc && desc(text);
+    onClick && onClick();
+  }
+
   return (
     <Modal
-      visible={visibleState}
+      visible={visible}
       footer={null}
       closable={false}
       width={'60%'}
@@ -41,6 +48,7 @@ const ConfirmModal: React.FC<{
         {/* TextArea */}
         <Col span={18}>
           <TextArea
+            onChange={s => setText(s.target.value)}
             placeholder="ข้อความถึงผู้ขอใช้บริการ"
             rows={4}
             style={{
@@ -53,7 +61,7 @@ const ConfirmModal: React.FC<{
 
         {/* Footer */}
         <Col style={{ marginTop: '12px' }} span={24}>
-          <ModalFooter onBack={onBack} type={type} />
+          <ModalFooter onAction={onAction} onBack={onBack} type={type} />
         </Col>
       </Row>
     </Modal>
