@@ -14,7 +14,7 @@ const sorter = (type: OnSelectedType): ((a: any, b: any) => number) => {
     case 'createAt':
       return (a: any, b: any) => {
         console.log(a['createAt']);
-        return a[dataSelect].valueOf() - b[dataSelect].valueOf();
+        return -(a[dataSelect].valueOf() - b[dataSelect].valueOf());
       };
     case 'state':
       const varState = ['accept', 'wait', 'requested', 'reject', 'drop'];
