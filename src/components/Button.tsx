@@ -31,7 +31,7 @@ const btnStyle = (type?: Style['type']): React.CSSProperties => {
 
 const Button: React.FunctionComponent<{
   color?: string;
-  onClick?: any;
+  onClick?: () => void;
   type?: Style['type'];
   style?: React.CSSProperties;
   fontSize?: number;
@@ -42,10 +42,10 @@ const Button: React.FunctionComponent<{
     ...btnStyle(props.type),
     ...props.style,
   };
-  const { fontSize, padding, fontColor } = props;
+  const { fontSize, padding, fontColor, onClick } = props;
 
   return (
-    <button type="submit" onClick={props.onClick} style={styles}>
+    <button type="submit" onClick={onClick} style={styles}>
       <p
         style={{
           color: fontColor || '#FFFFFF',
