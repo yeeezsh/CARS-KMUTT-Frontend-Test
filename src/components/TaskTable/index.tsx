@@ -4,6 +4,7 @@ import { Row, Col } from 'antd';
 import ListTable from './list';
 import SortByTools from 'Components/SortByTools';
 import sortHelper from './sort.helper';
+import HeadTitle from 'Components/HeadTitle';
 
 interface Props {
   title?: string;
@@ -20,22 +21,7 @@ const TaskTable: React.FC<Props> = props => {
     <div>
       <Row>
         {/* title */}
-        <Col span={6}>
-          <Row type="flex">
-            <img src={icon} alt="head icon" />
-            <p
-              style={{
-                marginLeft: '6px',
-                marginTop: '14px',
-                fontSize: '18px',
-                fontWeight: 'bold',
-                color: '#FF682B',
-              }}
-            >
-              {title}
-            </p>
-          </Row>
-        </Col>
+        <HeadTitle icon={icon} title={title} />
 
         {/* tools */}
         <Col offset={10} span={8} style={{ textAlign: 'right' }}>
