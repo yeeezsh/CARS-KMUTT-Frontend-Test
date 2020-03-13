@@ -1,28 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Loadable from 'react-loadable';
 import { ConfirmMoalType } from './interface';
-import { Modal, Row, Col, Button, Input } from 'antd';
-import ModalHeader from './header';
-import ModalFooter from './footer';
+import { Modal, Row, Col, Input } from 'antd';
+
+const ModalHeader = Loadable({
+  loader: () => import('./header'),
+  loading: () => null,
+});
+const ModalFooter = Loadable({
+  loader: () => import('./footer'),
+  loading: () => null,
+});
 
 const { TextArea } = Input;
 
 const ConfirmModal: React.FC<{
-  onClick?: () => void;
+  onAction?: (desc?: string) => void; // only action
+  onClick?: () => void; // every click on modal
   header?: string;
-  desc?: (msg: string) => void;
   type: ConfirmMoalType;
   visible?: boolean;
 }> = props => {
-  const { type, desc, visible: visibleProps, onClick } = props;
-  const [visible, setVisible] = useState(visibleProps || true);
+  const {
+    type,
+    visible: visibleProps,
+    onAction: onActionProps,
+    onClick,
+  } = props;
+  const [visible, setVisible] = useState(false);
   const [text, setText] = useState('');
+
+  useEffect(() => {
+    //   for accept state from props
+    visibleProps && setVisible(visibleProps);
+  }, [visibleProps]);
 
   function onBack() {
     setVisible(false);
+    onClick && onClick();
   }
   function onAction() {
-    desc && desc(text);
+    onActionProps && onActionProps(text);
+    setVisible(false);
     onClick && onClick();
   }
 
