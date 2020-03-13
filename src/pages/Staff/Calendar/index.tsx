@@ -1,6 +1,6 @@
 import React from 'react';
 import StaffLayout from 'Components/Layout/Staff/Home';
-import { Row, Col } from 'antd';
+import { Row, Col, Calendar } from 'antd';
 import HeadTitle from 'Components/HeadTitle';
 
 // assets
@@ -11,6 +11,9 @@ const CalendarPages: React.FC = props => {
     <StaffLayout>
       <Row>
         <HeadTitle icon={calendarIcon} title="ตารางการจอง" />
+      </Row>
+      <Row>
+        <Calendar />
       </Row>
     </StaffLayout>
   );
