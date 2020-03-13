@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Loadable from 'react-loadable';
-import { Row, Col } from 'antd';
+import { Row, Col, message } from 'antd';
 import moment from 'moment';
 import { useLocation, useHistory } from 'react-router';
 import { TaskDetail } from 'Models/task/task.interface';
@@ -33,47 +33,47 @@ const Button = Loadable({
 
 import xIcon from 'Assets/icons/button/x.svg';
 import { mainStyle, detailStyle, CustomBrakeLine } from './helper';
+import ConfirmModal from 'Components/ConfirmModal';
+import { initTask } from './init.state';
 
 const TaskPage: React.FC = () => {
   const location = useLocation();
   const taskId = location.pathname.split('/')[3];
-
   const history = useHistory();
+
+  const [modal, setModal] = useState(false);
+  const [task, setTask] = useState(initTask);
+  const [cancel, setCancle] = useState(false);
+
   function onBack() {
     return history.goBack();
   }
 
-  const initTask: TaskDetail = {
-    _id: '',
-    staff: [],
-    requestor: [],
-    reserve: [],
-    state: [],
-    area: {
-      _id: '',
-      name: '',
-      label: '',
-      type: '',
-    },
-    building: {
-      _id: '',
-      name: '',
-      label: '',
-      type: '',
-    },
-    cancle: false,
-    createAt: moment(),
-    updateAt: moment(),
-  };
+  function onActionModal(desc?: string) {
+    taskAPI
+      .cancleTaskByStaff(taskId, desc)
+      .then(() => history.goBack())
+      .catch(err => message.error(String(err)));
+  }
 
-  const [task, setTask] = useState(initTask);
+  function onModal() {
+    setModal(prev => !prev);
+  }
 
   //   fetch task
   useEffect(() => {
-    taskAPI.getTaskById(taskId).then(t => t && setTask(t));
+    taskAPI.getTaskById(taskId).then(t => {
+      if (t) {
+        setTask(t);
+        const lastState = t.state.slice(-1)[0];
+        const canCancel = lastState === 'reject' || lastState === 'drop';
+        setCancle(!canCancel);
+      }
+    });
   }, []);
 
   console.log(task);
+
   return (
     <StaffLayout>
       <Row>
@@ -100,7 +100,6 @@ const TaskPage: React.FC = () => {
               color: '#666666',
               background: '#FFFFFF',
               marginTop: '-4px',
-              zIndex: -1,
               minHeight: '350px',
               padding: '32px 72px 32px 72px',
             },
@@ -184,20 +183,30 @@ const TaskPage: React.FC = () => {
 
             <CustomBrakeLine />
 
-            <Button
-              style={{
-                width: '175px',
-                backgroundColor: '#F5222D',
-              }}
-              fontSize={16}
-              padding={4}
-            >
-              <img style={{ padding: 4 }} src={xIcon} alt="x-icon" />
-              ยกเลิกการจอง
-            </Button>
+            {/* Action */}
+            {cancel && (
+              <Button
+                style={{
+                  width: '175px',
+                  backgroundColor: '#F5222D',
+                }}
+                fontSize={16}
+                padding={4}
+                onClick={() => setModal(true)}
+              >
+                <img style={{ padding: 4 }} src={xIcon} alt="x-icon" />
+                ยกเลิกการจอง
+              </Button>
+            )}
           </Row>
         </Col>
       </Row>
+      <ConfirmModal
+        onClick={onModal}
+        onAction={onActionModal}
+        type="drop"
+        visible={modal}
+      />
     </StaffLayout>
   );
 };
