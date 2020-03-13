@@ -78,16 +78,17 @@ class ReservationInfo extends Component<
     const { goBack } = this.props.history;
     const cancle = owner && action;
     if (cancle)
-      return taskAPI
+      taskAPI
         .cancleTaskById(_id)
         .then(() => this.setState({ modal: false }, () => goBack()));
     if (action)
-      return taskAPI
+      // may be on confirm requsted
+      taskAPI
         .confirmTaskById(_id)
         .then(() => this.setState({ modal: false }, () => goBack()));
 
-    console.log('owner canle', cancle);
-    // return this.setState({ modal: false });
+    console.log('owner canle', cancle, action);
+    return this.setState({ modal: false });
   };
 
   componentDidMount = async () => {

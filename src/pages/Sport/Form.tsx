@@ -58,8 +58,7 @@ class FormPage extends Component<PropsTypes, StateTypes> {
     CACHE_STATE = this.state;
   };
 
-  onSubmit = (e: any): void => {
-    e.preventDefault();
+  onSubmit = (): void => {
     const { form } = this.props;
     return form.validateFields((err, values: { users: string[] }) => {
       if (!err) {
