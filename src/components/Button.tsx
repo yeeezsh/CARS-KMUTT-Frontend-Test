@@ -36,18 +36,19 @@ const Button: React.FunctionComponent<{
   style?: React.CSSProperties;
   fontSize?: number;
   padding?: number;
+  fontColor?: string;
 }> = props => {
   const styles = {
     ...btnStyle(props.type),
     ...props.style,
   };
-  const { fontSize, padding } = props;
+  const { fontSize, padding, fontColor } = props;
 
   return (
     <button type="submit" onClick={props.onClick} style={styles}>
       <p
         style={{
-          color: '#FFFFFF',
+          color: fontColor || '#FFFFFF',
           fontSize: fontSize || '18px',
           lineHeight: '22px',
           fontWeight: 'bold',
