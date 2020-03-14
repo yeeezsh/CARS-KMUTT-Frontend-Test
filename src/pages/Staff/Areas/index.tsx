@@ -7,13 +7,17 @@ import { AreaTableAPI } from 'Models/area/interfaces';
 const AreasPages: React.FC = () => {
   const init: AreaTableAPI[] = [];
   const [data, setData] = useState(init);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
-    areaAPI.getAreaTable().then(d => setData(d));
+    areaAPI.getAreaTable().then(d => {
+      setData(d);
+      setLoading(false);
+    });
   }, []);
 
   return (
     <StaffLayout>
-      <AreaTable data={data} />
+      <AreaTable data={data} loading={loading} />
     </StaffLayout>
   );
 };
