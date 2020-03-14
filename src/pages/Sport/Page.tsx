@@ -124,9 +124,10 @@ class SportPage extends Component<
     queryArea();
   };
 
-  onSelectTime = (time: TimeNode) => {
+  onSelectTime = (time: Moment, type: TimeNode['type']) => {
+    // console.log('on select time', time);
     const { badge, quota } = this.state;
-    if (time.type === 'disabled' || quota) {
+    if (type === 'disabled' || quota) {
       return this.setState(prevState => {
         const { status } = prevState;
         return {
@@ -136,7 +137,7 @@ class SportPage extends Component<
     }
 
     const { setTimeSelected } = this.props;
-    setTimeSelected(time.value);
+    setTimeSelected(time);
 
     return this.setState(
       prevState => {
@@ -352,6 +353,7 @@ class SportPage extends Component<
           {/* spacing between fixed inner header */}
           <div style={{ height: '145px' }} />
 
+          {/* select time n' area */}
           <Switch>
             <Route path="*/1">
               <TimePage
@@ -364,6 +366,7 @@ class SportPage extends Component<
               <Col span={24} style={{ height: '150px' }} />
             </Route>
 
+            {/* fill username */}
             <Route path="*/2">
               <FormPage
                 key={areaSelected.id}
@@ -375,6 +378,7 @@ class SportPage extends Component<
               <Col span={24} style={{ height: '150px' }} />
             </Route>
 
+            {/* overview */}
             <Route path="*/3">
               <ConfirmPage
                 users={users}

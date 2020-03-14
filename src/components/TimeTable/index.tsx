@@ -25,11 +25,12 @@ interface TimeTableState {
 }
 
 interface TimeTableProps {
+  selected?: TimeNode[];
   start: Moment;
   stop: Moment;
   interval: number;
   disabled?: TimeNode[];
-  onSelect: any;
+  onSelect: (value: Moment, type: TimeNode['type']) => any;
   title?: string;
   onClick?: any;
 }
@@ -63,14 +64,11 @@ export default class TimeTable extends Component<
     value: Moment;
     type: TimeNode['type'];
   } => {
-    return this.props.onSelect({
-      value,
-      type,
-    });
+    return this.props.onSelect(value, type);
   };
 
   componentDidMount = () => {
-    const { start, stop, interval, disabled } = this.props;
+    const { start, stop, interval, disabled, selected } = this.props;
     let table: TimeNode[] = [];
     let cur = moment(start);
 
@@ -82,13 +80,25 @@ export default class TimeTable extends Component<
       cur = moment(cur.add(interval, 'minute'));
     }
 
+    const selectedMapped = selected?.map(e => e.value.format('HH.mm'));
     const disabledMapped = disabled?.map(e => e.value.format('HH.mm'));
     table = table.map(e => {
-      const type = disabledMapped?.includes(e.value.format('HH.mm'));
-      if (type) {
+      const typeDisabled = disabledMapped?.includes(
+        e.value.format('HH.mm'),
+      );
+      const typeSelected = selectedMapped?.includes(
+        e.value.format('HH.mm'),
+      );
+      if (typeDisabled) {
         return {
           ...e,
           type: 'disabled',
+        };
+      }
+      if (typeSelected) {
+        return {
+          ...e,
+          type: 'selecting',
         };
       }
       return e;
@@ -100,7 +110,46 @@ export default class TimeTable extends Component<
   };
 
   render() {
-    const { table } = this.state;
+    // console.log('fcking props', this.props);
+    // const { table } = this.state;
+
+    // const table: TimeNode = [];
+    const { start, stop, interval, disabled, selected } = this.props;
+    let table: TimeNode[] = [];
+    let cur = moment(start);
+
+    while (cur <= stop) {
+      table.push({
+        value: cur,
+        type: 'available',
+      });
+      cur = moment(cur.add(interval, 'minute'));
+    }
+
+    const selectedMapped = selected?.map(e => e.value.format('HH.mm'));
+    const disabledMapped = disabled?.map(e => e.value.format('HH.mm'));
+    table = table.map(e => {
+      const typeDisabled = disabledMapped?.includes(
+        e.value.format('HH.mm'),
+      );
+      const typeSelected = selectedMapped?.includes(
+        e.value.format('HH.mm'),
+      );
+      if (typeDisabled) {
+        return {
+          ...e,
+          type: 'disabled',
+        };
+      }
+      if (typeSelected) {
+        return {
+          ...e,
+          type: 'selecting',
+        };
+      }
+      return e;
+    });
+
     return (
       <React.Fragment>
         {/* outliner */}
@@ -120,7 +169,7 @@ export default class TimeTable extends Component<
                   key={`${value.format('DD-MM-YYYY HH:mm')}`}
                   onClick={() => {
                     this.onSelect(value, type);
-                    this.props.onClick();
+                    this.props.onClick && this.props.onClick();
                   }}
                   type="flex"
                   justify="center"
