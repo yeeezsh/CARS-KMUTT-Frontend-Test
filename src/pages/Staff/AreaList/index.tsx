@@ -9,7 +9,7 @@ const AreasPages: React.FC = () => {
   const [data, setData] = useState(init);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    areaAPI.getAreaTable().then(d => {
+    areaAPI.getBuildingTable().then(d => {
       setData(d);
       setLoading(false);
     });
