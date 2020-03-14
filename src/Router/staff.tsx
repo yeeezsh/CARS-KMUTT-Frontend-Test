@@ -46,6 +46,10 @@ const Areas = Loadable({
   loader: () => import('Pages/Staff/Areas'),
   loading: () => null,
 });
+const Area = Loadable({
+  loader: () => import('Pages/Staff/Area'),
+  loading: () => null,
+});
 
 const StaffRouter: React.FunctionComponent = () => {
   const location = useLocation();
@@ -69,9 +73,14 @@ const StaffRouter: React.FunctionComponent = () => {
         <Calendar />
       </Route>
 
-      {/* Calendar */}
+      {/* Area list */}
       <Route path="**/areas/">
         <Areas />
+      </Route>
+
+      {/* Area list */}
+      <Route path="**/area/:id">
+        <Area />
       </Route>
 
       {/* <Home /> */}
