@@ -70,7 +70,9 @@ const ListTable: React.FC<{
         </Col>
         <Col span={3}>{typeDescHelper(data?.type)}</Col>
         <Col span={6}>{data?.area.label || data?.area.name}</Col>
-        <Col span={4}>{data?.requestor[0].username}</Col>
+        <Col span={4}>
+          {data?.requestor[0] && data?.requestor[0].username}
+        </Col>
         <Col span={3}>{<State state={data?.state.slice(-1)[0]} />}</Col>
       </Row>
     </Link>
