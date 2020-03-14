@@ -27,6 +27,7 @@ import {
   Category as SportCategory,
   Page as SportPage,
 } from '../pages/Sport';
+import { u } from 'Models/user';
 
 const AppDrawer = Loadable({
   loader: () => import('../components/AppDrawer'),
@@ -58,6 +59,12 @@ export default class PageUserRouter extends Component<
   };
 
   componentDidMount = () => {
+    // check authorized first
+    const { location } = history;
+    const validUser = u.GetUser().permission === 'requestor';
+    if (!validUser && location.pathname !== '/login')
+      return history.push('/login');
+
     // preload other components
     Home.preload();
     AppDrawer.preload();
@@ -65,7 +72,6 @@ export default class PageUserRouter extends Component<
     // SportPage.preload();
 
     // when first lunch
-    const { location } = history;
     const onHome = location.pathname === '/';
     if (!onHome) this.setState({ onHome });
 

@@ -1,9 +1,9 @@
 import React from 'react';
-import { Router, Route, useLocation } from 'react-router';
+import { Router, Route, useLocation, useHistory } from 'react-router';
 import Loadable from 'react-loadable';
 import StaffSiderLayout from 'Components/Layout/Staff/Sider';
 
-import history from './history';
+import { u } from 'Models/user';
 
 const Home = Loadable({
   loader: () => import('Pages/Staff/Home'),
@@ -53,6 +53,10 @@ const Area = Loadable({
 
 const StaffRouter: React.FunctionComponent = () => {
   const location = useLocation();
+  const history = useHistory();
+  const validStaff = u.GetUser().permission === 'staff';
+  if (!validStaff && location.pathname !== '/staff/login')
+    history.push('/staff/login');
   const currentLoginPage = location.pathname.match('/login');
 
   return (

@@ -9,7 +9,7 @@ const initialState: UserStore = {
   username: '',
   studentId: '',
   email: '',
-  permission: 'requestor',
+  permission: '',
   n: 0,
 };
 
