@@ -15,7 +15,7 @@ const AreaTable: React.FC<{
       title: 'สนาม / ห้อง',
       key: 'label',
       dataIndex: 'label',
-      render: d => <a>{d}</a>,
+      render: d => <a style={{ color: '#1890ff' }}>{d}</a>,
       sorter: (a, b) => a.label.localeCompare(b.label),
     },
     {
@@ -27,6 +27,9 @@ const AreaTable: React.FC<{
   ];
   return (
     <TableAnt
+      bodyStyle={{
+        boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.15)',
+      }}
       loading={props.loading || false}
       pagination={false}
       onRowClick={r => history.push('/staff/area/' + r._id)}
