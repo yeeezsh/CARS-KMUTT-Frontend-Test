@@ -16,7 +16,6 @@ class AreaAPI {
   async getAreaAvailable(id: string): Promise<AreaAvailableAPI[]> {
     try {
       const data = (await i.instance.get('/area/available/' + id)).data;
-      console.log('data', data, id);
       return data.map((e: any) => ({ ...e, date: moment(e.date) }));
     } catch (err) {
       throw err;
@@ -36,11 +35,6 @@ class AreaAPI {
           stop: moment(e.stop),
         })),
       };
-      // return {
-      //   ...data,
-      //   createAt: moment(data.createAt),
-      //   updateAt: moment(data.updateAt),
-      // };
     } catch (err) {
       throw err;
     }
