@@ -5,7 +5,7 @@ import { useLocation } from 'react-router';
 import TimeTable from 'Components/TimeTable';
 import moment, { Moment } from 'moment';
 import TimeNode from 'Components/TimeTable/timetable.interface';
-import AreaInfo from './Info_';
+import AreaInfo from './Info';
 import { areaAPI } from 'Models/area';
 import { AreaAvailableAPI } from 'Models/area/area.interface';
 import { AreaAPI } from 'Models/area/interfaces';
