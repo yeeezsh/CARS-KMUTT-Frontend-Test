@@ -36,6 +36,7 @@ const QuickTask: React.FC<{
   const columns: ColumnProps<QuickTask>[] = [
     {
       title: 'รหัสการจอง',
+      width: '25%',
       dataIndex: '_id',
       render: data => (
         <Link style={{ color: '#1890FF' }} to={'/staff/task/' + data}>
@@ -45,11 +46,13 @@ const QuickTask: React.FC<{
     },
     {
       title: 'ผู้จอง',
+      width: '25%',
       dataIndex: 'username',
     },
     {
       title: 'วันจอง',
       dataIndex: 'date',
+      width: '35%',
       render: d => (
         <div>
           <p>{d.format('DD-MM-YYYY')}</p>
@@ -59,6 +62,7 @@ const QuickTask: React.FC<{
     },
     {
       title: 'สถานะ',
+      width: '15%',
       dataIndex: 'state',
       //   render: data => <State state={data?.state} />,
       render: data => <State state={data} />,

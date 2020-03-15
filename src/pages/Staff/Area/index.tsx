@@ -69,8 +69,8 @@ const AreaPage: React.FC = () => {
     <StaffLayout>
       {areaId}
 
-      <Row gutter={16}>
-        <Col span={14}>
+      <Row gutter={8}>
+        <Col span={12}>
           {/* time table area */}
           {availArea.map((e, i) => {
             return (
@@ -107,7 +107,7 @@ const AreaPage: React.FC = () => {
             onSelect={onTimeSelecting}
           /> */}
         </Col>
-        <Col span={10}>
+        <Col span={12}>
           <Row>
             <Badge style={badgeStyles}>ข้อมูลสถานที่</Badge>
             <AreaInfo
