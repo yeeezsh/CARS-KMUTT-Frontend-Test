@@ -8,18 +8,18 @@ interface ReserveAPI {
 }
 
 export interface AreaAPI {
-  _id: string;
-  name: string;
+  _id?: string;
+  name?: string;
   label?: string;
   building?: string;
-  required: {
+  required?: {
     form?: string;
     staff?: string[];
     requestor: number;
   };
-  disabled: string[];
-  forward: number;
-  reserve: ReserveAPI[];
-  createAt: Date;
-  updateAt: Date;
+  disabled?: string[];
+  forward?: number;
+  reserve?: ReserveAPI[];
+  createAt?: Date;
+  updateAt?: Date;
 }
