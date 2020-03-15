@@ -24,9 +24,9 @@ export interface AreaTableAPI {
 }
 
 export interface AreaAPI {
-  _id?: string;
+  _id: string;
   name: string;
-  label?: string;
+  label: string;
   building?: AreaBuilding;
   required?: {
     requestor: number;

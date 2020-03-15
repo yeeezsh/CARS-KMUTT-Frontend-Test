@@ -4,4 +4,5 @@ export interface CreateTaskByStaff {
   time: TimeNodeServerAPI[];
   area: string;
   owner: string;
+  requestor: string[];
 }
