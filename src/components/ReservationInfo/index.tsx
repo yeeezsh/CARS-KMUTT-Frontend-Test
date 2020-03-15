@@ -45,7 +45,7 @@ class ReservationInfo extends Component<
   constructor(props: PropTypes) {
     super(props);
     this.state = {
-      reserve: [{ start: undefined, stop: undefined, allDay: false }],
+      reserve: [{ start: moment(), stop: moment(), allDay: false }],
       state: 'drop',
       area: {
         label: '',
