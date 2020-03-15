@@ -5,7 +5,7 @@ import { useLocation } from 'react-router';
 import TimeTable from 'Components/TimeTable';
 import moment, { Moment } from 'moment';
 import TimeNode from 'Components/TimeTable/timetable.interface';
-import AreaInfo from './info';
+import AreaInfo from './Info';
 import { areaAPI } from 'Models/area';
 import { AreaAvailableAPI } from 'Models/area/area.interface';
 import { AreaAPI } from 'Models/area/interfaces';
@@ -105,7 +105,7 @@ const AreaPage: React.FC = () => {
               <TimeTable
                 // HOT FIX sub stract by 1 day
                 selected={selecting[i]}
-                title={e.date.format('DD-MM-YYYY')}
+                title={'วันที่ ' + e.date.format('DD-MM-YYYY')}
                 disabled={e.disabled || []}
                 onSelect={(selectTime, type) =>
                   onSelect(
