@@ -94,7 +94,7 @@ class UserClass {
   };
 
   UserLogout = async (): Promise<void> => {
-    this.user = { _id: '', permission: '' };
+    this.user = { _id: '', permission: '', username: '' };
     this.DeleteCredential();
     await i.instance.get('/users/auth/logout');
     return;
