@@ -5,7 +5,7 @@ import { useLocation } from 'react-router';
 import TimeTable from 'Components/TimeTable';
 import moment, { Moment } from 'moment';
 import TimeNode from 'Components/TimeTable/timetable.interface';
-import AreaInfo from './Info';
+import AreaInfo from './Info_';
 import { areaAPI } from 'Models/area';
 import { AreaAvailableAPI } from 'Models/area/area.interface';
 import { AreaAPI } from 'Models/area/interfaces';
@@ -40,7 +40,7 @@ const AreaPage: React.FC = () => {
   const initAvailArea: AreaAvailableAPI[] = [];
   const [availArea, setAvailArea] = useState(initAvailArea);
   const [canReserve, setCanReserve] = useState(false);
-  const [modal, setModal] = useState(false);
+  // const [modal, setModal] = useState(false);
   const initQuickTask: QuickTaskInterface[] = [];
   const [quickTask, setQuickTask] = useState(initQuickTask);
 
