@@ -14,10 +14,7 @@ const AreaPage: React.FC = () => {
   const { pathname } = useLocation();
   const areaId = pathname.split('/')[3];
 
-  const initSelecting: TimeNode[] = [
-    { value: moment().add(1, 'hour'), type: 'selecting' },
-    { value: moment().add(2, 'hour'), type: 'selecting' },
-  ];
+  const initSelecting: TimeNode[][] = [[]];
   const [selecting, setSelecting] = useState(initSelecting);
   const initAvailArea: AreaAvailableAPI[] = [];
   const [availArea, setAvailArea] = useState(initAvailArea);
@@ -31,49 +28,112 @@ const AreaPage: React.FC = () => {
 
   useEffect(() => {
     areaAPI.getAreaInfo(areaId).then(a => setAreaInfo(a));
-    areaAPI.getAreaAvailable(areaId).then(a => setAvailArea(a));
+    areaAPI.getAreaAvailable(areaId).then(a => {
+      setAvailArea(a);
+      setSelecting(Array(a.length).fill([]));
+    });
   }, []);
 
-  function onTimeSelecting(value: Moment, type: TimeNode['type']) {
-    console.log('node secled', value, type);
-    const duplicated = selecting.find(
-      f =>
-        moment(f.value).format('HH:mm') === moment(value).format('HH:mm'),
-    );
-    console.log('dup', duplicated);
-    if (type === 'available') {
-      return setSelecting(prev => [...prev, { value, type: 'selecting' }]);
-      // return setSelecting([]);
-      // return setSelecting(prev => [...prev, { value }]);
-    }
+  // function onTimeSelecting(
+  //   value: Moment,
+  //   type: TimeNode['type'],
+  //   i: number,
+  // ) {
+  //   console.log('node secled', value, type);
+  //   const selectingDay = selecting[i];
+  //   const duplicated = selectingDay.find(
+  //     f =>
+  //       moment(f.value).format('HH:mm') === moment(value).format('HH:mm'),
+  //   );
+  //   console.log('dup', duplicated);
+  //   if (type === 'available') {
+  //     // const cur = selectingDay.push({ value, type: 'selecting' });
+  //     const cur: TimeNode[] = [
+  //       ...selectingDay,
+  //       { value, type: 'selecting' },
+  //     ];
+  //     return setSelecting(prev =>
+  //       prev.map((e, ix) => (ix === i ? cur : e)),
+  //     );
+  //     // return setSelecting([]);
+  //     // return setSelecting(prev => [...prev, { value }]);
+  //   }
 
-    if (type === 'selecting') {
-      return setSelecting(prev =>
-        prev.filter(
-          f =>
-            moment(f.value).format('HH:mm') !==
-            moment(value).format('HH:mm'),
-        ),
-      );
+  //   if (type === 'selecting') {
+  //     return setSelecting(prev =>
+  //       prev.filter(
+  //         f =>
+  //           moment(f.value).format('HH:mm') !==
+  //           moment(value).format('HH:mm'),
+  //       ),
+  //     );
+  //   }
+  // }
+
+  function onSelect(value: Moment, type: TimeNode['type'], i: number) {
+    console.log(value, type, i);
+    const selectingDay = selecting[i];
+    if (type === 'disabled') return;
+    if (type === 'available') {
+      const d: TimeNode[] = [
+        ...selectingDay,
+        { value, type: 'selecting' },
+      ];
+      return setSelecting(prev => prev.map((e, ix) => (ix === i ? d : e)));
     }
+    if (type === 'selecting') {
+      const d: TimeNode[] = selectingDay.filter(
+        f => moment(f.value).format('HH:mm') !== value.format('HH:mm'),
+      );
+      return setSelecting(prev => prev.map((e, ix) => (ix === i ? d : e)));
+    }
+    console.log('dayy', selectingDay);
+    console.log('daye', value.format('DD-MM-YYYY HH:mm'));
   }
 
-  console.log('yahhhhhh', selecting, availArea, areaInfo);
+  console.log('avail list', availArea);
+  console.log('selectung', selecting);
   return (
     <StaffLayout>
       {areaId}
 
-      <Row>
+      <Row gutter={16}>
         <Col span={16}>
           {/* time table area */}
-          <TimeTable
+          {availArea.map((e, i) => {
+            return (
+              <TimeTable
+                // HOT FIX sub stract by 1 day
+                selected={selecting[i]}
+                title={e.date.format('DD-MM-YYYY')}
+                disabled={e.disabled || []}
+                onSelect={(selectTime, type) =>
+                  onSelect(
+                    moment(
+                      e.date.format('DD-MM-YYYY') +
+                        '-' +
+                        selectTime.format('HH:mm'),
+                      'DD-MM-YYYY-HH:mm',
+                    ),
+                    type,
+                    i,
+                  )
+                }
+                key={i}
+                start={areaInfo.reserve[0].start}
+                stop={areaInfo.reserve[0].stop}
+                interval={areaInfo.reserve[0].interval}
+              />
+            );
+          })}
+          {/* <TimeTable
             selected={selecting}
             start={moment()}
             stop={moment().add(6, 'hour')}
             interval={60}
             // onSelect={(value, type) => console.log(value, type)}
             onSelect={onTimeSelecting}
-          />
+          /> */}
         </Col>
         <Col span={8}>
           <AreaInfo
