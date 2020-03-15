@@ -26,8 +26,11 @@ export const queryArea = () => async (
 
   console.log('query area date', dateSelected);
   const areas = await sport.getFields(areaId, dateSelected);
-  const maxForward = areas.reduce((prev, cur) =>
-    prev.time.forward > cur.time.forward ? prev : cur,
+  const maxForward = areas.reduce(
+    (
+      prev: { time: { forward: number } },
+      cur: { time: { forward: number } },
+    ) => (prev.time.forward > cur.time.forward ? prev : cur),
   ).time.forward;
 
   return dispatch({
