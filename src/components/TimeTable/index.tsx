@@ -68,45 +68,42 @@ export default class TimeTable extends Component<
   };
 
   componentDidMount = () => {
-    const { start, stop, interval, disabled, selected } = this.props;
-    let table: TimeNode[] = [];
-    let cur = moment(start);
-
-    while (cur <= stop) {
-      table.push({
-        value: cur,
-        type: 'available',
-      });
-      cur = moment(cur.add(interval, 'minute'));
-    }
-
-    const selectedMapped = selected?.map(e => e.value.format('HH.mm'));
-    const disabledMapped = disabled?.map(e => e.value.format('HH.mm'));
-    table = table.map(e => {
-      const typeDisabled = disabledMapped?.includes(
-        e.value.format('HH.mm'),
-      );
-      const typeSelected = selectedMapped?.includes(
-        e.value.format('HH.mm'),
-      );
-      if (typeDisabled) {
-        return {
-          ...e,
-          type: 'disabled',
-        };
-      }
-      if (typeSelected) {
-        return {
-          ...e,
-          type: 'selecting',
-        };
-      }
-      return e;
-    });
-
-    return this.setState({
-      table,
-    });
+    // const { start, stop, interval, disabled, selected } = this.props;
+    // let table: TimeNode[] = [];
+    // let cur = moment(start);
+    // while (cur <= stop) {
+    //   table.push({
+    //     value: cur,
+    //     type: 'available',
+    //   });
+    //   cur = moment(cur.add(interval, 'minute'));
+    // }
+    // const selectedMapped = selected?.map(e => e.value.format('HH.mm'));
+    // const disabledMapped = disabled?.map(e => e.value.format('HH.mm'));
+    // table = table.map(e => {
+    //   const typeDisabled = disabledMapped?.includes(
+    //     e.value.format('HH.mm'),
+    //   );
+    //   const typeSelected = selectedMapped?.includes(
+    //     e.value.format('HH.mm'),
+    //   );
+    //   if (typeDisabled) {
+    //     return {
+    //       ...e,
+    //       type: 'disabled',
+    //     };
+    //   }
+    //   if (typeSelected) {
+    //     return {
+    //       ...e,
+    //       type: 'selecting',
+    //     };
+    //   }
+    //   return e;
+    // });
+    // return this.setState({
+    //   table,
+    // });
   };
 
   render() {
@@ -126,8 +123,12 @@ export default class TimeTable extends Component<
       cur = moment(cur.add(interval, 'minute'));
     }
 
-    const selectedMapped = selected?.map(e => e.value.format('HH.mm'));
-    const disabledMapped = disabled?.map(e => e.value.format('HH.mm'));
+    const selectedMapped = selected?.map(e =>
+      moment(e.value).format('HH.mm'),
+    );
+    const disabledMapped = disabled?.map(e =>
+      moment(e.value).format('HH.mm'),
+    );
     table = table.map(e => {
       const typeDisabled = disabledMapped?.includes(
         e.value.format('HH.mm'),
