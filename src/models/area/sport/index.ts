@@ -1,4 +1,10 @@
-import { footballIcon, badmintonIcon, basketballIcon, tennisIcon, volleyballIcon } from './icon.import';
+import {
+  footballIcon,
+  badmintonIcon,
+  basketballIcon,
+  tennisIcon,
+  volleyballIcon,
+} from './icon.import';
 import Menu from '../../menu/interface';
 import i from '../../axios.interface';
 import { FetchMenu } from './fetch.menu.interface';
@@ -51,7 +57,9 @@ class SportClass {
   }
 
   async getAreas(): Promise<Menu[]> {
-    const fetch: FetchMenu[] = (await i.instance.get('/area/sport/area/all')).data;
+    const fetch: FetchMenu[] = (
+      await i.instance.get('/area/sport/area/all')
+    ).data;
     const mainMenu = category
       .map(e => {
         const fetchIndex = fetch.findIndex(d => d.name === e.query?.name);
@@ -70,29 +78,47 @@ class SportClass {
     return mainMenu;
   }
 
-  async getFields(id: string, date: Moment): Promise<TimeAreaReserveType['areas']> {
+  async getFields(
+    id: string,
+    date: Moment,
+  ): Promise<TimeAreaReserveType['areas'] | any> {
     try {
-      const fetch: AreaAPI[] = (await i.instance.get(`/area/sport/fields/${id}/${date.toISOString()}`)).data;
+      const fetch: AreaAPI[] = (
+        await i.instance.get(
+          `/area/sport/fields/${id}/${date.toISOString()}`,
+        )
+      ).data;
       const mapped = fetch.map(e => {
-        const minTime = e.reserve.reduce((prev, cur) => ((prev.start || 0) < (cur.start || 0) ? prev : cur));
-        const maxTime = e.reserve.reduce((prev, cur) => ((prev.stop || 0) > (cur.stop || 0) ? prev : cur));
+        const minTime =
+          e.reserve &&
+          e.reserve.reduce((prev, cur) =>
+            (prev.start || 0) < (cur.start || 0) ? prev : cur,
+          );
+        const maxTime =
+          e.reserve &&
+          e.reserve.reduce((prev, cur) =>
+            (prev.stop || 0) > (cur.stop || 0) ? prev : cur,
+          );
         console.log('api', e.disabled);
         return {
           area: {
             id: e._id,
             label: e.label,
-            required: e.required.requestor,
+            required: e.required && e.required.requestor,
           },
           time: {
-            start: moment(minTime.start),
-            stop: moment(maxTime.stop),
-            disabled: e.disabled ? e.disabled.map((e: string) => ({ value: moment(e) })) : [],
-            interval: e.reserve[0].interval,
-            week: e.reserve[0].week,
+            start: moment(minTime && minTime.start),
+            stop: moment(maxTime && maxTime.stop),
+            disabled: e.disabled
+              ? e.disabled.map((e: string) => ({ value: moment(e) }))
+              : [],
+            interval: e.reserve && e.reserve[0].interval,
+            week: e.reserve && e.reserve[0].week,
             forward: e.forward,
           },
         };
       });
+
       return mapped;
     } catch (err) {
       console.error(err);
