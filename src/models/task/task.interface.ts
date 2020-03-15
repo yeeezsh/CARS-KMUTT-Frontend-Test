@@ -1,12 +1,7 @@
 import { Moment } from 'moment';
 import { ReserveStateDesc } from '../reserve/interface';
 import { AreaBuilding } from 'Models/area/area.building.interfaces';
-
-interface TimeSlot {
-  start?: Moment;
-  stop?: Moment;
-  allDay?: boolean;
-}
+import { TimeSlot } from './timeslot.interface';
 
 interface Area {
   _id: string;
