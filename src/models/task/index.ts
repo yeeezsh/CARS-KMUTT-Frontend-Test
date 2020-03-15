@@ -1,11 +1,22 @@
 import i from '../axios.interface';
-import { TaskDetail, TaskLastCard } from './task.interface';
+import { TaskDetail, TaskLastCard, Task } from './task.interface';
 import taskDetailParse from './parser/task.detail.parse';
 import taskLastParse from './parser/task.last.parse';
 import { QuickTask, QuickTaskAPI } from './task.quick.interface';
 import moment, { Moment } from 'moment';
+import { CreateTaskByStaff } from './task.create.interface';
 
 class TaskClass {
+  async createTaskByStaff(data: CreateTaskByStaff): Promise<Task> {
+    try {
+      const res = (await i.instance.post('/task/byStaff', { ...data }))
+        .data;
+      return res;
+    } catch (err) {
+      throw err;
+    }
+  }
+
   async getTaskById(id: string): Promise<TaskDetail | undefined> {
     try {
       const data = (await i.instance.get('/task/' + id)).data;

@@ -1,38 +1,15 @@
 /* eslint-disable react/display-name */
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Table } from 'antd';
-import { Moment } from 'moment';
 import { ColumnProps } from 'antd/lib/table';
 import State from 'Components/TaskTable/state';
-import { taskAPI } from 'Models/task';
+
 import { QuickTask } from 'Models/task/task.quick.interface';
 import { Link } from 'react-router-dom';
 
 const QuickTask: React.FC<{
-  areaId?: string;
-  start: Moment;
-  stop: Moment;
+  data: QuickTask[];
 }> = props => {
-  const [loading, setLoading] = useState(true);
-  const initData: QuickTask[] = [];
-  const [data, setData] = useState(initData);
-
-  //   fetching qt data
-  useEffect(() => {
-    const { areaId, start, stop } = props;
-
-    console.log('quick task,', areaId, start, stop);
-    areaId &&
-      taskAPI
-        .getQuickTask(areaId, start, stop)
-        .then(d => {
-          console.log('quick task data', d);
-          setLoading(false);
-          setData(d);
-        })
-        .catch(err => console.error(err));
-  }, []);
-
   const columns: ColumnProps<QuickTask>[] = [
     {
       title: 'รหัสการจอง',
@@ -71,9 +48,9 @@ const QuickTask: React.FC<{
   return (
     <Table
       pagination={false}
-      loading={loading}
+      //   loading={loading}
       columns={columns}
-      dataSource={data}
+      dataSource={props.data}
     />
   );
 };
