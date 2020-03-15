@@ -9,6 +9,14 @@ import AreaInfo from './Info';
 import { areaAPI } from 'Models/area';
 import { AreaAvailableAPI } from 'Models/area/area.interface';
 import { AreaAPI } from 'Models/area/interfaces';
+import QuickTask from './QuickTask';
+import Badge from 'Components/Badge';
+
+const badgeStyles: React.CSSProperties = {
+  marginBottom: 12,
+  width: '145px',
+  fontSize: '16px',
+};
 
 const AreaPage: React.FC = () => {
   const { pathname } = useLocation();
@@ -19,7 +27,7 @@ const AreaPage: React.FC = () => {
   const initAvailArea: AreaAvailableAPI[] = [];
   const [availArea, setAvailArea] = useState(initAvailArea);
   const initAreaInfo: AreaAPI = {
-    _id: '',
+    _id: undefined,
     name: '',
     forward: 0,
     reserve: [],
@@ -33,42 +41,6 @@ const AreaPage: React.FC = () => {
       setSelecting(Array(a.length).fill([]));
     });
   }, []);
-
-  // function onTimeSelecting(
-  //   value: Moment,
-  //   type: TimeNode['type'],
-  //   i: number,
-  // ) {
-  //   console.log('node secled', value, type);
-  //   const selectingDay = selecting[i];
-  //   const duplicated = selectingDay.find(
-  //     f =>
-  //       moment(f.value).format('HH:mm') === moment(value).format('HH:mm'),
-  //   );
-  //   console.log('dup', duplicated);
-  //   if (type === 'available') {
-  //     // const cur = selectingDay.push({ value, type: 'selecting' });
-  //     const cur: TimeNode[] = [
-  //       ...selectingDay,
-  //       { value, type: 'selecting' },
-  //     ];
-  //     return setSelecting(prev =>
-  //       prev.map((e, ix) => (ix === i ? cur : e)),
-  //     );
-  //     // return setSelecting([]);
-  //     // return setSelecting(prev => [...prev, { value }]);
-  //   }
-
-  //   if (type === 'selecting') {
-  //     return setSelecting(prev =>
-  //       prev.filter(
-  //         f =>
-  //           moment(f.value).format('HH:mm') !==
-  //           moment(value).format('HH:mm'),
-  //       ),
-  //     );
-  //   }
-  // }
 
   function onSelect(value: Moment, type: TimeNode['type'], i: number) {
     console.log(value, type, i);
@@ -98,7 +70,7 @@ const AreaPage: React.FC = () => {
       {areaId}
 
       <Row gutter={16}>
-        <Col span={16}>
+        <Col span={14}>
           {/* time table area */}
           {availArea.map((e, i) => {
             return (
@@ -135,18 +107,31 @@ const AreaPage: React.FC = () => {
             onSelect={onTimeSelecting}
           /> */}
         </Col>
-        <Col span={8}>
-          <AreaInfo
-            building={areaInfo.building?.label}
-            area={areaInfo.label}
-            time={{
-              start: areaInfo.reserve[0] && areaInfo.reserve[0].start,
-              stop: areaInfo.reserve[0] && areaInfo.reserve[0].stop,
-            }}
-            week={areaInfo.reserve[0] && areaInfo.reserve[0].week}
-            forward={areaInfo.forward}
-            required={areaInfo.required?.requestor}
-          />
+        <Col span={10}>
+          <Row>
+            <Badge style={badgeStyles}>ข้อมูลสถานที่</Badge>
+            <AreaInfo
+              building={areaInfo.building?.label}
+              area={areaInfo.label}
+              time={{
+                start: areaInfo.reserve[0] && areaInfo.reserve[0].start,
+                stop: areaInfo.reserve[0] && areaInfo.reserve[0].stop,
+              }}
+              week={areaInfo.reserve[0] && areaInfo.reserve[0].week}
+              forward={areaInfo.forward}
+              required={areaInfo.required?.requestor}
+            />
+            <Badge style={badgeStyles}>ข้อมูลการจอง</Badge>
+            {areaInfo._id && (
+              <QuickTask
+                areaId={areaInfo && areaInfo._id}
+                start={moment().startOf('day')}
+                stop={moment()
+                  .startOf('day')
+                  .add(areaInfo.forward, 'day')}
+              />
+            )}
+          </Row>
         </Col>
       </Row>
     </StaffLayout>
