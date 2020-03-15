@@ -17,4 +17,17 @@ interface Area {
   };
 }
 
+export interface AreaAvailableAPI {
+  _id: string;
+  name: string;
+  label: string;
+  building: {
+    _id: string;
+    name: string;
+    label: string;
+  };
+  disabled: TimeNode[];
+  date: Moment;
+}
+
 export default Area;
