@@ -29,6 +29,7 @@ class UserClass {
 
   SaveCredential = (data: User) => {
     try {
+      this.user = data;
       store.dispatch(setUser(data));
       const duplicated = localStorage.getItem('user');
       if (duplicated) localStorage.removeItem('user');
@@ -93,6 +94,7 @@ class UserClass {
   };
 
   UserLogout = async (): Promise<void> => {
+    this.user = { _id: '', permission: '' };
     this.DeleteCredential();
     await i.instance.get('/users/auth/logout');
     return;
