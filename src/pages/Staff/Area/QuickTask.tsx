@@ -48,6 +48,16 @@ const QuickTask: React.FC<{
       dataIndex: 'username',
     },
     {
+      title: 'วันจอง',
+      dataIndex: 'date',
+      render: d => (
+        <div>
+          <p>{d.format('DD-MM-YYYY')}</p>
+          <p>{d.format('HH:mm')}</p>
+        </div>
+      ),
+    },
+    {
       title: 'สถานะ',
       dataIndex: 'state',
       //   render: data => <State state={data?.state} />,

@@ -2,8 +2,8 @@ import i from '../axios.interface';
 import { TaskDetail, TaskLastCard } from './task.interface';
 import taskDetailParse from './parser/task.detail.parse';
 import taskLastParse from './parser/task.last.parse';
-import { QuickTaskAPI } from './task.quick.interface';
-import { Moment } from 'moment';
+import { QuickTask, QuickTaskAPI } from './task.quick.interface';
+import moment, { Moment } from 'moment';
 
 class TaskClass {
   async getTaskById(id: string): Promise<TaskDetail | undefined> {
@@ -58,10 +58,10 @@ class TaskClass {
     areaId: string,
     start: Moment,
     stop: Moment,
-  ): Promise<QuickTaskAPI> {
+  ): Promise<QuickTask[]> {
     try {
       if (!areaId) [];
-      const data = (
+      const data: QuickTaskAPI[] = (
         await i.instance.get('/task/quickTask', {
           params: {
             id: areaId,
@@ -70,7 +70,7 @@ class TaskClass {
           },
         })
       ).data;
-      return data;
+      return data.map(e => ({ ...e, date: moment(e.date) }));
     } catch (err) {
       throw err;
     }
