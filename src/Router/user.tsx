@@ -29,6 +29,8 @@ import {
 } from '../pages/Sport';
 import { u } from 'Models/user';
 
+import { Category as AreaCategory } from 'Pages/Areas';
+
 const AppDrawer = Loadable({
   loader: () => import('../components/AppDrawer'),
   loading: () => null,
@@ -118,6 +120,16 @@ export default class PageUserRouter extends Component<
           <Page />
         </Route>
 
+        {/* Area */}
+        <Route path="/reserve/area">
+          <Switch>
+            <Route path="*/category">
+              <AreaCategory />
+            </Route>
+          </Switch>
+        </Route>
+
+        {/* Sport  */}
         <Route path="/reserve/sport">
           <Switch>
             <Route path="*/category">

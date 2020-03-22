@@ -18,6 +18,7 @@ const defaultMenu: Menu[] = [
           / ห้องประชุม`,
     ],
     icon: footballarea,
+    link: '/reserve/area/category',
     setting: {
       backgroundColor: '#1890FF',
       iconSize: 50,
