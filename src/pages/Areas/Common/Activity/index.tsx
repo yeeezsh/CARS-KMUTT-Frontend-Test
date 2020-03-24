@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Row, Col } from 'antd';
-import { Switch, Route } from 'react-router';
+import { Switch, Route, useHistory, useLocation } from 'react-router';
+import { useSelector, useDispatch } from 'react-redux';
 
 import PageLayout from 'Components/Layout/Page';
 
@@ -14,11 +15,34 @@ import Badge from 'Components/Badge';
 import { RequestorForm } from '../common/forms';
 import BackCard from 'Components/BackCard';
 import Outline from 'Components/Outline';
+import { RootReducers } from 'Store/reducers';
+
+// store
+// import areaFormStore from 'Store/areaForm';
+// import { useDispatch, useStore, Provider } from 'react-redux';
 
 const Activity: React.FC = () => {
-  const [steps, setSteps] = useState(0);
+  const forms = useSelector((s: RootReducers) => s.AreaFormReducers);
+  const steps = forms.step;
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const location = useLocation().pathname;
+
+  useEffect(() => {
+    dispatch({ type: 'INIT_FORM', payload: { size: 4 } });
+  }, []);
+
+  // when steps change
+  useEffect(() => {
+    if (steps === 0) return;
+    const oldPath = location;
+    const newPath = oldPath.slice(0, -1) + (steps + 1);
+    history.push(newPath);
+  }, [steps]);
 
   // const [canNext, setCanNext] = useState(false);
+  console.log('forms', forms);
+
   return (
     <PageLayout titile="จองพื้นที่ส่วนกลาง">
       {/* Fixed header */}
