@@ -51,24 +51,28 @@ class CommonAreaClass {
     this.list = commonAreasList;
   }
 
-  static async getBuilding() {
-    const fetch: FetchMenu[] = await i.instance.get(
-      '/area/common/building/all',
-    );
-    const mainMenu = commonAreasList.map(e => {
-      const fetchIndex = fetch.findIndex(d => d.name === e.query?.name);
-      if (fetchIndex < 0) return e;
-      const typeId = fetch[fetchIndex]._id;
-      return {
-        ...e,
-        link: `/reserve/common/${typeId}/category`,
-        query: {
-          ...e.query,
-          _id: typeId,
-        },
-      };
-    });
-    return mainMenu;
+  async getBuilding() {
+    try {
+      const fetch: FetchMenu[] = (
+        await i.instance.get('/area/common/building/all')
+      ).data;
+      const mainMenu = commonAreasList.map(e => {
+        const fetchIndex = fetch.findIndex(d => d.name === e.query?.name);
+        if (fetchIndex < 0) return e;
+        const typeId = fetch[fetchIndex]._id;
+        return {
+          ...e,
+          link: `/reserve/common/${typeId}/types`,
+          query: {
+            ...e.query,
+            _id: typeId,
+          },
+        };
+      });
+      return mainMenu;
+    } catch (err) {
+      throw err;
+    }
   }
 }
 
