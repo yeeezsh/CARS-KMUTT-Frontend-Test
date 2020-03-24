@@ -58,7 +58,7 @@ class SportClass {
 
   async getAreas(): Promise<Menu[]> {
     const fetch: FetchMenu[] = (
-      await i.instance.get('/area/sport/area/all')
+      await i.instance.get('/area/sport/building/all')
     ).data;
     const mainMenu = category
       .map(e => {
