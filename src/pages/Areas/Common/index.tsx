@@ -8,5 +8,9 @@ const Types = Loadable({
   loader: () => import('./Types'),
   loading: () => null,
 });
+const Activity = Loadable({
+  loader: () => import('./Activity'),
+  loading: () => null,
+});
 
-export { Areas, Types };
+export { Areas, Types, Activity };

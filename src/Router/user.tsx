@@ -3,30 +3,27 @@ import { Router, Route, Switch } from 'react-router';
 import Loadable from 'react-loadable';
 import history from './history';
 
-import hamburgerWhite from '../assets/icons/hamburger-white.svg';
-import hamburgerOrange from '../assets/icons/hamburger-orange.svg';
+import hamburgerWhite from 'Assets/icons/hamburger-white.svg';
+import hamburgerOrange from 'Assets/icons/hamburger-orange.svg';
 
 const LoginPage = Loadable({
-  loader: () => import('../pages/Login'),
+  loader: () => import('Pages/Login'),
   loading: () => null,
 });
 const Home = Loadable({
-  loader: () => import('../pages/Home'),
+  loader: () => import('Pages/Home'),
   loading: () => null,
 });
 const Page = Loadable({
-  loader: () => import('../pages/Page'),
+  loader: () => import('Pages/Page'),
   loading: () => null,
 });
 const LogoutPage = Loadable({
-  loader: () => import('../pages/Logout'),
+  loader: () => import('Pages/Logout'),
   loading: () => null,
 });
 
-import {
-  Category as SportCategory,
-  Page as SportPage,
-} from '../pages/Sport';
+import { Category as SportCategory, Page as SportPage } from 'Pages/Sport';
 import { u } from 'Models/user';
 
 // Common Area
@@ -34,8 +31,8 @@ import { Category as AreaCategory } from 'Pages/Areas';
 import {
   Areas as CommonArea,
   Types as CommonAreaTypes,
+  Activity as CommonActivity,
 } from 'Pages/Areas/Common';
-// import CommonAreaTypesPages from 'Pages/Areas/Common/Types';
 
 const AppDrawer = Loadable({
   loader: () => import('../components/AppDrawer'),
@@ -148,7 +145,9 @@ export default class PageUserRouter extends Component<
             <Route path="**types">
               <CommonAreaTypes />
             </Route>
-            <Route path="*/activity">Area : activity </Route>
+            <Route path="*/activity">
+              <CommonActivity />
+            </Route>
             <Route path="*/sport">Area : sport act </Route>
           </Switch>
         </Route>

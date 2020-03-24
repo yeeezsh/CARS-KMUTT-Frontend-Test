@@ -10,7 +10,7 @@ import sportTypeBuildingIcon from 'Assets/icons/area/building/basketball-ball.sv
 import BackCard from 'Components/BackCard';
 import BackCardStyles from '../styles/backcard';
 
-const TypesPage: React.FunctionComponent = props => {
+const TypesPage: React.FunctionComponent = () => {
   const location = useLocation();
   const history = useHistory();
   const areaId = location.pathname.split('/')[3];
@@ -20,14 +20,14 @@ const TypesPage: React.FunctionComponent = props => {
       key: '1',
       label: [`จัดกิจกรรม`],
       icon: activityTypeBuildingIcon,
-      link: `/reserve/common/${areaId}/activity`,
+      link: `/reserve/common/${areaId}/activity/1`,
       query: { name: 'kfc' },
     },
     {
       key: '2',
       label: [`แข่งขันกีฬา`],
       icon: sportTypeBuildingIcon,
-      link: `/reserve/common/${areaId}/sport`,
+      link: `/reserve/common/${areaId}/sport/1`,
       query: { name: 'park' },
     },
   ].map(e => ({ ...e, style: 'center' }));
