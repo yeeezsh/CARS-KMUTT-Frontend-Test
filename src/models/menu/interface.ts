@@ -17,6 +17,7 @@ export default interface Menu {
     iconSize?: number;
     needAction?: boolean;
   };
+  style?: 'center';
   state?: RouterStates;
   query?: Query;
 }

@@ -27,7 +27,7 @@ export default function KanbanCard(props: {
     <React.Fragment>
       <Row type="flex" justify="space-between">
         {menu &&
-          menu.map(({ icon, label, setting, key, link, state }) => (
+          menu.map(({ icon, label, setting, key, link, state, style }) => (
             <Col key={key} span={11}>
               <Link
                 to={
@@ -40,7 +40,20 @@ export default function KanbanCard(props: {
                   } || ''
                 }
               >
-                <Card label={label} icon={icon} setting={setting} />
+                <Card
+                  label={label}
+                  icon={icon}
+                  setting={
+                    style === 'center' // if use center styles
+                      ? {
+                          ...setting,
+                          center: true,
+                          iconSize: 70,
+                          labelColor: '#666666',
+                        }
+                      : setting
+                  }
+                />
               </Link>
             </Col>
           ))}
