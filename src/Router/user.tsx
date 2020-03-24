@@ -29,8 +29,13 @@ import {
 } from '../pages/Sport';
 import { u } from 'Models/user';
 
+// Common Area
 import { Category as AreaCategory } from 'Pages/Areas';
-import CommonAreaPages from 'Pages/Areas/Common';
+import {
+  Areas as CommonArea,
+  Types as CommonAreaTypes,
+} from 'Pages/Areas/Common';
+// import CommonAreaTypesPages from 'Pages/Areas/Common/Types';
 
 const AppDrawer = Loadable({
   loader: () => import('../components/AppDrawer'),
@@ -134,8 +139,17 @@ export default class PageUserRouter extends Component<
         <Route path="/reserve/area/common">
           <Switch>
             <Route path="*/">
-              <CommonAreaPages />
+              <CommonArea />
             </Route>
+          </Switch>
+        </Route>
+        <Route path="/reserve/common">
+          <Switch>
+            <Route path="**types">
+              <CommonAreaTypes />
+            </Route>
+            <Route path="*/activity">Area : activity </Route>
+            <Route path="*/sport">Area : sport act </Route>
           </Switch>
         </Route>
 

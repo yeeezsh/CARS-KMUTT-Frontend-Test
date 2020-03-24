@@ -1,14 +1,12 @@
-import React from 'react';
-import KanBanLayout from 'Components/Layout/Kanban';
-import KanbanCard from 'Components/KanbanCard';
-import { commonAreaAPI } from 'Models/area/common';
+import Loadable from 'react-loadable';
 
-const CommonPage: React.FC = () => {
-  return (
-    <KanBanLayout title="จองพื้นที่ส่วนกลาง" outline="เลือกประเภทกิจกรรม">
-      <KanbanCard menu={commonAreaAPI.list} />
-    </KanBanLayout>
-  );
-};
+const Areas = Loadable({
+  loader: () => import('./Areas'),
+  loading: () => null,
+});
+const Types = Loadable({
+  loader: () => import('./Types'),
+  loading: () => null,
+});
 
-export default CommonPage;
+export { Areas, Types };
