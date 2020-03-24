@@ -14,6 +14,7 @@ const CommonPage: React.FC = () => {
   useEffect(() => {
     commonAreaAPI.getBuilding().then(a => setAreas(a));
   }, []);
+
   return (
     <KanBanLayout title="จองพื้นที่ส่วนกลาง" outline="เลือกสถานที่">
       <div style={BackCardStyles}>
