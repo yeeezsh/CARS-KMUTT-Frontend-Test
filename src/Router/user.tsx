@@ -30,6 +30,7 @@ import {
 import { u } from 'Models/user';
 
 import { Category as AreaCategory } from 'Pages/Areas';
+import CommonAreaPages from 'Pages/Areas/Common';
 
 const AppDrawer = Loadable({
   loader: () => import('../components/AppDrawer'),
@@ -125,6 +126,15 @@ export default class PageUserRouter extends Component<
           <Switch>
             <Route path="*/category">
               <AreaCategory />
+            </Route>
+          </Switch>
+        </Route>
+
+        {/* Common Area */}
+        <Route path="/reserve/area/common">
+          <Switch>
+            <Route path="*/">
+              <CommonAreaPages />
             </Route>
           </Switch>
         </Route>
