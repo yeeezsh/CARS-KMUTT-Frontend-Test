@@ -7,6 +7,7 @@ import { RootReducers } from 'Store/reducers';
 import labelStyles from './styles/label';
 import { faculties, Department } from 'Models/forms/department';
 import { DEFAULT_REQUIRED_RULES } from './rules/required';
+import { DEFAULT_USERNAME_RULES } from './rules/username';
 
 // constant
 const CUR_IND = 0;
@@ -78,7 +79,8 @@ const RequestorForm: React.FC<FormComponentProps & {
       <Form.Item>
         <span style={labelStyles}>รหัสนักศึกษา</span>
         {getFieldDecorator('requestorId', {
-          rules: [DEFAULT_REQUIRED_RULES],
+          rules: [DEFAULT_REQUIRED_RULES, DEFAULT_USERNAME_RULES],
+          validateTrigger: ['onBlur'],
         })(<Input placeholder="รหัสนักศึกษา 11 หลัก" />)}
       </Form.Item>
 
