@@ -54,9 +54,26 @@ a:hover {
 
 /* select components */
 .ant-select-selection {
-  border-radius: 20px;
+  border: 0px solid white;
+  border-bottom: 1px solid #d9d9d9;
+  box-shadow: none;
+  border-radius: 0px;
+  font-size: 16px;
+  line-height: 22px;
 }
-.ant-select-selection--single {
+.ant-select-selection:hover {
+  box-shadow: none;
+  border-color: none;
+  border: none;
+  border-bottom: 2px solid #d9d9d9;
+}
+.ant-select-selection:focus {
+  box-shadow: none;
+  border-color: none;
+  border: none;
+  border-bottom: 2px solid #d9d9d9;
+}
+/* .ant-select-selection--single {
   padding-left: 8px;
 }
 .ant-select-selection__placeholder {
@@ -64,4 +81,4 @@ a:hover {
 }
 .ant-select-arrow-icon svg{
   color: #ff682b; 
-}
+} */
