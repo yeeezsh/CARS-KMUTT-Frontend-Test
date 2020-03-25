@@ -8,6 +8,7 @@ import labelStyles from './styles/label';
 import { faculties, Department } from 'Models/forms/department';
 import { DEFAULT_REQUIRED_RULES } from './rules/required';
 import { DEFAULT_USERNAME_RULES } from './rules/username';
+import FormLabel from 'Components/FormLabel';
 
 // constant
 const CUR_IND = 0;
@@ -59,6 +60,7 @@ const RequestorForm: React.FC<FormComponentProps & {
 
   return (
     <React.Fragment>
+      <FormLabel step={1}>รายละเอียดผู้ขอใช้บริการ</FormLabel>
       {/* user type */}
       <Form.Item>
         {getFieldDecorator('userType', {
