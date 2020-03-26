@@ -223,7 +223,13 @@ const ProjectForm: React.FC<FormComponentProps & {
             customRequest={customRequestUpload}
             multiple={false}
           >
-            <Badge style={{ fontWeight: 'normal', fontSize: '16' }}>
+            <Badge
+              style={{
+                fontWeight: 'normal',
+                fontSize: '16',
+                cursor: 'pointer',
+              }}
+            >
               เลือกไฟล์
             </Badge>
           </Upload>,
