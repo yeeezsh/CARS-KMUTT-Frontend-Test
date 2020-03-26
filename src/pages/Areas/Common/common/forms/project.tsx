@@ -4,14 +4,26 @@ import { useDispatch } from 'react-redux';
 import FormLabel from 'Components/FormLabel';
 import labelStyles from './styles/label';
 import { DEFAULT_REQUIRED_RULES } from './rules/required';
-import { Input, Row, Radio, DatePicker, Col, TimePicker } from 'antd';
+import {
+  Input,
+  Row,
+  Radio,
+  DatePicker,
+  Col,
+  TimePicker,
+  Upload,
+} from 'antd';
 import { RadioChangeEvent } from 'antd/lib/radio';
 import Button from 'Components/Button';
+import { RcCustomRequestOptions } from 'antd/lib/upload/interface';
+import i, { END_POINT } from 'Models/axios.interface';
+import Badge from 'Components/Badge';
 
 // constant
 const CUR_IND = 1;
 const PLACEHOLDER_DATE = 'DD/MM/YYYY';
 const PLACEHOLDER_TIME = '00:00';
+const UPLOAD_URL = END_POINT + '/file';
 
 const ProjectForm: React.FC<FormComponentProps & {
   ind?: number;
@@ -57,6 +69,39 @@ const ProjectForm: React.FC<FormComponentProps & {
     if (select === 'range') return setSelectRange(true);
     setSelectRange(false);
   }
+
+  function customRequestUpload(options: RcCustomRequestOptions) {
+    const data = new FormData();
+    data.append('file', options.file);
+    const config = {
+      headers: {
+        'content-type':
+          'multipart/form-data; boundary=----WebKitFormBoundaryqTqJIxvkWFYqvP5s',
+      },
+    };
+    i.instance
+      .post(options.action, data, config)
+      .then((res: any) => {
+        options.onSuccess(res.data, options.file);
+      })
+      .catch((err: Error) => {
+        console.log(err);
+      });
+  }
+
+  function normFile(e: any) {
+    // console.log('Upload event:', e);
+    // if (Array.isArray(e)) {
+    //   console.log('is arrayed');
+    //   return e;
+    // }
+    // when response
+    if (e.file && e.file.response) {
+      return e.file.response.id;
+    }
+    return e && e.fileList;
+  }
+
   return (
     <React.Fragment>
       <FormLabel step={2}>รายละเอียดโครงการ</FormLabel>
@@ -159,12 +204,32 @@ const ProjectForm: React.FC<FormComponentProps & {
         </Col>
       </Row>
 
-      {/* consult id */}
+      {/* consult name */}
       <Form.Item>
         <span style={labelStyles}>อาจารย์ที่ปรึกษาโครงการ</span>
         {getFieldDecorator('advisor', {
           rules: [DEFAULT_REQUIRED_RULES],
         })(<Input placeholder="ชื่อ - นามสกุล" />)}
+      </Form.Item>
+
+      {/* upload*/}
+      <Form.Item>
+        <span style={labelStyles}>อาจารย์ที่ปรึกษาโครงการ</span>
+        {getFieldDecorator('file', {
+          rules: [DEFAULT_REQUIRED_RULES],
+          getValueFromEvent: normFile,
+        })(
+          <Upload
+            name="logo"
+            action={UPLOAD_URL}
+            customRequest={customRequestUpload}
+            multiple={false}
+          >
+            <Badge style={{ fontWeight: 'normal', fontSize: '16' }}>
+              เลือกไฟล์
+            </Badge>
+          </Upload>,
+        )}
       </Form.Item>
 
       {/* action */}
