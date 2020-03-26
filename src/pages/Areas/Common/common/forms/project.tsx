@@ -90,12 +90,6 @@ const ProjectForm: React.FC<FormComponentProps & {
   }
 
   function normFile(e: any) {
-    // console.log('Upload event:', e);
-    // if (Array.isArray(e)) {
-    //   console.log('is arrayed');
-    //   return e;
-    // }
-    // when response
     if (e.file && e.file.response) {
       return e.file.response.id;
     }
@@ -214,10 +208,14 @@ const ProjectForm: React.FC<FormComponentProps & {
 
       {/* upload*/}
       <Form.Item>
-        <span style={labelStyles}>อาจารย์ที่ปรึกษาโครงการ</span>
+        <span style={labelStyles}>
+          อัพโหลดไฟล์โครงการ (*.pdf เท่านั้น)
+        </span>
         {getFieldDecorator('file', {
           rules: [DEFAULT_REQUIRED_RULES],
           getValueFromEvent: normFile,
+          initialValue: null,
+          valuePropName: 'fileList',
         })(
           <Upload
             name="logo"
