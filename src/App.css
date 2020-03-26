@@ -73,6 +73,17 @@ a:hover {
   border: none;
   border-bottom: 2px solid #d9d9d9;
 }
+
+/* Time Picker */
+.ant-time-picker-input {
+  border: 0px solid white;
+  border-bottom: 1px solid #d9d9d9;
+  box-shadow: none;
+  border-radius: 0px;
+  font-size: 16px;
+  line-height: 22px;
+}
+
 /* .ant-select-selection--single {
   padding-left: 8px;
 }
