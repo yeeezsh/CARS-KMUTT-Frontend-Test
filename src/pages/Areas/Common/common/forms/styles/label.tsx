@@ -4,6 +4,7 @@ const labelStyles: React.CSSProperties = {
   margin: 0,
   padding: 0,
   marginBottom: -8,
+  width: '100%',
 };
 
 export default labelStyles;

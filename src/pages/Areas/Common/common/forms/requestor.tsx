@@ -65,9 +65,10 @@ const RequestorForm: React.FC<FormComponentProps & {
       <Form.Item>
         {getFieldDecorator('userType', {
           rules: [DEFAULT_REQUIRED_RULES],
+          initialValue: 'student',
         })(
           <Row justify="space-around" type="flex">
-            <Radio.Group>
+            <Radio.Group defaultValue={'student'}>
               <Radio value="prof">อาจารย์</Radio>
               <Radio style={{ paddingLeft: 50 }} value="student">
                 นักศึกษา
@@ -86,6 +87,15 @@ const RequestorForm: React.FC<FormComponentProps & {
         })(<Input placeholder="รหัสนักศึกษา 11 หลัก" />)}
       </Form.Item>
 
+      {/* name id */}
+      <Form.Item>
+        <span style={labelStyles}>ชื่อ-นามสกุล</span>
+        {getFieldDecorator('name', {
+          rules: [DEFAULT_REQUIRED_RULES],
+          validateTrigger: ['onBlur'],
+        })(<Input placeholder="ชื่อ - นามสกุล" />)}
+      </Form.Item>
+
       {/* faculties */}
       <Form.Item>
         <span style={labelStyles}>คณะ</span>
@@ -93,7 +103,7 @@ const RequestorForm: React.FC<FormComponentProps & {
           rules: [DEFAULT_REQUIRED_RULES],
         })(
           <Select
-            onSelect={onFaculty}
+            onChange={onFaculty}
             style={{ width: '100%', margin: 0, padding: 0 }}
           >
             {faculties.map((e, i) => (
