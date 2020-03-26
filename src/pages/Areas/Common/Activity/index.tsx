@@ -16,6 +16,7 @@ import { RequestorForm } from '../common/forms';
 import BackCard from 'Components/BackCard';
 import Outline from 'Components/Outline';
 import { RootReducers } from 'Store/reducers';
+import ProjectForm from '../common/forms/project';
 
 // store
 // import areaFormStore from 'Store/areaForm';
@@ -91,9 +92,12 @@ const Activity: React.FC = () => {
         <Route path="/*1">
           <RequestorForm />
         </Route>
-        <Route path="/*2">2</Route>
+        <Route path="/*2">
+          <ProjectForm />
+        </Route>
         <Route path="/*3">3</Route>
       </Switch>
+
       <Row type="flex" justify="center">
         Content ja
       </Row>
