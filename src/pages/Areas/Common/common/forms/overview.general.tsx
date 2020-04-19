@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Form, Row, Col, Checkbox } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 import Button from 'Components/Button';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Outline from 'Components/Outline';
 import BreakingLine from 'Components/BreakingLine';
-import Badge from 'Components/Badge';
+import { RootReducers } from 'Store/reducers';
+import { RequestorForm } from './requestor';
+import { ProjectForm } from './project';
+import { FacilityForm } from './facility';
 
 // custom components
 const CustomBrakeLine: React.FC = () => (
@@ -67,6 +70,10 @@ const OverviewGeneralForm: React.FC<FormComponentProps & {
 }> = props => {
   const { validateFields } = props.form;
   const dispatch = useDispatch();
+  const formData = useSelector((s: RootReducers) => s.AreaFormReducers);
+  const requestorData: RequestorForm | undefined = formData?.forms[0];
+  const projectData: ProjectForm | undefined = formData?.forms[1];
+  const facilityData: FacilityForm | undefined = formData?.forms[2];
   // const canNext = useSelector(
   //   (s: RootReducers) => s.AreaFormReducers.canNext,
   // );
@@ -116,36 +123,87 @@ const OverviewGeneralForm: React.FC<FormComponentProps & {
         </CustomParagraph>
         <CustomLabel>วันที่จอง</CustomLabel>
         <CustomParagraph>
-          ตั้งแต่ 12 ธันวาคม 2562, 08.00 น. <br />
-          ถึง 13 ธันวาคม 2562, 18.00 น.
+          ตั้งแต่{' '}
+          {projectData &&
+            projectData.projectStartDate &&
+            projectData.projectStartDate.format('DD')}{' '}
+          {projectData &&
+            projectData.projectStartDate &&
+            projectData.projectStartDate.format('MMMM')}{' '}
+          {projectData &&
+            projectData.projectStartDate &&
+            projectData.projectStartDate.format('YYYY')}
+          ,{' '}
+          {projectData &&
+            projectData.projectStartTime &&
+            projectData.projectStartTime.format('HH.mm')}{' '}
+          น. <br />
+          ถึง{' '}
+          {projectData &&
+            projectData.projectStopDate &&
+            projectData.projectStopDate.format('DD')}{' '}
+          {projectData &&
+            projectData.projectStopDate &&
+            projectData.projectStopDate.format('MMMM')}{' '}
+          {projectData &&
+            projectData.projectStopDate &&
+            projectData.projectStopDate.format('YYYY')}
+          ,{' '}
+          {projectData &&
+            projectData.projectStopTime &&
+            projectData.projectStopTime.format('HH.mm')}{' '}
+          น.
         </CustomParagraph>
         <CustomBrakeLine />
         {/* project */}
         <CustomSubHeader>รายละเอียดผู้ขอใช้บริการ</CustomSubHeader>
         <CustomLabel>รหัสนักศึกษา</CustomLabel>
-        <CustomParagraph>60070501000</CustomParagraph>
+        <CustomParagraph>
+          {requestorData && requestorData.requestorId}
+        </CustomParagraph>
+
         <CustomLabel>ชื่อ-นามสกุล</CustomLabel>
-        <CustomParagraph>ณเดชน์ คุกิมิยะ</CustomParagraph>
+        <CustomParagraph>
+          {requestorData && requestorData.name}
+        </CustomParagraph>
+
         <CustomLabel>คณะ</CustomLabel>
-        <CustomParagraph>วิศวกรรมศาสตร์</CustomParagraph>
+        <CustomParagraph>
+          {requestorData && requestorData.faculty}
+        </CustomParagraph>
+
         <CustomLabel>ภาควิชา</CustomLabel>
-        <CustomParagraph>วิศวกรรมคอมพิวเตอร์</CustomParagraph>
-        <CustomLabel>ภาควิชา</CustomLabel>
-        <CustomParagraph>วิศวกรรมคอมพิวเตอร์</CustomParagraph>
+        <CustomParagraph>
+          {requestorData && requestorData.faculty}
+        </CustomParagraph>
+
         <CustomLabel>โทรศัพท์</CustomLabel>
-        <CustomParagraph>091-234-5678</CustomParagraph>
+        <CustomParagraph>
+          {requestorData && requestorData.phone}
+        </CustomParagraph>
         <CustomBrakeLine />
         {/* requestor */}
         <CustomSubHeader>รายละเอียดการใช้บริการ</CustomSubHeader>
         <CustomLabel>ชื่อโครงการ</CustomLabel>
-        <CustomParagraph>โครงการสวัสดีปีใหม่</CustomParagraph>
+        <CustomParagraph>
+          {projectData && projectData.projectName}
+        </CustomParagraph>
         <CustomLabel>ไฟล์โครงการที่แนบมาด้วย</CustomLabel>
         <CustomParagraph>
-          โครงการสวัสดีปีใหม่.pdf <DownloadBtn />
+          {/* โครงการสวัสดีปีใหม่.pdf <DownloadBtn /> */}
+          {projectData &&
+            projectData.files &&
+            projectData.files.map(e => (
+              <React.Fragment key={e.uid}>
+                {e.fileName} <DownloadBtn />
+              </React.Fragment>
+            ))}
         </CustomParagraph>
 
         <CustomLabel>อาจารย์ที่ปรึกษา</CustomLabel>
-        <CustomParagraph>ผศ.ดร.จอห์น โด</CustomParagraph>
+        <CustomParagraph>
+          {projectData && projectData.advisor}
+        </CustomParagraph>
 
         <CustomBrakeLine />
         {/* facility */}
@@ -154,15 +212,43 @@ const OverviewGeneralForm: React.FC<FormComponentProps & {
         </CustomSubHeader>
 
         <div>
-          <Checkbox checked={true}>
+          <Checkbox
+            checked={(facilityData && facilityData.airRequired) || false}
+            disabled={(facilityData && !facilityData.airRequired) || true}
+          >
             <b>เครื่องปรับอากาศ</b>
-            <p>ตั้งแต่เวลา 07.00 ถึงเวลา 18.00 น.</p>
+            {facilityData && facilityData.airRequired && (
+              <p>
+                ตั้งแต่เวลา{' '}
+                {facilityData &&
+                  facilityData.startAirTime?.format('HH.mm')}{' '}
+                ถึงเวลา{' '}
+                {facilityData && facilityData.stopAirTime?.format('HH.mm')}{' '}
+                น.
+              </p>
+            )}
           </Checkbox>
         </div>
 
-        <div style={{ marginTop: '-30px' }}>
-          <Checkbox checked={false} disabled={true}>
+        <div>
+          <Checkbox
+            checked={(facilityData && facilityData.soundRequired) || false}
+            disabled={
+              (facilityData && !facilityData.soundRequired) || true
+            }
+          >
             <b>เครื่องขยายเสียง</b>
+            {facilityData && facilityData.soundRequired && (
+              <p>
+                ตั้งแต่เวลา{' '}
+                {facilityData &&
+                  facilityData.startSoundTime?.format('HH.mm')}{' '}
+                ถึงเวลา{' '}
+                {facilityData &&
+                  facilityData.startSoundTime?.format('HH.mm')}{' '}
+                น.
+              </p>
+            )}
           </Checkbox>
         </div>
 
