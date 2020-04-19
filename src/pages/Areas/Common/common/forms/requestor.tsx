@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Form, Radio, Row, Col, Input, Select } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 import Button from 'Components/Button';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootReducers } from 'Store/reducers';
+import { useDispatch } from 'react-redux';
 import labelStyles from './styles/label';
 import { faculties, Department } from 'Models/forms/department';
 import { DEFAULT_REQUIRED_RULES } from './rules/required';
@@ -60,7 +59,7 @@ const RequestorForm: React.FC<FormComponentProps & {
 
   return (
     <React.Fragment>
-      <FormLabel step={1}>รายละเอียดผู้ขอใช้บริการ</FormLabel>
+      <FormLabel step={CUR_IND + 1}>รายละเอียดผู้ขอใช้บริการ</FormLabel>
       {/* user type */}
       <Form.Item>
         {getFieldDecorator('userType', {

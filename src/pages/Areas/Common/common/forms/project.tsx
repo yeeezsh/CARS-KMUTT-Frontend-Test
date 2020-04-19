@@ -100,7 +100,7 @@ const ProjectForm: React.FC<FormComponentProps & {
 
   return (
     <React.Fragment>
-      <FormLabel step={2}>รายละเอียดโครงการ</FormLabel>
+      <FormLabel step={CUR_IND + 1}>รายละเอียดโครงการ</FormLabel>
 
       {/* name id */}
       <Form.Item>
