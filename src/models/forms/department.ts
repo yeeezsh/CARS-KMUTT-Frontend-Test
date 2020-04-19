@@ -8,16 +8,21 @@ export type Faculty = Array<Select & { departments: Select[] }>;
 export const faculties: Faculty = [
   {
     label: 'คณะวิศวกรรมศาสตร์',
-    value: 'enginnering',
-    departments: [{ label: 'ภาควิชาวิศวกรรมคอมพิวเตอร์', value: 'CPE' }],
+    value: 'คณะวิศวกรรมศาสตร์',
+    departments: [
+      {
+        label: 'ภาควิชาวิศวกรรมคอมพิวเตอร์',
+        value: 'ภาควิชาวิศวกรรมคอมพิวเตอร์',
+      },
+    ],
   },
   {
     label: 'คณะวิทยาศาสตร์',
-    value: 'science',
+    value: 'คณะวิทยาศาสตร์',
     departments: [
       {
         label: 'เคมี',
-        value: 'CHEM',
+        value: 'เคมี',
       },
     ],
   },
