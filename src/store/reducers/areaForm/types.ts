@@ -41,7 +41,7 @@ export type AreaFormActionTypes =
   | SetFormCurDataFormAction;
 
 export interface AreaFormState {
-  forms: Array<{}>;
+  forms: Array<any>;
   canNext: boolean;
   step: number;
   area: {};
