@@ -15,7 +15,10 @@ import {
 } from 'antd';
 import { RadioChangeEvent } from 'antd/lib/radio';
 import Button from 'Components/Button';
-import { RcCustomRequestOptions } from 'antd/lib/upload/interface';
+import {
+  RcCustomRequestOptions,
+  UploadFile,
+} from 'antd/lib/upload/interface';
 import i, { END_POINT } from 'Models/axios.interface';
 import Badge from 'Components/Badge';
 import { Moment } from 'moment';
@@ -32,7 +35,7 @@ export interface ProjectForm {
   projectStartTime: Moment;
   projectStopTime: Moment;
   advisor: string;
-  files: string[];
+  files: Array<UploadFile>;
 }
 
 // constant
@@ -109,8 +112,13 @@ const ProjectForm: React.FC<FormComponentProps & {
 
   function normFile(e: any) {
     // if (e.file && e.file.response) {
-    //   return e.file.response.id;
+    //   return {
+    //     ...e,
+    //     id: e.file.response.id,
+    //     fieldname: e.file.response.fieldname,
+    //   };
     // }
+    console.log('norm file', e);
     return e && e.fileList;
   }
 
