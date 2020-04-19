@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Row, Col } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Row, Col, Icon } from 'antd';
 import { Switch, Route, useHistory, useLocation } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -21,6 +21,8 @@ import { RequestorForm } from '../common/forms';
 import ProjectForm from '../common/forms/project';
 import FacilityForm from '../common/forms/facility';
 import OverviewGeneralForm from '../common/forms/overview.general';
+import { buildingAPI } from 'Models/building';
+import { BuildingInfo } from 'Models/building/interface';
 
 // constant
 const MAX_STEPS = 3;
@@ -32,8 +34,14 @@ const Activity: React.FC = () => {
   const history = useHistory();
   const location = useLocation().pathname;
 
+  const areaId = location.split('/')[3];
+
+  const [building, setBuilding] = useState<BuildingInfo>();
+
+  // once
   useEffect(() => {
     dispatch({ type: 'INIT_FORM', payload: { size: 4 } });
+    buildingAPI.getBuildingInfo(areaId).then(area => setBuilding(area));
   }, []);
 
   // when steps change
@@ -85,7 +93,9 @@ const Activity: React.FC = () => {
         {steps !== MAX_STEPS && (
           <Col style={{ marginBottom: '-8px' }} span={24}>
             <Row type="flex" justify="start">
-              <Badge>test ja</Badge>
+              <Badge>
+                {building ? building?.label : <Icon type="loading" />}
+              </Badge>
             </Row>
           </Col>
         )}
