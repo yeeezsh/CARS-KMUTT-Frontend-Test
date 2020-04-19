@@ -18,6 +18,22 @@ import Button from 'Components/Button';
 import { RcCustomRequestOptions } from 'antd/lib/upload/interface';
 import i, { END_POINT } from 'Models/axios.interface';
 import Badge from 'Components/Badge';
+import { Moment } from 'moment';
+
+type DateType = 'oneday' | 'range';
+export interface ProjectForm {
+  projectName: string;
+  dateType: DateType;
+  startDate: Moment;
+  stopDate: Moment;
+  projectDate: Moment;
+  projectStartDate: Moment;
+  projectStopDate?: Moment;
+  projectStartTime: Moment;
+  projectStopTime: Moment;
+  advisor: string;
+  files: string[];
+}
 
 // constant
 const CUR_IND = 1;
@@ -65,7 +81,6 @@ const ProjectForm: React.FC<FormComponentProps & {
   }
 
   function onDateType(e: RadioChangeEvent) {
-    type DateType = 'oneday' | 'range';
     const select: DateType = e.target.value;
     if (select === 'range') return setSelectRange(true);
     setSelectRange(false);
@@ -136,7 +151,7 @@ const ProjectForm: React.FC<FormComponentProps & {
           <Col span={12}>
             <Form.Item>
               <span style={labelStyles}>ตั้งแต่วันที่</span>
-              {getFieldDecorator('startDate', {
+              {getFieldDecorator('projectStartDate', {
                 rules: [DEFAULT_REQUIRED_RULES],
                 initialValue: null,
               })(
@@ -152,7 +167,7 @@ const ProjectForm: React.FC<FormComponentProps & {
           <Col span={12}>
             <Form.Item>
               <span style={labelStyles}>ถึงวันที่</span>
-              {getFieldDecorator('stopDate', {
+              {getFieldDecorator('projectStopDate', {
                 rules: [DEFAULT_REQUIRED_RULES],
                 initialValue: null,
               })(
@@ -173,7 +188,7 @@ const ProjectForm: React.FC<FormComponentProps & {
           <Col span={24}>
             <Form.Item>
               <span style={labelStyles}>วันที่</span>
-              {getFieldDecorator('date', {
+              {getFieldDecorator('projectStartDate', {
                 rules: [DEFAULT_REQUIRED_RULES],
                 initialValue: null,
               })(
@@ -193,7 +208,7 @@ const ProjectForm: React.FC<FormComponentProps & {
         <Col span={12}>
           <Form.Item>
             <span style={labelStyles}>ตั้งแต่เวลา</span>
-            {getFieldDecorator('startTime', {
+            {getFieldDecorator('projectStartTime', {
               rules: [DEFAULT_REQUIRED_RULES],
               initialValue: null,
             })(
@@ -209,7 +224,7 @@ const ProjectForm: React.FC<FormComponentProps & {
         <Col span={12}>
           <Form.Item>
             <span style={labelStyles}>ถึงเวลา</span>
-            {getFieldDecorator('stopTime', {
+            {getFieldDecorator('projectStopTime', {
               rules: [DEFAULT_REQUIRED_RULES],
               initialValue: null,
             })(
@@ -235,7 +250,7 @@ const ProjectForm: React.FC<FormComponentProps & {
         <span style={labelStyles}>
           อัพโหลดไฟล์โครงการ (*.pdf เท่านั้น)
         </span>
-        {getFieldDecorator('file', {
+        {getFieldDecorator('files', {
           rules: [DEFAULT_REQUIRED_RULES],
           getValueFromEvent: normFile,
           initialValue: [],
