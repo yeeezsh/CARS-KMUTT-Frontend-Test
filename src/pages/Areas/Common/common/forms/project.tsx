@@ -87,12 +87,14 @@ const ProjectForm: React.FC<FormComponentProps & {
       .catch((err: Error) => {
         console.log(err);
       });
+
+    return;
   }
 
   function normFile(e: any) {
-    if (e.file && e.file.response) {
-      return e.file.response.id;
-    }
+    // if (e.file && e.file.response) {
+    //   return e.file.response.id;
+    // }
     return e && e.fileList;
   }
 
@@ -214,7 +216,7 @@ const ProjectForm: React.FC<FormComponentProps & {
         {getFieldDecorator('file', {
           rules: [DEFAULT_REQUIRED_RULES],
           getValueFromEvent: normFile,
-          initialValue: null,
+          initialValue: [],
           valuePropName: 'fileList',
         })(
           <Upload
