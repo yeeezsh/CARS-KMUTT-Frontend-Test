@@ -12,15 +12,14 @@ import sharedStyles from '../common/styles/styles.module.css';
 import StateSteps from 'Components/StateSteps';
 import Badge from 'Components/Badge';
 
-import { RequestorForm } from '../common/forms';
 import BackCard from 'Components/BackCard';
 import Outline from 'Components/Outline';
 import { RootReducers } from 'Store/reducers';
-import ProjectForm from '../common/forms/project';
 
-// store
-// import areaFormStore from 'Store/areaForm';
-// import { useDispatch, useStore, Provider } from 'react-redux';
+// forms
+import { RequestorForm } from '../common/forms';
+import ProjectForm from '../common/forms/project';
+import FacilityForm from '../common/forms/facility';
 
 const Activity: React.FC = () => {
   const forms = useSelector((s: RootReducers) => s.AreaFormReducers);
@@ -95,11 +94,11 @@ const Activity: React.FC = () => {
         <Route path="/*2">
           <ProjectForm />
         </Route>
-        <Route path="/*3">3</Route>
+        <Route path="/*3"></Route>
       </Switch>
 
       <Row type="flex" justify="center">
-        Content ja
+        <FacilityForm />
       </Row>
     </PageLayout>
   );
