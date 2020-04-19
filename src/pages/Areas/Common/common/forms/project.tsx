@@ -22,6 +22,7 @@ import Badge from 'Components/Badge';
 // constant
 const CUR_IND = 1;
 const PLACEHOLDER_DATE = 'DD/MM/YYYY';
+const DATE_FORMAT = 'DD/MM/YYYY';
 const PLACEHOLDER_TIME = '00:00';
 const UPLOAD_URL = END_POINT + '/file';
 
@@ -128,7 +129,7 @@ const ProjectForm: React.FC<FormComponentProps & {
         </div>
       </Form.Item>
 
-      {/* DATE SELECTOR  */}
+      {/* DATE RANGE SELECTOR  */}
       {selectRange && (
         <Row type="flex" justify="center">
           {/* START */}
@@ -140,7 +141,7 @@ const ProjectForm: React.FC<FormComponentProps & {
                 initialValue: null,
               })(
                 <DatePicker
-                  format={['DD/MM/YYYY']}
+                  format={[DATE_FORMAT]}
                   placeholder={PLACEHOLDER_DATE}
                 />,
               )}
@@ -156,7 +157,28 @@ const ProjectForm: React.FC<FormComponentProps & {
                 initialValue: null,
               })(
                 <DatePicker
-                  format={['DD/MM/YYYY']}
+                  format={[DATE_FORMAT]}
+                  placeholder={PLACEHOLDER_DATE}
+                />,
+              )}
+            </Form.Item>
+          </Col>
+        </Row>
+      )}
+
+      {/* ONE DATE SELECTOR */}
+      {!selectRange && (
+        <Row type="flex" justify="center">
+          {/* START */}
+          <Col span={24}>
+            <Form.Item>
+              <span style={labelStyles}>วันที่</span>
+              {getFieldDecorator('date', {
+                rules: [DEFAULT_REQUIRED_RULES],
+                initialValue: null,
+              })(
+                <DatePicker
+                  format={[DATE_FORMAT]}
                   placeholder={PLACEHOLDER_DATE}
                 />,
               )}
