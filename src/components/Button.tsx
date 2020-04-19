@@ -35,7 +35,7 @@ const Button: React.FunctionComponent<{
   type?: Style['type'];
   style?: React.CSSProperties;
   fontSize?: number;
-  padding?: string;
+  padding?: string | number;
   fontColor?: string;
   margin?: string;
 }> = props => {
