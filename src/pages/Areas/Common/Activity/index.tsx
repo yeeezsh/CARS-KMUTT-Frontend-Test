@@ -94,12 +94,10 @@ const Activity: React.FC = () => {
         <Route path="/*2">
           <ProjectForm />
         </Route>
-        <Route path="/*3"></Route>
+        <Route path="/*3">
+          <FacilityForm />
+        </Route>
       </Switch>
-
-      <Row type="flex" justify="center">
-        <FacilityForm />
-      </Row>
     </PageLayout>
   );
 };
