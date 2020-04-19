@@ -4,15 +4,16 @@ import { Col, Row } from 'antd';
 const BreakingLine: React.FunctionComponent<{
   lineSize?: number;
   color?: string;
+  space?: number;
 }> = props => {
-  const { lineSize, color } = props;
+  const { lineSize, color, space } = props;
   return (
     <Row type="flex" justify="center">
       <Col span={22}>
         <div
           style={{
             border: `${lineSize || 1}px solid ${color || '#DADADA'}`,
-            marginTop: '-4px',
+            margin: `${space || 6}px`,
           }}
         />
       </Col>
