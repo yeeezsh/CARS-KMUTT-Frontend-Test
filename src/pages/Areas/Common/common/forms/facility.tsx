@@ -1,17 +1,27 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Radio, Row, Col, Input, Select } from 'antd';
+import { Form, Row, Col, Checkbox, TimePicker } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 import Button from 'Components/Button';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootReducers } from 'Store/reducers';
-import labelStyles from './styles/label';
-import { faculties, Department } from 'Models/forms/department';
-import { DEFAULT_REQUIRED_RULES } from './rules/required';
-import { DEFAULT_USERNAME_RULES } from './rules/username';
+import { useDispatch } from 'react-redux';
 import FormLabel from 'Components/FormLabel';
+
+// shared
+import { DEFAULT_REQUIED_MSG } from './rules/required';
+import fontOrangeBold from './styles/font.orange.bold';
+import labelStyles from './styles/label';
+
+// styles
+const DIV_SPACES: React.CSSProperties = {
+  marginTop: -36,
+};
+const TIME_PICKER_STYLES: React.CSSProperties = {
+  width: '100%',
+};
 
 // constant
 const CUR_IND = 2;
+const PLACEHOLDER_TIME = '00:00';
+const TIME_FORMAT = 'HH:mm';
 const FacilityForm: React.FC<FormComponentProps & {
   ind?: number;
 }> = props => {
@@ -51,18 +61,126 @@ const FacilityForm: React.FC<FormComponentProps & {
     });
   }
 
-  const [departments, setDepartment] = useState<Department>([]);
-  function onFaculty(value: string) {
-    console.log('on faculty', value);
-    const selectedDepartment = faculties.find(e => e.value === value);
-    setDepartment(selectedDepartment?.departments || []);
-  }
+  const [air, setAir] = useState<boolean>(false);
+  const [sound, setSound] = useState<boolean>(false);
 
   return (
     <React.Fragment>
       <FormLabel step={CUR_IND}>
         เครื่องปรับอากาศและเครื่องขยายเสียง
       </FormLabel>
+
+      {/* air */}
+      <Form.Item>
+        {getFieldDecorator('airRequired', {
+          valuePropName: 'checked',
+          initialValue: false,
+        })(
+          <Checkbox onChange={() => setAir(!air)}>
+            <span style={fontOrangeBold}>เครื่องปรับอากาศ</span>
+          </Checkbox>,
+        )}
+      </Form.Item>
+
+      {/* timer selector */}
+      <div
+        style={{
+          ...{ filter: !air ? 'grayscale(100%)' : '' },
+          ...DIV_SPACES,
+        }}
+      >
+        {/* start air time */}
+        <Row type="flex" justify="space-between">
+          <Col span={10}>
+            <Form.Item>
+              <span style={labelStyles}>ตั้งแต่เวลา</span>
+              {getFieldDecorator('startAirTime', {
+                rules: [{ required: air, message: DEFAULT_REQUIED_MSG }],
+              })(
+                <TimePicker
+                  style={TIME_PICKER_STYLES}
+                  disabled={!air}
+                  format={TIME_FORMAT}
+                  placeholder={PLACEHOLDER_TIME}
+                />,
+              )}
+            </Form.Item>
+          </Col>
+
+          {/* stop air time */}
+          <Col span={10}>
+            <Form.Item>
+              <span style={labelStyles}>ถึงเวลา</span>
+              {getFieldDecorator('stopAirTime', {
+                rules: [{ required: air, message: DEFAULT_REQUIED_MSG }],
+              })(
+                <TimePicker
+                  style={TIME_PICKER_STYLES}
+                  disabled={!air}
+                  format={TIME_FORMAT}
+                  placeholder={PLACEHOLDER_TIME}
+                />,
+              )}
+            </Form.Item>
+          </Col>
+        </Row>
+      </div>
+
+      {/* sound */}
+      <Form.Item>
+        {getFieldDecorator('soundRequired', {
+          valuePropName: 'checked',
+          initialValue: false,
+        })(
+          <Checkbox onChange={() => setSound(!sound)}>
+            <span style={fontOrangeBold}>เครื่องขยายเสียง</span>
+          </Checkbox>,
+        )}
+      </Form.Item>
+
+      {/* timer selector */}
+      <div
+        style={{
+          ...{ filter: !sound ? 'grayscale(100%)' : '' },
+          ...DIV_SPACES,
+        }}
+      >
+        {/* start sound time */}
+        <Row type="flex" justify="space-between">
+          <Col span={10}>
+            <Form.Item>
+              <span style={labelStyles}>ตั้งแต่เวลา</span>
+              {getFieldDecorator('startSoundTime', {
+                rules: [{ required: sound, message: DEFAULT_REQUIED_MSG }],
+              })(
+                <TimePicker
+                  style={TIME_PICKER_STYLES}
+                  disabled={!sound}
+                  format={TIME_FORMAT}
+                  placeholder={PLACEHOLDER_TIME}
+                />,
+              )}
+            </Form.Item>
+          </Col>
+
+          {/* stop sound time */}
+          <Col span={10}>
+            <Form.Item>
+              <span style={labelStyles}>ถึงเวลา</span>
+              {getFieldDecorator('stopSoundTime', {
+                rules: [{ required: sound, message: DEFAULT_REQUIED_MSG }],
+              })(
+                <TimePicker
+                  style={TIME_PICKER_STYLES}
+                  disabled={!sound}
+                  format={TIME_FORMAT}
+                  placeholder={PLACEHOLDER_TIME}
+                />,
+              )}
+            </Form.Item>
+          </Col>
+        </Row>
+      </div>
 
       {/* action */}
       <Col span={24}>
