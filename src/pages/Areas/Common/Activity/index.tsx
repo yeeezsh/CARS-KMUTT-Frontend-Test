@@ -20,6 +20,10 @@ import { RootReducers } from 'Store/reducers';
 import { RequestorForm } from '../common/forms';
 import ProjectForm from '../common/forms/project';
 import FacilityForm from '../common/forms/facility';
+import OverviewGeneralForm from '../common/forms/overview.general';
+
+// constant
+const MAX_STEPS = 3;
 
 const Activity: React.FC = () => {
   const forms = useSelector((s: RootReducers) => s.AreaFormReducers);
@@ -65,27 +69,33 @@ const Activity: React.FC = () => {
         </Col>
 
         {/* back card */}
-        <Col style={{ marginTop: '4px', marginBottom: '4px' }} span={10}>
+        <Col style={{ marginTop: '4px', marginBottom: '4px' }} span={14}>
           <BackCard
           // onClick={}
           >
-            {steps === 0 ? 'เลือกประเภทกิจกรรม' : stepsList[steps].desc}
+            {steps === 0
+              ? 'เลือกประเภทกิจกรรม'
+              : stepsList[steps - 1].desc}
             {/* {backCard[step - 1]} */}
           </BackCard>
         </Col>
 
         {/* Badge */}
-        <Col style={{ marginBottom: '-8px' }} span={24}>
-          <Row type="flex" justify="start">
-            <Badge>test ja</Badge>
-          </Row>
-        </Col>
+        {/* when overview hide this */}
+        {steps !== MAX_STEPS && (
+          <Col style={{ marginBottom: '-8px' }} span={24}>
+            <Row type="flex" justify="start">
+              <Badge>test ja</Badge>
+            </Row>
+          </Col>
+        )}
       </Row>
 
       {/* spacing between fixed inner header */}
       <div style={{ height: '145px' }} />
 
-      <Outline>ฟอร์มขอใช้บริการ</Outline>
+      {/* when overview hide this */}
+      {steps !== MAX_STEPS && <Outline>ฟอร์มขอใช้บริการ</Outline>}
 
       <Switch>
         <Route path="/*1">
@@ -96,6 +106,9 @@ const Activity: React.FC = () => {
         </Route>
         <Route path="/*3">
           <FacilityForm />
+        </Route>
+        <Route path="/*3">
+          <OverviewGeneralForm />
         </Route>
       </Switch>
     </PageLayout>
