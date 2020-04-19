@@ -9,6 +9,16 @@ import { DEFAULT_REQUIRED_RULES } from './rules/required';
 import { DEFAULT_USERNAME_RULES } from './rules/username';
 import FormLabel from 'Components/FormLabel';
 
+export interface RequestorForm {
+  userType: string;
+  requestorId: string;
+  name: string;
+  faculty: string;
+  department: string;
+  year: string;
+  phone: string;
+}
+
 // constant
 const CUR_IND = 0;
 const RequestorForm: React.FC<FormComponentProps & {
