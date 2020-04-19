@@ -12,3 +12,11 @@ export interface BuildingTableAPI {
     label: string;
   }>;
 }
+
+export interface BuildingInfo {
+  _id: string;
+  key: string;
+  name: string;
+  label: string;
+  type: BuildingType;
+}
