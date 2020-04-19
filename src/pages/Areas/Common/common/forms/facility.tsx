@@ -5,10 +5,20 @@ import Button from 'Components/Button';
 import { useDispatch } from 'react-redux';
 import FormLabel from 'Components/FormLabel';
 
+export interface FacilityForm {
+  airRequired: boolean;
+  startAirTime?: Moment;
+  stopAirTime?: Moment;
+  soundRequired: boolean;
+  startSoundTime?: Moment;
+  stopSoundTime?: Moment;
+}
+
 // shared
 import { DEFAULT_REQUIED_MSG } from './rules/required';
 import fontOrangeBold from './styles/font.orange.bold';
 import labelStyles from './styles/label';
+import { Moment } from 'moment';
 
 // styles
 const DIV_SPACES: React.CSSProperties = {
