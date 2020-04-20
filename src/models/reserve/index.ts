@@ -11,7 +11,7 @@ class ReservedClass {
       console.log('cur state', curState);
       return {
         _id: e._id,
-        name: e.area.label,
+        name: e && e.area && e.area.label,
         reserve: {
           date: moment(e.reserve[0].start),
           start: moment(e.reserve[0].start),
