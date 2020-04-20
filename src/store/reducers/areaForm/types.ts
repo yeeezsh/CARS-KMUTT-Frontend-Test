@@ -6,6 +6,7 @@ export const SUBMIT_FORM = 'SUBMIT_FORM';
 export const FILL_FORM = 'FILL_FORM';
 export const SET_FORM_CUR = 'SET_FORM_CUR';
 export const SET_AREA_INFO = 'SET_AREA_INFO';
+export const FINISH_FORM = 'FINISH_FORM';
 
 interface AddDataFormAction {
   type: typeof ADD_FORM;
@@ -34,7 +35,9 @@ interface SetAreaInfoFormAction {
   type: typeof SET_AREA_INFO;
   payload: AreaInfo;
 }
-
+interface FinishFormAction {
+  type: typeof FINISH_FORM;
+}
 type AreaInfo = {
   _id: string;
   name: string;
@@ -53,11 +56,13 @@ export type AreaFormActionTypes =
   | SubmitDataFormAction
   | FillDataFormAction
   | SetFormCurDataFormAction
-  | SetAreaInfoFormAction;
+  | SetAreaInfoFormAction
+  | FinishFormAction;
 
 export interface AreaFormState {
   forms: Array<any>;
   canNext: boolean;
   step: number;
   area?: AreaInfo;
+  finish: boolean;
 }

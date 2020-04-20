@@ -4,6 +4,7 @@ const initState: AreaFormState = {
   forms: [],
   canNext: false,
   step: 0,
+  finish: false,
 };
 
 export const AreaFormReducers = (
@@ -43,6 +44,8 @@ export const AreaFormReducers = (
       };
     case 'SET_AREA_INFO':
       return { ...state, area: action.payload };
+    case 'FINISH_FORM':
+      return { ...state, finish: true };
     default:
       return state;
   }

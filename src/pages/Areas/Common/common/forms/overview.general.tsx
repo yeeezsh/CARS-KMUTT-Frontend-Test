@@ -83,9 +83,6 @@ const OverviewGeneralForm: React.FC<FormComponentProps & {
   const requestorData: RequestorForm | undefined = formData?.forms[0];
   const projectData: ProjectForm | undefined = formData?.forms[1];
   const facilityData: FacilityForm | undefined = formData?.forms[2];
-  // const canNext = useSelector(
-  //   (s: RootReducers) => s.AreaFormReducers.canNext,
-  // );
 
   //   set index when form is loaded
   useEffect(() => {
@@ -112,7 +109,7 @@ const OverviewGeneralForm: React.FC<FormComponentProps & {
             valid: true,
           },
         });
-        dispatch({ type: 'SUBMIT_FORM' });
+        dispatch({ type: 'FINISH_FORM' });
       }
     });
   }
