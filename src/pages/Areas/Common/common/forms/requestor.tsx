@@ -34,16 +34,6 @@ const RequestorForm: React.FC<FormComponentProps & {
 
   const [userType, setUserType] = useState<UserType>('student');
 
-  // console.log(data);
-
-  //   set index when form is loaded
-  useEffect(() => {
-    dispatch({
-      type: 'SET_FORM_CUR',
-      payload: { cur: props.ind || CUR_IND },
-    });
-  }, []);
-
   function onSubmit() {
     validateFields((err, values) => {
       dispatch({
@@ -73,6 +63,18 @@ const RequestorForm: React.FC<FormComponentProps & {
     setDepartment(selectedDepartment?.departments || []);
   }
 
+  //   set index when form is loaded
+  useEffect(() => {
+    dispatch({
+      type: 'SET_FORM_CUR',
+      payload: { cur: props.ind || CUR_IND },
+    });
+    // fix issues disabled when load old data forms
+    if (data.faculty) {
+      onFaculty(data.faculty);
+    }
+  }, []);
+
   return (
     <React.Fragment>
       <FormLabel step={CUR_IND + 1}>รายละเอียดผู้ขอใช้บริการ</FormLabel>
@@ -85,7 +87,7 @@ const RequestorForm: React.FC<FormComponentProps & {
           <Row justify="space-around" type="flex">
             <Radio.Group
               onChange={e => setUserType(e.target.value)}
-              defaultValue={'student'}
+              defaultValue={data.userType || 'student'}
             >
               <Radio value="prof">อาจารย์</Radio>
               <Radio style={{ paddingLeft: 50 }} value="student">
