@@ -177,6 +177,15 @@ const OverviewGeneralForm: React.FC<FormComponentProps & {
           {requestorData && requestorData.faculty}
         </CustomParagraph>
 
+        {requestorData && requestorData.studentYear && (
+          <React.Fragment>
+            <CustomLabel>ชั้นปีที่ </CustomLabel>
+            <CustomParagraph>
+              {requestorData && requestorData.studentYear}
+            </CustomParagraph>
+          </React.Fragment>
+        )}
+
         <CustomLabel>โทรศัพท์</CustomLabel>
         <CustomParagraph>
           {requestorData && requestorData.phone}
