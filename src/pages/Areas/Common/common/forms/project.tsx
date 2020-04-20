@@ -45,6 +45,7 @@ const PLACEHOLDER_DATE = 'DD/MM/YYYY';
 const DATE_FORMAT = 'DD/MM/YYYY';
 const PLACEHOLDER_TIME = '00:00';
 const UPLOAD_URL = END_POINT + '/file';
+const DOWNLOAD_URL = END_POINT + '/file';
 
 const ProjectForm: React.FC<FormComponentProps & {
   ind?: number;
@@ -276,6 +277,7 @@ const ProjectForm: React.FC<FormComponentProps & {
             action={UPLOAD_URL}
             customRequest={customRequestUpload}
             multiple={false}
+            // onDownload
           >
             <Badge
               style={{

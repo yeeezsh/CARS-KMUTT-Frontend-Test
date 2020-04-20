@@ -10,6 +10,7 @@ import { RootReducers } from 'Store/reducers';
 import { RequestorForm } from './requestor';
 import { ProjectForm } from './project';
 import { FacilityForm } from './facility';
+import { END_POINT } from 'Models/axios.interface';
 
 // custom components
 const CustomBrakeLine: React.FC = () => (
@@ -34,7 +35,9 @@ const CustomLabel: React.FC = props => (
   </p>
 );
 
-const DownloadBtn: React.FC = () => (
+const DownloadBtn: React.FC<{
+  onClick?: () => void;
+}> = props => (
   <Button
     fontColor="#1890FF"
     fontSize={12}
@@ -45,6 +48,7 @@ const DownloadBtn: React.FC = () => (
       padding: 0,
       backgroundColor: '#E6F7FF',
     }}
+    onClick={props.onClick}
   >
     ดาวน์โหลด
   </Button>
@@ -64,6 +68,7 @@ const CustomParagraph: React.FC = props => (
 );
 
 // constant
+const DOWNLOAD_URL = END_POINT + '/file';
 const CUR_IND = 3;
 const OverviewGeneralForm: React.FC<FormComponentProps & {
   ind?: number;
@@ -108,10 +113,17 @@ const OverviewGeneralForm: React.FC<FormComponentProps & {
     });
   }
 
+  function onDownload(id: string) {
+    window.open(DOWNLOAD_URL + '/' + id);
+  }
+
   return (
     <React.Fragment>
       <Col
-        style={{ border: '1px solid #1890FF', padding: '16px' }}
+        style={{
+          border: '1px solid #1890FF',
+          padding: '0px 16px 16px 16px',
+        }}
         span={24}
       >
         <Outline style={{ color: '#1890FF' }}>ข้อมูลการจอง</Outline>
@@ -123,6 +135,7 @@ const OverviewGeneralForm: React.FC<FormComponentProps & {
         </CustomParagraph>
         <CustomLabel>วันที่จอง</CustomLabel>
         <CustomParagraph>
+          {/* start date */}
           ตั้งแต่{' '}
           {projectData &&
             projectData.projectStartDate &&
@@ -138,21 +151,26 @@ const OverviewGeneralForm: React.FC<FormComponentProps & {
             projectData.projectStartTime &&
             projectData.projectStartTime.format('HH.mm')}{' '}
           น. <br />
-          ถึง{' '}
-          {projectData &&
-            projectData.projectStopDate &&
-            projectData.projectStopDate.format('DD')}{' '}
-          {projectData &&
-            projectData.projectStopDate &&
-            projectData.projectStopDate.format('MMMM')}{' '}
-          {projectData &&
-            projectData.projectStopDate &&
-            projectData.projectStopDate.format('YYYY')}
-          ,{' '}
-          {projectData &&
-            projectData.projectStopTime &&
-            projectData.projectStopTime.format('HH.mm')}{' '}
-          น.
+          {/* stop date */}
+          {projectData && projectData.projectStopDate && (
+            <React.Fragment>
+              ถึง{' '}
+              {projectData &&
+                projectData.projectStopDate &&
+                projectData.projectStopDate.format('DD')}{' '}
+              {projectData &&
+                projectData.projectStopDate &&
+                projectData.projectStopDate.format('MMMM')}{' '}
+              {projectData &&
+                projectData.projectStopDate &&
+                projectData.projectStopDate.format('YYYY')}
+              ,{' '}
+              {projectData &&
+                projectData.projectStopTime &&
+                projectData.projectStopTime.format('HH.mm')}{' '}
+              น.
+            </React.Fragment>
+          )}
         </CustomParagraph>
         <CustomBrakeLine />
         {/* project */}
@@ -199,12 +217,12 @@ const OverviewGeneralForm: React.FC<FormComponentProps & {
         </CustomParagraph>
         <CustomLabel>ไฟล์โครงการที่แนบมาด้วย</CustomLabel>
         <CustomParagraph>
-          {/* โครงการสวัสดีปีใหม่.pdf <DownloadBtn /> */}
           {projectData &&
             projectData.files &&
             projectData.files.map(e => (
               <React.Fragment key={e.uid}>
-                {e.fileName} <DownloadBtn />
+                {e.name}{' '}
+                <DownloadBtn onClick={() => onDownload(e.response.id)} />
               </React.Fragment>
             ))}
         </CustomParagraph>
@@ -223,7 +241,7 @@ const OverviewGeneralForm: React.FC<FormComponentProps & {
         <div>
           <Checkbox
             checked={(facilityData && facilityData.airRequired) || false}
-            disabled={(facilityData && !facilityData.airRequired) || true}
+            disabled={facilityData && !facilityData.airRequired}
           >
             <b>เครื่องปรับอากาศ</b>
             {facilityData && facilityData.airRequired && (
@@ -242,9 +260,7 @@ const OverviewGeneralForm: React.FC<FormComponentProps & {
         <div>
           <Checkbox
             checked={(facilityData && facilityData.soundRequired) || false}
-            disabled={
-              (facilityData && !facilityData.soundRequired) || true
-            }
+            disabled={facilityData && !facilityData.soundRequired}
           >
             <b>เครื่องขยายเสียง</b>
             {facilityData && facilityData.soundRequired && (

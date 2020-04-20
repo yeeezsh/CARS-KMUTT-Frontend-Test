@@ -63,7 +63,10 @@ const Activity: React.FC = () => {
     if (steps === 0) {
       return history.push('/reserve/common/' + areaId + '/types');
     }
-    return history.goBack();
+    const oldPath = location;
+    const pathStep = steps + 1;
+    const backPath = oldPath.slice(0, -1) + (pathStep - 1);
+    return history.push(backPath);
   }
 
   return (
@@ -103,7 +106,7 @@ const Activity: React.FC = () => {
           <Col style={{ marginBottom: '-8px' }} span={24}>
             <Row type="flex" justify="start">
               <Badge>
-                {forms.area._id ? (
+                {forms.area?._id ? (
                   forms.area.label
                 ) : (
                   <Icon type="loading" />
