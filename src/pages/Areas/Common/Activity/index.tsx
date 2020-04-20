@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Row, Col, Icon } from 'antd';
 import { Switch, Route, useHistory, useLocation } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
@@ -22,7 +22,6 @@ import ProjectForm from '../common/forms/project';
 import FacilityForm from '../common/forms/facility';
 import OverviewGeneralForm from '../common/forms/overview.general';
 import { buildingAPI } from 'Models/building';
-import { BuildingInfo } from 'Models/building/interface';
 
 // constant
 const MAX_STEPS = 3;
@@ -36,12 +35,17 @@ const Activity: React.FC = () => {
 
   const areaId = location.split('/')[3];
 
-  const [building, setBuilding] = useState<BuildingInfo>();
+  // const [building, setBuilding] = useState<BuildingInfo>();
 
   // once
   useEffect(() => {
-    dispatch({ type: 'INIT_FORM', payload: { size: 4 } });
-    buildingAPI.getBuildingInfo(areaId).then(area => setBuilding(area));
+    if (forms.forms.length === 0) {
+      dispatch({ type: 'INIT_FORM', payload: { size: 4 } });
+    }
+    buildingAPI.getBuildingInfo(areaId).then(area => {
+      // setBuilding(area);
+      dispatch({ type: 'SET_AREA_INFO', payload: area });
+    });
   }, []);
 
   // when steps change
@@ -54,6 +58,13 @@ const Activity: React.FC = () => {
 
   // const [canNext, setCanNext] = useState(false);
   console.log('forms', forms);
+
+  function goBack() {
+    if (steps === 0) {
+      return history.push('/reserve/common/' + areaId + '/types');
+    }
+    return history.goBack();
+  }
 
   return (
     <PageLayout titile="จองพื้นที่ส่วนกลาง">
@@ -78,9 +89,7 @@ const Activity: React.FC = () => {
 
         {/* back card */}
         <Col style={{ marginTop: '4px', marginBottom: '4px' }} span={14}>
-          <BackCard
-          // onClick={}
-          >
+          <BackCard onClick={goBack}>
             {steps === 0
               ? 'เลือกประเภทกิจกรรม'
               : stepsList[steps - 1].desc}
@@ -94,7 +103,11 @@ const Activity: React.FC = () => {
           <Col style={{ marginBottom: '-8px' }} span={24}>
             <Row type="flex" justify="start">
               <Badge>
-                {building ? building?.label : <Icon type="loading" />}
+                {forms.area._id ? (
+                  forms.area.label
+                ) : (
+                  <Icon type="loading" />
+                )}
               </Badge>
             </Row>
           </Col>

@@ -42,6 +42,8 @@ export const AreaFormReducers = (
         ...state,
         step: action.payload.cur,
       };
+    case 'SET_AREA_INFO':
+      return { ...state, area: action.payload };
     default:
       return state;
   }

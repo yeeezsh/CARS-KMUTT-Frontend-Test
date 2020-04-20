@@ -12,7 +12,10 @@ const CommonPage: React.FC = () => {
   const history = useHistory();
 
   useEffect(() => {
-    commonAreaAPI.getBuilding().then(a => setAreas(a));
+    commonAreaAPI.getBuilding().then(a => {
+      console.log('common area api', a);
+      setAreas(a);
+    });
   }, []);
 
   return (
