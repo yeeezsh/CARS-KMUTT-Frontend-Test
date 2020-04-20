@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Row, Col, Icon } from 'antd';
 import { Switch, Route, useHistory, useLocation } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
@@ -41,6 +41,8 @@ import {
 } from '../common/forms';
 
 import { buildingAPI } from 'Models/building';
+import ConfirmModal from 'Components/AcceptedModal';
+import { taskFormAPI } from 'Models/task/form';
 
 // constant
 const MAX_STEPS = 3;
@@ -54,7 +56,13 @@ const Activity: React.FC = () => {
 
   const areaId = location.split('/')[3];
 
-  // const [building, setBuilding] = useState<BuildingInfo>();
+  // when steps change
+  useEffect(() => {
+    if (steps === 0) return;
+    const oldPath = location;
+    const newPath = oldPath.slice(0, -1) + (steps + 1);
+    history.push(newPath);
+  }, [steps]);
 
   // once
   useEffect(() => {
@@ -75,14 +83,6 @@ const Activity: React.FC = () => {
       });
   }, []);
 
-  // when steps change
-  useEffect(() => {
-    if (steps === 0) return;
-    const oldPath = location;
-    const newPath = oldPath.slice(0, -1) + (steps + 1);
-    history.push(newPath);
-  }, [steps]);
-
   // const [canNext, setCanNext] = useState(false);
   console.log('forms', forms);
 
@@ -96,8 +96,37 @@ const Activity: React.FC = () => {
     return history.push(backPath);
   }
 
+  function goHome() {
+    return history.push('/');
+  }
+
+  const [modal, setModal] = useState(false);
+
+  function sendData() {
+    taskFormAPI.createTask(forms);
+    return;
+  }
+
+  console.log('ready to send form', forms.finish);
+  if (forms.finish) {
+    sendData();
+    setModal(true);
+    // then reset form
+    dispatch({ type: 'INIT_FORM', payload: { size: 4 } });
+  }
+
   return (
     <PageLayout titile="จองพื้นที่ส่วนกลาง">
+      {/* confirm modal */}
+      <ConfirmModal
+        desc={{
+          main:
+            'เมื่ออาจารย์ที่ปรึกษาโครงการยืนยันการขอใช้สถานที่ระบบจึงจะส่งข้อมูลการจองไปยังเจ้าหน้าที่',
+        }}
+        visible={modal}
+        onClick={goHome}
+      />
+
       {/* Fixed header */}
       <Row
         className={sharedStyles.innerFixedHeader}
