@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Form, { FormComponentProps } from 'antd/lib/form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import FormLabel from 'Components/FormLabel';
 import labelStyles from './styles/label';
 import { DEFAULT_REQUIRED_RULES } from './rules/required';
@@ -22,6 +22,7 @@ import {
 import i, { END_POINT } from 'Models/axios.interface';
 import Badge from 'Components/Badge';
 import { Moment } from 'moment';
+import { RootReducers } from 'Store/reducers';
 
 type DateType = 'oneday' | 'range';
 export interface ProjectForm {
@@ -50,8 +51,12 @@ const ProjectForm: React.FC<FormComponentProps & {
 }> = props => {
   const { getFieldDecorator, validateFields } = props.form;
   const dispatch = useDispatch();
+  const { forms } = useSelector((s: RootReducers) => s.AreaFormReducers);
+  const data: ProjectForm = forms[CUR_IND];
 
-  const [selectRange, setSelectRange] = useState(true);
+  const [selectRange, setSelectRange] = useState(
+    data.dateType ? (data.dateType === 'range' ? true : false) : true,
+  );
 
   //   set index when form is loaded
   useEffect(() => {
@@ -131,6 +136,7 @@ const ProjectForm: React.FC<FormComponentProps & {
         <span style={labelStyles}>ชื่อโครงการ</span>
         {getFieldDecorator('projectName', {
           rules: [DEFAULT_REQUIRED_RULES],
+          initialValue: data.projectName || '',
         })(<Input placeholder="ชื่อโครงการ" />)}
       </Form.Item>
 
@@ -140,7 +146,7 @@ const ProjectForm: React.FC<FormComponentProps & {
         <div style={{ marginLeft: '25%' }}>
           {getFieldDecorator('dateType', {
             rules: [DEFAULT_REQUIRED_RULES],
-            initialValue: 'range',
+            initialValue: data.dateType || 'range',
           })(
             <Radio.Group onChange={onDateType}>
               <Radio value="oneday">วันเดียว</Radio>
@@ -161,7 +167,7 @@ const ProjectForm: React.FC<FormComponentProps & {
               <span style={labelStyles}>ตั้งแต่วันที่</span>
               {getFieldDecorator('projectStartDate', {
                 rules: [DEFAULT_REQUIRED_RULES],
-                initialValue: null,
+                initialValue: data.projectStartDate || null,
               })(
                 <DatePicker
                   format={[DATE_FORMAT]}
@@ -177,7 +183,7 @@ const ProjectForm: React.FC<FormComponentProps & {
               <span style={labelStyles}>ถึงวันที่</span>
               {getFieldDecorator('projectStopDate', {
                 rules: [DEFAULT_REQUIRED_RULES],
-                initialValue: null,
+                initialValue: data.projectStopDate || null,
               })(
                 <DatePicker
                   format={[DATE_FORMAT]}
@@ -198,7 +204,7 @@ const ProjectForm: React.FC<FormComponentProps & {
               <span style={labelStyles}>วันที่</span>
               {getFieldDecorator('projectStartDate', {
                 rules: [DEFAULT_REQUIRED_RULES],
-                initialValue: null,
+                initialValue: data.projectStartDate || null,
               })(
                 <DatePicker
                   format={[DATE_FORMAT]}
@@ -218,7 +224,7 @@ const ProjectForm: React.FC<FormComponentProps & {
             <span style={labelStyles}>ตั้งแต่เวลา</span>
             {getFieldDecorator('projectStartTime', {
               rules: [DEFAULT_REQUIRED_RULES],
-              initialValue: null,
+              initialValue: data.projectStartTime || null,
             })(
               <TimePicker
                 format={'HH:mm'}
@@ -234,7 +240,7 @@ const ProjectForm: React.FC<FormComponentProps & {
             <span style={labelStyles}>ถึงเวลา</span>
             {getFieldDecorator('projectStopTime', {
               rules: [DEFAULT_REQUIRED_RULES],
-              initialValue: null,
+              initialValue: data.projectStopTime || null,
             })(
               <TimePicker
                 format={'HH:mm'}
@@ -250,6 +256,7 @@ const ProjectForm: React.FC<FormComponentProps & {
         <span style={labelStyles}>อาจารย์ที่ปรึกษาโครงการ</span>
         {getFieldDecorator('advisor', {
           rules: [DEFAULT_REQUIRED_RULES],
+          initialValue: data.advisor || '',
         })(<Input placeholder="ชื่อ - นามสกุล" />)}
       </Form.Item>
 
@@ -261,7 +268,7 @@ const ProjectForm: React.FC<FormComponentProps & {
         {getFieldDecorator('files', {
           rules: [DEFAULT_REQUIRED_RULES],
           getValueFromEvent: normFile,
-          initialValue: [],
+          initialValue: data.files || [],
           valuePropName: 'fileList',
         })(
           <Upload
