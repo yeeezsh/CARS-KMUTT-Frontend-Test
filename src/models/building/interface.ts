@@ -15,7 +15,6 @@ export interface BuildingTableAPI {
 
 export interface BuildingInfo {
   _id: string;
-  key: string;
   name: string;
   label: string;
   type: BuildingType;
