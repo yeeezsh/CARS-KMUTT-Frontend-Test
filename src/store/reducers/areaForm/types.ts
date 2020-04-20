@@ -59,5 +59,5 @@ export interface AreaFormState {
   forms: Array<any>;
   canNext: boolean;
   step: number;
-  area: AreaInfo | {};
+  area?: AreaInfo;
 }

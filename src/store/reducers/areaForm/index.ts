@@ -4,7 +4,6 @@ const initState: AreaFormState = {
   forms: [],
   canNext: false,
   step: 0,
-  area: {},
 };
 
 export const AreaFormReducers = (

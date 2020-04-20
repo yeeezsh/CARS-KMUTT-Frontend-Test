@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Form, Row, Col, Checkbox, TimePicker } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 import Button from 'Components/Button';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import FormLabel from 'Components/FormLabel';
 
 export interface FacilityForm {
@@ -19,6 +19,7 @@ import { DEFAULT_REQUIED_MSG } from './rules/required';
 import fontOrangeBold from './styles/font.orange.bold';
 import labelStyles from './styles/label';
 import { Moment } from 'moment';
+import { RootReducers } from 'Store/reducers';
 
 // styles
 const DIV_SPACES: React.CSSProperties = {
@@ -37,17 +38,8 @@ const FacilityForm: React.FC<FormComponentProps & {
 }> = props => {
   const { getFieldDecorator, validateFields } = props.form;
   const dispatch = useDispatch();
-  // const canNext = useSelector(
-  //   (s: RootReducers) => s.AreaFormReducers.canNext,
-  // );
-
-  //   set index when form is loaded
-  useEffect(() => {
-    dispatch({
-      type: 'SET_FORM_CUR',
-      payload: { cur: props.ind || CUR_IND },
-    });
-  }, []);
+  const { forms } = useSelector((s: RootReducers) => s.AreaFormReducers);
+  const data: FacilityForm = forms[CUR_IND];
 
   function onSubmit() {
     validateFields((err, values) => {
@@ -74,6 +66,22 @@ const FacilityForm: React.FC<FormComponentProps & {
   const [air, setAir] = useState<boolean>(false);
   const [sound, setSound] = useState<boolean>(false);
 
+  //   set index when form is loaded
+  useEffect(() => {
+    dispatch({
+      type: 'SET_FORM_CUR',
+      payload: { cur: props.ind || CUR_IND },
+    });
+
+    // when load forms data
+    if (data.airRequired) {
+      setAir(data.airRequired);
+    }
+    if (data.soundRequired) {
+      setSound(data.soundRequired);
+    }
+  }, []);
+
   return (
     <React.Fragment>
       <FormLabel step={CUR_IND}>
@@ -84,7 +92,7 @@ const FacilityForm: React.FC<FormComponentProps & {
       <Form.Item>
         {getFieldDecorator('airRequired', {
           valuePropName: 'checked',
-          initialValue: false,
+          initialValue: data.airRequired || false,
         })(
           <Checkbox onChange={() => setAir(!air)}>
             <span style={fontOrangeBold}>เครื่องปรับอากาศ</span>
@@ -106,6 +114,7 @@ const FacilityForm: React.FC<FormComponentProps & {
               <span style={labelStyles}>ตั้งแต่เวลา</span>
               {getFieldDecorator('startAirTime', {
                 rules: [{ required: air, message: DEFAULT_REQUIED_MSG }],
+                initialValue: data.startAirTime || null,
               })(
                 <TimePicker
                   style={TIME_PICKER_STYLES}
@@ -123,6 +132,7 @@ const FacilityForm: React.FC<FormComponentProps & {
               <span style={labelStyles}>ถึงเวลา</span>
               {getFieldDecorator('stopAirTime', {
                 rules: [{ required: air, message: DEFAULT_REQUIED_MSG }],
+                initialValue: data.stopAirTime || null,
               })(
                 <TimePicker
                   style={TIME_PICKER_STYLES}
@@ -140,7 +150,7 @@ const FacilityForm: React.FC<FormComponentProps & {
       <Form.Item>
         {getFieldDecorator('soundRequired', {
           valuePropName: 'checked',
-          initialValue: false,
+          initialValue: data.soundRequired || false,
         })(
           <Checkbox onChange={() => setSound(!sound)}>
             <span style={fontOrangeBold}>เครื่องขยายเสียง</span>
@@ -162,6 +172,7 @@ const FacilityForm: React.FC<FormComponentProps & {
               <span style={labelStyles}>ตั้งแต่เวลา</span>
               {getFieldDecorator('startSoundTime', {
                 rules: [{ required: sound, message: DEFAULT_REQUIED_MSG }],
+                initialValue: data.startSoundTime || null,
               })(
                 <TimePicker
                   style={TIME_PICKER_STYLES}
@@ -179,6 +190,7 @@ const FacilityForm: React.FC<FormComponentProps & {
               <span style={labelStyles}>ถึงเวลา</span>
               {getFieldDecorator('stopSoundTime', {
                 rules: [{ required: sound, message: DEFAULT_REQUIED_MSG }],
+                initialValue: data.stopSoundTime || null,
               })(
                 <TimePicker
                   style={TIME_PICKER_STYLES}
