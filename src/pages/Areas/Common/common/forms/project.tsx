@@ -277,7 +277,9 @@ const ProjectForm: React.FC<FormComponentProps & {
             action={UPLOAD_URL}
             customRequest={customRequestUpload}
             multiple={false}
-            // onDownload
+            onDownload={file =>
+              window.open(DOWNLOAD_URL + '/' + file.response.id)
+            }
           >
             <Badge
               style={{
