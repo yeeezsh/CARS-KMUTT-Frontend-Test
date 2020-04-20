@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Form, Radio, Row, Col, Input, Select } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 import Button from 'Components/Button';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import labelStyles from './styles/label';
 import { faculties, Department } from 'Models/forms/department';
 import { DEFAULT_REQUIRED_RULES } from './rules/required';
 import { DEFAULT_USERNAME_RULES } from './rules/username';
 import FormLabel from 'Components/FormLabel';
+import { RootReducers } from 'Store/reducers';
 
 export interface RequestorForm {
   userType: string;
@@ -15,9 +16,11 @@ export interface RequestorForm {
   name: string;
   faculty: string;
   department: string;
-  year: string;
+  studentYear?: string;
   phone: string;
 }
+
+type UserType = 'student' | 'prof';
 
 // constant
 const CUR_IND = 0;
@@ -26,9 +29,12 @@ const RequestorForm: React.FC<FormComponentProps & {
 }> = props => {
   const { getFieldDecorator, validateFields } = props.form;
   const dispatch = useDispatch();
-  // const canNext = useSelector(
-  //   (s: RootReducers) => s.AreaFormReducers.canNext,
-  // );
+  const { forms } = useSelector((s: RootReducers) => s.AreaFormReducers);
+  const data: RequestorForm = forms[CUR_IND];
+
+  const [userType, setUserType] = useState<UserType>('student');
+
+  // console.log(data);
 
   //   set index when form is loaded
   useEffect(() => {
@@ -74,10 +80,13 @@ const RequestorForm: React.FC<FormComponentProps & {
       <Form.Item>
         {getFieldDecorator('userType', {
           rules: [DEFAULT_REQUIRED_RULES],
-          initialValue: 'student',
+          initialValue: data.userType || 'student',
         })(
           <Row justify="space-around" type="flex">
-            <Radio.Group defaultValue={'student'}>
+            <Radio.Group
+              onChange={e => setUserType(e.target.value)}
+              defaultValue={'student'}
+            >
               <Radio value="prof">อาจารย์</Radio>
               <Radio style={{ paddingLeft: 50 }} value="student">
                 นักศึกษา
@@ -93,6 +102,7 @@ const RequestorForm: React.FC<FormComponentProps & {
         {getFieldDecorator('requestorId', {
           rules: [DEFAULT_REQUIRED_RULES, DEFAULT_USERNAME_RULES],
           validateTrigger: ['onBlur'],
+          initialValue: data.requestorId || '',
         })(<Input placeholder="รหัสนักศึกษา 11 หลัก" />)}
       </Form.Item>
 
@@ -102,6 +112,7 @@ const RequestorForm: React.FC<FormComponentProps & {
         {getFieldDecorator('name', {
           rules: [DEFAULT_REQUIRED_RULES],
           validateTrigger: ['onBlur'],
+          initialValue: data.name || '',
         })(<Input placeholder="ชื่อ - นามสกุล" />)}
       </Form.Item>
 
@@ -110,6 +121,7 @@ const RequestorForm: React.FC<FormComponentProps & {
         <span style={labelStyles}>คณะ</span>
         {getFieldDecorator('faculty', {
           rules: [DEFAULT_REQUIRED_RULES],
+          initialValue: data.faculty || undefined,
         })(
           <Select
             onChange={onFaculty}
@@ -129,6 +141,7 @@ const RequestorForm: React.FC<FormComponentProps & {
         <span style={labelStyles}>ภาควิชา</span>
         {getFieldDecorator('department', {
           rules: [DEFAULT_REQUIRED_RULES],
+          initialValue: data.department || undefined,
         })(
           <Select
             disabled={!departments[0] ? true : false}
@@ -146,20 +159,24 @@ const RequestorForm: React.FC<FormComponentProps & {
 
       {/* Class an d Phone */}
       <Row type="flex" justify="center" gutter={16}>
-        <Col span={8}>
-          <Form.Item>
-            <span style={labelStyles}>ชั้นปี</span>
-            {getFieldDecorator('year', {
-              rules: [DEFAULT_REQUIRED_RULES],
-              initialValue: 1,
-            })(<Input />)}
-          </Form.Item>
-        </Col>
-        <Col span={16}>
+        {userType === 'student' && (
+          <Col span={8}>
+            <Form.Item>
+              <span style={labelStyles}>ชั้นปี</span>
+              {getFieldDecorator('year', {
+                rules: [DEFAULT_REQUIRED_RULES],
+                initialValue: data.studentYear || 1,
+              })(<Input />)}
+            </Form.Item>
+          </Col>
+        )}
+
+        <Col span={userType === 'student' ? 16 : 24}>
           <Form.Item>
             <span style={labelStyles}>โทรศัพท์</span>
             {getFieldDecorator('phone', {
               rules: [DEFAULT_REQUIRED_RULES],
+              initialValue: data.phone || '',
             })(<Input placeholder="091-234-5678" />)}
           </Form.Item>
         </Col>
