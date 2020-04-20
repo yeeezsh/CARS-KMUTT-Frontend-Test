@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Row, Col, Checkbox, TimePicker } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
-import Button from 'Components/Button';
 import { useDispatch, useSelector } from 'react-redux';
+
+import Button from 'Components/Button';
 import FormLabel from 'Components/FormLabel';
 
 export interface FacilityForm {

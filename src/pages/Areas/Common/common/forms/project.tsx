@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Form, { FormComponentProps } from 'antd/lib/form';
+import { Moment } from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
-import FormLabel from 'Components/FormLabel';
-import labelStyles from './styles/label';
-import { DEFAULT_REQUIRED_RULES } from './rules/required';
 import {
   Input,
   Row,
@@ -14,15 +12,22 @@ import {
   Upload,
 } from 'antd';
 import { RadioChangeEvent } from 'antd/lib/radio';
-import Button from 'Components/Button';
 import {
   RcCustomRequestOptions,
   UploadFile,
 } from 'antd/lib/upload/interface';
-import i, { END_POINT } from 'Models/axios.interface';
+
 import Badge from 'Components/Badge';
-import { Moment } from 'moment';
+import FormLabel from 'Components/FormLabel';
+import Button from 'Components/Button';
+
+// styles
+import labelStyles from './styles/label';
+
+// store & data
 import { RootReducers } from 'Store/reducers';
+import i, { END_POINT } from 'Models/axios.interface';
+import { DEFAULT_REQUIRED_RULES } from './rules/required';
 
 type DateType = 'oneday' | 'range';
 export interface ProjectForm {

@@ -2,25 +2,44 @@ import React, { useEffect } from 'react';
 import { Row, Col, Icon } from 'antd';
 import { Switch, Route, useHistory, useLocation } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
+import Loadable from 'react-loadable';
 
-import PageLayout from 'Components/Layout/Page';
-
+// store / data
+import { RootReducers } from 'Store/reducers';
 import stepsList from './steps';
 
 // assets
 import sharedStyles from '../common/styles/styles.module.css';
-import StateSteps from 'Components/StateSteps';
-import Badge from 'Components/Badge';
 
-import BackCard from 'Components/BackCard';
-import Outline from 'Components/Outline';
-import { RootReducers } from 'Store/reducers';
+const StateSteps = Loadable({
+  loader: () => import('Components/StateSteps'),
+  loading: () => null,
+});
+const Badge = Loadable({
+  loader: () => import('Components/Badge'),
+  loading: () => null,
+});
+const PageLayout = Loadable({
+  loader: () => import('Components/Layout/Page'),
+  loading: () => null,
+});
+const BackCard = Loadable({
+  loader: () => import('Components/BackCard'),
+  loading: () => null,
+});
+const Outline = Loadable({
+  loader: () => import('Components/Outline'),
+  loading: () => null,
+});
 
 // forms
-import { RequestorForm } from '../common/forms';
-import ProjectForm from '../common/forms/project';
-import FacilityForm from '../common/forms/facility';
-import OverviewGeneralForm from '../common/forms/overview.general';
+import {
+  RequestorForm,
+  ProjectForm,
+  FacilityForm,
+  OverviewGeneralForm,
+} from '../common/forms';
+
 import { buildingAPI } from 'Models/building';
 
 // constant
@@ -42,10 +61,18 @@ const Activity: React.FC = () => {
     if (forms.forms.length === 0) {
       dispatch({ type: 'INIT_FORM', payload: { size: 4 } });
     }
-    buildingAPI.getBuildingInfo(areaId).then(area => {
-      // setBuilding(area);
-      dispatch({ type: 'SET_AREA_INFO', payload: area });
-    });
+    buildingAPI
+      .getBuildingInfo(areaId)
+      .then(area => {
+        // setBuilding(area);
+        dispatch({ type: 'SET_AREA_INFO', payload: area });
+      })
+      .then(() => {
+        // pre load other forms
+        ProjectForm.preload();
+        FacilityForm.preload();
+        OverviewGeneralForm.preload();
+      });
   }, []);
 
   // when steps change

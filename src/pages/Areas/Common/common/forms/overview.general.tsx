@@ -1,16 +1,20 @@
 import React, { useEffect } from 'react';
 import { Form, Row, Col, Checkbox } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
-import Button from 'Components/Button';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Outline from 'Components/Outline';
 import BreakingLine from 'Components/BreakingLine';
-import { RootReducers } from 'Store/reducers';
+import Button from 'Components/Button';
+
+// interfaces
 import { RequestorForm } from './requestor';
 import { ProjectForm } from './project';
 import { FacilityForm } from './facility';
+
+// store & dara
 import { END_POINT } from 'Models/axios.interface';
+import { RootReducers } from 'Store/reducers';
 
 // custom components
 const CustomBrakeLine: React.FC = () => (
