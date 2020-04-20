@@ -2,6 +2,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+  .BundleAnalyzerPlugin;
 const webpack = require('webpack');
 
 module.exports = {
@@ -88,5 +90,6 @@ module.exports = {
       template: './src/index.html',
     }),
     new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en|th/),
+    new BundleAnalyzerPlugin(),
   ],
 };
