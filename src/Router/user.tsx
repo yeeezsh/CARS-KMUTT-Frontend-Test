@@ -32,6 +32,7 @@ import {
   Areas as CommonArea,
   Types as CommonAreaTypes,
   Activity as CommonActivity,
+  Sport as CommonSport,
 } from 'Pages/Areas/Common';
 
 const AppDrawer = Loadable({
@@ -148,7 +149,9 @@ export default class PageUserRouter extends Component<
             <Route path="*/activity">
               <CommonActivity />
             </Route>
-            <Route path="*/sport">Area : sport act </Route>
+            <Route path="*/sport">
+              <CommonSport />{' '}
+            </Route>
           </Switch>
         </Route>
 
