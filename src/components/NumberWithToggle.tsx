@@ -1,5 +1,5 @@
 /* eslint-disable react/display-name */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Row, Col, Input } from 'antd';
 
 // styles
@@ -48,16 +48,19 @@ const NumberWithToggle: React.FC<{
   name: string;
   label?: string;
   unit?: string;
+  value?: number;
   onChange?: (name: string, val: number) => void;
-  //   onChange?: (name: string, value: number) => void;
 }> = props => {
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(props.value || 0);
 
   function addValue(n: number) {
     if (value === 0 && n === -1) return;
     setValue(prev => prev + n);
-    props.onChange && props.onChange(props.name, n);
   }
+  //   update props when value changed
+  useEffect(() => props.onChange && props.onChange(props.name, value), [
+    value,
+  ]);
 
   return (
     <React.Fragment>
