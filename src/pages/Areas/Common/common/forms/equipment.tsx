@@ -6,8 +6,9 @@ import { RootReducers } from 'Store/reducers';
 // import { data } from 'Models/reserve/data';
 import NumberWithToggle from 'Components/NumberWithToggle';
 import BreakingLine from 'Components/BreakingLine';
-import { Col, Row } from 'antd';
+import { Col, Row, Input } from 'antd';
 import Button from 'Components/Button';
+import labelStyles from './styles/label';
 
 export interface AreaForm {
   football: number;
@@ -17,6 +18,7 @@ export interface AreaForm {
   sepaktakraw: number;
   shareball: number;
   shareballbasket: number;
+  other: string;
 }
 
 const CustomBreakLine: React.FC = () => (
@@ -31,11 +33,12 @@ const EquipmentForm: React.FC<FormComponentProps & {
 }> = props => {
   const CUR_IND = props.ind || 3;
 
-  //   const { getFieldDecorator, validateFields, setFields } = props.form;
+  //   const { getFieldDecorator } = props.form;
   const dispatch = useDispatch();
   const { forms } = useSelector((s: RootReducers) => s.AreaFormReducers);
   const data: AreaForm = forms[CUR_IND];
   const [ownForms, setOwnForms] = useState({});
+  const [other, setOther] = useState('');
   //   const data: ProjectForm = forms[CUR_IND];
 
   //   set index when form is loaded
@@ -50,7 +53,7 @@ const EquipmentForm: React.FC<FormComponentProps & {
     dispatch({
       type: 'FILL_FORM',
       payload: {
-        form: ownForms,
+        form: { ...ownForms, other },
         valid: true,
       },
     });
@@ -129,6 +132,23 @@ const EquipmentForm: React.FC<FormComponentProps & {
         value={data.shareballbasket}
       />
       <CustomBreakLine />
+
+      {/* name id */}
+      <Form.Item>
+        <span
+          style={{
+            ...labelStyles,
+            ...{ fontWeight: 'bold', color: '#666666' },
+          }}
+        >
+          อื่นๆ (ระบุ)
+        </span>
+        <Input
+          onChange={e => setOther(e.target.value)}
+          defaultValue={data.other}
+          placeholder="อุปกรณ์อื่น ๆ ที่ต้องการขอใช้ (ถ้ามี)"
+        />
+      </Form.Item>
 
       {/* action */}
       <Col span={24}>
