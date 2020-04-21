@@ -294,4 +294,8 @@ const OverviewGeneralForm: React.FC<FormComponentProps & {
   );
 };
 
-export default Form.create({ name: 'requestor' })(OverviewGeneralForm);
+export default Form.create<
+  FormComponentProps & {
+    ind?: number;
+  }
+>({ name: 'requestor' })(OverviewGeneralForm);

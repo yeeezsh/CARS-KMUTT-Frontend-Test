@@ -311,4 +311,8 @@ const ProjectForm: React.FC<FormComponentProps & {
   );
 };
 
-export default Form.create({ name: 'project' })(ProjectForm);
+export default Form.create<
+  FormComponentProps & {
+    ind?: number;
+  }
+>({ name: 'project' })(ProjectForm);

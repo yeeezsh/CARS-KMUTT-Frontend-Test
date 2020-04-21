@@ -201,4 +201,8 @@ const RequestorForm: React.FC<FormComponentProps & {
   );
 };
 
-export default Form.create({ name: 'requestor' })(RequestorForm);
+export default Form.create<
+  FormComponentProps & {
+    ind?: number;
+  }
+>({ name: 'requestor' })(RequestorForm);

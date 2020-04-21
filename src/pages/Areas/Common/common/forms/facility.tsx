@@ -217,4 +217,8 @@ const FacilityForm: React.FC<FormComponentProps & {
   );
 };
 
-export default Form.create({ name: 'requestor' })(FacilityForm);
+export default Form.create<
+  FormComponentProps & {
+    ind?: number;
+  }
+>({ name: 'requestor' })(FacilityForm);
