@@ -62,9 +62,7 @@ const AreaForm: React.FC<FormComponentProps & {
   }
   return (
     <React.Fragment>
-      <FormLabel step={CUR_IND + 1}>
-        เครื่องปรับอากาศและเครื่องขยายเสียง
-      </FormLabel>
+      <FormLabel step={CUR_IND + 1}>บริการสนามกีฬา</FormLabel>
 
       {/* basketball */}
       <CustomBreakLine />
