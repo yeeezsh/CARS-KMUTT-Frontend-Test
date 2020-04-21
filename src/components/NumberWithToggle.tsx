@@ -10,7 +10,10 @@ const sharedLabelstyle: React.CSSProperties = {
   lineHeight: '22px',
 };
 
-const ToggleButton: React.FC<{ onClick: () => void }> = props => (
+const ToggleButton: React.FC<{
+  onClick: () => void;
+  disabled?: boolean;
+}> = props => (
   <div
     onClick={props.onClick}
     style={{
@@ -20,7 +23,7 @@ const ToggleButton: React.FC<{ onClick: () => void }> = props => (
       height: '32px',
       marginLeft: '4px',
       marginRight: '4px',
-      backgroundColor: '#FF682B',
+      backgroundColor: props.disabled ? '#DADADA' : '#FF682B',
       borderRadius: '4px',
       cursor: 'pointer',
       display: 'block',
@@ -80,7 +83,12 @@ const NumberWithToggle: React.FC<{
         {/* number */}
         <Col offset={1} span={10}>
           <div style={{ display: 'flex' }}>
-            <ToggleButton onClick={() => addValue(-1)}>-</ToggleButton>
+            <ToggleButton
+              disabled={value === 0 ? true : false}
+              onClick={() => addValue(-1)}
+            >
+              -
+            </ToggleButton>
             <Input
               style={{
                 height: '32px',
