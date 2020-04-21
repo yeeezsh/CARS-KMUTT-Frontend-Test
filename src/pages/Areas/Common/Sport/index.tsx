@@ -14,7 +14,7 @@ import { buildingAPI } from 'Models/building';
 import {
   ProjectForm,
   FacilityForm,
-  OverviewGeneralForm,
+  OverviewCommonForm,
   RequestorForm,
 } from '../common/forms';
 import { taskFormAPI } from 'Models/task/form';
@@ -75,7 +75,7 @@ const Sport: React.FC = () => {
         // pre load other forms
         ProjectForm.preload();
         FacilityForm.preload();
-        OverviewGeneralForm.preload();
+        OverviewCommonForm.preload();
       });
   }, []);
 

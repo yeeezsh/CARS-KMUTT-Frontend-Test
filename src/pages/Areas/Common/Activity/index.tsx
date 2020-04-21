@@ -37,7 +37,7 @@ import {
   RequestorForm,
   ProjectForm,
   FacilityForm,
-  OverviewGeneralForm,
+  OverviewCommonForm,
 } from '../common/forms';
 
 import { buildingAPI } from 'Models/building';
@@ -79,7 +79,7 @@ const Activity: React.FC = () => {
         // pre load other forms
         ProjectForm.preload();
         FacilityForm.preload();
-        OverviewGeneralForm.preload();
+        OverviewCommonForm.preload();
       });
   }, []);
 
@@ -190,7 +190,7 @@ const Activity: React.FC = () => {
           <FacilityForm />
         </Route>
         <Route path="/*4">
-          <OverviewGeneralForm />
+          <OverviewCommonForm />
         </Route>
       </Switch>
     </PageLayout>

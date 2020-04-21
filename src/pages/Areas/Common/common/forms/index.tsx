@@ -12,9 +12,9 @@ const FacilityForm = Loadable({
   loader: () => import('./facility'),
   loading: () => null,
 });
-const OverviewGeneralForm = Loadable({
-  loader: () => import('./overview.general'),
+const OverviewCommonForm = Loadable({
+  loader: () => import('./overview.common'),
   loading: () => null,
 });
 
-export { RequestorForm, ProjectForm, FacilityForm, OverviewGeneralForm };
+export { RequestorForm, ProjectForm, FacilityForm, OverviewCommonForm };

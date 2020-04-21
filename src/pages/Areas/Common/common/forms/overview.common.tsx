@@ -74,7 +74,7 @@ const CustomParagraph: React.FC = props => (
 // constant
 const DOWNLOAD_URL = END_POINT + '/file';
 const CUR_IND = 3;
-const OverviewGeneralForm: React.FC<FormComponentProps & {
+const OverviewCommonForm: React.FC<FormComponentProps & {
   ind?: number;
 }> = props => {
   const { validateFields } = props.form;
@@ -298,4 +298,4 @@ export default Form.create<
   FormComponentProps & {
     ind?: number;
   }
->({ name: 'requestor' })(OverviewGeneralForm);
+>({ name: 'requestor' })(OverviewCommonForm);
