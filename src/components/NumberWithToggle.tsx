@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 import React, { useState } from 'react';
-import { InputNumber, Row, Col } from 'antd';
+import { Row, Col, Input } from 'antd';
 
 // styles
 const sharedLabelstyle: React.CSSProperties = {
@@ -40,14 +40,20 @@ const ToggleButton: React.FC<{ onClick: () => void }> = props => (
     </p>
   </div>
 );
-const NumberWithToggle = React.forwardRef<
-  any,
-  { label?: string; unit?: string }
->((props, ref) => {
-  const [value, setValue] = useState(10);
+
+const NumberWithToggle: React.FC<{
+  name: string;
+  label?: string;
+  unit?: string;
+  onChange?: (name: string, val: number) => void;
+  //   onChange?: (name: string, value: number) => void;
+}> = props => {
+  const [value, setValue] = useState(0);
 
   function addValue(n: number) {
+    if (value === 0 && n === -1) return;
     setValue(prev => prev + n);
+    props.onChange && props.onChange(props.name, n);
   }
 
   return (
@@ -75,7 +81,7 @@ const NumberWithToggle = React.forwardRef<
         <Col offset={1} span={10}>
           <div style={{ display: 'flex' }}>
             <ToggleButton onClick={() => addValue(-1)}>-</ToggleButton>
-            <InputNumber
+            <Input
               style={{
                 height: '32px',
                 marginBottom: '6px',
@@ -83,7 +89,6 @@ const NumberWithToggle = React.forwardRef<
                 width: '65px',
                 textAlign: 'center',
               }}
-              {...props}
               value={value}
             />
             <ToggleButton onClick={() => addValue(1)}>+</ToggleButton>
@@ -92,6 +97,6 @@ const NumberWithToggle = React.forwardRef<
       </Row>
     </React.Fragment>
   );
-});
+};
 
 export default NumberWithToggle;
