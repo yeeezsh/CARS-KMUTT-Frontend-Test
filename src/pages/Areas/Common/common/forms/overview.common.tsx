@@ -73,10 +73,10 @@ const CustomParagraph: React.FC = props => (
 
 // constant
 const DOWNLOAD_URL = END_POINT + '/file';
-const CUR_IND = 3;
 const OverviewCommonForm: React.FC<FormComponentProps & {
   ind?: number;
 }> = props => {
+  const CUR_IND = props.ind || 3;
   const { validateFields } = props.form;
   const dispatch = useDispatch();
   const formData = useSelector((s: RootReducers) => s.AreaFormReducers);
@@ -88,7 +88,7 @@ const OverviewCommonForm: React.FC<FormComponentProps & {
   useEffect(() => {
     dispatch({
       type: 'SET_FORM_CUR',
-      payload: { cur: props.ind || CUR_IND },
+      payload: { cur: CUR_IND },
     });
   }, []);
 

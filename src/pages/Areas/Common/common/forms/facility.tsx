@@ -31,12 +31,12 @@ const TIME_PICKER_STYLES: React.CSSProperties = {
 };
 
 // constant
-const CUR_IND = 2;
 const PLACEHOLDER_TIME = '00:00';
 const TIME_FORMAT = 'HH:mm';
 const FacilityForm: React.FC<FormComponentProps & {
   ind?: number;
 }> = props => {
+  const CUR_IND = props.ind || 2;
   const { getFieldDecorator, validateFields } = props.form;
   const dispatch = useDispatch();
   const { forms } = useSelector((s: RootReducers) => s.AreaFormReducers);
@@ -71,7 +71,7 @@ const FacilityForm: React.FC<FormComponentProps & {
   useEffect(() => {
     dispatch({
       type: 'SET_FORM_CUR',
-      payload: { cur: props.ind || CUR_IND },
+      payload: { cur: CUR_IND },
     });
 
     // when load forms data

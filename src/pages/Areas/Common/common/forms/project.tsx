@@ -45,7 +45,6 @@ export interface ProjectForm {
 }
 
 // constant
-const CUR_IND = 1;
 const PLACEHOLDER_DATE = 'DD/MM/YYYY';
 const DATE_FORMAT = 'DD/MM/YYYY';
 const PLACEHOLDER_TIME = '00:00';
@@ -55,6 +54,7 @@ const DOWNLOAD_URL = END_POINT + '/file';
 const ProjectForm: React.FC<FormComponentProps & {
   ind?: number;
 }> = props => {
+  const CUR_IND = props.ind || 1;
   const { getFieldDecorator, validateFields } = props.form;
   const dispatch = useDispatch();
   const { forms } = useSelector((s: RootReducers) => s.AreaFormReducers);
@@ -68,7 +68,7 @@ const ProjectForm: React.FC<FormComponentProps & {
   useEffect(() => {
     dispatch({
       type: 'SET_FORM_CUR',
-      payload: { cur: props.ind || CUR_IND },
+      payload: { cur: CUR_IND },
     });
   }, []);
 
