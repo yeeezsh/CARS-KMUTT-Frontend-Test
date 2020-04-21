@@ -16,6 +16,7 @@ import {
   FacilityForm,
   OverviewCommonForm,
   RequestorForm,
+  AreaForm,
 } from '../common/forms';
 import { taskFormAPI } from 'Models/task/form';
 
@@ -73,9 +74,9 @@ const Sport: React.FC = () => {
       })
       .then(() => {
         // pre load other forms
-        ProjectForm.preload();
-        FacilityForm.preload();
-        OverviewCommonForm.preload();
+        // ProjectForm.preload();
+        // FacilityForm.preload();
+        // OverviewCommonForm.preload();
       });
   }, []);
 
@@ -181,7 +182,9 @@ const Sport: React.FC = () => {
         <Route path="/*2">
           <ProjectForm ind={1} />
         </Route>
-        <Route path="/*3">{/* Area */}</Route>
+        <Route path="/*3">
+          <AreaForm />
+        </Route>
         <Route path="/*4">{/* Equipment */}</Route>
         <Route path="/*5">{/* EquipmentReturn */}</Route>
         <Route path="/*6">

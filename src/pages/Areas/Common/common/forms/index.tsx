@@ -17,4 +17,15 @@ const OverviewCommonForm = Loadable({
   loading: () => null,
 });
 
-export { RequestorForm, ProjectForm, FacilityForm, OverviewCommonForm };
+const AreaForm = Loadable({
+  loader: () => import('./area'),
+  loading: () => null,
+});
+
+export {
+  RequestorForm,
+  ProjectForm,
+  FacilityForm,
+  OverviewCommonForm,
+  AreaForm,
+};
