@@ -14,9 +14,9 @@ import { buildingAPI } from 'Models/building';
 import {
   ProjectForm,
   FacilityForm,
-  OverviewCommonForm,
   RequestorForm,
   AreaForm,
+  EquipmentForm,
 } from '../common/forms';
 import { taskFormAPI } from 'Models/task/form';
 
@@ -185,7 +185,7 @@ const Sport: React.FC = () => {
         <Route path="/*3">
           <AreaForm />
         </Route>
-        <Route path="/*4">{/* Equipment */}</Route>
+        <Route path="/*4">{<EquipmentForm />}</Route>
         <Route path="/*5">{/* EquipmentReturn */}</Route>
         <Route path="/*6">
           <FacilityForm ind={5} />

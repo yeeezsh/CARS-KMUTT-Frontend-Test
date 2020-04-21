@@ -16,9 +16,12 @@ const OverviewCommonForm = Loadable({
   loader: () => import('./overview.common'),
   loading: () => null,
 });
-
 const AreaForm = Loadable({
   loader: () => import('./area'),
+  loading: () => null,
+});
+const EquipmentForm = Loadable({
+  loader: () => import('./equipment'),
   loading: () => null,
 });
 
@@ -28,4 +31,5 @@ export {
   FacilityForm,
   OverviewCommonForm,
   AreaForm,
+  EquipmentForm,
 };
