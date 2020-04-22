@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Form, { FormComponentProps } from 'antd/lib/form';
 import { Moment } from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,10 +12,8 @@ import labelStyles from './styles/label';
 
 // store & data
 import { RootReducers } from 'Store/reducers';
-// import i, { END_POINT } from 'Models/axios.interface';
 import { DEFAULT_REQUIRED_RULES } from './rules/required';
 
-type DateType = 'oneday' | 'range';
 export interface ReturnForm {
   return: Moment;
 }
@@ -26,7 +24,7 @@ const DATE_FORMAT = 'DD/MM/YYYY';
 
 const ReturnForm: React.FC<FormComponentProps & {
   ind?: number;
-  conditionFormIndex?: number;
+  //   conditionFormIndex?: number;
 }> = props => {
   const CUR_IND = props.ind || 4;
   const { getFieldDecorator, validateFields } = props.form;
@@ -64,24 +62,6 @@ const ReturnForm: React.FC<FormComponentProps & {
     });
   }
 
-  const equipmentForm = forms[props.conditionFormIndex || 3];
-  const mustReturn = Object.keys(equipmentForm).some(
-    e => equipmentForm[e] > 0,
-  );
-  console.log('eq form', equipmentForm);
-  console.log('must return', mustReturn);
-  //   if (!mustReturn) {
-  //     // onSubmit();
-  //     dispatch({
-  //       type: 'FILL_FORM',
-  //       payload: {
-  //         form: {},
-  //         valid: true,
-  //       },
-  //     });
-  //     dispatch({ type: 'SUBMIT_FORM' });
-  //   }
-
   return (
     <React.Fragment>
       <FormLabel step={CUR_IND + 1}>วันส่งคืนวัสดุและอุปกรณ์</FormLabel>
@@ -96,7 +76,7 @@ const ReturnForm: React.FC<FormComponentProps & {
             </span>
 
             {getFieldDecorator('return', {
-              rules: mustReturn ? [DEFAULT_REQUIRED_RULES] : [],
+              rules: [DEFAULT_REQUIRED_RULES],
               initialValue: data.return || null,
             })(
               <DatePicker
