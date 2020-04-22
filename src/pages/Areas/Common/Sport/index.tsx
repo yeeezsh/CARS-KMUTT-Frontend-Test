@@ -17,6 +17,7 @@ import {
   RequestorForm,
   AreaForm,
   EquipmentForm,
+  ReturnForm,
 } from '../common/forms';
 import { taskFormAPI } from 'Models/task/form';
 
@@ -42,7 +43,7 @@ const Outline = Loadable({
 });
 
 // constant
-const MAX_STEPS = 6;
+const MAX_STEPS = 7;
 
 const Sport: React.FC = () => {
   const forms = useSelector((s: RootReducers) => s.AreaFormReducers);
@@ -64,7 +65,7 @@ const Sport: React.FC = () => {
   // once
   useEffect(() => {
     if (forms.forms.length === 0) {
-      dispatch({ type: 'INIT_FORM', payload: { size: 4 } });
+      dispatch({ type: 'INIT_FORM', payload: { size: MAX_STEPS } });
     }
     buildingAPI
       .getBuildingInfo(areaId)
@@ -156,15 +157,15 @@ const Sport: React.FC = () => {
         {/* when overview hide this */}
         {steps !== MAX_STEPS && (
           <Col style={{ marginBottom: '-8px' }} span={24}>
-            <Row type="flex" justify="start">
-              <Badge>
-                {forms.area?._id ? (
-                  forms.area.label
-                ) : (
-                  <Icon type="loading" />
-                )}
-              </Badge>
-            </Row>
+            {/* <Row type="flex" justify="start"> */}
+            <Badge>
+              {forms.area?._id ? (
+                forms.area.label
+              ) : (
+                <Icon type="loading" />
+              )}
+            </Badge>
+            {/* </Row> */}
           </Col>
         )}
       </Row>
@@ -183,14 +184,18 @@ const Sport: React.FC = () => {
           <ProjectForm ind={1} />
         </Route>
         <Route path="/*3">
-          <AreaForm />
+          <AreaForm ind={2} />
         </Route>
-        <Route path="/*4">{<EquipmentForm />}</Route>
-        <Route path="/*5">{/* EquipmentReturn */}</Route>
+        <Route path="/*4">{<EquipmentForm ind={3} />}</Route>
         <Route path="/*6">
           <FacilityForm ind={5} />
         </Route>
-        <Route path="/*7">{/* OverviewSportForm */}</Route>
+        <Route path="/*7">Overview</Route>
+
+        {/* idk why, cause its bug ind 5 must occur here */}
+        <Route path="/*5">
+          <ReturnForm ind={4} />
+        </Route>
       </Switch>
     </PageLayout>
   );
