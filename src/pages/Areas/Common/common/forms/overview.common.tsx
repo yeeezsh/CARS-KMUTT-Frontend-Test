@@ -75,11 +75,13 @@ const CustomParagraph: React.FC = props => (
 const DOWNLOAD_URL = END_POINT + '/file';
 const OverviewCommonForm: React.FC<FormComponentProps & {
   ind?: number;
+  data?: any;
 }> = props => {
   const CUR_IND = props.ind || 3;
   const { validateFields } = props.form;
   const dispatch = useDispatch();
-  const formData = useSelector((s: RootReducers) => s.AreaFormReducers);
+  const formData =
+    props.data || useSelector((s: RootReducers) => s.AreaFormReducers);
   const requestorData: RequestorForm | undefined = formData?.forms[0];
   const projectData: ProjectForm | undefined = formData?.forms[1];
   const facilityData: FacilityForm | undefined = formData?.forms[2];
