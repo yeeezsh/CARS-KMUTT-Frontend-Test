@@ -85,7 +85,7 @@ const FacilityForm: React.FC<FormComponentProps & {
 
   return (
     <React.Fragment>
-      <FormLabel step={CUR_IND}>
+      <FormLabel step={CUR_IND + 1}>
         เครื่องปรับอากาศและเครื่องขยายเสียง
       </FormLabel>
 
