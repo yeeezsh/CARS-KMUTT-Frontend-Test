@@ -154,6 +154,11 @@ const OverviewCommonForm: React.FC<FormComponentProps & {
             projectData.projectStartTime &&
             projectData.projectStartTime.format('HH.mm')}{' '}
           น. <br />
+          {projectData &&
+          !projectData.projectStopDate && // when not have stop date show end time here
+            projectData.projectStopTime &&
+            ' ถึง ' + projectData.projectStopTime.format('HH.mm')}{' '}
+          น. <br />
           {/* stop date */}
           {projectData && projectData.projectStopDate && (
             <React.Fragment>
