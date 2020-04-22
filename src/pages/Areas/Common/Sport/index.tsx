@@ -127,7 +127,7 @@ const Sport: React.FC = () => {
   const [modal, setModal] = useState(false);
 
   function sendData() {
-    taskFormAPI.createTask(forms);
+    taskFormAPI.createSportTask(forms);
     return;
   }
 
@@ -136,7 +136,7 @@ const Sport: React.FC = () => {
     sendData();
     setModal(true);
     // then reset form
-    dispatch({ type: 'INIT_FORM', payload: { size: 4 } });
+    dispatch({ type: 'INIT_FORM', payload: { size: 7 } });
   }
   return (
     <PageLayout titile="จองพื้นที่ส่วนกลาง">

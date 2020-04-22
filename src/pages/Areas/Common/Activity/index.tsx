@@ -106,7 +106,7 @@ const Activity: React.FC = () => {
   const [modal, setModal] = useState(false);
 
   function sendData() {
-    taskFormAPI.createTask(forms);
+    taskFormAPI.createCommonTask(forms);
     return;
   }
 
