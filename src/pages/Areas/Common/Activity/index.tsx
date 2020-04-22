@@ -31,6 +31,10 @@ const Outline = Loadable({
   loader: () => import('Components/Outline'),
   loading: () => null,
 });
+const ConfirmModal = Loadable({
+  loader: () => import('Components/AcceptedModal'),
+  loading: () => null,
+});
 
 // forms
 import {
@@ -41,7 +45,6 @@ import {
 } from '../common/forms';
 
 import { buildingAPI } from 'Models/building';
-import ConfirmModal from 'Components/AcceptedModal';
 import { taskFormAPI } from 'Models/task/form';
 
 // constant

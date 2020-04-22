@@ -41,6 +41,10 @@ const Outline = Loadable({
   loader: () => import('Components/Outline'),
   loading: () => null,
 });
+const ConfirmModal = Loadable({
+  loader: () => import('Components/AcceptedModal'),
+  loading: () => null,
+});
 
 // constant
 const MAX_STEPS = 7;
@@ -57,9 +61,23 @@ const Sport: React.FC = () => {
   // when steps change
   useEffect(() => {
     if (steps === 0) return;
+    let unit = 1;
+
+    // skip when no equipment acquire
+    const CONDITION_IND_CHECK = 3;
+    const SKIP_IND_PAGE = 4;
+    const equipmentForm = forms.forms[CONDITION_IND_CHECK];
+    const mustReturn = Object.keys(equipmentForm).some(
+      e => equipmentForm[e] > 0,
+    );
+    if (!mustReturn && steps === SKIP_IND_PAGE) unit = 2;
+    console.log('must return', mustReturn);
+
     const oldPath = location;
-    const newPath = oldPath.slice(0, -1) + (steps + 1);
+    const newPath = oldPath.slice(0, -1) + (steps + unit);
     history.push(newPath);
+
+    // if()
   }, [steps]);
 
   // once
@@ -88,9 +106,16 @@ const Sport: React.FC = () => {
     if (steps === 0) {
       return history.push('/reserve/common/' + areaId + '/types');
     }
+    let unit = 1;
+
+    // skip condition
+    const RIGHT_STEP = 5;
+    if (RIGHT_STEP === steps) unit = 2;
+
     const oldPath = location;
     const pathStep = steps + 1;
-    const backPath = oldPath.slice(0, -1) + (pathStep - 1);
+    const backPath = oldPath.slice(0, -1) + (pathStep - unit);
+
     return history.push(backPath);
   }
 
@@ -115,14 +140,14 @@ const Sport: React.FC = () => {
   return (
     <PageLayout titile="จองพื้นที่ส่วนกลาง">
       {/* confirm modal */}
-      {/* <ConfirmModal
+      <ConfirmModal
         desc={{
           main:
             'เมื่ออาจารย์ที่ปรึกษาโครงการยืนยันการขอใช้สถานที่ระบบจึงจะส่งข้อมูลการจองไปยังเจ้าหน้าที่',
         }}
         visible={modal}
         onClick={goHome}
-      /> */}
+      />
 
       {/* Fixed header */}
       <Row
