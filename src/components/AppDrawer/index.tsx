@@ -101,7 +101,7 @@ const menu: DrawerType[] = [
     key: '3',
     label: ['จองพื้นที่จัดกิจกรรม /ห้องประชุม'],
     icon: footballareaIcon,
-    link: '/reserve/test',
+    link: '/reserve/area/category',
   },
   {
     key: '4',
