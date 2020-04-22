@@ -67,9 +67,9 @@ const Sport: React.FC = () => {
     const CONDITION_IND_CHECK = 3;
     const SKIP_IND_PAGE = 4;
     const equipmentForm = forms.forms[CONDITION_IND_CHECK];
-    const mustReturn = Object.keys(equipmentForm).some(
-      e => equipmentForm[e] > 0,
-    );
+    const mustReturn =
+      Object.keys(equipmentForm).some(e => equipmentForm[e] > 0) ||
+      equipmentForm.other;
     if (!mustReturn && steps === SKIP_IND_PAGE) unit = 2;
     console.log('must return', mustReturn);
 
