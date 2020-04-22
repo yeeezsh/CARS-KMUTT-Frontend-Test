@@ -18,6 +18,7 @@ import {
   AreaForm,
   EquipmentForm,
   ReturnForm,
+  OverviewSportForm,
 } from '../common/forms';
 import { taskFormAPI } from 'Models/task/form';
 
@@ -215,7 +216,9 @@ const Sport: React.FC = () => {
         <Route path="/*6">
           <FacilityForm ind={5} />
         </Route>
-        <Route path="/*7">Overview</Route>
+        <Route path="/*7">
+          <OverviewSportForm ind={6} />
+        </Route>
 
         {/* idk why, cause its bug ind 5 must occur here */}
         <Route path="/*5">

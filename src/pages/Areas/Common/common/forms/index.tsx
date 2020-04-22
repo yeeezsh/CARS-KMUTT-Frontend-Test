@@ -28,6 +28,10 @@ const ReturnForm = Loadable({
   loader: () => import('./return'),
   loading: () => null,
 });
+const OverviewSportForm = Loadable({
+  loader: () => import('./overview.sport'),
+  loading: () => null,
+});
 
 export {
   RequestorForm,
@@ -37,4 +41,5 @@ export {
   AreaForm,
   EquipmentForm,
   ReturnForm,
+  OverviewSportForm,
 };
