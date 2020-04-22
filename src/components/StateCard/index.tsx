@@ -28,7 +28,7 @@ export default function StateCard(props: {
   };
 }) {
   const { name, reserve } = props;
-  const createAtLabel = reserve?.createAt;
+  const createAtLabel = reserve?.date;
   const n = createAtLabel?.format('DD');
   const month = createAtLabel?.format('MMMM');
   const year = createAtLabel?.format('YYYY');
@@ -46,12 +46,22 @@ export default function StateCard(props: {
     <Row>
       <Row type="flex" justify="space-between">
         {/* reservation name */}
-        <Col span={12}>
-          <p className={styles.title}>{name}</p>
+        <Col span={18}>
+          <p
+            className={styles.title}
+            style={{
+              display: 'flex',
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+            }}
+          >
+            {name}
+          </p>
         </Col>
 
         {/* reservation date */}
-        <Col span={12}>
+        <Col span={6}>
           <p className={styles.date}>
             {n} {month} {year}
           </p>
