@@ -280,7 +280,7 @@ const OverviewCommonForm: React.FC<FormComponentProps & {
                   facilityData.startSoundTime?.format('HH.mm')}{' '}
                 ถึงเวลา{' '}
                 {facilityData &&
-                  facilityData.startSoundTime?.format('HH.mm')}{' '}
+                  facilityData.stopSoundTime?.format('HH.mm')}{' '}
                 น.
               </p>
             )}
