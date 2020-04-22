@@ -24,19 +24,20 @@ export default function StateCard(props: {
       type?: ReserveState;
       desc?: string;
     };
+    createAt?: Moment;
   };
 }) {
   const { name, reserve } = props;
-  const date = reserve?.date;
-  const n = date?.format('DD');
-  const month = date?.format('MMMM');
-  const year = date?.format('YYYY');
+  const createAtLabel = reserve?.createAt;
+  const n = createAtLabel?.format('DD');
+  const month = createAtLabel?.format('MMMM');
+  const year = createAtLabel?.format('YYYY');
 
   const empty = <p className={styles.empty}>ไม่มีข้อมูลการจอง</p>;
   const range = (
     <span>
-      {date?.format('DD MMMM YYYY')} เวลา {reserve?.start?.format('HH:mm')}
-      -{reserve?.stop?.format('HH:mm')} น.
+      {createAtLabel?.format('DD MMMM YYYY')} เวลา{' '}
+      {reserve?.start?.format('HH:mm')}-{reserve?.stop?.format('HH:mm')} น.
     </span>
   );
   const detail = <span>blabalbalbalbalbals</span>;

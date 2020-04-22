@@ -83,10 +83,14 @@ export default class MyReservePage extends Component<
             )}
             {data[0] &&
               data.map((e: Reserve, i) => {
-                const { name, reserve } = e;
+                const { name, reserve, createAt } = e;
+
                 return (
                   <Link key={i + type} to={`/my/reserve/${type}/${e._id}`}>
-                    <StateCard name={name} reserve={reserve} />
+                    <StateCard
+                      name={name}
+                      reserve={{ ...reserve, createAt }}
+                    />
                   </Link>
                 );
               })}

@@ -12,6 +12,7 @@ class ReservedClass {
       return {
         _id: e._id,
         name: e && e.area && e.area.label,
+        createAt: moment(e.createAt),
         reserve: {
           date: moment(e.reserve[0].start),
           start: moment(e.reserve[0].start),

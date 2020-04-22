@@ -4,7 +4,7 @@ import moment from 'moment';
 import Loadable from 'react-loadable';
 
 // interfaces
-import { Task } from 'Models/task/task.interface';
+import { TaskLastCard } from 'Models/task/task.interface';
 
 import styles from './home.module.css';
 import { Link } from 'react-router-dom';
@@ -14,7 +14,9 @@ const StateCard = Loadable({
   loading: () => null,
 });
 
-const Home: React.FunctionComponent<{ lastCard?: Task }> = props => {
+const Home: React.FunctionComponent<{
+  lastCard?: TaskLastCard;
+}> = props => {
   const day = moment();
   const dayName = day.format('ddd');
   const date = day.format('D');
@@ -44,6 +46,7 @@ const Home: React.FunctionComponent<{ lastCard?: Task }> = props => {
                     type: lastCard?.state[lastCard.state.length - 1],
                     desc: lastCard.desc,
                   },
+                  createAt: lastCard.createAt,
                 }
               : undefined
           }
