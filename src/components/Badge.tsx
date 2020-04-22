@@ -8,6 +8,10 @@ const style: React.CSSProperties = {
   background: '#FDE3D4',
   borderRadius: '100px',
   padding: '5px 15px 5px 15px',
+  display: 'inline',
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
 };
 
 const Badge: React.FunctionComponent<{
