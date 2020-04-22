@@ -15,6 +15,7 @@ import { FacilityForm } from './facility';
 // store & dara
 import { END_POINT } from 'Models/axios.interface';
 import { RootReducers } from 'Store/reducers';
+import { AreaInfo } from 'Store/reducers/areaForm/types';
 
 // custom components
 const CustomBrakeLine: React.FC = () => (
@@ -75,16 +76,19 @@ const CustomParagraph: React.FC = props => (
 const DOWNLOAD_URL = END_POINT + '/file';
 const OverviewCommonForm: React.FC<FormComponentProps & {
   ind?: number;
-  data?: any;
+  data?: {
+    forms: any;
+    area: AreaInfo;
+  };
 }> = props => {
   const CUR_IND = props.ind || 3;
   const { validateFields } = props.form;
   const dispatch = useDispatch();
-  const formData =
+  const { forms, area } =
     props.data || useSelector((s: RootReducers) => s.AreaFormReducers);
-  const requestorData: RequestorForm | undefined = formData?.forms[0];
-  const projectData: ProjectForm | undefined = formData?.forms[1];
-  const facilityData: FacilityForm | undefined = formData?.forms[2];
+  const requestorData: RequestorForm | undefined = forms[0];
+  const projectData: ProjectForm | undefined = forms[1];
+  const facilityData: FacilityForm | undefined = forms[2];
 
   //   set index when form is loaded
   useEffect(() => {
@@ -133,9 +137,7 @@ const OverviewCommonForm: React.FC<FormComponentProps & {
         {/* overview section */}
         <CustomBrakeLine />
         <CustomLabel>สถานที่</CustomLabel>
-        <CustomParagraph>
-          อาคารพระจอมเกล้าราชานุสรณ์ 190 ปี มจธ. (จัดกิจกรรม)
-        </CustomParagraph>
+        <CustomParagraph>{area?.label}</CustomParagraph>
         <CustomLabel>วันที่จอง</CustomLabel>
         <CustomParagraph>
           {/* start date */}

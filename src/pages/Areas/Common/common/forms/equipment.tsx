@@ -10,7 +10,7 @@ import { Col, Row, Input } from 'antd';
 import Button from 'Components/Button';
 import labelStyles from './styles/label';
 
-export interface AreaForm {
+export interface EquipmentForm {
   football: number;
   futsal: number;
   basketball: number;
@@ -36,7 +36,7 @@ const EquipmentForm: React.FC<FormComponentProps & {
   //   const { getFieldDecorator } = props.form;
   const dispatch = useDispatch();
   const { forms } = useSelector((s: RootReducers) => s.AreaFormReducers);
-  const data: AreaForm = forms[CUR_IND];
+  const data: EquipmentForm = forms[CUR_IND];
   const [ownForms, setOwnForms] = useState({});
   const [other, setOther] = useState('');
   //   const data: ProjectForm = forms[CUR_IND];

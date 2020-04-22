@@ -38,7 +38,7 @@ interface SetAreaInfoFormAction {
 interface FinishFormAction {
   type: typeof FINISH_FORM;
 }
-type AreaInfo = {
+export type AreaInfo = {
   _id: string;
   name: string;
   label: string;
