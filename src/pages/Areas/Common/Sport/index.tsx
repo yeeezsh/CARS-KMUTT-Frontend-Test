@@ -48,7 +48,7 @@ const ConfirmModal = Loadable({
 });
 
 // constant
-const MAX_STEPS = 7;
+const MAX_STEPS = 6;
 
 const Sport: React.FC = () => {
   const forms = useSelector((s: RootReducers) => s.AreaFormReducers);
@@ -83,9 +83,9 @@ const Sport: React.FC = () => {
 
   // once
   useEffect(() => {
-    if (forms.forms.length === 0) {
-      dispatch({ type: 'INIT_FORM', payload: { size: MAX_STEPS } });
-    }
+    // if (forms.forms.length === 0) {
+    dispatch({ type: 'INIT_FORM', payload: { size: MAX_STEPS } });
+    // }
     buildingAPI
       .getBuildingInfo(areaId)
       .then(area => {

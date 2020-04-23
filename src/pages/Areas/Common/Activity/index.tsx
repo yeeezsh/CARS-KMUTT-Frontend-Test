@@ -69,9 +69,9 @@ const Activity: React.FC = () => {
 
   // once
   useEffect(() => {
-    if (forms.forms.length === 0) {
-      dispatch({ type: 'INIT_FORM', payload: { size: 4 } });
-    }
+    // if (forms.forms.length === 0) {
+    dispatch({ type: 'INIT_FORM', payload: { size: MAX_STEPS } });
+    // }
     buildingAPI
       .getBuildingInfo(areaId)
       .then(area => {
