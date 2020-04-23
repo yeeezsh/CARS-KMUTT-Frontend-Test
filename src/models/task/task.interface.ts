@@ -19,6 +19,7 @@ export interface Task {
   >;
   area: Area;
   desc?: ReserveStateDesc;
+  forms?: any;
 
   cancle: boolean;
   createAt: Moment | Date;
