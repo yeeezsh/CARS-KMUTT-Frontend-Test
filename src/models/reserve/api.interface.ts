@@ -20,11 +20,12 @@ export interface TaskAPI {
   _id: string;
   reserve: TimeSlot[];
   requestor: RequestorAPI[];
-  state: Array<'wait' | 'approve' | 'reject' | 'accept' | 'drop' | 'requested'>;
+  state: Array<
+    'wait' | 'approve' | 'reject' | 'accept' | 'drop' | 'requested'
+  >;
   // staff?: Staff[];
-  area: AreaAPI; // required area module
-  // form?: Form; // required form module
-  form?: any;
+  area: AreaAPI;
+  forms?: any;
 
   cancle: boolean;
   createAt: Date;

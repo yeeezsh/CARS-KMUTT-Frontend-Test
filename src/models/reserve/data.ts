@@ -5,6 +5,7 @@ export const query = (type: ReserveState) => {
   return type;
 };
 
+// mockup DEPRECATED
 export const data = (): Reserve[] => {
   return [
     {
@@ -22,6 +23,7 @@ export const data = (): Reserve[] => {
           desc: 'ได้รับการอนุมัติ',
         },
       },
+      createAt: moment(),
     },
     {
       _id: '2',
@@ -37,6 +39,7 @@ export const data = (): Reserve[] => {
           desc: 'รอการยืนยันจากเพื่อน',
         },
       },
+      createAt: moment(),
     },
   ];
 };

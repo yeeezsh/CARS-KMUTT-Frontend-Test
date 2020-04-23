@@ -12,10 +12,10 @@ const HomeLayout = Loadable({
 });
 
 import { taskAPI } from 'Models/task';
-import { Task } from 'Models/task/task.interface';
+import { TaskLastCard } from 'Models/task/task.interface';
 
 type StateTypes = {
-  lastCard: Task | undefined;
+  lastCard: TaskLastCard | undefined;
   needAction: boolean;
 };
 
