@@ -4,8 +4,8 @@ import { Moment } from 'moment';
 
 import styles from './styles.module.css';
 
-import Outline from '../../components/Outline';
-import Button from '../../components/Button';
+import Outline from 'Components/Outline';
+import Button from 'Components/Button';
 
 export default class ConfirmPage extends Component<
   {

@@ -3,14 +3,14 @@ import { Form, Col, Row, Input } from 'antd';
 
 import { FormComponentProps } from 'antd/lib/form/Form';
 
-import Outline from '../../components/Outline';
-import Button from '../../components/Button';
+import Outline from 'Components/Outline';
+import Button from 'Components/Button';
 
 import usernameValidator from '../../utils/username.validator';
 
 import styles from './styles.module.css';
 import { connect } from 'react-redux';
-import { RootReducers } from '../../store/reducers';
+import { RootReducers } from 'Store/reducers';
 
 interface PropsTypes extends FormComponentProps {
   required?: number;

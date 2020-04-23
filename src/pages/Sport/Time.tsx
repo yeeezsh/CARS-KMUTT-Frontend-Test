@@ -5,27 +5,27 @@ import moment, { Moment } from 'moment';
 import { Col, Row } from 'antd';
 
 const BadgeDateSelector = Loadable({
-  loader: () => import('../../components/BadgeDateSelector'),
+  loader: () => import('Components/BadgeDateSelector'),
   loading: () => null,
 });
 const TimeTable = Loadable({
-  loader: () => import('../../components/TimeTable'),
+  loader: () => import('Components/TimeTable'),
   loading: () => null,
 });
 
-import BreakingLine from '../../components/BreakingLine';
-import Outline from '../../components/Outline';
-import Badge from '../../components/Badge';
+import BreakingLine from 'Components/BreakingLine';
+import Outline from 'Components/Outline';
+import Badge from 'Components/Badge';
 
 import styles from './styles.module.css';
 
-import orangeSquareIcon from '../../assets/icons/square/orange.svg';
-import greySquareIcon from '../../assets/icons/square/grey.svg';
-import blueSquareIcon from '../../assets/icons/square/blue.svg';
+import orangeSquareIcon from 'Assets/icons/square/orange.svg';
+import greySquareIcon from 'Assets/icons/square/grey.svg';
+import blueSquareIcon from 'Assets/icons/square/blue.svg';
 
 // interfaces
-import TimeNode from '../../components/TimeTable/timetable.interface';
-import Area from '../../models/area/area.interface';
+import TimeNode from 'Components/TimeTable/timetable.interface';
+import Area from 'Models/area/area.interface';
 
 // helpers
 import WeekParseHelper from './helpers/week.parse';

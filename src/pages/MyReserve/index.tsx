@@ -4,28 +4,28 @@ import { Route, Switch } from 'react-router';
 import { Link } from 'react-router-dom';
 
 const PageLayout = Loadable({
-  loader: () => import('../../components/Layout/Page'),
+  loader: () => import('Components/Layout/Page'),
   loading: () => null,
 });
 const StateCard = Loadable({
-  loader: () => import('../../components/StateCard'),
+  loader: () => import('Components/StateCard'),
   loading: () => null,
 });
-import Outline from '../../components/Outline';
+import Outline from 'Components/Outline';
 const ReservationInfo = Loadable({
-  loader: () => import('../../components/ReservationInfo'),
+  loader: () => import('Components/ReservationInfo'),
   loading: () => null,
 });
 
 // models
-import Reserve from '../../models/reserve/interface';
+import Reserve from 'Models/reserve/interface';
 
 // helpers
 import OutlineType from './helpers/outline.type';
-import { r } from '../../models/reserve';
+import { r } from 'Models/reserve';
 
 // icons
-import emptyIcon from '../../assets/icons/empty.box.svg';
+import emptyIcon from 'Assets/icons/empty.box.svg';
 
 export default class MyReservePage extends Component<
   {
