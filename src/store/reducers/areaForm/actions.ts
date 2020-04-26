@@ -7,6 +7,8 @@ import {
   FILL_FORM,
   AreaInfo,
   SET_AREA_INFO,
+  FINISH_FORM,
+  SET_FORM_CUR,
 } from './types';
 
 export function addForm(payload: {}): AreaFormActionTypes {
@@ -40,4 +42,11 @@ export function setAreaInfoForm(area: AreaInfo): AreaFormActionTypes {
     type: SET_AREA_INFO,
     payload: area,
   };
+}
+
+export function finishFormAction(): AreaFormActionTypes {
+  return { type: FINISH_FORM };
+}
+export function setFormCurrentIndex(n: number): AreaFormActionTypes {
+  return { type: SET_FORM_CUR, payload: { cur: n } };
 }
