@@ -39,10 +39,10 @@ interface FinishFormAction {
   type: typeof FINISH_FORM;
 }
 export type AreaInfo = {
-  _id: string;
-  name: string;
-  label: string;
-  type: BuildingType;
+  _id?: string;
+  name?: string;
+  label?: string;
+  type?: BuildingType;
 };
 
 export interface EachForm {

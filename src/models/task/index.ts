@@ -20,7 +20,6 @@ class TaskClass {
   async getTaskById(id: string): Promise<TaskDetail | undefined> {
     try {
       const data = (await i.instance.get('/task/' + id)).data;
-      console.log(data);
       return taskDetailParse(data);
     } catch (err) {
       throw new Error(err);

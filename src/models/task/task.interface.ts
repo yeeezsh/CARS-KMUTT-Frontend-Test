@@ -8,9 +8,9 @@ interface Area {
   name: string;
   label?: string;
   building?: AreaBuilding;
-  type?: string;
+  type?: string | any;
 }
-
+export type TaskType = 'common' | 'common-sport' | 'sport' | 'meeting';
 export interface Task {
   _id: string;
   reserve: TimeSlot[];
@@ -20,6 +20,7 @@ export interface Task {
   area: Area;
   desc?: ReserveStateDesc;
   forms?: any;
+  type?: TaskType | string;
 
   cancle: boolean;
   createAt: Moment | Date;
