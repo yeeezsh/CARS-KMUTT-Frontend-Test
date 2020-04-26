@@ -21,6 +21,10 @@ import {
   OverviewSportForm,
 } from '../common/forms';
 import { taskFormAPI } from 'Models/task/form';
+import {
+  setAreaInfoForm,
+  initForm,
+} from 'Store/reducers/areaForm/actions';
 
 const StateSteps = Loadable({
   loader: () => import('Components/StateSteps'),
@@ -59,38 +63,18 @@ const Sport: React.FC = () => {
 
   const areaId = location.split('/')[3];
 
-  // when steps change
-  useEffect(() => {
-    if (steps === 0) return;
-    let unit = 1;
-
-    // skip when no equipment acquire
-    const CONDITION_IND_CHECK = 3;
-    const SKIP_IND_PAGE = 4;
-    const equipmentForm = forms.forms[CONDITION_IND_CHECK];
-    const mustReturn =
-      Object.keys(equipmentForm).some(e => equipmentForm[e] > 0) ||
-      equipmentForm.other;
-    if (!mustReturn && steps === SKIP_IND_PAGE) unit = 2;
-    console.log('must return', mustReturn);
-
-    const oldPath = location;
-    const newPath = oldPath.slice(0, -1) + (steps + unit);
-    history.push(newPath);
-
-    // if()
-  }, [steps]);
-
   // once
   useEffect(() => {
     // if (forms.forms.length === 0) {
-    dispatch({ type: 'INIT_FORM', payload: { size: MAX_STEPS } });
+    // dispatch({ type: 'INIT_FORM', payload: { size: MAX_STEPS } });
+    dispatch(initForm({ size: MAX_STEPS }));
     // }
     buildingAPI
       .getBuildingInfo(areaId)
       .then(area => {
         // setBuilding(area);
-        dispatch({ type: 'SET_AREA_INFO', payload: area });
+        // dispatch({ type: 'SET_AREA_INFO', payload: area });
+        dispatch(setAreaInfoForm(area));
       })
       .then(() => {
         // pre load other forms
@@ -131,13 +115,35 @@ const Sport: React.FC = () => {
     return;
   }
 
+  // when steps change
+  useEffect(() => {
+    if (steps === 0) return;
+    let unit = 1;
+
+    // skip when no equipment acquire
+    const CONDITION_IND_CHECK = 3;
+    const SKIP_IND_PAGE = 4;
+    const equipmentForm = forms.forms[CONDITION_IND_CHECK];
+    const mustReturn =
+      Object.keys(equipmentForm).some(e => equipmentForm[e] > 0) ||
+      equipmentForm.other;
+    if (!mustReturn && steps === SKIP_IND_PAGE) unit = 2;
+    console.log('must return', mustReturn);
+
+    const oldPath = location;
+    const newPath = oldPath.slice(0, -1) + (steps + unit);
+    history.push(newPath);
+  }, [steps]);
+
   console.log('ready to send form', forms.finish);
   if (forms.finish) {
     sendData();
     setModal(true);
     // then reset form
-    dispatch({ type: 'INIT_FORM', payload: { size: 7 } });
+    // dispatch({ type: 'INIT_FORM', payload: { size: 7 } });
+    dispatch(initForm({ size: MAX_STEPS }));
   }
+
   return (
     <PageLayout titile="จองพื้นที่ส่วนกลาง">
       {/* confirm modal */}

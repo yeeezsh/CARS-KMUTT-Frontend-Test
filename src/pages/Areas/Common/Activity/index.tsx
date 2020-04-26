@@ -46,6 +46,10 @@ import {
 
 import { buildingAPI } from 'Models/building';
 import { taskFormAPI } from 'Models/task/form';
+import {
+  initForm,
+  setAreaInfoForm,
+} from 'Store/reducers/areaForm/actions';
 
 // constant
 const MAX_STEPS = 3;
@@ -58,34 +62,6 @@ const Activity: React.FC = () => {
   const location = useLocation().pathname;
 
   const areaId = location.split('/')[3];
-
-  // when steps change
-  useEffect(() => {
-    if (steps === 0) return;
-    const oldPath = location;
-    const newPath = oldPath.slice(0, -1) + (steps + 1);
-    history.push(newPath);
-  }, [steps]);
-
-  // once
-  useEffect(() => {
-    // if (forms.forms.length === 0) {
-    dispatch({ type: 'INIT_FORM', payload: { size: MAX_STEPS } });
-    // }
-    buildingAPI
-      .getBuildingInfo(areaId)
-      .then(area => {
-        // setBuilding(area);
-        dispatch({ type: 'SET_AREA_INFO', payload: area });
-      })
-      .then(() => {
-        // pre load other forms
-        ProjectForm.preload();
-        FacilityForm.preload();
-        OverviewCommonForm.preload();
-      });
-  }, []);
-
   // const [canNext, setCanNext] = useState(false);
   console.log('forms', forms);
 
@@ -110,12 +86,42 @@ const Activity: React.FC = () => {
     return;
   }
 
+  // once
+  useEffect(() => {
+    // if (forms.forms.length === 0) {
+    // dispatch({ type: 'INIT_FORM', payload: { size: MAX_STEPS } });
+    dispatch(initForm({ size: MAX_STEPS }));
+    // }
+    buildingAPI
+      .getBuildingInfo(areaId)
+      .then(area => {
+        // setBuilding(area);
+        // dispatch({ type: 'SET_AREA_INFO', payload: area });
+        dispatch(setAreaInfoForm(area));
+      })
+      .then(() => {
+        // pre load other forms
+        ProjectForm.preload();
+        FacilityForm.preload();
+        OverviewCommonForm.preload();
+      });
+  }, []);
+
+  // when steps change
+  useEffect(() => {
+    if (steps === 0) return;
+    const oldPath = location;
+    const newPath = oldPath.slice(0, -1) + (steps + 1);
+    history.push(newPath);
+  }, [steps]);
+
   console.log('ready to send form', forms.finish);
   if (forms.finish) {
     sendData();
     setModal(true);
     // then reset form
-    dispatch({ type: 'INIT_FORM', payload: { size: 4 } });
+    // dispatch({ type: 'INIT_FORM', payload: { size: 4 } });
+    dispatch(initForm({ size: MAX_STEPS }));
   }
 
   return (
@@ -184,16 +190,16 @@ const Activity: React.FC = () => {
 
       <Switch>
         <Route path="/*1">
-          <RequestorForm />
+          <RequestorForm ind={0} />
         </Route>
         <Route path="/*2">
-          <ProjectForm />
+          <ProjectForm ind={1} />
         </Route>
         <Route path="/*3">
-          <FacilityForm />
+          <FacilityForm ind={2} />
         </Route>
         <Route path="/*4">
-          <OverviewCommonForm />
+          <OverviewCommonForm ind={3} />
         </Route>
       </Switch>
     </PageLayout>
