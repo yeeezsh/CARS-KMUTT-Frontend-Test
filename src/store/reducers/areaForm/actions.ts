@@ -5,6 +5,8 @@ import {
   SUBMIT_FORM,
   EachForm,
   FILL_FORM,
+  AreaInfo,
+  SET_AREA_INFO,
 } from './types';
 
 export function addForm(payload: {}): AreaFormActionTypes {
@@ -31,5 +33,11 @@ export function fillForm(payload: EachForm): AreaFormActionTypes {
   return {
     type: FILL_FORM,
     payload,
+  };
+}
+export function setAreaInfoForm(area: AreaInfo): AreaFormActionTypes {
+  return {
+    type: SET_AREA_INFO,
+    payload: area,
   };
 }
