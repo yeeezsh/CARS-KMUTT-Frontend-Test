@@ -1,14 +1,34 @@
 import React, { Component } from 'react';
+import Loadble from 'react-loadable';
 import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { Row, Col } from 'antd';
 import moment from 'moment';
 
-import Outline from 'Components/Outline';
-import Badge from 'Components/Badge';
-import StateCardIconColor from 'Components/StateCard/icon';
-import BreakingLine from 'Components/BreakingLine';
-import Button from 'Components/Button';
+const Outline = Loadble({
+  loader: () => import('Components/Outline'),
+  loading: () => null,
+});
+const Badge = Loadble({
+  loader: () => import('Components/Badge'),
+  loading: () => null,
+});
+const StateCardIconColor = Loadble({
+  loader: () => import('Components/StateCard/icon'),
+  loading: () => null,
+});
+const BreakingLine = Loadble({
+  loader: () => import('Components/BreakingLine'),
+  loading: () => null,
+});
+const Button = Loadble({
+  loader: () => import('Components/Button'),
+  loading: () => null,
+});
+const UsersReserveList = Loadble({
+  loader: () => import('Components/UsersReserveList'),
+  loading: () => null,
+});
 
 // Models
 import { TaskDetail } from 'Models/task/task.interface';
@@ -18,7 +38,10 @@ import ActionModal from './modal';
 
 // styles sheet
 import styles from './styles.module.css';
-import UsersReserveList from 'Components/UsersReserveList';
+import {
+  OverviewCommonForm,
+  OverviewSportForm,
+} from 'Pages/Areas/Common/common/forms';
 
 // const initState
 const MODAL_REJECT_MSG = 'ท่านต้องการยกเลิกรีเควส';
@@ -40,6 +63,8 @@ class ReservationInfo extends Component<
     ownConfirm: boolean;
     _id: string;
     cancle: boolean;
+    forms?: any;
+    type?: TaskDetail['type'];
   }
 > {
   constructor(props: PropTypes) {
@@ -115,12 +140,14 @@ class ReservationInfo extends Component<
       owner,
       ownConfirm,
       cancle: data.cancle,
+      forms: data.forms,
+      type: data.type,
     });
   };
 
   componentWillUnmount = () => {
     const { onUnmount } = this.props;
-    onUnmount && onUnmount();
+    return onUnmount && onUnmount();
   };
 
   render() {
@@ -134,9 +161,26 @@ class ReservationInfo extends Component<
       ownConfirm,
       owner,
       cancle,
+      forms,
+      type,
     } = this.state;
 
     const modalMsg = owner ? MODAL_REJECT_MSG : undefined;
+    const formInfo = (type: TaskDetail['type']) => {
+      console.log('form type', type);
+      if (!forms) return null;
+      if (type === 'common') {
+        return (
+          <OverviewCommonForm viewOnly={true} data={{ forms, area }} />
+        );
+      }
+      if (type === 'common-sport') {
+        return (
+          <OverviewSportForm viewOnly={true} data={{ forms, area }} />
+        );
+      }
+      return null;
+    };
 
     const ActionBtn = () => {
       if (owner && !cancle && state !== 'accept' && state !== 'drop') {
@@ -230,6 +274,9 @@ class ReservationInfo extends Component<
           <Col className={styles.overviewStudentIds} offset={1} span={22}>
             <UsersReserveList users={requestor} />
           </Col>
+
+          {/* forms */}
+          {formInfo(type)}
 
           {/* btn action */}
           <Col span={24} style={{ marginTop: '55px' }}>
