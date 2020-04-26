@@ -17,6 +17,11 @@ import { FacilityForm } from './facility';
 import { END_POINT } from 'Models/axios.interface';
 import { RootReducers } from 'Store/reducers';
 import { AreaInfo } from 'Store/reducers/areaForm/types';
+import {
+  finishFormAction,
+  fillForm,
+  setFormCurrentIndex,
+} from 'Store/reducers/areaForm/actions';
 
 interface Props {
   ind?: number;
@@ -97,30 +102,35 @@ const OverviewCommonForm: React.FC<FormComponentProps & Props> = props => {
 
   //   set index when form is loaded
   useEffect(() => {
-    dispatch({
-      type: 'SET_FORM_CUR',
-      payload: { cur: CUR_IND },
-    });
+    // dispatch({
+    //   type: 'SET_FORM_CUR',
+    //   payload: { cur: CUR_IND },
+    // });
+    if (props.viewOnly) return; // prevent when viewOnly
+    dispatch(setFormCurrentIndex(CUR_IND));
   }, []);
 
   function onSubmit() {
     validateFields((err, values) => {
-      dispatch({
-        type: 'FILL_FORM',
-        payload: {
-          form: values,
-          valid: false,
-        },
-      });
+      // dispatch({
+      //   type: 'FILL_FORM',
+      //   payload: {
+      //     form: values,
+      //     valid: false,
+      //   },
+      // });
+      dispatch(fillForm({ form: values, valid: false }));
       if (!err) {
-        dispatch({
-          type: 'FILL_FORM',
-          payload: {
-            form: values,
-            valid: true,
-          },
-        });
-        dispatch({ type: 'FINISH_FORM' });
+        // dispatch({
+        //   type: 'FILL_FORM',
+        //   payload: {
+        //     form: values,
+        //     valid: true,
+        //   },
+        // });
+        dispatch(fillForm({ form: values, valid: true }));
+        // dispatch({ type: 'FINISH_FORM' });
+        dispatch(finishFormAction());
       }
     });
   }

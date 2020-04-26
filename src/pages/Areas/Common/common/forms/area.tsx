@@ -8,6 +8,11 @@ import NumberWithToggle from 'Components/NumberWithToggle';
 import BreakingLine from 'Components/BreakingLine';
 import { Col, Row } from 'antd';
 import Button from 'Components/Button';
+import {
+  fillForm,
+  submitForm,
+  setFormCurrentIndex,
+} from 'Store/reducers/areaForm/actions';
 
 export interface AreaForm {
   basketball: number;
@@ -39,21 +44,24 @@ const AreaForm: React.FC<FormComponentProps & {
 
   //   set index when form is loaded
   useEffect(() => {
-    dispatch({
-      type: 'SET_FORM_CUR',
-      payload: { cur: CUR_IND },
-    });
+    // dispatch({
+    //   type: 'SET_FORM_CUR',
+    //   payload: { cur: CUR_IND },
+    // });
+    dispatch(setFormCurrentIndex(CUR_IND));
   }, []);
 
   function onSubmit() {
-    dispatch({
-      type: 'FILL_FORM',
-      payload: {
-        form: ownForms,
-        valid: true,
-      },
-    });
-    dispatch({ type: 'SUBMIT_FORM' });
+    // dispatch({
+    //   type: 'FILL_FORM',
+    //   payload: {
+    //     form: ownForms,
+    //     valid: true,
+    //   },
+    // });
+    dispatch(fillForm({ form: ownForms, valid: true }));
+    // dispatch({ type: 'SUBMIT_FORM' });
+    dispatch(submitForm());
   }
 
   function onNumberChange(name: string, value: number): void {

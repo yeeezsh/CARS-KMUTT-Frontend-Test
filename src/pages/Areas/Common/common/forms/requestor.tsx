@@ -14,6 +14,11 @@ import { DEFAULT_USERNAME_RULES } from './rules/username';
 
 // styles
 import labelStyles from './styles/label';
+import {
+  fillForm,
+  setFormCurrentIndex,
+  submitForm,
+} from 'Store/reducers/areaForm/actions';
 
 export interface RequestorForm {
   userType: string;
@@ -28,10 +33,10 @@ export interface RequestorForm {
 type UserType = 'student' | 'prof';
 
 // constant
-const CUR_IND = 0;
 const RequestorForm: React.FC<FormComponentProps & {
   ind?: number;
 }> = props => {
+  const CUR_IND = props.ind || 0;
   const { getFieldDecorator, validateFields } = props.form;
   const dispatch = useDispatch();
   const { forms } = useSelector((s: RootReducers) => s.AreaFormReducers);
@@ -41,22 +46,25 @@ const RequestorForm: React.FC<FormComponentProps & {
 
   function onSubmit() {
     validateFields((err, values) => {
-      dispatch({
-        type: 'FILL_FORM',
-        payload: {
-          form: values,
-          valid: false,
-        },
-      });
+      // dispatch({
+      //   type: 'FILL_FORM',
+      //   payload: {
+      //     form: values,
+      //     valid: false,
+      //   },
+      // });
+      dispatch(fillForm({ form: values, valid: false }));
       if (!err) {
-        dispatch({
-          type: 'FILL_FORM',
-          payload: {
-            form: values,
-            valid: true,
-          },
-        });
-        dispatch({ type: 'SUBMIT_FORM' });
+        // dispatch({
+        //   type: 'FILL_FORM',
+        //   payload: {
+        //     form: values,
+        //     valid: true,
+        //   },
+        // });
+        dispatch(fillForm({ form: values, valid: true }));
+        // dispatch({ type: 'SUBMIT_FORM' });
+        dispatch(submitForm());
       }
     });
   }
@@ -70,10 +78,11 @@ const RequestorForm: React.FC<FormComponentProps & {
 
   //   set index when form is loaded
   useEffect(() => {
-    dispatch({
-      type: 'SET_FORM_CUR',
-      payload: { cur: props.ind || CUR_IND },
-    });
+    // dispatch({
+    //   type: 'SET_FORM_CUR',
+    //   payload: { cur: CUR_IND },
+    // });
+    dispatch(setFormCurrentIndex(CUR_IND));
     // fix issues disabled when load old data forms
     if (data.faculty) {
       onFaculty(data.faculty);

@@ -3,12 +3,16 @@ import Form, { FormComponentProps } from 'antd/lib/form';
 import FormLabel from 'Components/FormLabel';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootReducers } from 'Store/reducers';
-// import { data } from 'Models/reserve/data';
 import NumberWithToggle from 'Components/NumberWithToggle';
 import BreakingLine from 'Components/BreakingLine';
 import { Col, Row, Input } from 'antd';
 import Button from 'Components/Button';
 import labelStyles from './styles/label';
+import {
+  setFormCurrentIndex,
+  fillForm,
+  submitForm,
+} from 'Store/reducers/areaForm/actions';
 
 export interface EquipmentForm {
   football: number;
@@ -43,21 +47,24 @@ const EquipmentForm: React.FC<FormComponentProps & {
 
   //   set index when form is loaded
   useEffect(() => {
-    dispatch({
-      type: 'SET_FORM_CUR',
-      payload: { cur: CUR_IND },
-    });
+    // dispatch({
+    //   type: 'SET_FORM_CUR',
+    //   payload: { cur: CUR_IND },
+    // });
+    dispatch(setFormCurrentIndex(CUR_IND));
   }, []);
 
   function onSubmit() {
-    dispatch({
-      type: 'FILL_FORM',
-      payload: {
-        form: { ...ownForms, other },
-        valid: true,
-      },
-    });
-    dispatch({ type: 'SUBMIT_FORM' });
+    // dispatch({
+    //   type: 'FILL_FORM',
+    //   payload: {
+    //     form: { ...ownForms, other },
+    //     valid: true,
+    //   },
+    // });
+    dispatch(fillForm({ form: ownForms, valid: true }));
+    // dispatch({ type: 'SUBMIT_FORM' });
+    dispatch(submitForm());
   }
 
   function onNumberChange(name: string, value: number): void {

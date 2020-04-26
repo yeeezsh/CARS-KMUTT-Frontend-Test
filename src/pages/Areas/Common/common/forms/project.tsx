@@ -28,6 +28,11 @@ import labelStyles from './styles/label';
 import { RootReducers } from 'Store/reducers';
 import i, { END_POINT } from 'Models/axios.interface';
 import { DEFAULT_REQUIRED_RULES } from './rules/required';
+import {
+  setFormCurrentIndex,
+  fillForm,
+  submitForm,
+} from 'Store/reducers/areaForm/actions';
 
 type DateType = 'oneday' | 'range';
 export interface ProjectForm {
@@ -66,30 +71,34 @@ const ProjectForm: React.FC<FormComponentProps & {
 
   //   set index when form is loaded
   useEffect(() => {
-    dispatch({
-      type: 'SET_FORM_CUR',
-      payload: { cur: CUR_IND },
-    });
+    // dispatch({
+    //   type: 'SET_FORM_CUR',
+    //   payload: { cur: CUR_IND },
+    // });
+    dispatch(setFormCurrentIndex(CUR_IND));
   }, []);
 
   function onSubmit() {
     validateFields((err, values) => {
-      dispatch({
-        type: 'FILL_FORM',
-        payload: {
-          form: values,
-          valid: false,
-        },
-      });
+      // dispatch({
+      //   type: 'FILL_FORM',
+      //   payload: {
+      //     form: values,
+      //     valid: false,
+      //   },
+      // });
+      dispatch(fillForm({ form: values, valid: false }));
       if (!err) {
-        dispatch({
-          type: 'FILL_FORM',
-          payload: {
-            form: values,
-            valid: true,
-          },
-        });
-        dispatch({ type: 'SUBMIT_FORM' });
+        // dispatch({
+        //   type: 'FILL_FORM',
+        //   payload: {
+        //     form: values,
+        //     valid: true,
+        //   },
+        // });
+        dispatch(fillForm({ form: values, valid: true }));
+        // dispatch({ type: 'SUBMIT_FORM' });
+        dispatch(submitForm());
       }
     });
   }
