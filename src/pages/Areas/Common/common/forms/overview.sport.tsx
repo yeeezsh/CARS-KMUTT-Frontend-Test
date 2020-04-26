@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Form, Row, Col, Checkbox } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 import { useDispatch, useSelector } from 'react-redux';
+import moment from 'moment';
 
 import Outline from 'Components/Outline';
 import BreakingLine from 'Components/BreakingLine';
@@ -93,15 +94,18 @@ const LabelWithUnit: React.FC<{
   </Row>
 );
 
-// constant
-const DOWNLOAD_URL = END_POINT + '/file';
-const OverviewCommonForm: React.FC<FormComponentProps & {
+interface Props {
   ind?: number;
   data?: {
     forms: any;
     area: AreaInfo;
   };
-}> = props => {
+  viewOnly?: boolean;
+}
+
+// constant
+const DOWNLOAD_URL = END_POINT + '/file';
+const OverviewCommonForm: React.FC<FormComponentProps & Props> = props => {
   const CUR_IND = props.ind || 3;
   const { validateFields } = props.form;
   const dispatch = useDispatch();
@@ -160,12 +164,14 @@ const OverviewCommonForm: React.FC<FormComponentProps & {
     <React.Fragment>
       <Col
         style={{
-          border: '1px solid #1890FF',
+          border: props.viewOnly ? '' : '1px solid #1890FF',
           padding: '0px 16px 16px 16px',
         }}
         span={24}
       >
-        <Outline style={{ color: '#1890FF' }}>ข้อมูลการจอง</Outline>
+        {!props.viewOnly && (
+          <Outline style={{ color: '#1890FF' }}>ข้อมูลการจอง</Outline>
+        )}
         {/* overview section */}
         <CustomBrakeLine />
         <CustomLabel>สถานที่</CustomLabel>
@@ -176,22 +182,23 @@ const OverviewCommonForm: React.FC<FormComponentProps & {
           ตั้งแต่{' '}
           {projectData &&
             projectData.projectStartDate &&
-            projectData.projectStartDate.format('DD')}{' '}
+            moment(projectData.projectStartDate).format('DD')}{' '}
           {projectData &&
             projectData.projectStartDate &&
-            projectData.projectStartDate.format('MMMM')}{' '}
+            moment(projectData.projectStartDate).format('MMMM')}{' '}
           {projectData &&
             projectData.projectStartDate &&
-            projectData.projectStartDate.format('YYYY')}
+            moment(projectData.projectStartDate).format('YYYY')}
           ,{' '}
           {projectData &&
             projectData.projectStartTime &&
-            projectData.projectStartTime.format('HH.mm')}{' '}
+            moment(projectData.projectStartTime).format('HH.mm')}{' '}
           น. <br />
           {projectData &&
           !projectData.projectStopDate && // when not have stop date show end time here
             projectData.projectStopTime &&
-            ' ถึง ' + projectData.projectStopTime.format('HH.mm')}{' '}
+            ' ถึง ' +
+              moment(projectData.projectStopTime).format('HH.mm')}{' '}
           น. <br />
           {/* stop date */}
           {projectData && projectData.projectStopDate && (
@@ -199,17 +206,17 @@ const OverviewCommonForm: React.FC<FormComponentProps & {
               ถึง{' '}
               {projectData &&
                 projectData.projectStopDate &&
-                projectData.projectStopDate.format('DD')}{' '}
+                moment(projectData.projectStopDate).format('DD')}{' '}
               {projectData &&
                 projectData.projectStopDate &&
-                projectData.projectStopDate.format('MMMM')}{' '}
+                moment(projectData.projectStopDate).format('MMMM')}{' '}
               {projectData &&
                 projectData.projectStopDate &&
-                projectData.projectStopDate.format('YYYY')}
+                moment(projectData.projectStopDate).format('YYYY')}
               ,{' '}
               {projectData &&
                 projectData.projectStopTime &&
-                projectData.projectStopTime.format('HH.mm')}{' '}
+                moment(projectData.projectStopTime).format('HH.mm')}{' '}
               น.
             </React.Fragment>
           )}
@@ -414,13 +421,13 @@ const OverviewCommonForm: React.FC<FormComponentProps & {
             <CustomParagraph>
               {returnForm &&
                 returnForm.return &&
-                returnForm.return.format('DD')}{' '}
+                moment(returnForm.return).format('DD')}{' '}
               {projectData &&
                 returnForm.return &&
-                returnForm.return.format('MMMM')}{' '}
+                moment(returnForm.return).format('MMMM')}{' '}
               {projectData &&
                 returnForm.return &&
-                returnForm.return.format('YYYY')}
+                moment(returnForm.return).format('YYYY')}
             </CustomParagraph>
           </React.Fragment>
         )}
@@ -442,9 +449,10 @@ const OverviewCommonForm: React.FC<FormComponentProps & {
               <p>
                 ตั้งแต่เวลา{' '}
                 {facilityData &&
-                  facilityData.startAirTime?.format('HH.mm')}{' '}
+                  moment(facilityData.startAirTime).format('HH.mm')}{' '}
                 ถึงเวลา{' '}
-                {facilityData && facilityData.stopAirTime?.format('HH.mm')}{' '}
+                {facilityData &&
+                  moment(facilityData.stopAirTime).format('HH.mm')}{' '}
                 น.
               </p>
             )}
@@ -461,10 +469,10 @@ const OverviewCommonForm: React.FC<FormComponentProps & {
               <p>
                 ตั้งแต่เวลา{' '}
                 {facilityData &&
-                  facilityData.startSoundTime?.format('HH.mm')}{' '}
+                  moment(facilityData.startSoundTime).format('HH.mm')}{' '}
                 ถึงเวลา{' '}
                 {facilityData &&
-                  facilityData.stopSoundTime?.format('HH.mm')}{' '}
+                  moment(facilityData.stopSoundTime).format('HH.mm')}{' '}
                 น.
               </p>
             )}
@@ -473,22 +481,22 @@ const OverviewCommonForm: React.FC<FormComponentProps & {
 
         <CustomBrakeLine />
         {/* action */}
-        <Col span={24}>
-          <Row type="flex" justify="center">
-            <Col span={22}>
-              <Button type="confirm" onClick={onSubmit}>
-                ยืนยันข้อมูลการจอง
-              </Button>
-            </Col>
-          </Row>
-        </Col>
+        {!props.viewOnly && (
+          <Col span={24}>
+            <Row type="flex" justify="center">
+              <Col span={22}>
+                <Button type="confirm" onClick={onSubmit}>
+                  ยืนยันข้อมูลการจอง
+                </Button>
+              </Col>
+            </Row>
+          </Col>
+        )}
       </Col>
     </React.Fragment>
   );
 };
 
-export default Form.create<
-  FormComponentProps & {
-    ind?: number;
-  }
->({ name: 'requestor' })(OverviewCommonForm);
+export default Form.create<FormComponentProps & Props>({
+  name: 'overview-sport',
+})(OverviewCommonForm);
