@@ -1,46 +1,38 @@
-import kfcBuildingIcon from 'Assets/icons/area/building/kfc.svg';
-import parkBuildingIcon from 'Assets/icons/area/building/park.svg';
-import lgBuildingIcon from 'Assets/icons/area/building/lg.svg';
-import basketballBuildingIcon from 'Assets/icons/area/building/basketball.svg';
+import activityRoomIcon from 'Assets/icons/area/meeting/activity.svg';
+import clubRoomIcon from 'Assets/icons/area/meeting/club.svg';
+import meetingRoomIcon from 'Assets/icons/area/meeting/meeting.svg';
 
 import Menu from 'Models/menu/interface';
 
 const data: Menu[] = [
   {
     key: '1',
-    label: [
-      `อาคารพระจอมเกล้า
-  ราชานุสรณ์ 190 ปี มจธ.
-  (โรงยิม)`,
-    ],
-    icon: kfcBuildingIcon,
-    link: '/reserve/area/common/',
-    query: { name: 'kfc' },
+    label: [`ห้องกิจกรรม`],
+    icon: activityRoomIcon,
+    query: { name: 'activity-room-1' },
   },
   {
     key: '2',
-    label: [`สวนสุขภาพ`],
-    icon: parkBuildingIcon,
-    link: '/reserve/area/common/',
-    query: { name: 'park' },
+    label: [`ห้องชมรม`],
+    icon: clubRoomIcon,
+    query: { name: 'activity-room-2' },
   },
   {
     key: '3',
-    label: [`Learning Garden`],
-    icon: lgBuildingIcon,
-    link: '/reserve/area/common/',
-    query: { name: 'lg' },
+    label: [`ห้องประชุม 1`],
+    icon: meetingRoomIcon,
+    query: { name: 'meeting-room-1' },
   },
   {
     key: '4',
-    label: [`สนามบาสคณะวิทยาศาสตร์`],
-    icon: basketballBuildingIcon,
-    link: '/reserve/area/common/',
-    query: { name: 'sci-basketball' },
+    label: [`ห้องประชุม 2`],
+    icon: meetingRoomIcon,
+    query: { name: 'meeting-room-2' },
   },
 ].map(e => ({
   ...e,
   style: 'center',
+  link: '/reserve/area/meeting/',
 }));
 
 export default data;
