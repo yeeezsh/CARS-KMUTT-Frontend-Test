@@ -14,33 +14,30 @@ const data: Menu[] = [
   (โรงยิม)`,
     ],
     icon: kfcBuildingIcon,
-    link: '/reserve/area/common/',
     query: { name: 'kfc' },
   },
   {
     key: '2',
     label: [`สวนสุขภาพ`],
     icon: parkBuildingIcon,
-    link: '/reserve/area/common/',
     query: { name: 'park' },
   },
   {
     key: '3',
     label: [`Learning Garden`],
     icon: lgBuildingIcon,
-    link: '/reserve/area/common/',
     query: { name: 'lg' },
   },
   {
     key: '4',
     label: [`สนามบาสคณะวิทยาศาสตร์`],
     icon: basketballBuildingIcon,
-    link: '/reserve/area/common/',
     query: { name: 'sci-basketball' },
   },
 ].map(e => ({
   ...e,
   style: 'center',
+  link: '/reserve/area/common/',
 }));
 
 export default data;

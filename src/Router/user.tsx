@@ -140,6 +140,7 @@ export default class PageUserRouter extends Component<
             <Route path="*/areas">
               <MeetingArea />
             </Route>
+            <Route path="*/:id">MEETING AREA ID JAAAA</Route>
           </Switch>
         </Route>
 
