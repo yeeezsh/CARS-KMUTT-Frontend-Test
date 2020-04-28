@@ -18,7 +18,7 @@ const CategoryPage: React.FC = () => {
       key: 'meeting',
       label: ['ห้องประชุม', 'Conference Room'],
       icon: meetingAreaIcon,
-      link: '/reserve/area/meeting',
+      link: '/reserve/area/meeting/areas',
     },
   ].map(e => ({
     ...e,
