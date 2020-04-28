@@ -10,7 +10,12 @@ interface Area {
   building?: AreaBuilding;
   type?: string | any;
 }
-export type TaskType = 'common' | 'common-sport' | 'sport' | 'meeting';
+export type TaskType =
+  | 'common'
+  | 'common-sport'
+  | 'sport'
+  | 'meeting-club'
+  | 'meeting';
 export interface Task {
   _id: string;
   reserve: TimeSlot[];
