@@ -18,12 +18,14 @@ const CommonPage: React.FC = () => {
     });
   }, []);
 
+  function goBack() {
+    return history.push('/reserve/area/category');
+  }
+
   return (
     <KanBanLayout title="จองพื้นที่ส่วนกลาง" outline="เลือกสถานที่">
       <div style={BackCardStyles}>
-        <BackCard onClick={() => history.goBack()}>
-          เลือกประเภทสถานที่
-        </BackCard>
+        <BackCard onClick={goBack}>เลือกประเภทสถานที่</BackCard>
       </div>
       <KanbanCard menu={areas} />
     </KanBanLayout>
