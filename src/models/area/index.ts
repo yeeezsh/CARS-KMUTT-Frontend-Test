@@ -1,7 +1,7 @@
 import i from 'Models/axios.interface';
 import { AreaTableAPI, AreaAPI as AreaAPIInterfaces } from './interfaces';
 import { AreaAvailableAPI } from './area.interface';
-import moment from 'moment';
+import moment, { Moment } from 'moment';
 
 class AreaAPI {
   async getBuildingTable(): Promise<AreaTableAPI[]> {
@@ -16,6 +16,23 @@ class AreaAPI {
   async getAreaAvailable(id: string): Promise<AreaAvailableAPI[]> {
     try {
       const data = (await i.instance.get('/area/available/' + id)).data;
+      return data.map((e: any) => ({ ...e, date: moment(e.date) }));
+    } catch (err) {
+      throw err;
+    }
+  }
+  async getAreaAvailableWithDate(
+    id: string,
+    date: Moment,
+  ): Promise<AreaAvailableAPI[]> {
+    try {
+      const data = (
+        await i.instance.get('/area/available/' + id, {
+          params: {
+            date: date.toISOString(),
+          },
+        })
+      ).data;
       return data.map((e: any) => ({ ...e, date: moment(e.date) }));
     } catch (err) {
       throw err;
