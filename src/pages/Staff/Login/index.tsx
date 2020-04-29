@@ -11,7 +11,7 @@ import styles from './styles.module.css';
 import logo from 'Assets/login.logo.svg';
 
 // utils
-import usernameValidator from '../../../utils/username.validator';
+import usernameValidator from 'Utils/username.validator';
 import {
   MSG_BAD_USERNAME,
   MSG_REQUIRE_USERNAME,

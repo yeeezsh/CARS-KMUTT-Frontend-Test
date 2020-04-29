@@ -28,7 +28,8 @@ import TimeNode from 'Components/TimeTable/timetable.interface';
 import Area from 'Models/area/area.interface';
 
 // helpers
-import WeekParseHelper from './helpers/week.parse';
+
+import WeekParseHelper from 'Utils/week.parse';
 
 const iconLabel: React.CSSProperties = {
   color: '#3B4046',

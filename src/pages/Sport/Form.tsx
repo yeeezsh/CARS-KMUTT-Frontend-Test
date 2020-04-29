@@ -6,7 +6,7 @@ import { FormComponentProps } from 'antd/lib/form/Form';
 import Outline from 'Components/Outline';
 import Button from 'Components/Button';
 
-import usernameValidator from '../../utils/username.validator';
+import usernameValidator from 'Utils/username.validator';
 
 import styles from './styles.module.css';
 import { connect } from 'react-redux';

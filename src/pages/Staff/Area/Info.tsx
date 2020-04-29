@@ -1,7 +1,7 @@
 import React from 'react';
 import { Divider } from 'antd';
 import moment, { Moment } from 'moment';
-import weekParse from 'Pages/Sport/helpers/week.parse';
+import weekParse from 'Utils/week.parse';
 
 const lineStyle: React.CSSProperties = {
   margin: 0,
