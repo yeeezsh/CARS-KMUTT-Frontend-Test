@@ -1,11 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useHistory } from 'react-router';
+import { useHistory } from 'react-router';
 import Loadable from 'react-loadable';
 
-import BackCard from 'Components/BackCard';
-import KanBanLayout from 'Components/Layout/Kanban';
-import KanbanCard from 'Components/KanbanCard';
+// components
+const BackCard = Loadable({
+  loader: () => import('Components/BackCard'),
+  loading: () => null,
+});
+const KanBanLayout = Loadable({
+  loader: () => import('Components/Layout/Kanban'),
+  loading: () => null,
+});
+const KanbanCard = Loadable({
+  loader: () => import('Components/KanbanCard'),
+  loading: () => null,
+});
+
+// styles
 import BackCardStyles from 'Pages/Areas/styles/backcard';
+
+// interfaces
 import Menu from 'Models/menu/interface';
 import { commonAreaAPI } from 'Models/area/common';
 
