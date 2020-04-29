@@ -50,7 +50,8 @@ class CommonAreaClass {
           ...e,
           // link: `/reserve/common/${typeId}/types`,
 
-          link: `/reserve/area/meeting/${areaId}`,
+          // link: `/reserve/area/meeting/${areaId}`,
+          link: e.link + areaId,
           query: {
             ...e.query,
             _id: areaId,

@@ -10,29 +10,32 @@ const data: Menu[] = [
     label: [`ห้องกิจกรรม`],
     icon: activityRoomIcon,
     query: { name: 'activity-room-1' },
+    link: '/reserve/area/meeting/meeting-club/',
   },
   {
     key: '2',
     label: [`ห้องชมรม`],
     icon: clubRoomIcon,
     query: { name: 'activity-room-2' },
+    link: '/reserve/area/meeting/meeting-club/',
   },
   {
     key: '3',
     label: [`ห้องประชุม 1`],
     icon: meetingRoomIcon,
     query: { name: 'meeting-room-1' },
+    link: '/reserve/area/meeting/',
   },
   {
     key: '4',
     label: [`ห้องประชุม 2`],
     icon: meetingRoomIcon,
     query: { name: 'meeting-room-2' },
+    link: '/reserve/area/meeting/',
   },
 ].map(e => ({
   ...e,
   style: 'center',
-  link: '/reserve/area/meeting/',
 }));
 
 export default data;
