@@ -1,54 +1,14 @@
-import {
-  footballIcon,
-  badmintonIcon,
-  basketballIcon,
-  tennisIcon,
-  volleyballIcon,
-} from './icon.import';
+import moment, { Moment } from 'moment';
+
+// interfaces
 import Menu from '../../menu/interface';
 import i from '../../axios.interface';
 import { FetchMenu } from './fetch.menu.interface';
 import TimeAreaReserveType from '../time.interface';
 import { AreaAPI } from './area.api.interface';
-import moment, { Moment } from 'moment';
 
-const category: Menu[] = [
-  {
-    key: '1',
-    label: ['ฟุตบอล', 'football'],
-    icon: footballIcon,
-    link: '/reserve/sport/1',
-    state: {
-      label: ['ฟุตบอล', 'football'],
-    },
-    query: { name: 'football' },
-  },
-  {
-    key: '2',
-    label: ['แบดมินตัน', 'badminton'],
-    icon: badmintonIcon,
-    link: '/reserve/sport/1',
-    state: {
-      label: ['แบดมินตัน', 'badminton'],
-    },
-    query: { name: 'badminton' },
-  },
-  {
-    key: '3',
-    label: ['บาสเก็ตบอล', 'basketball'],
-    icon: basketballIcon,
-  },
-  {
-    key: '4',
-    label: ['เทนนิส', 'tennis'],
-    icon: tennisIcon,
-  },
-  {
-    key: '5',
-    label: ['วอลเลย์บอล', 'volleyball'],
-    icon: volleyballIcon,
-  },
-];
+// data
+import category from './data/sport.category';
 
 class SportClass {
   data: Menu[];
