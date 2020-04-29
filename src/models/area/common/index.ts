@@ -2,22 +2,15 @@ import Menu from 'Models/menu/interface';
 import i from 'Models/axios.interface';
 import { FetchMenu } from '../sport/fetch.menu.interface';
 
-// const commonAreasList: Menu[] =
-import commonAreaLists from './data/common';
-import meetingAreaLits from './data/meeting';
-
 class CommonAreaClass {
-  // async getAreas()
-  list: Menu[];
-  constructor() {
-    this.list = commonAreaLists;
-  }
+  list?: Menu[];
 
   async getBuilding() {
     try {
       const fetch: FetchMenu[] = (
         await i.instance.get('/area/common/building/all')
       ).data;
+      const commonAreaLists = (await import('./data/common')).default;
       const mainMenu = commonAreaLists.map(e => {
         const fetchIndex = fetch.findIndex(d => d.name === e.query?.name);
         if (fetchIndex < 0) return e;
@@ -42,16 +35,14 @@ class CommonAreaClass {
       const fetch: FetchMenu[] = (
         await i.instance.get('/area/common/meeting/all')
       ).data;
+      const meetingAreaLits = (await import('./data/meeting')).default;
       const mainMenu = meetingAreaLits.map(e => {
         const fetchIndex = fetch.findIndex(d => d.name === e.query?.name);
         if (fetchIndex < 0) return e;
         const areaId = fetch[fetchIndex]._id;
         return {
           ...e,
-          // link: `/reserve/common/${typeId}/types`,
-
-          // link: `/reserve/area/meeting/${areaId}`,
-          link: e.link + areaId,
+          link: e.link + areaId + '/1',
           query: {
             ...e.query,
             _id: areaId,
