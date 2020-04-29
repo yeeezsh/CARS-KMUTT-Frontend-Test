@@ -34,7 +34,10 @@ import {
   Activity as CommonActivity,
   Sport as CommonSport,
 } from 'Pages/Areas/Common';
-import { Areas as MeetingArea } from 'Pages/Areas/Common/Meeting';
+import {
+  Areas as MeetingArea,
+  FormClub as MeetingFormClub,
+} from 'Pages/Areas/Common/Meeting';
 
 const AppDrawer = Loadable({
   loader: () => import('../components/AppDrawer'),
@@ -139,6 +142,9 @@ export default class PageUserRouter extends Component<
           <Switch>
             <Route path="*/areas">
               <MeetingArea />
+            </Route>
+            <Route path="*/meeting-club/:id">
+              <MeetingFormClub />
             </Route>
             <Route path="*/:id">MEETING AREA ID JAAAA</Route>
           </Switch>
