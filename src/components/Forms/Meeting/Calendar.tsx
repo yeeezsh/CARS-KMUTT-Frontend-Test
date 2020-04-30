@@ -244,7 +244,7 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
                     current &&
                       current <
                         moment()
-                          .add(OFFSET_DAY, 'days')
+                          .add(OFFSET_DAY - 1, 'days')
                           .endOf('day'),
                   );
                 }}
