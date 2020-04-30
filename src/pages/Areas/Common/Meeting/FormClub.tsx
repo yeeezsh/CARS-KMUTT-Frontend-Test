@@ -10,7 +10,7 @@ import { Icon, Row, Col } from 'antd';
 import BackCard from 'Components/BackCard';
 import StateSteps from 'Components/StateSteps';
 import {
-  Calendar as CalendarForm,
+  Calendar as CalendarFormComp,
   Overview as OverviewForm,
 } from 'Components/Forms/Meeting';
 
@@ -28,6 +28,9 @@ import { FacilityForm } from '../common/forms';
 import ConfirmModal from 'Components/AcceptedModal';
 import Outline from 'Components/Outline';
 import OutlineDesc from 'Components/OutlineDesc';
+import { taskMeetingAPI } from 'Models/task/meeting';
+import { CalendarForm } from 'Components/Forms/Meeting/Calendar';
+import moment from 'moment';
 
 // constant
 const MAX_STEPS = 3;
@@ -42,6 +45,21 @@ const FormClub: React.FC<FormComponentProps> = () => {
   const [modal, setModal] = useState<boolean>(false);
 
   const areaId = location.split('/')[AREA_PARAM_IND];
+
+  function sendData() {
+    const calendarData: CalendarForm | undefined = forms.forms[0];
+    taskMeetingAPI.createMeetingClubTask({
+      area: areaId,
+      forms: forms.forms,
+      time: [
+        {
+          start: moment(calendarData?.startTime).toDate(),
+          stop: moment(calendarData?.stopTime).toDate(),
+          allDay: false,
+        },
+      ],
+    });
+  }
 
   function goBack() {
     if (steps === 0) {
@@ -75,7 +93,7 @@ const FormClub: React.FC<FormComponentProps> = () => {
 
   if (forms.finish) {
     console.log('send data');
-    // sendData();
+    sendData();
     setModal(true);
     // then reset form
     // dispatch({ type: 'INIT_FORM', payload: { size: 4 } });
@@ -135,7 +153,7 @@ const FormClub: React.FC<FormComponentProps> = () => {
             ระบุวันที่เวลาที่ใช้บริการ
           </Outline>
           <OutlineDesc>กรุณาจองล่วงหน้า 3 วันก่อนใช้บริการ</OutlineDesc>
-          <CalendarForm ind={0} />
+          <CalendarFormComp ind={0} />
         </Route>
         <Route path="/*2">
           <FacilityForm ind={1} showStepLabel={false} />
