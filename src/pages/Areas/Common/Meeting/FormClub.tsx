@@ -116,35 +116,30 @@ const FormClub: React.FC<FormComponentProps> = props => {
   const today = now;
   const selectedWeek = Number(moment(selectedDate).format('E'));
 
-  // console.log('area id', areaId);
-  // console.log('forms', forms);
-  // console.log('areaStates', areaState);
   const { getFieldDecorator } = props.form;
 
   function onSelect(value: Moment, type: TimeNode['type']) {
     console.log('onSelect', value.format('HH mm'), type);
-    const duplicated = selected.filter(
-      e => e.value.valueOf() === value.valueOf(),
-    );
-    console.log('dup', duplicated);
-    // if (duplicated.length > 0) {
-    //   return setSelected(prev =>
-    //     prev.filter(
-    //       e =>
-    //         e.value.valueOf() >= value.subtract(60, 'minutes').valueOf() &&
-    //         e.value.valueOf() < prev[prev.length - 1].value.valueOf(),
-    //     ),
-    //   );
-    // }
+
     const merge: any = [...selected, { value, type: 'selecting' }].sort(
       (a, b) => a.value.valueOf() - b.value.valueOf(),
     );
 
     const validSelect = adjacentHour(selected, value, 60);
+    const duplicated = selected.filter(
+      e => e.value.valueOf() === value.valueOf(),
+    );
+    const duplicatedInd = selected.findIndex(
+      e => e.value.valueOf() === value.valueOf(),
+    );
     if (!validSelect) {
       setError(true);
       return;
+    } else if (duplicatedInd >= 0 && selected.length > 0) {
+      console.log('dup', duplicated, duplicatedInd);
+      return setSelected(selected.slice(0, duplicatedInd + 1));
     }
+
     setError(false);
     setSelected(merge);
   }
@@ -262,24 +257,50 @@ const FormClub: React.FC<FormComponentProps> = props => {
 
                 // disable cur by curtime
                 // TEMPORALILY DISABLED FOR TESTING
-                disabledMapped = disabledMapped
-                  // .map(e => {
-                  //   const valueMapped = moment(
-                  //     e.value.format('HH.mm'),
-                  //     'HH.mm',
-                  //   ).set('date', Number(selectedDate.format('DD')));
-                  //   const disabled: TimeNode = {
-                  //     type: 'disabled',
-                  //     value: moment(valueMapped),
-                  //   };
-                  //   // console.log(disabled.value.format('HH:mm DD-MM-YYY'), 'd - t', today.format('HH:mm DD-MM-YYY'));
-                  //   // console.log(today.diff(valueMapped));
-                  //   const pastDate = today.diff(valueMapped) > 0;
-                  //   // console.log('pastdate', pastDate);
-                  //   if (pastDate) return disabled;
 
-                  //   return e;
-                  // })
+                function disabledHelper(
+                  dateSelected: Moment,
+                  today: Moment,
+                ) {
+                  if (dateSelected.valueOf() === today.valueOf()) {
+                    return (e: TimeNode) => {
+                      const valueMapped = moment(
+                        e.value.format('HH.mm'),
+                        'HH.mm',
+                      ).set('date', Number(selectedDate?.format('DD')));
+                      const disabled: TimeNode = {
+                        type: 'disabled',
+                        value: moment(valueMapped),
+                      };
+                      // console.log(disabled.value.format('HH:mm DD-MM-YYY'), 'd - t', today.format('HH:mm DD-MM-YYY'));
+                      // console.log(today.diff(valueMapped));
+                      const pastDate = today.diff(valueMapped) > 0;
+                      // console.log('pastdate', pastDate);
+                      if (pastDate) return disabled;
+
+                      return e;
+                    };
+                  } else return e;
+                }
+
+                disabledMapped = disabledMapped
+                  .map(e => {
+                    const valueMapped = moment(
+                      e.value.format('HH.mm'),
+                      'HH.mm',
+                    ).set('date', Number(selectedDate?.format('DD')));
+                    const disabled: TimeNode = {
+                      type: 'disabled',
+                      value: moment(valueMapped),
+                    };
+                    // console.log(disabled.value.format('HH:mm DD-MM-YYY'), 'd - t', today.format('HH:mm DD-MM-YYY'));
+                    // console.log(today.diff(valueMapped));
+                    const pastDate = today.diff(valueMapped) > 0;
+                    // console.log('pastdate', pastDate);
+                    if (pastDate) return disabled;
+
+                    return e;
+                  })
                   .filter(({ type }) => type !== 'available');
 
                 const disabledMappedAPI = [
