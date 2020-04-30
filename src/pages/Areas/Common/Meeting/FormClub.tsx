@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import stepsList from './steps/club';
 import { useSelector, useDispatch } from 'react-redux';
@@ -25,6 +25,9 @@ import { areaAPI } from 'Models/area';
 
 import Form, { FormComponentProps } from 'antd/lib/form';
 import { FacilityForm } from '../common/forms';
+import ConfirmModal from 'Components/AcceptedModal';
+import Outline from 'Components/Outline';
+import OutlineDesc from 'Components/OutlineDesc';
 
 // constant
 const MAX_STEPS = 3;
@@ -36,6 +39,7 @@ const FormClub: React.FC<FormComponentProps> = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation().pathname;
+  const [modal, setModal] = useState<boolean>(false);
 
   const areaId = location.split('/')[AREA_PARAM_IND];
 
@@ -48,6 +52,10 @@ const FormClub: React.FC<FormComponentProps> = () => {
     const backPath = oldPath.slice(0, -1) + (pathStep - 1);
     dispatch(setFormCurrentIndex(steps - 1));
     return history.push(backPath);
+  }
+
+  function goHome() {
+    return history.push('/');
   }
 
   // once
@@ -64,6 +72,15 @@ const FormClub: React.FC<FormComponentProps> = () => {
     const newPath = oldPath.slice(0, -1) + (steps + 1);
     history.push(newPath);
   }, [steps]);
+
+  if (forms.finish) {
+    console.log('send data');
+    // sendData();
+    setModal(true);
+    // then reset form
+    // dispatch({ type: 'INIT_FORM', payload: { size: 4 } });
+    dispatch(initForm({ size: MAX_STEPS }));
+  }
   return (
     <PageLayout titile="จองห้องประชุม">
       {/* Fixed header */}
@@ -114,15 +131,29 @@ const FormClub: React.FC<FormComponentProps> = () => {
       <div style={{ height: '145px' }} />
       <Switch>
         <Route path="/*1">
+          <Outline style={{ margin: 0 }}>
+            ระบุวันที่เวลาที่ใช้บริการ
+          </Outline>
+          <OutlineDesc>กรุณาจองล่วงหน้า 3 วันก่อนใช้บริการ</OutlineDesc>
           <CalendarForm ind={0} />
         </Route>
         <Route path="/*2">
-          <FacilityForm ind={1} />
+          <FacilityForm ind={1} showStepLabel={false} />
         </Route>
         <Route path="/*3">
           <OverviewForm ind={2} />
         </Route>
       </Switch>
+
+      {/* confirm modal */}
+      <ConfirmModal
+        desc={{
+          main:
+            'เมื่ออาจารย์ที่ปรึกษาโครงการยืนยันการขอใช้สถานที่ระบบจึงจะส่งข้อมูลการจองไปยังเจ้าหน้าที่',
+        }}
+        visible={modal}
+        onClick={goHome}
+      />
     </PageLayout>
   );
 };
