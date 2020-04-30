@@ -181,9 +181,7 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
 
   // once
   useEffect(() => {
-    // dispatch(initForm({ size: MAX_STEPS }));
-    dispatch(setFormCurrentIndex(0));
-    // data.selected && setSelected([...data.selected, ...selected]);
+    dispatch(setFormCurrentIndex(CUR_IND));
   }, []);
 
   // selectDate observe
@@ -210,7 +208,7 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
             interval: a.reserve[0].interval,
             week: a.reserve[0].week,
             forward: a.forward,
-            // disabled: areaFetch.disabled,
+            disabled: areaFetch.disabled,
           },
         },
       ]);
