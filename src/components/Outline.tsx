@@ -5,6 +5,7 @@ const style: React.CSSProperties = {
   fontSize: '24px',
   lineHeight: '36px',
   fontWeight: 'bold',
+  width: '100%',
 };
 
 const Outline: React.FunctionComponent<{
