@@ -10,7 +10,7 @@ export default (
   const firstNode = timeNode[0].value;
   const lastNode =
     timeNode[timeNode.length === 1 ? 0 : timeNode.length - 1].value;
-  if (firstNode === lastNode) return true;
+  // if (firstNode === lastNode) return true;
   const lowerBound = moment(firstNode)
     .subtract(interval, 'minute')
     .valueOf();
