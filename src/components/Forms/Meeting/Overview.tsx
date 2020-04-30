@@ -14,6 +14,7 @@ import {
 import { Col, Checkbox, Row } from 'antd';
 import moment from 'moment';
 import Button from 'Components/Button';
+import { CalendarForm } from './Calendar';
 
 interface Props {
   ind?: number;
@@ -64,38 +65,20 @@ const Overview: React.FC<FormComponentProps & Props> = props => {
   const dispatch = useDispatch();
   const { forms, area } =
     props.data || useSelector((s: RootReducers) => s.AreaFormReducers);
+  const calendarData: CalendarForm | undefined = forms[0];
   const facilityData: FacilityForm | undefined = forms[1];
 
   //   set index when form is loaded
   useEffect(() => {
-    // dispatch({
-    //   type: 'SET_FORM_CUR',
-    //   payload: { cur: CUR_IND },
-    // });
     if (props.viewOnly) return; // prevent when viewOnly
     dispatch(setFormCurrentIndex(CUR_IND));
   }, []);
 
   function onSubmit() {
     validateFields((err, values) => {
-      // dispatch({
-      //   type: 'FILL_FORM',
-      //   payload: {
-      //     form: values,
-      //     valid: false,
-      //   },
-      // });
       dispatch(fillForm({ form: values, valid: false }));
       if (!err) {
-        // dispatch({
-        //   type: 'FILL_FORM',
-        //   payload: {
-        //     form: values,
-        //     valid: true,
-        //   },
-        // });
         dispatch(fillForm({ form: values, valid: true }));
-        // dispatch({ type: 'FINISH_FORM' });
         dispatch(finishFormAction());
       }
     });
@@ -117,6 +100,14 @@ const Overview: React.FC<FormComponentProps & Props> = props => {
         <CustomLabel>สถานที่</CustomLabel>
         <CustomParagraph>{area?.label}</CustomParagraph>
         <CustomLabel>วันที่จอง</CustomLabel>
+        <CustomParagraph>
+          {moment(calendarData?.date).format('DD-MMMM-YYYY')}
+        </CustomParagraph>
+        <CustomLabel>เวลา</CustomLabel>
+        <CustomParagraph>
+          {moment(calendarData?.startTime).format('HH:mm')} -{' '}
+          {moment(calendarData?.stopTime).format('HH:mm')}
+        </CustomParagraph>
 
         <CustomBrakeLine />
 
