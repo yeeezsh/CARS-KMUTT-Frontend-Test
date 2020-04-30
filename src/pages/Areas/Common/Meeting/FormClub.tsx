@@ -77,6 +77,11 @@ const FormClub: React.FC<FormComponentProps> = props => {
     return history.push(backPath);
   }
 
+  // error observation
+  useEffect(() => {
+    if (error) setTimeout(() => setError(false), 1500);
+  }, [error]);
+
   // once
   useEffect(() => {
     dispatch(initForm({ size: MAX_STEPS }));
@@ -136,6 +141,8 @@ const FormClub: React.FC<FormComponentProps> = props => {
     if (!validSelect) {
       setError(true);
       return;
+    } else if (duplicatedInd >= 0 && selected.length === 1) {
+      return setSelected([]);
     } else if (duplicatedInd >= 0 && selected.length > 0) {
       console.log('dup', duplicated, duplicatedInd);
       return setSelected(selected.slice(0, duplicatedInd + 1));
