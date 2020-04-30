@@ -118,7 +118,7 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
       return setSelected([]);
     } else if (duplicatedInd >= 0 && selected.length > 0) {
       console.log('dup', duplicated, duplicatedInd);
-      return setSelected(prev => prev.slice(0, duplicatedInd + 1));
+      return setSelected(prev => prev.slice(0, duplicatedInd));
     }
 
     setError(false);
