@@ -1,10 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Row, Col, Checkbox, TimePicker } from 'antd';
-import { FormComponentProps } from 'antd/lib/form';
 import { useDispatch, useSelector } from 'react-redux';
+import { Moment } from 'moment';
+
+// shared
+import { DEFAULT_REQUIED_MSG } from './rules/required';
+import fontOrangeBold from './styles/font.orange.bold';
+import labelStyles from './styles/label';
 
 import Button from 'Components/Button';
 import FormLabel from 'Components/FormLabel';
+import Outline from 'Components/Outline';
+
+// data & store
+import { RootReducers } from 'Store/reducers';
+import {
+  setFormCurrentIndex,
+  fillForm,
+  submitForm,
+} from 'Store/reducers/areaForm/actions';
+
+// interfaces
+import { FormComponentProps } from 'antd/lib/form';
 
 export interface FacilityForm {
   airRequired: boolean;
@@ -15,18 +32,6 @@ export interface FacilityForm {
   stopSoundTime?: Moment;
 }
 
-// shared
-import { DEFAULT_REQUIED_MSG } from './rules/required';
-import fontOrangeBold from './styles/font.orange.bold';
-import labelStyles from './styles/label';
-import { Moment } from 'moment';
-import { RootReducers } from 'Store/reducers';
-import {
-  setFormCurrentIndex,
-  fillForm,
-  submitForm,
-} from 'Store/reducers/areaForm/actions';
-
 // styles
 const DIV_SPACES: React.CSSProperties = {
   marginTop: -36,
@@ -35,12 +40,16 @@ const TIME_PICKER_STYLES: React.CSSProperties = {
   width: '100%',
 };
 
+interface Props {
+  ind?: number;
+  showStepLabel?: boolean;
+}
+
 // constant
 const PLACEHOLDER_TIME = '00:00';
 const TIME_FORMAT = 'HH:mm';
-const FacilityForm: React.FC<FormComponentProps & {
-  ind?: number;
-}> = props => {
+
+const FacilityForm: React.FC<FormComponentProps & Props> = props => {
   const CUR_IND = props.ind || 2;
   const { getFieldDecorator, validateFields } = props.form;
   const dispatch = useDispatch();
@@ -49,24 +58,9 @@ const FacilityForm: React.FC<FormComponentProps & {
 
   function onSubmit() {
     validateFields((err, values) => {
-      // dispatch({
-      //   type: 'FILL_FORM',
-      //   payload: {
-      //     form: values,
-      //     valid: false,
-      //   },
-      // });
       dispatch(fillForm({ form: values, valid: false }));
       if (!err) {
-        // dispatch({
-        //   type: 'FILL_FORM',
-        //   payload: {
-        //     form: values,
-        //     valid: true,
-        //   },
-        // });
         dispatch(fillForm({ form: values, valid: true }));
-        // dispatch({ type: 'SUBMIT_FORM' });
         dispatch(submitForm());
       }
     });
@@ -77,10 +71,6 @@ const FacilityForm: React.FC<FormComponentProps & {
 
   //   set index when form is loaded
   useEffect(() => {
-    // dispatch({
-    //   type: 'SET_FORM_CUR',
-    //   payload: { cur: CUR_IND },
-    // });
     dispatch(setFormCurrentIndex(CUR_IND));
 
     // when load forms data
@@ -94,9 +84,13 @@ const FacilityForm: React.FC<FormComponentProps & {
 
   return (
     <React.Fragment>
-      <FormLabel step={CUR_IND + 1}>
-        เครื่องปรับอากาศและเครื่องขยายเสียง
-      </FormLabel>
+      {!props.showStepLabel ? (
+        <Outline>เครื่องปรับอากาศและเครื่องขยายเสียง</Outline>
+      ) : (
+        <FormLabel step={CUR_IND + 1}>
+          เครื่องปรับอากาศและเครื่องขยายเสียง
+        </FormLabel>
+      )}
 
       {/* air */}
       <Form.Item>
@@ -226,8 +220,6 @@ const FacilityForm: React.FC<FormComponentProps & {
   );
 };
 
-export default Form.create<
-  FormComponentProps & {
-    ind?: number;
-  }
->({ name: 'requestor' })(FacilityForm);
+export default Form.create<FormComponentProps & Props>({
+  name: 'facility',
+})(FacilityForm);
