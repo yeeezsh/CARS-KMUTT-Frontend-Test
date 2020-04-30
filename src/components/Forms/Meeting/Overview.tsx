@@ -96,7 +96,6 @@ const Overview: React.FC<FormComponentProps & Props> = props => {
           <Outline style={{ color: '#1890FF' }}>ข้อมูลการจอง</Outline>
         )}
         {/* overview section */}
-        <CustomBrakeLine />
         <CustomLabel>สถานที่</CustomLabel>
         <CustomParagraph>{area?.label}</CustomParagraph>
         <CustomLabel>วันที่จอง</CustomLabel>
@@ -111,7 +110,6 @@ const Overview: React.FC<FormComponentProps & Props> = props => {
 
         <CustomBrakeLine />
 
-        <CustomBrakeLine />
         {/* facility */}
         <CustomSubHeader>
           เครื่องปรับอากาศและเครื่องขยายเสียง
@@ -157,7 +155,6 @@ const Overview: React.FC<FormComponentProps & Props> = props => {
           </Checkbox>
         </div>
 
-        <CustomBrakeLine />
         {/* action */}
         {!props.viewOnly && (
           <Col span={24}>

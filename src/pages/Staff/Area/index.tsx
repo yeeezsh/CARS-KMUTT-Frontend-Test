@@ -127,7 +127,7 @@ const AreaPage: React.FC = () => {
       .filter(e => e.time.length > 0);
     console.log('maopped ja', mapped);
     const allTask = await Promise.all(
-      mapped.map(e => taskAPI.createTaskByStaff(e)),
+      mapped.map(e => taskAPI.createSportTaskByStaff(e)),
     );
     console.log('all task res', allTask);
     fetch();
