@@ -148,7 +148,10 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
     // dispatch(initForm({ size: MAX_STEPS }));
     dispatch(setFormCurrentIndex(0));
     // data.selected && setSelected([...data.selected, ...selected]);
+  }, []);
 
+  // selectDate observe
+  useEffect(() => {
     areaAPI.getAreaInfo(areaId).then(async a => {
       dispatch(setAreaInfoForm(a));
       console.log('raw areaStates', a);
@@ -177,7 +180,7 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
         },
       ]);
     });
-  }, []);
+  }, [selectedDate]);
 
   return (
     <React.Fragment>
