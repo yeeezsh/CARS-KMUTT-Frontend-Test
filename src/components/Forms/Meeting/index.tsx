@@ -4,5 +4,9 @@ const Calendar = Loadable({
   loader: () => import('./Calendar'),
   loading: () => null,
 });
+const Overview = Loadable({
+  loader: () => import('./Overview'),
+  loading: () => null,
+});
 
-export { Calendar };
+export { Calendar, Overview };
