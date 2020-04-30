@@ -23,11 +23,11 @@
 }
 
 .table {
-  animation: appear 0.175s ease-in forwards;
-  opacity: 0;
+  /* animation: appear 0.175s ease-in forwards; */
+  /* opacity: 0; */
 }
 
-@keyframes appear {
+/* @keyframes appear {
   0% {
     opacity: 0;
   }
@@ -37,4 +37,4 @@
   100% {
     opacity: 1;
   }
-}
+} */
