@@ -118,7 +118,15 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
   );
 
   function onSubmit() {
-    // if (!error && selected.length > 0 && forms.step === 0) {
+    const start = selected[0].value.set(
+      'date',
+      Number(selectedDate.startOf('day').format('DD')),
+    );
+    const stop = selected[selected.length - 1].value.set(
+      'date',
+      Number(selectedDate.startOf('day').format('DD')),
+    );
+
     dispatch(
       fillForm({
         form: {
@@ -130,6 +138,8 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
             ),
           })),
           date: selectedDate,
+          startTime: start,
+          stopTime: stop,
         },
         valid: true,
       }),
