@@ -2,6 +2,7 @@ import i from 'Models/axios.interface';
 import { AreaTableAPI, AreaAPI as AreaAPIInterfaces } from './interfaces';
 import { AreaAvailableAPI } from './area.interface';
 import moment, { Moment } from 'moment';
+import TimeNode from 'Components/TimeTable/timetable.interface';
 
 class AreaAPI {
   async getBuildingTable(): Promise<AreaTableAPI[]> {
@@ -21,20 +22,30 @@ class AreaAPI {
       throw err;
     }
   }
-  async getAreaAvailableWithDate(
+
+  async getAreaAvailableMeeting(
     id: string,
     date: Moment,
-  ): Promise<AreaAvailableAPI[]> {
+  ): Promise<{ disabled: TimeNode[] }> {
     try {
       const data = (
-        await i.instance.get('/area/available/' + id, {
+        await i.instance.get('/area/available/meeting/' + id, {
           params: {
             date: date.toISOString(),
           },
         })
       ).data;
-      return data.map((e: any) => ({ ...e, date: moment(e.date) }));
+
+      return {
+        disabled: data.map(
+          (e: { value: Date; type: TimeNode['type'] }) => ({
+            ...e,
+            value: moment(e.value),
+          }),
+        ),
+      };
     } catch (err) {
+      console.error(err);
       throw err;
     }
   }
