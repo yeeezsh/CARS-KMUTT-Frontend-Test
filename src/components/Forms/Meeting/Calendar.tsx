@@ -1,32 +1,48 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
+import { Col, Row, Form, DatePicker } from 'antd';
+import moment, { Moment } from 'moment';
+import Loadable from 'react-loadable';
 
 import labelStyles from 'Pages/Areas/Common/common/forms/styles/label.tsx';
 
-import weekParsedHelper from 'Utils/week.parse';
-import adjacentHour from 'Utils/adjacent.hour';
-
-// icons
-import orangeSquareIcon from 'Assets/icons/square/orange.svg';
-import greySquareIcon from 'Assets/icons/square/grey.svg';
-import blueSquareIcon from 'Assets/icons/square/blue.svg';
-import { Col, Row, Form, DatePicker } from 'antd';
-import moment, { Moment } from 'moment';
-import TimeNode from 'Components/TimeTable/timetable.interface';
-import Area from 'Models/area/area.interface';
-import Button from 'Components/Button';
+// data store & API
+import { RootReducers } from 'Store/reducers';
 import {
   fillForm,
   submitForm,
   setFormCurrentIndex,
   setAreaInfoForm,
 } from 'Store/reducers/areaForm/actions';
-import { FormComponentProps } from 'antd/lib/form';
-import TimeTable from 'Components/TimeTable';
-import { RootReducers } from 'Store/reducers';
-import Snackbar from 'Components/Snackbar';
 import { areaAPI } from 'Models/area';
-import { useLocation } from 'react-router';
+
+// utils
+import weekParsedHelper from 'Utils/week.parse';
+import adjacentHour from 'Utils/adjacent.hour';
+
+// interfaces
+import TimeNode from 'Components/TimeTable/timetable.interface';
+import Area from 'Models/area/area.interface';
+import { FormComponentProps } from 'antd/lib/form';
+
+// icons
+import orangeSquareIcon from 'Assets/icons/square/orange.svg';
+import greySquareIcon from 'Assets/icons/square/grey.svg';
+import blueSquareIcon from 'Assets/icons/square/blue.svg';
+
+const Button = Loadable({
+  loader: () => import('Components/Button'),
+  loading: () => null,
+});
+const TimeTable = Loadable({
+  loader: () => import('Components/TimeTable'),
+  loading: () => null,
+});
+const Snackbar = Loadable({
+  loader: () => import('Components/Snackbar'),
+  loading: () => null,
+});
 
 // custom icon
 const iconLabel: React.CSSProperties = {
@@ -52,7 +68,7 @@ interface Props {
   ind?: number;
 }
 
-interface CalendarForm {
+export interface CalendarForm {
   selected: TimeNode[];
   date: Moment;
   startTime: Moment;
