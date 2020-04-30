@@ -134,13 +134,17 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
   );
 
   function onSubmit() {
-    const start = selected[0].value.set(
-      'date',
-      Number(selectedDate.startOf('day').format('DD')),
+    const start = moment(
+      `${selected[0].value.format('HH:mm')}-${selectedDate
+        .startOf('day')
+        .format('DD-MM-YYYY')}`,
+      'HH:mm-DD-MM-YYYY',
     );
-    const stop = selected[selected.length - 1].value.set(
-      'date',
-      Number(selectedDate.startOf('day').format('DD')),
+    const stop = moment(
+      `${selected[selected.length - 1].value.format(
+        'HH:mm',
+      )}-${selectedDate.startOf('day').format('DD-MM-YYYY')}`,
+      'HH:mm-DD-MM-YYYY',
     );
 
     dispatch(
@@ -148,9 +152,15 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
         form: {
           selected: selected.map(e => ({
             ...e,
-            value: moment(e.value).set(
-              'date',
-              Number(selectedDate.startOf('day').format('DD')),
+            // value: moment(e.value).set(
+            //   'date',
+            //   Number(selectedDate.startOf('day').format('DD')),
+            // ),
+            value: moment(
+              `${e.value.format('HH:mm')}-${selectedDate
+                .startOf('day')
+                .format('DD-MM-YYYY')}`,
+              'HH:mm-DD-MM-YYYY',
             ),
           })),
           date: selectedDate,
@@ -181,12 +191,11 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
     areaAPI.getAreaInfo(areaId).then(async a => {
       dispatch(setAreaInfoForm(a));
       console.log('raw areaStates', a);
-      const areaFetch = (
-        await areaAPI.getAreaAvailableWithDate(
-          areaId,
-          moment().add(1, 'days'),
-        )
-      )[0];
+      const areaFetch = await areaAPI.getAreaAvailableMeeting(
+        areaId,
+        selectedDate,
+      );
+      console.log('available date api', areaFetch);
       setAreaState([
         {
           // ...a,
@@ -201,7 +210,7 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
             interval: a.reserve[0].interval,
             week: a.reserve[0].week,
             forward: a.forward,
-            disabled: areaFetch.disabled,
+            // disabled: areaFetch.disabled,
           },
         },
       ]);
