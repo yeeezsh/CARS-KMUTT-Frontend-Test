@@ -7,10 +7,11 @@ import moment, { Moment } from 'moment';
 import { CreateTaskByStaff } from './task.create.interface';
 
 class TaskClass {
-  async createTaskByStaff(data: CreateTaskByStaff): Promise<Task> {
+  async createSportTaskByStaff(data: CreateTaskByStaff): Promise<Task> {
     try {
-      const res = (await i.instance.post('/task/byStaff', { ...data }))
-        .data;
+      const res = (
+        await i.instance.post('/task/sport/byStaff', { ...data })
+      ).data;
       return res;
     } catch (err) {
       throw err;
