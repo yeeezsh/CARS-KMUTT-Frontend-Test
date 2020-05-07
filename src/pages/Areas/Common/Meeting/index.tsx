@@ -8,5 +8,9 @@ const FormClub = Loadable({
   loader: () => import('./FormClub'),
   loading: () => null,
 });
+const FormMeeting = Loadable({
+  loader: () => import('./FormMeeting'),
+  loading: () => null,
+});
 
-export { Areas, FormClub };
+export { Areas, FormClub, FormMeeting };
