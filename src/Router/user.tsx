@@ -37,6 +37,7 @@ import {
 import {
   Areas as MeetingArea,
   FormClub as MeetingFormClub,
+  FormMeeting as MeetingFormMeeting,
 } from 'Pages/Areas/Common/Meeting';
 
 const AppDrawer = Loadable({
@@ -146,7 +147,9 @@ export default class PageUserRouter extends Component<
             <Route path="*/meeting-club/:id">
               <MeetingFormClub />
             </Route>
-            <Route path="*/:id">MEETING AREA ID JAAAA</Route>
+            <Route path="*/meeting-room/:id">
+              <MeetingFormMeeting />
+            </Route>
           </Switch>
         </Route>
 
