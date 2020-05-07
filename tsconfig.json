@@ -24,7 +24,8 @@
       "Components/*": ["components/*"],
       "Pages/*": ["pages/*"],
       "Store/*": ["store/*"],
-      "Utils/*": ["utils/*"]
+      "Utils/*": ["utils/*"],
+      "Hooks/*": ["hooks/*"]
     }
   },
   "include": ["src", ".eslintrc.js"]
