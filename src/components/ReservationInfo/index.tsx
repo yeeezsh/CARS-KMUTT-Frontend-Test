@@ -44,6 +44,7 @@ import {
   OverviewCommonForm,
   OverviewSportForm,
 } from 'Pages/Areas/Common/common/forms';
+import { Overview as OverviewMeetingForm } from 'Components/Forms/Meeting';
 
 // const initState
 const MODAL_REJECT_MSG = 'ท่านต้องการยกเลิกรีเควส';
@@ -179,6 +180,25 @@ class ReservationInfo extends Component<
       if (type === 'common-sport') {
         return (
           <OverviewSportForm viewOnly={true} data={{ forms, area }} />
+        );
+      }
+      if (type === 'meeting-club') {
+        return (
+          <OverviewMeetingForm
+            buttonOffeset={false}
+            viewOnly={true}
+            data={{ forms, area }}
+          />
+        );
+      }
+      if (type === 'meeting-room') {
+        return (
+          <OverviewMeetingForm
+            buttonOffeset={false}
+            viewOnly={true}
+            showFacility={false}
+            data={{ forms, area }}
+          />
         );
       }
       return null;
