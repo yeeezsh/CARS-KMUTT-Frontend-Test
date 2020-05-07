@@ -2,11 +2,10 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import Form, { FormComponentProps } from 'antd/lib/form';
+import { Col, Checkbox, Row } from 'antd';
 
 import BreakingLine from 'Components/BreakingLine';
 import Outline from 'Components/Outline';
-
-import { Col, Checkbox, Row } from 'antd';
 import Button from 'Components/Button';
 
 // pages
@@ -33,6 +32,7 @@ interface Props {
   };
   viewOnly?: boolean;
   showFacility?: boolean;
+  buttonOffeset?: boolean | number;
 }
 
 // constant
@@ -59,6 +59,7 @@ const CustomLabel: React.FC = props => (
     {props.children}
   </p>
 );
+
 const CustomParagraph: React.FC = props => (
   <p
     style={{
@@ -71,6 +72,7 @@ const CustomParagraph: React.FC = props => (
     {props.children}
   </p>
 );
+
 const Overview: React.FC<FormComponentProps & Props> = props => {
   console.log('overview common props data', props.data);
   const CUR_IND = props.ind || 3;
@@ -184,7 +186,14 @@ const Overview: React.FC<FormComponentProps & Props> = props => {
           </div>
         </div>
         {/* space */}
-        <div style={{ height: size.height - OFFSET_BTN }} />
+        {props.buttonOffeset === false ? null : (
+          <div
+            style={{
+              height:
+                size.height - (Number(props.buttonOffeset) || OFFSET_BTN),
+            }}
+          />
+        )}
 
         {/* action */}
         {!props.viewOnly && (
