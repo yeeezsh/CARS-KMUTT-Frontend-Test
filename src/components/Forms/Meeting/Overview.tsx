@@ -1,20 +1,29 @@
 import React, { useEffect } from 'react';
-import { AreaInfo } from 'Store/reducers/areaForm/types';
+import { useDispatch, useSelector } from 'react-redux';
+import moment from 'moment';
+import Form, { FormComponentProps } from 'antd/lib/form';
+
 import BreakingLine from 'Components/BreakingLine';
 import Outline from 'Components/Outline';
-import Form, { FormComponentProps } from 'antd/lib/form';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootReducers } from 'Store/reducers';
+
+import { Col, Checkbox, Row } from 'antd';
+import Button from 'Components/Button';
+
+// pages
 import { FacilityForm } from 'Pages/Areas/Common/common/forms/facility';
+import { CalendarForm } from './Calendar';
+
+// data & store
+import { RootReducers } from 'Store/reducers';
+import { AreaInfo } from 'Store/reducers/areaForm/types';
 import {
   setFormCurrentIndex,
   fillForm,
   finishFormAction,
 } from 'Store/reducers/areaForm/actions';
-import { Col, Checkbox, Row } from 'antd';
-import moment from 'moment';
-import Button from 'Components/Button';
-import { CalendarForm } from './Calendar';
+
+// hooks
+import useWindowResize from 'Hooks/windows.resize';
 
 interface Props {
   ind?: number;
@@ -23,7 +32,11 @@ interface Props {
     area: AreaInfo;
   };
   viewOnly?: boolean;
+  showFacility?: boolean;
 }
+
+// constant
+const OFFSET_BTN = 595;
 
 // custom components
 const CustomBrakeLine: React.FC = () => (
@@ -74,6 +87,8 @@ const Overview: React.FC<FormComponentProps & Props> = props => {
     dispatch(setFormCurrentIndex(CUR_IND));
   }, []);
 
+  const size = useWindowResize();
+
   function onSubmit() {
     validateFields((err, values) => {
       dispatch(fillForm({ form: values, valid: false }));
@@ -88,7 +103,9 @@ const Overview: React.FC<FormComponentProps & Props> = props => {
       <Col
         style={{
           border: props.viewOnly ? '' : '1px solid #1890FF',
-          padding: '0px 16px 16px 16px',
+          // padding: '0px 16px 16px 16px',
+          padding: 24,
+          marginTop: -16,
         }}
         span={24}
       >
@@ -108,52 +125,66 @@ const Overview: React.FC<FormComponentProps & Props> = props => {
           {moment(calendarData?.stopTime).format('HH:mm')}
         </CustomParagraph>
 
-        <CustomBrakeLine />
-
         {/* facility */}
-        <CustomSubHeader>
-          เครื่องปรับอากาศและเครื่องขยายเสียง
-        </CustomSubHeader>
-
-        <div>
-          <Checkbox
-            checked={(facilityData && facilityData.airRequired) || false}
-            disabled={facilityData && !facilityData.airRequired}
-          >
-            <b>เครื่องปรับอากาศ</b>
-            {facilityData && facilityData.airRequired && (
-              <p>
-                ตั้งแต่เวลา{' '}
-                {facilityData &&
-                  moment(facilityData?.startAirTime).format('HH.mm')}{' '}
-                ถึงเวลา{' '}
-                {facilityData &&
-                  moment(facilityData?.stopAirTime).format('HH.mm')}{' '}
-                น.
-              </p>
-            )}
-          </Checkbox>
+        <div
+          style={{
+            visibility:
+              props.showFacility === false ? 'hidden' : 'visible',
+          }}
+        >
+          <CustomBrakeLine />
+          <CustomSubHeader>
+            เครื่องปรับอากาศและเครื่องขยายเสียง
+          </CustomSubHeader>
+          <div>
+            <Checkbox
+              checked={(facilityData && facilityData.airRequired) || false}
+              disabled={facilityData && !facilityData.airRequired}
+            >
+              <b>เครื่องปรับอากาศ</b>
+              {facilityData && facilityData.airRequired && (
+                <p>
+                  ตั้งแต่เวลา{' '}
+                  {facilityData &&
+                    moment(facilityData?.startAirTime).format(
+                      'HH.mm',
+                    )}{' '}
+                  ถึงเวลา{' '}
+                  {facilityData &&
+                    moment(facilityData?.stopAirTime).format('HH.mm')}{' '}
+                  น.
+                </p>
+              )}
+            </Checkbox>
+          </div>
+          <div>
+            <Checkbox
+              checked={
+                (facilityData && facilityData.soundRequired) || false
+              }
+              disabled={facilityData && !facilityData.soundRequired}
+            >
+              <b>เครื่องขยายเสียง</b>
+              {facilityData && facilityData.soundRequired && (
+                <p>
+                  ตั้งแต่เวลา{' '}
+                  {facilityData &&
+                    moment(facilityData.startSoundTime).format(
+                      'HH.mm',
+                    )}{' '}
+                  ถึงเวลา{' '}
+                  {facilityData &&
+                    moment(facilityData.stopSoundTime).format(
+                      'HH.mm',
+                    )}{' '}
+                  น.
+                </p>
+              )}
+            </Checkbox>
+          </div>
         </div>
-
-        <div>
-          <Checkbox
-            checked={(facilityData && facilityData.soundRequired) || false}
-            disabled={facilityData && !facilityData.soundRequired}
-          >
-            <b>เครื่องขยายเสียง</b>
-            {facilityData && facilityData.soundRequired && (
-              <p>
-                ตั้งแต่เวลา{' '}
-                {facilityData &&
-                  moment(facilityData.startSoundTime).format('HH.mm')}{' '}
-                ถึงเวลา{' '}
-                {facilityData &&
-                  moment(facilityData.stopSoundTime).format('HH.mm')}{' '}
-                น.
-              </p>
-            )}
-          </Checkbox>
-        </div>
+        {/* space */}
+        <div style={{ height: size.height - OFFSET_BTN }} />
 
         {/* action */}
         {!props.viewOnly && (
