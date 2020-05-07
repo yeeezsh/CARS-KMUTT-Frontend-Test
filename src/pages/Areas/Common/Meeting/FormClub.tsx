@@ -1,36 +1,61 @@
 import React, { useEffect, useState } from 'react';
-
-import stepsList from './steps/club';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootReducers } from 'Store/reducers';
+import moment from 'moment';
 import { useLocation, useHistory, Switch, Route } from 'react-router';
-import PageLayout from 'Components/Layout/Page';
-import Badge from 'Components/Badge';
 import { Icon, Row, Col } from 'antd';
-import BackCard from 'Components/BackCard';
-import StateSteps from 'Components/StateSteps';
-import {
-  Calendar as CalendarFormComp,
-  Overview as OverviewForm,
-} from 'Components/Forms/Meeting';
+import Loadable from 'react-loadable';
 
-import sharedStyles from '../common/styles/styles.module.css';
+import Form, { FormComponentProps } from 'antd/lib/form';
+
+// store & data
+import stepsList from './steps/club';
 import {
   setAreaInfoForm,
   initForm,
   setFormCurrentIndex,
 } from 'Store/reducers/areaForm/actions';
-
+import { RootReducers } from 'Store/reducers';
 import { areaAPI } from 'Models/area';
 
-import Form, { FormComponentProps } from 'antd/lib/form';
-import { FacilityForm } from '../common/forms';
-import ConfirmModal from 'Components/AcceptedModal';
-import Outline from 'Components/Outline';
-import OutlineDesc from 'Components/OutlineDesc';
+// styles
+import sharedStyles from '../common/styles/styles.module.css';
+
+import {
+  Calendar as CalendarFormComp,
+  Overview as OverviewForm,
+} from 'Components/Forms/Meeting';
 import { taskMeetingAPI } from 'Models/task/meeting';
 import { CalendarForm } from 'Components/Forms/Meeting/Calendar';
-import moment from 'moment';
+import { FacilityForm } from '../common/forms';
+
+const PageLayout = Loadable({
+  loader: () => import('Components/Layout/Page'),
+  loading: () => null,
+});
+const Badge = Loadable({
+  loader: () => import('Components/Badge'),
+  loading: () => null,
+});
+const BackCard = Loadable({
+  loader: () => import('Components/BackCard'),
+  loading: () => null,
+});
+const StateSteps = Loadable({
+  loader: () => import('Components/StateSteps'),
+  loading: () => null,
+});
+const ConfirmModal = Loadable({
+  loader: () => import('Components/AcceptedModal'),
+  loading: () => null,
+});
+const Outline = Loadable({
+  loader: () => import('Components/Outline'),
+  loading: () => null,
+});
+const OutlineDesc = Loadable({
+  loader: () => import('Components/OutlineDesc'),
+  loading: () => null,
+});
 
 // constant
 const MAX_STEPS = 3;
@@ -96,7 +121,6 @@ const FormClub: React.FC<FormComponentProps> = () => {
     sendData();
     setModal(true);
     // then reset form
-    // dispatch({ type: 'INIT_FORM', payload: { size: 4 } });
     dispatch(initForm({ size: MAX_STEPS }));
   }
   return (
@@ -124,7 +148,6 @@ const FormClub: React.FC<FormComponentProps> = () => {
         <Col style={{ marginTop: '4px', marginBottom: '4px' }} span={14}>
           <BackCard onClick={goBack}>
             {steps === 0 ? 'เลือกสถานที่' : stepsList[steps - 1].desc}
-            {/* {backCard[step - 1]} */}
           </BackCard>
         </Col>
 
