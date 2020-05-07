@@ -179,7 +179,7 @@ const FormMeeting: React.FC<FormComponentProps> = () => {
           <CalendarFormComp ind={0} />
         </Route>
         <Route path="/*2">
-          <OverviewForm ind={1} />
+          <OverviewForm showFacility={false} ind={1} />
         </Route>
       </Switch>
 
