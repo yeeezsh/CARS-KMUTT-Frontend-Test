@@ -24,14 +24,14 @@ const data: Menu[] = [
     label: [`ห้องประชุม 1`],
     icon: meetingRoomIcon,
     query: { name: 'meeting-room-1' },
-    link: '/reserve/area/meeting/',
+    link: '/reserve/area/meeting/meeting-room/',
   },
   {
     key: '4',
     label: [`ห้องประชุม 2`],
     icon: meetingRoomIcon,
     query: { name: 'meeting-room-2' },
-    link: '/reserve/area/meeting/',
+    link: '/reserve/area/meeting/meeting-room/',
   },
 ].map(e => ({
   ...e,
