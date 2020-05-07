@@ -13,7 +13,7 @@ class TaskMeetingClassAPI {
   }
   async createMeetingTask(data: CreateTaskMeeting): Promise<void> {
     try {
-      await i.instance.post('/task/meeting/meeting', { ...data });
+      await i.instance.post('/task/meeting/meeting-room', { ...data });
       return;
     } catch (err) {
       console.error(err);
