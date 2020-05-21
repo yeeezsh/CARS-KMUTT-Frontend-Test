@@ -45,7 +45,7 @@ class TaskClass {
 
   async cancleTaskByStaff(_id: string, desc?: string): Promise<void> {
     try {
-      await i.instance.post('/task/cancle/byStaff', {
+      await i.instance.post('/task/staff/cancle', {
         _id,
         desc,
       });
