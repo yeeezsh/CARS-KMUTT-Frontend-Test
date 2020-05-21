@@ -20,6 +20,8 @@ interface Props {
   title?: string;
   icon?: string;
   data?: TaskTableType;
+  pagination?: (current: number, pageSize: number) => void;
+  order?: (column: string, order: 1 | -1) => void;
 }
 
 const TaskTable: React.FC<Props> = props => {
@@ -82,11 +84,15 @@ const TaskTable: React.FC<Props> = props => {
   console.log('task table', data);
   function tableOnChange(
     pagination: PaginationConfig,
-    filters: any,
+    filters: Partial<Record<keyof TaskTable, string[]>>,
     sorter: SorterResult<TaskTable>,
-    // extra,
   ) {
+    console.log('sort or pagination client requested');
     console.log(pagination, filters, sorter);
+    const { order, pagination: paginationProps } = props;
+    order && order(sorter.columnKey, sorter.order === 'ascend' ? 1 : -1);
+    paginationProps &&
+      paginationProps(pagination.current || -1, pagination.pageSize || -1);
   }
   return (
     <div>
