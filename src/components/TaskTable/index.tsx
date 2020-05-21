@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { TaskTableType, TaskTable } from 'Models/taskTable/interface';
 import { Row, Col, Table } from 'antd';
-import ListTable from './list';
-import SortByTools from 'Components/SortByTools';
-import sortHelper from './sort.helper';
+// import ListTable from './list';
+// import SortByTools from 'Components/SortByTools';
+// import sortHelper from './sort.helper';
 import HeadTitle from 'Components/HeadTitle';
 import {
   ColumnProps,
@@ -20,6 +20,7 @@ interface Props {
   title?: string;
   icon?: string;
   data?: TaskTableType;
+  loading?: boolean;
   pagination?: (current: number, pageSize: number) => void;
   order?: (column: string, order: 1 | -1) => void;
 }
@@ -101,14 +102,15 @@ const TaskTable: React.FC<Props> = props => {
         <HeadTitle icon={icon} title={title} />
 
         {/* tools */}
-        <Col offset={10} span={8} style={{ textAlign: 'right' }}>
+        {/* <Col offset={10} span={8} style={{ textAlign: 'right' }}>
           <SortByTools onSelected={e => setSortSelect(e)} />
-        </Col>
+        </Col> */}
       </Row>
 
       {/* <Row></Row> */}
       {/* data display */}
       <Table
+        loading={props.loading || false}
         onChange={tableOnChange}
         dataSource={data}
         columns={tableCols}
