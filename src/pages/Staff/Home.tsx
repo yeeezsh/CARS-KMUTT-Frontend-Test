@@ -31,7 +31,15 @@ function StaffHome() {
 
   return (
     <StaffLayout>
-      <TaskTable title="รายการทั้งหมด" icon={allDocsIcon} data={data} />
+      <TaskTable
+        title="รายการทั้งหมด"
+        icon={allDocsIcon}
+        data={data}
+        dataRequest={(pagination, order) => {
+          console.log('sort or pagination client requested');
+          console.log(pagination, order);
+        }}
+      />
     </StaffLayout>
   );
 }

@@ -21,13 +21,18 @@ interface Props {
   icon?: string;
   data?: TaskTableType;
   loading?: boolean;
-  pagination?: (current: number, pageSize: number) => void;
-  order?: (column: string, order: 1 | -1) => void;
+  dataRequest?: (
+    pagination: {
+      current: number;
+      pageSize: number;
+    },
+    order: { column: string; order: 1 | -1 },
+  ) => void;
 }
 
 const TaskTable: React.FC<Props> = props => {
   const { data, icon, title } = props;
-  const [sortSelect, setSortSelect] = useState(undefined);
+  // const [sortSelect, setSortSelect] = useState(undefined);
   const history = useHistory();
 
   const TASK_LINK = (id: string): string => `/staff/task/${id}`;
@@ -83,46 +88,33 @@ const TaskTable: React.FC<Props> = props => {
   ];
 
   console.log('task table', data);
-  function tableOnChange(
-    pagination: PaginationConfig,
-    filters: Partial<Record<keyof TaskTable, string[]>>,
-    sorter: SorterResult<TaskTable>,
-  ) {
-    console.log('sort or pagination client requested');
-    console.log(pagination, filters, sorter);
-    const { order, pagination: paginationProps } = props;
-    order && order(sorter.columnKey, sorter.order === 'ascend' ? 1 : -1);
-    paginationProps &&
-      paginationProps(pagination.current || -1, pagination.pageSize || -1);
-  }
+
   return (
     <div>
       <Row>
         {/* title */}
         <HeadTitle icon={icon} title={title} />
-
-        {/* tools */}
-        {/* <Col offset={10} span={8} style={{ textAlign: 'right' }}>
-          <SortByTools onSelected={e => setSortSelect(e)} />
-        </Col> */}
       </Row>
 
-      {/* <Row></Row> */}
-      {/* data display */}
       <Table
         loading={props.loading || false}
-        onChange={tableOnChange}
+        onChange={(pagination, filters, sorter) => {
+          const { dataRequest } = props;
+          dataRequest &&
+            dataRequest(
+              {
+                current: pagination.current || -1,
+                pageSize: pagination.pageSize || -1,
+              },
+              {
+                column: sorter.columnKey,
+                order: sorter.order === 'ascend' ? 1 : -1,
+              },
+            );
+        }}
         dataSource={data}
         columns={tableCols}
       />
-
-      {/* <Row>
-        <ListTable header={true} />
-        {data &&
-          data
-            // .sort(sortHelper(sortSelect))
-            .map(e => <ListTable header={false} key={e._id} data={e} />)}
-      </Row> */}
     </div>
   );
 };
