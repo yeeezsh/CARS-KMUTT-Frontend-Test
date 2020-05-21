@@ -11,7 +11,7 @@ class TaskTable {
     limit?: Moment,
     taskType?: 'all' | 'wait' | 'reject' | 'accept' | 'drop',
   ): Promise<TaskTableType> {
-    const res = await i.instance.get(`/task/manage/${taskType}`, {
+    const res = await i.instance.get(`/task/staff/${taskType}`, {
       params: {
         offset: offset?.toISOString(),
         limit: limit?.toISOString(),
