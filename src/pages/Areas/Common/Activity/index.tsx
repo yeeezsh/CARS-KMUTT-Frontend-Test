@@ -5,7 +5,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import Loadable from 'react-loadable';
 
 // store / data
+import { taskFormAPI } from 'Models/task/form';
+import {
+  initForm,
+  setAreaInfoForm,
+} from 'Store/reducers/areaForm/actions';
+
 import { RootReducers } from 'Store/reducers';
+import { areaAPI } from 'Models/area';
 import stepsList from './steps';
 
 // assets
@@ -44,13 +51,6 @@ import {
   OverviewCommonForm,
 } from '../common/forms';
 
-import { buildingAPI } from 'Models/building';
-import { taskFormAPI } from 'Models/task/form';
-import {
-  initForm,
-  setAreaInfoForm,
-} from 'Store/reducers/areaForm/actions';
-
 // constant
 const MAX_STEPS = 3;
 
@@ -88,15 +88,10 @@ const Activity: React.FC = () => {
 
   // once
   useEffect(() => {
-    // if (forms.forms.length === 0) {
-    // dispatch({ type: 'INIT_FORM', payload: { size: MAX_STEPS } });
     dispatch(initForm({ size: MAX_STEPS }));
-    // }
-    buildingAPI
-      .getBuildingInfo(areaId)
+    areaAPI
+      .getAreaInfo(areaId)
       .then(area => {
-        // setBuilding(area);
-        // dispatch({ type: 'SET_AREA_INFO', payload: area });
         dispatch(setAreaInfoForm(area));
       })
       .then(() => {

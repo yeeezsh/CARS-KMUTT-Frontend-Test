@@ -5,12 +5,18 @@ import { useSelector, useDispatch } from 'react-redux';
 import Loadable from 'react-loadable';
 
 // store / data
+import {
+  setAreaInfoForm,
+  initForm,
+} from 'Store/reducers/areaForm/actions';
+import { areaAPI } from 'Models/area';
 import { RootReducers } from 'Store/reducers';
+import { taskFormAPI } from 'Models/task/form';
 import stepsList from './steps';
 
 // assets
 import sharedStyles from '../common/styles/styles.module.css';
-import { buildingAPI } from 'Models/building';
+
 import {
   ProjectForm,
   FacilityForm,
@@ -20,11 +26,6 @@ import {
   ReturnForm,
   OverviewSportForm,
 } from '../common/forms';
-import { taskFormAPI } from 'Models/task/form';
-import {
-  setAreaInfoForm,
-  initForm,
-} from 'Store/reducers/areaForm/actions';
 
 const StateSteps = Loadable({
   loader: () => import('Components/StateSteps'),
@@ -65,22 +66,19 @@ const Sport: React.FC = () => {
 
   // once
   useEffect(() => {
-    // if (forms.forms.length === 0) {
-    // dispatch({ type: 'INIT_FORM', payload: { size: MAX_STEPS } });
     dispatch(initForm({ size: MAX_STEPS }));
-    // }
-    buildingAPI
-      .getBuildingInfo(areaId)
+    areaAPI
+      .getAreaInfo(areaId)
       .then(area => {
-        // setBuilding(area);
-        // dispatch({ type: 'SET_AREA_INFO', payload: area });
         dispatch(setAreaInfoForm(area));
       })
       .then(() => {
         // pre load other forms
-        // ProjectForm.preload();
-        // FacilityForm.preload();
-        // OverviewCommonForm.preload();
+        ProjectForm.preload();
+        AreaForm.preload();
+        FacilityForm.preload();
+        EquipmentForm.preload();
+        OverviewSportForm.preload();
       });
   }, []);
 
