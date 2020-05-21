@@ -5,7 +5,11 @@ import ListTable from './list';
 import SortByTools from 'Components/SortByTools';
 import sortHelper from './sort.helper';
 import HeadTitle from 'Components/HeadTitle';
-import { ColumnProps } from 'antd/lib/table';
+import {
+  ColumnProps,
+  PaginationConfig,
+  SorterResult,
+} from 'antd/lib/table';
 import moment from 'moment';
 import typeDescHelper from './type.desc.helper';
 import State from './state';
@@ -29,6 +33,8 @@ const TaskTable: React.FC<Props> = props => {
       title: 'วันที่',
       key: 'createAt',
       width: 110,
+      sorter: (a, b) =>
+        moment(a.createAt).valueOf() - moment(b.createAt).valueOf(),
       render: data => moment(data?.createAt).format('DD-MM-YYYY'),
     },
     {
@@ -57,6 +63,8 @@ const TaskTable: React.FC<Props> = props => {
       title: 'สถานะ',
       key: 'status',
       width: 90,
+      sorter: (a, b) =>
+        a.state.slice(-1)[0].localeCompare(b.state.slice(-1)[0]),
       // eslint-disable-next-line react/display-name
       render: data => <State state={data?.state.slice(-1)[0]} />,
     },
@@ -72,7 +80,14 @@ const TaskTable: React.FC<Props> = props => {
   ];
 
   console.log('task table', data);
-
+  function tableOnChange(
+    pagination: PaginationConfig,
+    filters: any,
+    sorter: SorterResult<TaskTable>,
+    // extra,
+  ) {
+    console.log(pagination, filters, sorter);
+  }
   return (
     <div>
       <Row>
@@ -87,7 +102,11 @@ const TaskTable: React.FC<Props> = props => {
 
       {/* <Row></Row> */}
       {/* data display */}
-      <Table dataSource={data} columns={tableCols} />
+      <Table
+        onChange={tableOnChange}
+        dataSource={data}
+        columns={tableCols}
+      />
 
       {/* <Row>
         <ListTable header={true} />
