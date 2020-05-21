@@ -1,0 +1,40 @@
+import React, { useState } from 'react';
+import EyeSVG from 'Assets/icons/staff/eye.svg';
+
+// styles
+const baseStyle: React.CSSProperties = {
+  border: '1px solid #FF682B',
+  borderRadius: 4,
+  background: '#ffffff',
+  height: '100%',
+  padding: 8,
+  cursor: 'pointer',
+  color: '#FF682B',
+};
+const defaultStyle = baseStyle;
+const onHoverStyle: React.CSSProperties = {
+  ...baseStyle,
+  ...{ color: 'white', backgroundColor: '#FF682B' },
+};
+
+const ActionBtn: React.FunctionComponent<{
+  onClick?: () => void;
+}> = props => {
+  const [onHover, setOnHover] = useState(false);
+
+  return (
+    <div
+      style={onHover === true ? onHoverStyle : defaultStyle}
+      onMouseOver={() => setOnHover(true)}
+      onMouseOut={() => setOnHover(false)}
+      onClick={() => props.onClick && props.onClick()}
+    >
+      <span>
+        <img style={{ float: 'left', padding: 4 }} src={EyeSVG} />
+        <span>View</span>
+      </span>
+    </div>
+  );
+};
+
+export default ActionBtn;
