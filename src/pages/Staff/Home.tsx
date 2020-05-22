@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import moment from 'moment';
 import Loadable from 'react-loadable';
 import { taskTable } from 'Models/taskTable';
-import { TaskTableType } from 'Models/taskTable/interface';
+import { TaskTableTypeAPI } from 'Models/taskTable/interface';
 
 // assets
 import allDocsIcon from 'Assets/icons/staff/alldocs.svg';
@@ -16,26 +15,37 @@ const TaskTable = Loadable({
   loading: () => null,
 });
 
+const LIMIT = 10;
+
 function StaffHome() {
-  const now = moment().startOf('day');
-  const pagination = moment(now).subtract(2, 'day');
-  const initState: TaskTableType = [];
+  // const now = moment().startOf('day');
+  // const pagination = moment(now).subtract(2, 'day');
+  const initState: TaskTableTypeAPI = { data: [], count: 0 };
   const [data, setData] = useState(initState);
-  console.log(now.format('DD-MM-YYYY'));
-  console.log(pagination.format('DD-MM-YYYY'));
+  const [current, setCurrent] = useState(1);
+  const [size, setSize] = useState(LIMIT);
+  const [orderCol, setOrderCol] = useState('');
+  const [order, setOrder] = useState<undefined | 1 | -1>(undefined);
 
   // fetching
   useEffect(() => {
-    taskTable.getAllTask(now, pagination).then(e => setData(e));
-  }, []);
+    taskTable
+      .getAllTask(current, size, orderCol, order)
+      .then(e => setData(e));
+  }, [current, size, orderCol, order]);
 
   return (
     <StaffLayout>
       <TaskTable
         title="รายการทั้งหมด"
         icon={allDocsIcon}
-        data={data}
+        data={data.data}
+        allDataCount={data.count}
         dataRequest={(pagination, order) => {
+          setCurrent(pagination.current);
+          setSize(pagination.pageSize);
+          setOrderCol(order.column);
+          setOrder(order.order);
           console.log('sort or pagination client requested');
           console.log(pagination, order);
         }}
