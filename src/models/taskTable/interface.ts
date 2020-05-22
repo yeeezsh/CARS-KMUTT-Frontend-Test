@@ -14,3 +14,4 @@ export interface TaskTable {
 }
 
 export type TaskTableType = TaskTable[];
+export type TaskTableTypeAPI = { data: TaskTable[]; count: number };

@@ -1,42 +1,57 @@
-import moment, { Moment } from 'moment';
+import moment from 'moment';
 import i from 'Models/axios.interface';
 import {
-  TaskTableType,
+  // TaskTableType,
   TaskTable as TaskTableInterface,
+  TaskTableTypeAPI,
 } from './interface';
 
 class TaskTable {
   async getTask(
-    offset?: Moment,
-    limit?: Moment,
+    current: number,
+    size: number,
+    orderCol?: string,
+    order?: 1 | -1,
     taskType?: 'all' | 'wait' | 'reject' | 'accept' | 'drop',
-  ): Promise<TaskTableType> {
+  ): Promise<TaskTableTypeAPI> {
     const res = await i.instance.get(`/task/staff/${taskType}`, {
       params: {
-        offset: offset?.toISOString(),
-        limit: limit?.toISOString(),
+        current,
+        size,
+        orderCol,
+        order,
       },
     });
-    return res.data.map((e: TaskTableInterface) => ({
-      ...e,
-      createAt: moment(e.createAt),
-    }));
+
+    console.log('task staff', res.data);
+    return {
+      data: res.data.data.map((e: TaskTableInterface) => ({
+        ...e,
+        createAt: moment(e.createAt),
+      })),
+      count: res.data.count,
+    };
   }
 
-  async getAllTask(offset?: Moment, limit?: Moment) {
-    return this.getTask(offset, limit, 'all');
+  async getAllTask(
+    current: number,
+    size: number,
+    orderCol?: string,
+    order?: 1 | -1,
+  ) {
+    return this.getTask(current, size, orderCol, order, 'all');
   }
-  async getRejectTask(offset?: Moment, limit?: Moment) {
-    return this.getTask(offset, limit, 'reject');
+  async getRejectTask(current: number, size: number) {
+    return this.getTask(current, size, 'reject');
   }
-  async getAcceptTask(offset?: Moment, limit?: Moment) {
-    return this.getTask(offset, limit, 'accept');
+  async getAcceptTask(current: number, size: number) {
+    return this.getTask(current, size, 'accept');
   }
-  async getWaitTask(offset?: Moment, limit?: Moment) {
-    return this.getTask(offset, limit, 'wait');
+  async getWaitTask(current: number, size: number) {
+    return this.getTask(current, size, 'wait');
   }
-  async getDropTask(offset?: Moment, limit?: Moment) {
-    return this.getTask(offset, limit, 'drop');
+  async getDropTask(current: number, size: number) {
+    return this.getTask(current, size, 'drop');
   }
 }
 
