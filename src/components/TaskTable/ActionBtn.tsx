@@ -11,10 +11,25 @@ const baseStyle: React.CSSProperties = {
   cursor: 'pointer',
   color: '#FF682B',
 };
+
+// div
 const defaultStyle = baseStyle;
 const onHoverStyle: React.CSSProperties = {
   ...baseStyle,
-  ...{ color: 'white', backgroundColor: '#FF682B' },
+  ...{
+    color: 'white',
+    backgroundColor: '#FF682B',
+  },
+};
+
+// svg
+const defaultSVGStyle: React.CSSProperties = {
+  float: 'left',
+  padding: 4,
+};
+const onHoverSVGStyle: React.CSSProperties = {
+  ...defaultSVGStyle,
+  ...{ filter: 'brightness(0) invert(1)' },
 };
 
 const ActionBtn: React.FunctionComponent<{
@@ -30,7 +45,10 @@ const ActionBtn: React.FunctionComponent<{
       onClick={() => props.onClick && props.onClick()}
     >
       <span>
-        <img style={{ float: 'left', padding: 4 }} src={EyeSVG} />
+        <img
+          style={onHover === true ? onHoverSVGStyle : defaultSVGStyle}
+          src={EyeSVG}
+        />
         <span>View</span>
       </span>
     </div>
