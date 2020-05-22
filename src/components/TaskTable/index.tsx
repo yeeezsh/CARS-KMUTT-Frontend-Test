@@ -1,15 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { TaskTableType, TaskTable } from 'Models/taskTable/interface';
-import { Row, Col, Table } from 'antd';
-// import ListTable from './list';
-// import SortByTools from 'Components/SortByTools';
-// import sortHelper from './sort.helper';
+import { Row, Table } from 'antd';
 import HeadTitle from 'Components/HeadTitle';
-import {
-  ColumnProps,
-  PaginationConfig,
-  SorterResult,
-} from 'antd/lib/table';
+import { ColumnProps } from 'antd/lib/table';
 import moment from 'moment';
 import typeDescHelper from './type.desc.helper';
 import State from './state';
@@ -32,10 +25,9 @@ interface Props {
 
 const TaskTable: React.FC<Props> = props => {
   const { data, icon, title } = props;
-  // const [sortSelect, setSortSelect] = useState(undefined);
   const history = useHistory();
-
   const TASK_LINK = (id: string): string => `/staff/task/${id}`;
+
   const tableCols: ColumnProps<TaskTable>[] = [
     {
       title: 'วันที่',
@@ -60,7 +52,7 @@ const TaskTable: React.FC<Props> = props => {
       title: 'สถานที่',
       key: 'area',
       width: 280,
-      render: data => data?.area.label || data?.area.name,
+      render: data => data?.area?.label || data?.area?.name,
     },
     {
       title: 'รหัสผู้จอง',
@@ -96,6 +88,7 @@ const TaskTable: React.FC<Props> = props => {
         <HeadTitle icon={icon} title={title} />
       </Row>
 
+      {/* data display */}
       <Table
         loading={props.loading || false}
         onChange={(pagination, filters, sorter) => {
