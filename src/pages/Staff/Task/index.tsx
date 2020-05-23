@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Loadable from 'react-loadable';
 import { Row, Col, message } from 'antd';
-// import moment from 'moment';
 import { useLocation, useHistory } from 'react-router';
-// import { TaskDetail } from 'Models/task/task.interface';
+
+// data & store
 import { taskAPI } from 'Models/task';
 
 const StaffLayout = Loadable({
@@ -30,11 +30,24 @@ const Button = Loadable({
   loader: () => import('Components/Button'),
   loading: () => null,
 });
+const ConfirmModal = Loadable({
+  loader: () => import('Components/ConfirmModal'),
+  loading: () => null,
+});
 
+import {
+  OverviewCommonForm,
+  OverviewSportForm,
+} from 'Pages/Areas/Common/common/forms';
+import { Overview as OverviewMeetingForm } from 'Components/Forms/Meeting';
+
+// common & assets
 import xIcon from 'Assets/icons/button/x.svg';
 import { mainStyle, detailStyle, CustomBrakeLine } from './helper';
-import ConfirmModal from 'Components/ConfirmModal';
+
 import { initTask } from './init.state';
+import typeDescHelper from 'Components/TaskTable/type.desc.helper';
+import { TaskDetail } from 'Models/task/task.interface';
 
 const TaskPage: React.FC = () => {
   const location = useLocation();
@@ -42,8 +55,40 @@ const TaskPage: React.FC = () => {
   const history = useHistory();
 
   const [modal, setModal] = useState(false);
-  const [task, setTask] = useState(initTask);
+  const [task, setTask] = useState<TaskDetail>(initTask);
+  const forms = task.forms;
+  const area = task.area;
   const [cancel, setCancle] = useState(false);
+
+  const formInfo = (type: TaskDetail['type']) => {
+    if (!forms) return null;
+    if (type === 'common') {
+      return <OverviewCommonForm viewOnly={true} data={{ forms, area }} />;
+    }
+    if (type === 'common-sport') {
+      return <OverviewSportForm viewOnly={true} data={{ forms, area }} />;
+    }
+    if (type === 'meeting-club') {
+      return (
+        <OverviewMeetingForm
+          buttonOffeset={false}
+          viewOnly={true}
+          data={{ forms, area }}
+        />
+      );
+    }
+    if (type === 'meeting-room') {
+      return (
+        <OverviewMeetingForm
+          buttonOffeset={false}
+          viewOnly={true}
+          showFacility={false}
+          data={{ forms, area }}
+        />
+      );
+    }
+    return null;
+  };
 
   function onBack() {
     return history.goBack();
@@ -134,7 +179,7 @@ const TaskPage: React.FC = () => {
             <Col span={8}>
               <b>ประเภทการจอง</b>{' '}
               <span style={detailStyle}>
-                {task.area.building && task.area.building.type}
+                {task.area.building && typeDescHelper(task.type)}
               </span>
             </Col>
             <Col span={8} offset={8} style={{ textAlign: 'right' }}>
@@ -149,7 +194,7 @@ const TaskPage: React.FC = () => {
             {/* bottom detail */}
             {/* area */}
             <Col span={24}>
-              <b>สนามกีฬา</b>{' '}
+              <b>สถานที่</b>{' '}
               <span style={detailStyle}>
                 {task.area.building && task.area.label}
               </span>
@@ -181,7 +226,12 @@ const TaskPage: React.FC = () => {
               <UsersReserveList users={task.requestor} />
             </Col>
 
-            <CustomBrakeLine />
+            {/* <CustomBrakeLine /> */}
+            {/* extend forms */}
+
+            <Col style={{ fontWeight: 'normal' }} span={24}>
+              {formInfo(task.type)}
+            </Col>
 
             {/* Action */}
             {cancel && (
