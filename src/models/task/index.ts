@@ -53,6 +53,16 @@ class TaskClass {
       throw new Error(err);
     }
   }
+  async acceptTaskByStaff(_id: string, desc?: string): Promise<void> {
+    try {
+      await i.instance.post('/task/staff/accept', {
+        _id,
+        desc,
+      });
+    } catch (err) {
+      throw new Error(err);
+    }
+  }
 
   async getLastTask(): Promise<TaskLastCard | undefined> {
     try {
