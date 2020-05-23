@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Loadable from 'react-loadable';
-import queryString, { ParsedQuery } from 'query-string';
+import queryString from 'query-string';
 
 import { taskTable } from 'Models/taskTable';
 import { TaskTableTypeAPI } from 'Models/taskTable/interface';
@@ -59,11 +59,11 @@ function StaffHome() {
   return (
     <StaffLayout>
       <TaskTable
-        loading={loading}
-        current={current}
         title="รายการทั้งหมด"
         icon={allDocsIcon}
         data={data.data}
+        loading={loading}
+        current={current}
         allDataCount={data.count}
         dataRequest={(pagination, order) => {
           setCurrent(pagination.current);
