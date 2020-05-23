@@ -19,7 +19,7 @@ const TaskTable = Loadable({
 });
 
 const LIMIT = 10;
-const DEFAULT_ORDERL_COL = 'createAt';
+const DEFAULT_ORDER_COL = 'createAt';
 
 function StaffHome() {
   const history = useHistory();
@@ -30,14 +30,14 @@ function StaffHome() {
   });
   const [current, setCurrent] = useState(1);
   const [size, setSize] = useState(LIMIT);
-  const [orderCol, setOrderCol] = useState<string>(DEFAULT_ORDERL_COL);
+  const [orderCol, setOrderCol] = useState<string>(DEFAULT_ORDER_COL);
   const [order, setOrder] = useState<undefined | 1 | -1>(undefined);
   const [loading, setLoading] = useState<boolean>(true);
 
   function setQueryString() {
     history.replace(
       `/staff?current=${current || 1}&size=${size}&orderlCol=${orderCol ||
-        DEFAULT_ORDERL_COL}&order=${order || '-1'}`,
+        DEFAULT_ORDER_COL}&order=${order || '-1'}`,
     );
   }
 
@@ -57,7 +57,7 @@ function StaffHome() {
     setQueryString();
     setCurrent(Number(query.current || 1));
     setSize(Number(query.size || LIMIT));
-    setOrderCol(String(query.orderlCol || 'createAt'));
+    setOrderCol(String(query.orderlCol || DEFAULT_ORDER_COL));
     setOrder(Number(query.order) as 1 | -1);
     console.log('query config', query, Number(query.current));
   }, []);

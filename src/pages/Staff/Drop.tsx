@@ -37,9 +37,9 @@ function StaffDrop() {
 
   function setQueryString() {
     history.replace(
-      `/staff/drop?current=${current ||
-        1}&size=${size}&orderlCol=${orderCol ||
-        DEFAULT_ORDER_COL}&order=${order || '-1'}`,
+      `/staff/drop?current=${current || 1}&size=${size ||
+        LIMIT}&orderlCol=${orderCol || DEFAULT_ORDER_COL}&order=${order ||
+        '-1'}`,
     );
   }
   // fetching

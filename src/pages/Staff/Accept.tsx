@@ -56,9 +56,9 @@ function StaffAccept() {
   useEffect(() => {
     setQueryString();
     const query = queryString.parse(loaction.search);
-    setCurrent(Number(query.current));
-    setSize(Number(query.size));
-    setOrderCol(String(query.orderlCol));
+    setCurrent(Number(query.current || 1));
+    setSize(Number(query.size || LIMIT));
+    setOrderCol(String(query.orderlCol || DEFAULT_ORDER_COL));
     setOrder(Number(query.order) as 1 | -1);
   }, []);
   return (
