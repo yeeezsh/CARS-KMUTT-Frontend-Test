@@ -55,7 +55,6 @@ function StaffWait() {
     setSize(Number(query.size));
     setOrderCol(String(query.orderlCol));
     setOrder(Number(query.order) as 1 | -1);
-    console.log('query config', query, Number(query.current));
   }, []);
 
   return (
@@ -72,8 +71,6 @@ function StaffWait() {
           setSize(pagination.pageSize);
           setOrderCol(order.column);
           setOrder(order.order);
-          console.log('sort or pagination client requested');
-          console.log(pagination, order);
         }}
       />
     </StaffLayout>
