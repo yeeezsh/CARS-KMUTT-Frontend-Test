@@ -60,7 +60,7 @@ const TaskPage: React.FC = () => {
   const [task, setTask] = useState<TaskDetail>(initTask);
   const forms = task.forms;
   const area = task.area;
-  const [cancel, setCancle] = useState(false);
+  const [cancelled, setCancle] = useState(false);
   const [accepted, setAccepted] = useState(false);
 
   const formInfo = (type: TaskDetail['type']) => {
@@ -127,9 +127,10 @@ const TaskPage: React.FC = () => {
       if (t) {
         setTask(t);
         const lastState = t.state.slice(-1)[0];
-        const canCancel = lastState === 'reject' || lastState === 'drop';
+        const alreadyCancel =
+          lastState === 'reject' || lastState === 'drop';
         const alreadyAccepted = lastState === 'accept';
-        setCancle(canCancel);
+        setCancle(alreadyCancel);
         setAccepted(alreadyAccepted);
       }
     });
@@ -273,7 +274,7 @@ const TaskPage: React.FC = () => {
                   </Button>
                 )}
 
-                {!cancel && (
+                {!cancelled && (
                   <Button
                     style={{
                       width: '175px',
