@@ -20,4 +20,5 @@ export default interface Menu {
   style?: 'center';
   state?: RouterStates;
   query?: Query;
+  allowSport?: boolean;
 }
