@@ -23,8 +23,10 @@ const LIMIT = 10;
 function StaffHome() {
   const history = useHistory();
   const loaction = useLocation();
-  const initState: TaskTableTypeAPI = { data: [], count: 0 };
-  const [data, setData] = useState(initState);
+  const [data, setData] = useState<TaskTableTypeAPI>({
+    data: [],
+    count: 0,
+  });
   const [current, setCurrent] = useState(1);
   const [size, setSize] = useState(LIMIT);
   const [orderCol, setOrderCol] = useState<string>('createAt');
@@ -34,8 +36,8 @@ function StaffHome() {
   // fetching
   useEffect(() => {
     history.replace(
-      `/staff?current=${current}&size=${size}&orderlCol=${orderCol ||
-        'createAt'}&order=${order}`,
+      `/staff?current=${current || 1}&size=${size}&orderlCol=${orderCol ||
+        'createAt'}&order=${order || '-1'}`,
     );
     setLoading(true);
     taskTable.getAllTask(current, size, orderCol, order).then(e => {
