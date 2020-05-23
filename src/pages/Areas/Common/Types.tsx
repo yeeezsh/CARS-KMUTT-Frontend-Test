@@ -10,7 +10,9 @@ import sportTypeBuildingIcon from 'Assets/icons/area/building/basketball-ball.sv
 import BackCard from 'Components/BackCard';
 import BackCardStyles from '../styles/backcard';
 
-const TypesPage: React.FunctionComponent = () => {
+const TypesPage: React.FunctionComponent<{
+  allowSport?: boolean;
+}> = props => {
   const location = useLocation();
   const history = useHistory();
   const areaId = location.pathname.split('/')[3];
@@ -21,23 +23,28 @@ const TypesPage: React.FunctionComponent = () => {
       label: [`จัดกิจกรรม`],
       icon: activityTypeBuildingIcon,
       link: `/reserve/common/${areaId}/activity/1`,
-      query: { name: 'kfc' },
     },
-    {
+  ];
+
+  const { allowSport } = props;
+  if (allowSport)
+    menu.push({
       key: '2',
       label: [`แข่งขันกีฬา`],
       icon: sportTypeBuildingIcon,
       link: `/reserve/common/${areaId}/sport/1`,
-      query: { name: 'park' },
-    },
-  ].map(e => ({ ...e, style: 'center' }));
+    });
+
+  const mappedMenu: Menu[] = menu.map(e => ({ ...e, style: 'center' }));
   console.log(areaId);
   return (
     <KanBanLayout title="จองพื้นที่ส่วนกลาง" outline="เลือกประเภทกิจกรรม">
       <div style={BackCardStyles}>
-        <BackCard onClick={() => history.goBack()}>เลือกสถานที่</BackCard>
+        <BackCard onClick={() => history.push('/reserve/area/common')}>
+          เลือกสถานที่
+        </BackCard>
       </div>
-      <KanbanCard menu={menu} />
+      <KanbanCard menu={mappedMenu} />
     </KanBanLayout>
   );
 };
