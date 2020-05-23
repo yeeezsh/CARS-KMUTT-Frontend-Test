@@ -15,6 +15,7 @@ interface Props {
   data?: TaskTableType;
   allDataCount: number;
   loading?: boolean;
+  current?: number;
   dataRequest?: (
     pagination: {
       current: number;
@@ -25,7 +26,7 @@ interface Props {
 }
 
 const TaskTable: React.FC<Props> = props => {
-  const { data, icon, title, allDataCount } = props;
+  const { data, icon, title, allDataCount, current } = props;
   const history = useHistory();
   const TASK_LINK = (id: string): string => `/staff/task/${id}`;
 
@@ -93,7 +94,7 @@ const TaskTable: React.FC<Props> = props => {
       <Table
         style={{ minHeight: 500 }}
         loading={props.loading || false}
-        pagination={{ total: allDataCount }}
+        pagination={{ total: allDataCount, current }}
         onChange={(pagination, filters, sorter) => {
           const { dataRequest } = props;
           dataRequest &&
