@@ -60,8 +60,8 @@ const TaskPage: React.FC = () => {
   const [task, setTask] = useState<TaskDetail>(initTask);
   const forms = task.forms;
   const area = task.area;
-  const [cancelled, setCancle] = useState(false);
-  const [accepted, setAccepted] = useState(false);
+  const [cancelled, setCancle] = useState(true);
+  const [accepted, setAccepted] = useState(true);
 
   const formInfo = (type: TaskDetail['type']) => {
     if (!forms) return null;
