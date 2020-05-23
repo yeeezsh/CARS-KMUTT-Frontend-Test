@@ -62,7 +62,7 @@ const TaskTable: React.FC<Props> = props => {
     },
     {
       title: 'สถานะ',
-      key: 'status',
+      key: 'state',
       width: 90,
       sorter: (a, b) =>
         a.state.slice(-1)[0].localeCompare(b.state.slice(-1)[0]),
