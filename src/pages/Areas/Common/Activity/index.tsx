@@ -67,12 +67,13 @@ const Activity: React.FC = () => {
 
   function goBack() {
     if (steps === 0) {
-      return history.push('/reserve/common/' + areaId + '/types');
+      // return history.push('/reserve/common/' + areaId + '/types');
+      return history.goBack();
     }
     const oldPath = location;
     const pathStep = steps + 1;
     const backPath = oldPath.slice(0, -1) + (pathStep - 1);
-    return history.push(backPath);
+    return history.replace(backPath);
   }
 
   function goHome() {
@@ -107,7 +108,7 @@ const Activity: React.FC = () => {
     if (steps === 0) return;
     const oldPath = location;
     const newPath = oldPath.slice(0, -1) + (steps + 1);
-    history.push(newPath);
+    history.replace(newPath);
   }, [steps]);
 
   console.log('ready to send form', forms.finish);

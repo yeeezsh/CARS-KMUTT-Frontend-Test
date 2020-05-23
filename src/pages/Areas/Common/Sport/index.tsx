@@ -87,7 +87,8 @@ const Sport: React.FC = () => {
 
   function goBack() {
     if (steps === 0) {
-      return history.push('/reserve/common/' + areaId + '/types');
+      // return history.push('/reserve/common/' + areaId + '/types');
+      return history.goBack();
     }
     let unit = 1;
 
@@ -99,7 +100,7 @@ const Sport: React.FC = () => {
     const pathStep = steps + 1;
     const backPath = oldPath.slice(0, -1) + (pathStep - unit);
 
-    return history.push(backPath);
+    return history.replace(backPath);
   }
 
   function goHome() {
@@ -130,7 +131,7 @@ const Sport: React.FC = () => {
 
     const oldPath = location;
     const newPath = oldPath.slice(0, -1) + (steps + unit);
-    history.push(newPath);
+    history.replace(newPath);
   }, [steps]);
 
   console.log('ready to send form', forms.finish);
