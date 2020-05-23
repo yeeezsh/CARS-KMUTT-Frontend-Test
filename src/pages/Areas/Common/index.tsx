@@ -4,7 +4,7 @@ const Areas = Loadable({
   loader: () => import('./Areas'),
   loading: () => null,
 });
-const Types = Loadable({
+const TypesWSport = Loadable({
   loader: () => import('./Types'),
   loading: () => null,
 });
@@ -17,4 +17,4 @@ const Sport = Loadable({
   loading: () => null,
 });
 
-export { Areas, Types, Activity, Sport };
+export { Areas, TypesWSport, Activity, Sport };
