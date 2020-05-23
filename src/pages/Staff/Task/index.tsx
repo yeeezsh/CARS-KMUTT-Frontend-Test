@@ -43,6 +43,7 @@ import { Overview as OverviewMeetingForm } from 'Components/Forms/Meeting';
 
 // common & assets
 import xIcon from 'Assets/icons/button/x.svg';
+import checkedIcon from 'Assets/icons/button/checked.svg';
 import { mainStyle, detailStyle, CustomBrakeLine } from './helper';
 
 import { initTask } from './init.state';
@@ -54,11 +55,13 @@ const TaskPage: React.FC = () => {
   const taskId = location.pathname.split('/')[3];
   const history = useHistory();
 
-  const [modal, setModal] = useState(false);
+  const [dropModal, setDropModal] = useState(false);
+  const [acceptModal, setAcceptModel] = useState(false);
   const [task, setTask] = useState<TaskDetail>(initTask);
   const forms = task.forms;
   const area = task.area;
   const [cancel, setCancle] = useState(false);
+  const [accepted, setAccepted] = useState(false);
 
   const formInfo = (type: TaskDetail['type']) => {
     if (!forms) return null;
@@ -94,15 +97,28 @@ const TaskPage: React.FC = () => {
     return history.goBack();
   }
 
-  function onActionModal(desc?: string) {
+  // modal handler
+  function onActionDropModal(desc?: string) {
     taskAPI
       .cancleTaskByStaff(taskId, desc)
       .then(() => history.goBack())
       .catch(err => message.error(String(err)));
   }
 
-  function onModal() {
-    setModal(prev => !prev);
+  function onAcceptDropModal(desc?: string) {
+    taskAPI
+      .acceptTaskByStaff(taskId, desc)
+      .then(() => history.goBack())
+      .catch(err => message.error(String(err)));
+  }
+
+  // modal states
+  function onDropModal() {
+    setDropModal(prev => !prev);
+  }
+
+  function onAcceptModal() {
+    setAcceptModel(prev => !prev);
   }
 
   //   fetch task
@@ -112,7 +128,9 @@ const TaskPage: React.FC = () => {
         setTask(t);
         const lastState = t.state.slice(-1)[0];
         const canCancel = lastState === 'reject' || lastState === 'drop';
-        setCancle(!canCancel);
+        const alreadyAccepted = lastState === 'accept';
+        setCancle(canCancel);
+        setAccepted(alreadyAccepted);
       }
     });
   }, []);
@@ -234,28 +252,59 @@ const TaskPage: React.FC = () => {
             </Col>
 
             {/* Action */}
-            {cancel && (
-              <Button
-                style={{
-                  width: '175px',
-                  backgroundColor: '#F5222D',
-                }}
-                fontSize={16}
-                padding={4}
-                onClick={() => setModal(true)}
-              >
-                <img style={{ padding: 4 }} src={xIcon} alt="x-icon" />
-                ยกเลิกการจอง
-              </Button>
-            )}
+            {
+              <React.Fragment>
+                {!accepted && (
+                  <Button
+                    style={{
+                      width: '175px',
+                      backgroundColor: '#52C41A',
+                    }}
+                    fontSize={16}
+                    padding={4}
+                    onClick={() => setAcceptModel(true)}
+                  >
+                    <img
+                      style={{ padding: 4 }}
+                      src={checkedIcon}
+                      alt="checked-icon"
+                    />
+                    อนุมัติ
+                  </Button>
+                )}
+
+                {!cancel && (
+                  <Button
+                    style={{
+                      width: '175px',
+                      backgroundColor: '#F5222D',
+                    }}
+                    fontSize={16}
+                    padding={4}
+                    onClick={() => setDropModal(true)}
+                  >
+                    <img style={{ padding: 4 }} src={xIcon} alt="x-icon" />
+                    ไม่อนุมัติ
+                  </Button>
+                )}
+              </React.Fragment>
+            }
           </Row>
         </Col>
       </Row>
+
+      {/* action modal */}
       <ConfirmModal
-        onClick={onModal}
-        onAction={onActionModal}
+        onClick={onDropModal}
+        onAction={onActionDropModal}
         type="drop"
-        visible={modal}
+        visible={dropModal}
+      />
+      <ConfirmModal
+        onClick={onAcceptModal}
+        onAction={onAcceptDropModal}
+        type="accept"
+        visible={acceptModal}
       />
     </StaffLayout>
   );
