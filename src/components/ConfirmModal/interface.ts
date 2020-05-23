@@ -1,1 +1,1 @@
-export type ConfirmMoalType = 'approve' | 'reject' | 'drop';
+export type ConfirmMoalType = 'accept' | 'reject' | 'drop';
