@@ -20,6 +20,7 @@ const TaskTable = Loadable({
 });
 
 const LIMIT = 10;
+const DEFAULT_ORDER_COL = 'createAt';
 
 function StaffReject() {
   const history = useHistory();
@@ -30,17 +31,21 @@ function StaffReject() {
   });
   const [current, setCurrent] = useState(1);
   const [size, setSize] = useState(LIMIT);
-  const [orderCol, setOrderCol] = useState<string>('createAt');
+  const [orderCol, setOrderCol] = useState<string>(DEFAULT_ORDER_COL);
   const [order, setOrder] = useState<undefined | 1 | -1>(undefined);
   const [loading, setLoading] = useState<boolean>(true);
 
-  // fetching
-  useEffect(() => {
+  function setQueryString() {
     history.replace(
       `/staff/reject?current=${current ||
         1}&size=${size}&orderlCol=${orderCol ||
-        'createAt'}&order=${order || '-1'}`,
+        DEFAULT_ORDER_COL}&order=${order || '-1'}`,
     );
+  }
+
+  // fetching
+  useEffect(() => {
+    setQueryString();
     setLoading(true);
     taskTable.getRejectTask(current, size, orderCol, order).then(e => {
       setData(e);
@@ -51,6 +56,7 @@ function StaffReject() {
   // once load
   useEffect(() => {
     const query = queryString.parse(loaction.search);
+    setQueryString();
     setCurrent(Number(query.current));
     setSize(Number(query.size));
     setOrderCol(String(query.orderlCol));
