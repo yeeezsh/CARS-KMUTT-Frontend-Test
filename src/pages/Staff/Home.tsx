@@ -26,17 +26,21 @@ function StaffHome() {
   const [size, setSize] = useState(LIMIT);
   const [orderCol, setOrderCol] = useState('');
   const [order, setOrder] = useState<undefined | 1 | -1>(undefined);
+  const [loading, setLoading] = useState<boolean>(true);
 
   // fetching
   useEffect(() => {
-    taskTable
-      .getAllTask(current, size, orderCol, order)
-      .then(e => setData(e));
+    setLoading(true);
+    taskTable.getAllTask(current, size, orderCol, order).then(e => {
+      setData(e);
+      setLoading(false);
+    });
   }, [current, size, orderCol, order]);
 
   return (
     <StaffLayout>
       <TaskTable
+        loading={loading}
         title="รายการทั้งหมด"
         icon={allDocsIcon}
         data={data.data}
