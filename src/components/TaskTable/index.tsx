@@ -91,6 +91,7 @@ const TaskTable: React.FC<Props> = props => {
 
       {/* data display */}
       <Table
+        style={{ minHeight: 500 }}
         loading={props.loading || false}
         pagination={{ total: allDataCount }}
         onChange={(pagination, filters, sorter) => {
