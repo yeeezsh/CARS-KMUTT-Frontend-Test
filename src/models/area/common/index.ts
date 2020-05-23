@@ -17,7 +17,9 @@ class CommonAreaClass {
         const typeId = fetch[fetchIndex]._id;
         return {
           ...e,
-          link: `/reserve/common/${typeId}/types`,
+          link: e.allowSport
+            ? `/reserve/common/${typeId}/typesSport`
+            : `/reserve/common/${typeId}/types`,
           query: {
             ...e.query,
             _id: typeId,

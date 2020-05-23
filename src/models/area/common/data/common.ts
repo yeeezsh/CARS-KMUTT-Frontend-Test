@@ -10,11 +10,12 @@ const data: Menu[] = [
     key: '1',
     label: [
       `อาคารพระจอมเกล้า
-  ราชานุสรณ์ 190 ปี มจธ.
-  (โรงยิม)`,
+      ราชานุสรณ์ 190 ปี มจธ.
+      (โรงยิม)`,
     ],
     icon: kfcBuildingIcon,
     query: { name: 'kfc' },
+    allowSport: true,
   },
   {
     key: '2',
