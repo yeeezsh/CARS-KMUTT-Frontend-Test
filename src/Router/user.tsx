@@ -30,7 +30,7 @@ import { u } from 'Models/user';
 import { Category as AreaCategory } from 'Pages/Areas';
 import {
   Areas as CommonArea,
-  Types as CommonAreaTypes,
+  TypesWSport as CommonAreaTypes,
   Activity as CommonActivity,
   Sport as CommonSport,
 } from 'Pages/Areas/Common';
@@ -164,6 +164,9 @@ export default class PageUserRouter extends Component<
 
         <Route path="/reserve/common">
           <Switch>
+            <Route path="**typesSport">
+              <CommonAreaTypes allowSport={true} />
+            </Route>
             <Route path="**types">
               <CommonAreaTypes />
             </Route>
