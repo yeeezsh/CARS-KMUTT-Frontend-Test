@@ -41,17 +41,37 @@ class TaskTable {
   ) {
     return this.getTask(current, size, orderCol, order, 'all');
   }
-  async getRejectTask(current: number, size: number) {
-    return this.getTask(current, size, 'reject');
+  async getRejectTask(
+    current: number,
+    size: number,
+    orderCol?: string,
+    order?: 1 | -1,
+  ) {
+    return this.getTask(current, size, orderCol, order, 'reject');
   }
-  async getAcceptTask(current: number, size: number) {
-    return this.getTask(current, size, 'accept');
+  async getAcceptTask(
+    current: number,
+    size: number,
+    orderCol?: string,
+    order?: 1 | -1,
+  ) {
+    return this.getTask(current, size, orderCol, order, 'accept');
   }
-  async getWaitTask(current: number, size: number) {
-    return this.getTask(current, size, 'wait');
+  async getWaitTask(
+    current: number,
+    size: number,
+    orderCol?: string,
+    order?: 1 | -1,
+  ) {
+    return this.getTask(current, size, orderCol, order, 'wait');
   }
-  async getDropTask(current: number, size: number) {
-    return this.getTask(current, size, 'drop');
+  async getDropTask(
+    current: number,
+    size: number,
+    orderCol?: string,
+    order?: 1 | -1,
+  ) {
+    return this.getTask(current, size, orderCol, order, 'drop');
   }
 }
 
