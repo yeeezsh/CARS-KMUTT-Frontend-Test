@@ -38,7 +38,7 @@ const ConfirmModal = Loadable({
 import {
   OverviewCommonForm,
   OverviewSportForm,
-} from 'Pages/Areas/Common/common/forms';
+} from 'Components/Forms/Common';
 import { Overview as OverviewMeetingForm } from 'Components/Forms/Meeting';
 
 // common & assets

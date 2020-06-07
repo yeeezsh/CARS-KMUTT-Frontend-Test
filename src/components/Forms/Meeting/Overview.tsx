@@ -9,7 +9,7 @@ import Outline from 'Components/Outline';
 import Button from 'Components/Button';
 
 // pages
-import { FacilityForm } from 'Pages/Areas/Common/common/forms/facility';
+import { FacilityForm } from 'Components/Forms/Common/facility';
 import { CalendarForm } from './Calendar';
 
 // data & store

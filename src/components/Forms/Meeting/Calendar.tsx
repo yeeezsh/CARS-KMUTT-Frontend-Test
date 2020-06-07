@@ -5,7 +5,7 @@ import { Col, Row, Form, DatePicker } from 'antd';
 import moment, { Moment } from 'moment';
 import Loadable from 'react-loadable';
 
-import labelStyles from 'Pages/Areas/Common/common/forms/styles/label.tsx';
+import labelStyles from 'Components/Forms/Common/styles/label';
 
 // data store & API
 import { RootReducers } from 'Store/reducers';

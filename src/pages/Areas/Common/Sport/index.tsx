@@ -25,7 +25,7 @@ import {
   EquipmentForm,
   ReturnForm,
   OverviewSportForm,
-} from '../common/forms';
+} from '../../../../components/Forms/Common';
 
 const StateSteps = Loadable({
   loader: () => import('Components/StateSteps'),

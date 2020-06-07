@@ -43,7 +43,7 @@ import styles from './styles.module.css';
 import {
   OverviewCommonForm,
   OverviewSportForm,
-} from 'Pages/Areas/Common/common/forms';
+} from 'Components/Forms/Common';
 import { Overview as OverviewMeetingForm } from 'Components/Forms/Meeting';
 
 // const initState

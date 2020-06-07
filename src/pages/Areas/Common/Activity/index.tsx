@@ -49,7 +49,7 @@ import {
   ProjectForm,
   FacilityForm,
   OverviewCommonForm,
-} from '../common/forms';
+} from '../../../../components/Forms/Common';
 
 // constant
 const MAX_STEPS = 3;

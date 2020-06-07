@@ -1,5 +1,5 @@
 import { ValidationRule } from 'antd/lib/form';
-import usernameValidator from '../../../../../../utils/username.validator';
+import usernameValidator from 'Utils/username.validator';
 
 function validatorUsernameHelper(
   _rule: any,

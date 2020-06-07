@@ -26,7 +26,7 @@ import {
 } from 'Components/Forms/Meeting';
 import { taskMeetingAPI } from 'Models/task/meeting';
 import { CalendarForm } from 'Components/Forms/Meeting/Calendar';
-import { FacilityForm } from '../common/forms';
+import { FacilityForm } from '../../../../components/Forms/Common';
 
 const PageLayout = Loadable({
   loader: () => import('Components/Layout/Page'),
