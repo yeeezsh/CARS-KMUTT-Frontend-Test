@@ -37,7 +37,7 @@ const RequestorForm: React.FC<FormComponentProps & {
   ind?: number;
 }> = props => {
   const CUR_IND = props.ind || 0;
-  const { getFieldDecorator, validateFields } = props.form;
+  const { getFieldDecorator, validateFields, setFieldsValue } = props.form;
   const dispatch = useDispatch();
   const { forms } = useSelector((s: RootReducers) => s.AreaFormReducers);
   const data: RequestorForm = forms[CUR_IND];
@@ -59,6 +59,7 @@ const RequestorForm: React.FC<FormComponentProps & {
     console.log('on faculty', value);
     const selectedDepartment = faculties.find(e => e.value === value);
     setDepartment(selectedDepartment?.departments || []);
+    setFieldsValue({ department: '' }); // remove selected department when faculty changed
   }
 
   //   set index when form is loaded
