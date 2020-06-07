@@ -95,12 +95,22 @@ const RequestorForm: React.FC<FormComponentProps & {
 
       {/* requestor id */}
       <Form.Item>
-        <span style={labelStyles}>รหัสนักศึกษา</span>
+        <span style={labelStyles}>
+          {userType === 'student' ? 'รหัสนักศึกษา 11 หลัก' : 'รหัสบุคลากร'}
+        </span>
         {getFieldDecorator('requestorId', {
           rules: [DEFAULT_REQUIRED_RULES, DEFAULT_USERNAME_RULES],
           validateTrigger: ['onBlur'],
           initialValue: data.requestorId || '',
-        })(<Input placeholder="รหัสนักศึกษา 11 หลัก" />)}
+        })(
+          <Input
+            placeholder={
+              userType === 'student'
+                ? 'รหัสนักศึกษา 11 หลัก'
+                : 'รหัสบุคลากร'
+            }
+          />,
+        )}
       </Form.Item>
 
       {/* name id */}
