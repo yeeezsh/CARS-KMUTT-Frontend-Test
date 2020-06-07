@@ -10,6 +10,9 @@ import Button from 'Components/Button';
 // styles
 import labelStyles from './styles/label';
 
+// utils
+import calendarCurrent from 'Utils/calendar.current';
+
 // store & data
 import { RootReducers } from 'Store/reducers';
 import { DEFAULT_REQUIRED_RULES } from './rules/required';
@@ -38,33 +41,14 @@ const ReturnForm: React.FC<FormComponentProps & {
 
   //   set index when form is loaded
   useEffect(() => {
-    // dispatch({
-    //   type: 'SET_FORM_CUR',
-    //   payload: { cur: CUR_IND },
-    // });
     dispatch(setFormCurrentIndex(CUR_IND));
   }, []);
 
   function onSubmit() {
     validateFields((err, values) => {
-      // dispatch({
-      //   type: 'FILL_FORM',
-      //   payload: {
-      //     form: values,
-      //     valid: false,
-      //   },
-      // });
       dispatch(fillForm({ form: values, valid: false }));
       if (!err) {
-        // dispatch({
-        //   type: 'FILL_FORM',
-        //   payload: {
-        //     form: values,
-        //     valid: true,
-        //   },
-        // });
         dispatch(fillForm({ form: values, valid: true }));
-        // dispatch({ type: 'SUBMIT_FORM' });
         dispatch(submitForm());
       }
     });
@@ -91,6 +75,7 @@ const ReturnForm: React.FC<FormComponentProps & {
                 style={{ width: '100%' }}
                 format={[DATE_FORMAT]}
                 placeholder={PLACEHOLDER_DATE}
+                disabledDate={calendarCurrent(0)}
               />,
             )}
           </Form.Item>

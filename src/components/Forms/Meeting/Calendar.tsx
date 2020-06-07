@@ -20,6 +20,7 @@ import { areaAPI } from 'Models/area';
 // utils
 import weekParsedHelper from 'Utils/week.parse';
 import adjacentHour from 'Utils/adjacent.hour';
+import calendarCurrent from 'Utils/calendar.current';
 
 // interfaces
 import TimeNode from 'Components/TimeTable/timetable.interface';
@@ -246,15 +247,7 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
                 data.date || today.add(OFFSET_DAY, 'days').startOf('days'),
             })(
               <DatePicker
-                disabledDate={current => {
-                  return Boolean(
-                    current &&
-                      current <
-                        moment()
-                          .add(OFFSET_DAY - 1, 'days')
-                          .endOf('day'),
-                  );
-                }}
+                disabledDate={calendarCurrent(OFFSET_DAY)}
                 placeholder={PLACEHOLDER_DATE}
                 format={[DATE_FORMAT]}
                 style={{ width: '100%' }}

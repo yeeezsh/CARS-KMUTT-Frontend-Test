@@ -24,6 +24,9 @@ import Button from 'Components/Button';
 // styles
 import labelStyles from './styles/label';
 
+// utils
+import calendarCurrent from 'Utils/calendar.current';
+
 // store & data
 import { RootReducers } from 'Store/reducers';
 import i, { END_POINT } from 'Models/axios.interface';
@@ -161,6 +164,7 @@ const ProjectForm: React.FC<FormComponentProps & {
                 <DatePicker
                   format={[DATE_FORMAT]}
                   placeholder={PLACEHOLDER_DATE}
+                  disabledDate={calendarCurrent(0)}
                 />,
               )}
             </Form.Item>
@@ -177,6 +181,7 @@ const ProjectForm: React.FC<FormComponentProps & {
                 <DatePicker
                   format={[DATE_FORMAT]}
                   placeholder={PLACEHOLDER_DATE}
+                  disabledDate={calendarCurrent(0)}
                 />,
               )}
             </Form.Item>
@@ -198,6 +203,7 @@ const ProjectForm: React.FC<FormComponentProps & {
                 <DatePicker
                   format={[DATE_FORMAT]}
                   placeholder={PLACEHOLDER_DATE}
+                  disabledDate={calendarCurrent(0)}
                 />,
               )}
             </Form.Item>
