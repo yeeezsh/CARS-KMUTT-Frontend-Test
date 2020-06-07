@@ -37,33 +37,19 @@ const EquipmentForm: React.FC<FormComponentProps & {
 }> = props => {
   const CUR_IND = props.ind || 3;
 
-  //   const { getFieldDecorator } = props.form;
   const dispatch = useDispatch();
   const { forms } = useSelector((s: RootReducers) => s.AreaFormReducers);
   const data: EquipmentForm = forms[CUR_IND];
   const [ownForms, setOwnForms] = useState({});
   const [other, setOther] = useState('');
-  //   const data: ProjectForm = forms[CUR_IND];
 
   //   set index when form is loaded
   useEffect(() => {
-    // dispatch({
-    //   type: 'SET_FORM_CUR',
-    //   payload: { cur: CUR_IND },
-    // });
     dispatch(setFormCurrentIndex(CUR_IND));
   }, []);
 
   function onSubmit() {
-    // dispatch({
-    //   type: 'FILL_FORM',
-    //   payload: {
-    //     form: { ...ownForms, other },
-    //     valid: true,
-    //   },
-    // });
-    dispatch(fillForm({ form: ownForms, valid: true }));
-    // dispatch({ type: 'SUBMIT_FORM' });
+    dispatch(fillForm({ form: { ...ownForms, other }, valid: true }));
     dispatch(submitForm());
   }
 
