@@ -46,24 +46,9 @@ const RequestorForm: React.FC<FormComponentProps & {
 
   function onSubmit() {
     validateFields((err, values) => {
-      // dispatch({
-      //   type: 'FILL_FORM',
-      //   payload: {
-      //     form: values,
-      //     valid: false,
-      //   },
-      // });
       dispatch(fillForm({ form: values, valid: false }));
       if (!err) {
-        // dispatch({
-        //   type: 'FILL_FORM',
-        //   payload: {
-        //     form: values,
-        //     valid: true,
-        //   },
-        // });
         dispatch(fillForm({ form: values, valid: true }));
-        // dispatch({ type: 'SUBMIT_FORM' });
         dispatch(submitForm());
       }
     });
@@ -78,10 +63,6 @@ const RequestorForm: React.FC<FormComponentProps & {
 
   //   set index when form is loaded
   useEffect(() => {
-    // dispatch({
-    //   type: 'SET_FORM_CUR',
-    //   payload: { cur: CUR_IND },
-    // });
     dispatch(setFormCurrentIndex(CUR_IND));
     // fix issues disabled when load old data forms
     if (data.faculty) {

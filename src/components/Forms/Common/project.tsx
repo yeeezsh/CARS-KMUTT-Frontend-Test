@@ -71,33 +71,14 @@ const ProjectForm: React.FC<FormComponentProps & {
 
   //   set index when form is loaded
   useEffect(() => {
-    // dispatch({
-    //   type: 'SET_FORM_CUR',
-    //   payload: { cur: CUR_IND },
-    // });
     dispatch(setFormCurrentIndex(CUR_IND));
   }, []);
 
   function onSubmit() {
     validateFields((err, values) => {
-      // dispatch({
-      //   type: 'FILL_FORM',
-      //   payload: {
-      //     form: values,
-      //     valid: false,
-      //   },
-      // });
       dispatch(fillForm({ form: values, valid: false }));
       if (!err) {
-        // dispatch({
-        //   type: 'FILL_FORM',
-        //   payload: {
-        //     form: values,
-        //     valid: true,
-        //   },
-        // });
         dispatch(fillForm({ form: values, valid: true }));
-        // dispatch({ type: 'SUBMIT_FORM' });
         dispatch(submitForm());
       }
     });
@@ -131,13 +112,6 @@ const ProjectForm: React.FC<FormComponentProps & {
   }
 
   function normFile(e: any) {
-    // if (e.file && e.file.response) {
-    //   return {
-    //     ...e,
-    //     id: e.file.response.id,
-    //     fieldname: e.file.response.fieldname,
-    //   };
-    // }
     console.log('norm file', e);
     return e && e.fileList;
   }

@@ -35,32 +35,18 @@ const AreaForm: React.FC<FormComponentProps & {
 }> = props => {
   const CUR_IND = props.ind || 2;
 
-  //   const { getFieldDecorator, validateFields, setFields } = props.form;
   const dispatch = useDispatch();
   const { forms } = useSelector((s: RootReducers) => s.AreaFormReducers);
   const data: AreaForm = forms[CUR_IND];
   const [ownForms, setOwnForms] = useState({});
-  //   const data: ProjectForm = forms[CUR_IND];
 
   //   set index when form is loaded
   useEffect(() => {
-    // dispatch({
-    //   type: 'SET_FORM_CUR',
-    //   payload: { cur: CUR_IND },
-    // });
     dispatch(setFormCurrentIndex(CUR_IND));
   }, []);
 
   function onSubmit() {
-    // dispatch({
-    //   type: 'FILL_FORM',
-    //   payload: {
-    //     form: ownForms,
-    //     valid: true,
-    //   },
-    // });
     dispatch(fillForm({ form: ownForms, valid: true }));
-    // dispatch({ type: 'SUBMIT_FORM' });
     dispatch(submitForm());
   }
 
