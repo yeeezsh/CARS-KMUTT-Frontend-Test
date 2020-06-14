@@ -12,8 +12,8 @@ import {
   logoutIcon,
   calendarIcon,
 } from './icon.import';
-import CardMain from 'Components/AppDrawer/card.main';
-import CardSub from 'Components/AppDrawer/card.sub';
+import MainCard from 'Components/AppDrawer/MainCard';
+import SubCard from 'Components/AppDrawer/SubCard';
 import { Row } from 'antd';
 
 const menu: Drawer[] = [
@@ -77,7 +77,7 @@ function Sidebar() {
           menu.map(({ key, label, icon, settings, sub, link }) => {
             return (
               <React.Fragment key={key}>
-                <CardMain
+                <MainCard
                   label={label}
                   icon={icon}
                   settings={settings}
@@ -85,7 +85,7 @@ function Sidebar() {
                 />
                 {sub &&
                   sub.map(e => (
-                    <CardSub
+                    <SubCard
                       key={key + '.' + e.key}
                       icon={e.icon}
                       link={e.link}
@@ -103,7 +103,7 @@ function Sidebar() {
         className={styles.list}
         style={{ position: 'absolute', width: '100%', bottom: 50 }}
       >
-        <CardMain
+        <MainCard
           link={'/staff/logout'}
           label={['ออกจากระบบ']}
           icon={logoutIcon}

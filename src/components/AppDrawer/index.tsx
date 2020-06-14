@@ -2,8 +2,8 @@ import React from 'react';
 import { Drawer, Row } from 'antd';
 // import { Drawer as DrawerType } from 'Models/drawer/interface';
 
-import CardMain from './card.main';
-import CardSub from './card.sub';
+import MainCard from './MainCard';
+import SubCard from './SubCard';
 
 import styles from './styles.module.css';
 import menu from './data';
@@ -39,7 +39,7 @@ const AppDrawer: React.FunctionComponent<{
           menu.map(({ key, label, icon, settings, sub, link }) => {
             return (
               <React.Fragment key={key}>
-                <CardMain
+                <MainCard
                   onClick={onDrawer}
                   label={label}
                   icon={icon}
@@ -48,7 +48,7 @@ const AppDrawer: React.FunctionComponent<{
                 />
                 {sub &&
                   sub.map(e => (
-                    <CardSub
+                    <SubCard
                       onClick={onDrawer}
                       key={key + '.' + e.key}
                       icon={e.icon}
@@ -64,7 +64,7 @@ const AppDrawer: React.FunctionComponent<{
 
       {/* logout */}
       <Row style={{ position: 'absolute', width: '100%', bottom: 50 }}>
-        <CardMain
+        <MainCard
           link={'/logout'}
           onClick={onDrawer}
           label={['ออกจากระบบ']}

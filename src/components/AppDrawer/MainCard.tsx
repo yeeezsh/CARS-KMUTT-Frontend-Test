@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import styles from './styles.module.css';
 import { Drawer } from 'Models/drawer/interface';
 
-export default function CardMain(props: {
+export default function MainCard(props: {
   settings?: Drawer['settings'];
   icon: Drawer['icon'];
   label: Drawer['label'];
