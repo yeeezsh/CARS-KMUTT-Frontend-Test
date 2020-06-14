@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import { Row, Col } from 'antd';
 import moment, { Moment } from 'moment';
+import { Row, Col } from 'antd';
+
+// interfaces
 import TimeNode from './timetable.interface';
 
+// styles
 import styles from './styles.module.css';
 
 import Outline from '../Outline';
@@ -30,9 +33,10 @@ interface TimeTableProps {
   stop: Moment;
   interval: number;
   disabled?: TimeNode[];
-  onSelect: (value: Moment, type: TimeNode['type']) => void;
   title?: string;
+  onSelect: (value: Moment, type: TimeNode['type']) => void;
   onClick?: () => void;
+  enableEndTrim?: boolean;
 }
 
 const cardStyle = (type: TimeNode['type']): React.CSSProperties => {
@@ -63,10 +67,20 @@ export default class TimeTable extends Component<
   };
 
   render() {
-    const { start, stop, interval, disabled, selected } = this.props;
+    const {
+      start,
+      stop,
+      interval,
+      disabled,
+      selected,
+      enableEndTrim,
+    } = this.props;
     let table: TimeNode[] = [];
     let cur = moment(start).subtract(interval, 'minute'); // fix not start with correct time e.g. [1, 3] -> [1,2,3]
-    const stopWithTrim = stop.subtract(interval, 'minute');
+    const stopWithTrim = stop.subtract(
+      enableEndTrim ? interval : 0,
+      'minute',
+    );
 
     do {
       table.push({

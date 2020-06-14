@@ -99,8 +99,6 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
   const [selected, setSelected] = useState<TimeNode[]>([]);
 
   function onSelect(value: Moment, type: TimeNode['type']) {
-    console.log('onSelect', value.format('HH mm'), type);
-
     const merge: any = [...selected, { value, type: 'selecting' }].sort(
       (a, b) => a.value.valueOf() - b.value.valueOf(),
     );
@@ -135,6 +133,8 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
   );
 
   function onSubmit() {
+    if (!selected[0]) return; // ignore when null
+
     const start = moment(
       `${selected[0].value.format('HH:mm')}-${selectedDate
         .startOf('day')
@@ -153,10 +153,6 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
         form: {
           selected: selected.map(e => ({
             ...e,
-            // value: moment(e.value).set(
-            //   'date',
-            //   Number(selectedDate.startOf('day').format('DD')),
-            // ),
             value: moment(
               `${e.value.format('HH:mm')}-${selectedDate
                 .startOf('day')
@@ -172,7 +168,6 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
       }),
     );
     dispatch(submitForm());
-    // }
   }
 
   // error observation
@@ -189,15 +184,13 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
   useEffect(() => {
     areaAPI.getAreaInfo(areaId).then(async a => {
       dispatch(setAreaInfoForm(a));
-      console.log('raw areaStates', a);
       const areaFetch = await areaAPI.getAreaAvailableMeeting(
         areaId,
         selectedDate,
       );
-      console.log('available date api', areaFetch);
+
       setAreaState([
         {
-          // ...a,
           area: {
             id: a._id,
             label: a.label,
@@ -312,6 +305,8 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
               ...(time.disabled || []),
             ];
 
+            console.log('start', time);
+
             return (
               <Col key={`${Math.random()}`} span={24}>
                 <TimeTable
@@ -320,9 +315,9 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
                   start={time.start}
                   stop={time.stop}
                   interval={time.interval || 60}
-                  //   onSelect={onSelectTime}
                   onSelect={onSelect}
                   disabled={disabledMappedAPI}
+                  enableEndTrim={false}
                 />
               </Col>
             );
