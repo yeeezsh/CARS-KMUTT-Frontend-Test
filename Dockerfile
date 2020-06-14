@@ -18,5 +18,8 @@ ADD . ./src
 WORKDIR /src
 RUN yarn global add serve
 RUN yarn build
+
+ARG REACT_APP_BACKEND_ENDPOINT
+ENV REACT_APP_BACKEND_ENDPOINT $REACT_APP_BACKEND_ENDPOINT
 CMD ["serve", "-l", "5000", "-s", "./dist"]
 EXPOSE 5000
