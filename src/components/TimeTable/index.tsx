@@ -30,9 +30,9 @@ interface TimeTableProps {
   stop: Moment;
   interval: number;
   disabled?: TimeNode[];
-  onSelect: (value: Moment, type: TimeNode['type']) => any;
+  onSelect: (value: Moment, type: TimeNode['type']) => void;
   title?: string;
-  onClick?: any;
+  onClick?: () => void;
 }
 
 const cardStyle = (type: TimeNode['type']): React.CSSProperties => {
@@ -57,14 +57,9 @@ export default class TimeTable extends Component<
     };
   }
 
-  onSelect = (
-    value: Moment,
-    type: TimeNode['type'],
-  ): {
-    value: Moment;
-    type: TimeNode['type'];
-  } => {
-    return this.props.onSelect(value, type);
+  onSelect = (value: Moment, type: TimeNode['type']): void => {
+    this.props.onSelect(value, type);
+    return;
   };
 
   render() {
