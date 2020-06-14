@@ -34,16 +34,19 @@ const data: Menu[] = [
     key: '3',
     label: ['บาสเก็ตบอล', 'basketball'],
     icon: basketballIcon,
+    query: { name: 'basketball' },
   },
   {
     key: '4',
     label: ['เทนนิส', 'tennis'],
     icon: tennisIcon,
+    query: { name: 'tennis' },
   },
   {
     key: '5',
     label: ['วอลเลย์บอล', 'volleyball'],
     icon: volleyballIcon,
+    query: { name: 'volleyball' },
   },
 ];
 

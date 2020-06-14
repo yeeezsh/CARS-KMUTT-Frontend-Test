@@ -1,7 +1,13 @@
-import footballIcon from '../../../assets/icons/sport/football.svg';
-import badmintonIcon from '../../../assets/icons/sport/badminton.svg';
-import basketballIcon from '../../../assets/icons/sport/basketball.svg';
-import tennisIcon from '../../../assets/icons/sport/tennis.svg';
-import volleyballIcon from '../../../assets/icons/sport/volleyball.svg';
+import footballIcon from 'Assets/icons/sport/football.svg';
+import badmintonIcon from 'Assets/icons/sport/badminton.svg';
+import basketballIcon from 'Assets/icons/sport/basketball.svg';
+import tennisIcon from 'Assets/icons/sport/tennis.svg';
+import volleyballIcon from 'Assets/icons/sport/volleyball.svg';
 
-export { footballIcon, badmintonIcon, basketballIcon, tennisIcon, volleyballIcon };
+export {
+  footballIcon,
+  badmintonIcon,
+  basketballIcon,
+  tennisIcon,
+  volleyballIcon,
+};
