@@ -1,23 +1,14 @@
 import React from 'react';
 import { Drawer, Row } from 'antd';
-import { Drawer as DrawerType } from 'Models/drawer/interface';
+// import { Drawer as DrawerType } from 'Models/drawer/interface';
 
 import CardMain from './card.main';
 import CardSub from './card.sub';
 
 import styles from './styles.module.css';
+import menu from './data';
 
-import {
-  homeIcon,
-  basketballIcon,
-  footballareaIcon,
-  ticketIcon,
-  docsIcon,
-  checkedIcon,
-  timeIcon,
-  hamburgerWhite,
-  logoutIcon,
-} from './icon.import';
+import { hamburgerWhite, logoutIcon } from './icon.import';
 
 const AppDrawer: React.FunctionComponent<{
   drawer: boolean;
@@ -83,51 +74,5 @@ const AppDrawer: React.FunctionComponent<{
     </Drawer>
   );
 };
-
-const menu: DrawerType[] = [
-  {
-    key: '1',
-    label: ['หน้าหลัก'],
-    icon: homeIcon,
-    link: '/',
-  },
-  {
-    key: '2',
-    label: ['จองสนามกีฬา'],
-    icon: basketballIcon,
-    link: '/reserve/sport/category',
-  },
-  {
-    key: '3',
-    label: ['จองพื้นที่จัดกิจกรรม /ห้องประชุม'],
-    icon: footballareaIcon,
-    link: '/reserve/area/category',
-  },
-  {
-    key: '4',
-    label: ['การจองของฉัน'],
-    icon: ticketIcon,
-    sub: [
-      {
-        key: '1',
-        label: ['กำลังดำเนินการ'],
-        icon: docsIcon,
-        link: '/my/reserve/wait',
-      },
-      {
-        key: '2',
-        label: ['รีเควสที่ต้องยืนยัน'],
-        icon: checkedIcon,
-        link: '/my/reserve/requested',
-      },
-      {
-        key: '3',
-        label: ['ประวัติการจอง'],
-        icon: timeIcon,
-        link: '/my/reserve/history',
-      },
-    ],
-  },
-];
 
 export default AppDrawer;
