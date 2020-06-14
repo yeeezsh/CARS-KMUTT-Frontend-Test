@@ -92,7 +92,7 @@ class LoginPage extends Component<
           </Col>
         </Row>
         <div style={{ height: '80px' }} />
-        <Form onSubmit={this.onSubmit}>
+        <Form onSubmit={this.onSubmit} autoComplete="on">
           <Row type="flex" justify="center">
             <Col span={18} lg={14} className={styles.input}>
               <Form.Item>
@@ -105,7 +105,11 @@ class LoginPage extends Component<
                   ],
                   validateTrigger: ['onBlur'],
                 })(
-                  <Input onChange={this.onType} placeholder="Username" />,
+                  <Input
+                    onChange={this.onType}
+                    placeholder="Username"
+                    name="username"
+                  />,
                 )}
               </Form.Item>
             </Col>
@@ -121,6 +125,7 @@ class LoginPage extends Component<
                     onChange={this.onType}
                     placeholder="Password"
                     type="password"
+                    name="current-password"
                   />,
                 )}
               </Form.Item>
