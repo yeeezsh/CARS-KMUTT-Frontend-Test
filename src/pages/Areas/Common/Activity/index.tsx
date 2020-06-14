@@ -50,6 +50,7 @@ import {
   FacilityForm,
   OverviewCommonForm,
 } from '../../../../components/Forms/Common';
+import Trail from '../common/Trail';
 
 // constant
 const MAX_STEPS = 3;
@@ -111,12 +112,9 @@ const Activity: React.FC = () => {
     history.replace(newPath);
   }, [steps]);
 
-  console.log('ready to send form', forms.finish);
   if (forms.finish) {
     sendData();
     setModal(true);
-    // then reset form
-    // dispatch({ type: 'INIT_FORM', payload: { size: 4 } });
     dispatch(initForm({ size: MAX_STEPS }));
   }
 
@@ -187,15 +185,19 @@ const Activity: React.FC = () => {
       <Switch>
         <Route path="/*1">
           <RequestorForm ind={0} />
+          <Trail />
         </Route>
         <Route path="/*2">
           <ProjectForm ind={1} />
+          <Trail />
         </Route>
         <Route path="/*3">
           <FacilityForm ind={2} />
+          <Trail />
         </Route>
         <Route path="/*4">
           <OverviewCommonForm ind={3} />
+          <Trail />
         </Route>
       </Switch>
     </PageLayout>

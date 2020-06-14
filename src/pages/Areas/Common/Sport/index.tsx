@@ -25,8 +25,9 @@ import {
   EquipmentForm,
   ReturnForm,
   OverviewSportForm,
-} from '../../../../components/Forms/Common';
+} from 'Components/Forms/Common';
 
+import Trail from '../common/Trail';
 const StateSteps = Loadable({
   loader: () => import('Components/StateSteps'),
   loading: () => null,
@@ -82,12 +83,8 @@ const Sport: React.FC = () => {
       });
   }, []);
 
-  // const [canNext, setCanNext] = useState(false);
-  console.log('forms', forms);
-
   function goBack() {
     if (steps === 0) {
-      // return history.push('/reserve/common/' + areaId + '/types');
       return history.goBack();
     }
     let unit = 1;
@@ -162,11 +159,13 @@ const Sport: React.FC = () => {
         justify="center"
       >
         {/* steps */}
+
         <Col style={{ marginTop: '-12px' }} offset={2} span={18}>
           <Row type="flex" justify="center">
             <Col span={20}>
               <StateSteps
                 // onClick={this.onClickStep}
+                size="s"
                 current={steps}
                 steps={stepsList.map(({ label }) => ({ label }))}
               />
@@ -210,24 +209,30 @@ const Sport: React.FC = () => {
       <Switch>
         <Route path="/*1">
           <RequestorForm ind={0} />
+          <Trail />
         </Route>
         <Route path="/*2">
           <ProjectForm ind={1} />
+          <Trail />
         </Route>
         <Route path="/*3">
           <AreaForm ind={2} />
+          <Trail />
         </Route>
         <Route path="/*4">{<EquipmentForm ind={3} />}</Route>
         <Route path="/*6">
           <FacilityForm ind={5} />
+          <Trail />
         </Route>
         <Route path="/*7">
           <OverviewSportForm ind={6} />
+          <Trail />
         </Route>
 
         {/* idk why, cause its bug ind 5 must occur here */}
         <Route path="/*5">
           <ReturnForm ind={4} />
+          <Trail />
         </Route>
       </Switch>
     </PageLayout>

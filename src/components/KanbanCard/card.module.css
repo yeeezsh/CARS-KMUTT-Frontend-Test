@@ -21,6 +21,8 @@
   font-size: 16px;
   line-height: 22px;
   color: #ffffff;
+  max-height: 56px;
+  overflow: hidden;
 }
 
 .labelMain {
@@ -28,6 +30,8 @@
   font-size: 20px;
   line-height: 28px;
   color: #666666;
+  max-height: 56px;
+  overflow: hidden;
 }
 
 .labelSub {
@@ -35,4 +39,6 @@
   font-size: 14px;
   line-height: 22px;
   color: #666666;
+  max-height: 56px;
+  overflow: hidden;
 }

@@ -5,6 +5,7 @@
   border-radius: 4px;
   border: 1px solid #ff682b;
   margin: 6px;
+  cursor: pointer;
 }
 
 .selected {

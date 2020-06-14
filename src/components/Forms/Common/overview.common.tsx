@@ -7,6 +7,7 @@ import moment from 'moment';
 import Outline from 'Components/Outline';
 import BreakingLine from 'Components/BreakingLine';
 import Button from 'Components/Button';
+import Trail from 'Pages/Areas/Common/common/Trail';
 
 // interfaces
 import { RequestorForm } from './requestor';
@@ -130,10 +131,11 @@ const OverviewCommonForm: React.FC<FormComponentProps & Props> = props => {
         span={24}
       >
         {!props.viewOnly && (
-          <Outline style={{ color: '#1890FF' }}>ข้อมูลการจอง</Outline>
+          <Outline style={{ color: '#1890FF', paddingTop: '25px' }}>
+            ข้อมูลการจอง
+          </Outline>
         )}
         {/* overview section */}
-        <CustomBrakeLine />
         <CustomLabel>สถานที่</CustomLabel>
         <CustomParagraph>{area?.label}</CustomParagraph>
         <CustomLabel>วันที่จอง</CustomLabel>
@@ -287,7 +289,7 @@ const OverviewCommonForm: React.FC<FormComponentProps & Props> = props => {
           </Checkbox>
         </div>
 
-        <CustomBrakeLine />
+        <Trail size={25} />
         {/* action */}
         {!props.viewOnly && (
           <Col span={24}>
@@ -300,6 +302,8 @@ const OverviewCommonForm: React.FC<FormComponentProps & Props> = props => {
             </Row>
           </Col>
         )}
+        {/* <Trail /> */}
+        <Row style={{ height: '125px' }} />
       </Col>
     </React.Fragment>
   );
