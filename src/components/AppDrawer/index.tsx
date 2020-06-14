@@ -1,14 +1,17 @@
 import React from 'react';
 import { Drawer, Row } from 'antd';
-// import { Drawer as DrawerType } from 'Models/drawer/interface';
 
 import MainCard from './MainCard';
 import SubCard from './SubCard';
 
 import styles from './styles.module.css';
 import menu from './data';
+import { useSelector } from 'react-redux';
+
+import { RootReducersType } from 'Store/reducers';
 
 import { hamburgerWhite, logoutIcon } from './icon.import';
+import UserCard from './UserCard';
 
 const AppDrawer: React.FunctionComponent<{
   drawer: boolean;
@@ -16,6 +19,12 @@ const AppDrawer: React.FunctionComponent<{
   header?: React.FunctionComponent;
 }> = props => {
   const { drawer, onDrawer, header } = props;
+  const username = useSelector(
+    (select: RootReducersType) => select.UserReducers.username,
+  );
+
+  console.log('appdrawer ', username);
+
   return (
     <Drawer
       placement={'left'}
@@ -64,6 +73,12 @@ const AppDrawer: React.FunctionComponent<{
 
       {/* logout */}
       <Row style={{ position: 'absolute', width: '100%', bottom: 50 }}>
+        <UserCard>{username}</UserCard>
+
+        {/* trailing spaces */}
+        <div style={{ height: '12px' }} />
+
+        {/* logout */}
         <MainCard
           link={'/logout'}
           onClick={onDrawer}
