@@ -68,6 +68,7 @@ import {
   setUsers,
   resetState,
 } from '../../store/reducers/sports/actions';
+import { RootReducers } from 'Store/reducers';
 
 const CATEGORY_PAGE = '/reserve/sport/category';
 const FIRST_STEP_PAGE = '/reserve/sport/1';
@@ -78,7 +79,7 @@ interface MaptoDispatchI {
   setAreaSelected: (area: Area['area']) => void;
   setOwner: (u: string) => void;
   setAreaId: (areaId: string) => void;
-  queryArea: () => any;
+  queryArea: () => void;
   setUsers: (users: string[]) => any;
   resetState: () => void;
 }
@@ -106,8 +107,8 @@ class SportPage extends Component<
   }
 > {
   state = {
-    dateSelected: moment().startOf('day'),
-    timeSelected: moment().startOf('day'),
+    // dateSelected: moment().startOf('day'),
+    // timeSelected: moment().startOf('day'),
     step: 1,
     badge: '',
     status: [],
@@ -125,7 +126,6 @@ class SportPage extends Component<
   };
 
   onSelectTime = (time: Moment, type: TimeNode['type']) => {
-    // console.log('on select time', time);
     const { badge, quota } = this.state;
     if (type === 'disabled' || quota) {
       return this.setState(prevState => {
@@ -236,7 +236,6 @@ class SportPage extends Component<
       'DD-MM-YYYY-HH:mm',
     );
     const stopTime = moment(startTime).add(interval, 'minute');
-    // console.log('start time', startTime.format('DD HH mm'));
 
     const parse: TaskSport = {
       owner,
@@ -291,16 +290,9 @@ class SportPage extends Component<
   }
 
   render() {
-    const {
-      confirmModal,
-      step,
-      backCard,
-      timeSelected,
-      interval,
-      quota,
-    } = this.state;
+    const { confirmModal, step, backCard, quota } = this.state;
 
-    const { dateSelected, areaSelected, users } = this.props;
+    const { areaSelected } = this.props;
 
     return (
       <React.Fragment>
@@ -374,15 +366,7 @@ class SportPage extends Component<
 
             {/* overview */}
             <Route path="*/3">
-              <ConfirmPage
-                users={users}
-                areaLabel={areaSelected.label}
-                time={timeSelected}
-                interval={interval}
-                date={dateSelected}
-                onConfirm={this.onConfirm}
-              />
-
+              <ConfirmPage onConfirm={this.onConfirm} />
               {/* traling spaces */}
               <Col span={24} style={{ height: '150px' }} />
             </Route>
@@ -404,20 +388,21 @@ class SportPage extends Component<
   }
 }
 
-const mapStateToProps = (rootReducers: any) => {
+const mapStateToProps = (rootReducers: RootReducers) => {
   const { SportReducers, UserReducers } = rootReducers;
+
   return {
     ...SportReducers,
     username: UserReducers.username,
+    timeSelected: SportReducers.timeSelected,
+    dateSelected: SportReducers.dateSelected,
   };
 };
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
     setDateSelected: (date: Moment) => dispatch(setDateSelected(date)),
-    setTimeSelected: (time: Moment) => {
-      return dispatch(setTimeSelected(time));
-    },
+    setTimeSelected: (time: Moment) => dispatch(setTimeSelected(time)),
     setAreaSelected: (area: Area['area']) =>
       dispatch(setAreaSelected(area)),
     setOwner: (ownerId: string) => dispatch(setOwner(ownerId)),

@@ -1,25 +1,35 @@
 import React, { Component } from 'react';
 import { Col, Row } from 'antd';
 import { Moment } from 'moment';
+import { connect } from 'react-redux';
 
 import styles from './styles.module.css';
 
 import Outline from 'Components/Outline';
 import Button from 'Components/Button';
 
-export default class ConfirmPage extends Component<
-  {
-    onConfirm?: any;
-    areaLabel: string | undefined;
-    time: Moment | undefined;
-    interval: number;
-    date: Moment;
-    users: string[];
-  },
-  {}
-> {
+// interfaces & type
+import Area from 'Models/area/area.interface';
+
+// store
+import { RootReducers } from 'Store/reducers';
+
+type OwnProps = {
+  onConfirm: () => void;
+};
+
+type Props = StateProps & OwnProps;
+
+class ConfirmPage extends Component<Props, {}> {
   render() {
-    const { users, areaLabel, time, interval, date } = this.props;
+    const {
+      users,
+      areaSelected,
+      timeSelected,
+      interval,
+      dateSelected,
+    } = this.props;
+
     return (
       <React.Fragment>
         <Col className={styles.overview} span={24}>
@@ -30,17 +40,18 @@ export default class ConfirmPage extends Component<
 
             <Col style={{ marginTop: '-14px' }} span={20}>
               <span className={styles.overviewHeader}>สนามกีฬา</span>
-              <span>{areaLabel}</span>
+              <span>{areaSelected.label}</span>
             </Col>
             <Col span={20}>
               <span className={styles.overviewHeader}>วันที่จอง</span>
-              <span>วันที่ {date.format('DD MMMM YYYY')}</span>
+              <span>วันที่ {dateSelected.format('DD MMMM YYYY')}</span>
             </Col>
             <Col span={20}>
               <span className={styles.overviewHeader}>เวลา</span>
               <span>
-                เวลา {time && time.format('hh.mm')} -{' '}
-                {time && time.add(interval, 'minute').format('hh.mm')}
+                เวลา {timeSelected && timeSelected.format('HH.mm')} -{' '}
+                {timeSelected &&
+                  timeSelected.add(interval, 'minute').format('HH.mm')}
               </span>
             </Col>
 
@@ -77,3 +88,24 @@ export default class ConfirmPage extends Component<
     );
   }
 }
+
+type StateProps = {
+  users: string[];
+  dateSelected: Moment;
+  timeSelected: Moment;
+  areaSelected: Area['area'];
+  interval: number;
+};
+
+const mapStateToProps = (rootReducers: RootReducers) => {
+  const { SportReducers } = rootReducers;
+
+  return {
+    ...SportReducers,
+  };
+};
+
+export default connect<OwnProps, any, any>(
+  mapStateToProps as any,
+  null,
+)(ConfirmPage);
