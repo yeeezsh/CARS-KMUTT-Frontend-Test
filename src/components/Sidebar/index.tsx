@@ -1,69 +1,25 @@
 import React from 'react';
-
-import { Drawer } from 'Models/drawer/interface';
-import styles from './styles.module.css';
-import {
-  docsIcon,
-  allDocs,
-  rejectDocs,
-  acceptDocs,
-  dropDocs,
-  sidebarIcon,
-  logoutIcon,
-  calendarIcon,
-} from './icon.import';
-import MainCard from 'Components/AppDrawer/MainCard';
-import SubCard from 'Components/AppDrawer/SubCard';
+import { useSelector } from 'react-redux';
 import { Row } from 'antd';
 
-const menu: Drawer[] = [
-  {
-    key: '0',
-    label: ['ตารางการจอง'],
-    icon: calendarIcon,
-    link: '/staff/calendar',
-  },
-  {
-    key: '1',
-    label: ['พื้นที่ทั้งหมด'],
-    icon: calendarIcon,
-    link: '/staff/areas',
-  },
-  {
-    key: '2',
-    label: ['รายการทั้งหมด'],
-    icon: allDocs,
-    link: '/staff',
-    sub: [
-      {
-        key: '1',
-        label: ['รอดำเนินการ'],
-        icon: docsIcon,
-        link: '/staff/wait',
-      },
-      {
-        key: '2',
-        label: ['ตีกลับ'],
-        icon: rejectDocs,
-        link: '/staff/reject',
-      },
-      {
-        key: '3',
-        label: ['อนุมัติ'],
-        icon: acceptDocs,
-        link: '/staff/accept',
-      },
-      {
-        key: '4',
-        label: ['ไม่อนุมัติ'],
-        icon: dropDocs,
-        link: '/staff/drop',
-      },
-    ],
-  },
-];
+// components
+import MainCard from 'Components/AppDrawer/MainCard';
+import SubCard from 'Components/AppDrawer/SubCard';
+import UserCard from './UserCard';
 
-function Sidebar() {
+// data & store
+import { RootReducersType } from 'Store/reducers';
+import menu from './data';
+
+// assets & styles
+import styles from './styles.module.css';
+import { sidebarIcon, logoutIcon } from './icon.import';
+
+const Sidebar: React.FC = () => {
+  const username = useSelector(
+    (s: RootReducersType) => s.UserReducers.username,
+  );
+
   return (
     <div className={styles.main}>
       <div className={styles.logo}>
@@ -103,6 +59,13 @@ function Sidebar() {
         className={styles.list}
         style={{ position: 'absolute', width: '100%', bottom: 50 }}
       >
+        {/* user info */}
+        <UserCard>{username}</UserCard>
+
+        {/* trailing spaces */}
+        <div style={{ height: '12px' }} />
+
+        {/* logout */}
         <MainCard
           link={'/staff/logout'}
           label={['ออกจากระบบ']}
@@ -111,6 +74,6 @@ function Sidebar() {
       </Row>
     </div>
   );
-}
+};
 
 export default Sidebar;
