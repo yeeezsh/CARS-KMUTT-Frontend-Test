@@ -3,12 +3,7 @@ import { connect } from 'react-redux';
 import Loadable from 'react-loadable';
 import { Row, Col } from 'antd';
 import moment, { Moment } from 'moment';
-import {
-  Route,
-  Switch,
-  withRouter,
-  RouteComponentProps,
-} from 'react-router';
+import { Route, Switch, withRouter } from 'react-router';
 
 const PageLayout = Loadable({
   loader: () => import('Components/Layout/Page'),
@@ -51,7 +46,6 @@ import TimeNode from 'Components/TimeTable/timetable.interface';
 import Area from 'Models/area/area.interface';
 import { TaskSport } from 'Models/task/sport/sport.interface';
 
-// import { stepLists, areas } from 'Models/sport';
 import { stepLists } from 'Models/sport';
 import { Mutate } from 'Models/task/sport';
 import { u } from 'Models/user';
@@ -67,36 +61,37 @@ import {
   queryArea,
   setUsers,
   resetState,
-} from '../../store/reducers/sports/actions';
-import { RootReducers } from 'Store/reducers';
+} from 'Store/reducers/sports/actions';
+import { RootReducersType } from 'Store/reducers';
 
 const CATEGORY_PAGE = '/reserve/sport/category';
 const FIRST_STEP_PAGE = '/reserve/sport/1';
 
-interface MaptoDispatchI {
-  setDateSelected: (d: Moment) => void;
-  setTimeSelected: (d: Moment) => void;
-  setAreaSelected: (area: Area['area']) => void;
-  setOwner: (u: string) => void;
-  setAreaId: (areaId: string) => void;
-  queryArea: () => void;
-  setUsers: (users: string[]) => any;
-  resetState: () => void;
-}
-interface MapToStateI {
-  dateSelected: Moment;
-  areaSelected: Area['area'];
-  timeSelected: Moment;
-  areas: Area[];
-  maxForward: number;
-  owner: string;
-  users: string[];
-  interval: number;
-  username: string;
-}
+// interface MaptoDispatchI {
+//   setDateSelected: (d: Moment) => void;
+//   setTimeSelected: (d: Moment) => void;
+//   setAreaSelected: (area: Area['area']) => void;
+//   setOwner: (u: string) => void;
+//   setAreaId: (areaId: string) => void;
+//   queryArea: () => void;
+//   setUsers: (users: string[]) => any;
+//   resetState: () => void;
+// }
+// interface MapToStateI {
+//   dateSelected: Moment;
+//   areaSelected: Area['area'];
+//   timeSelected: Moment;
+//   areas: Area[];
+//   maxForward: number;
+//   owner: string;
+//   users: string[];
+//   interval: number;
+//   username: string;
+// }
 
 class SportPage extends Component<
-  RouteComponentProps<any> & MapToStateI & MaptoDispatchI,
+  // RouteComponentProps & MapToStateI & MaptoDispatchI,
+  any,
   {
     step: number;
     badge: string | undefined;
@@ -107,8 +102,6 @@ class SportPage extends Component<
   }
 > {
   state = {
-    // dateSelected: moment().startOf('day'),
-    // timeSelected: moment().startOf('day'),
     step: 1,
     badge: '',
     status: [],
@@ -159,11 +152,7 @@ class SportPage extends Component<
   };
 
   onClickStep = (n: number) => {
-    // const { status } = this.state;
     const canNext = false;
-    // status.forEach((e, i) => {
-    //   if (n - 1 === i && e) canNext = true;
-    // });
 
     if (!canNext) return;
     return this.setState({ step: n }, () =>
@@ -388,7 +377,7 @@ class SportPage extends Component<
   }
 }
 
-const mapStateToProps = (rootReducers: RootReducers) => {
+const mapStateToProps = (rootReducers: RootReducersType) => {
   const { SportReducers, UserReducers } = rootReducers;
 
   return {
@@ -399,7 +388,7 @@ const mapStateToProps = (rootReducers: RootReducers) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: any): any => {
   return {
     setDateSelected: (date: Moment) => dispatch(setDateSelected(date)),
     setTimeSelected: (time: Moment) => dispatch(setTimeSelected(time)),
@@ -413,6 +402,6 @@ const mapDispatchToProps = (dispatch: any) => {
   };
 };
 
-export default withRouter<RouteComponentProps, any>(
+export default withRouter(
   connect(mapStateToProps, mapDispatchToProps)(SportPage),
 );
