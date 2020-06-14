@@ -205,12 +205,8 @@ class SportPage extends Component<
     return this.setState(
       prevState => {
         const { step } = prevState;
-        // const { timeSelected } = this.props;
         return {
           step: step - 1,
-          //   all reset when step 2 cause selected area, time is the same
-          // timeSelected: step === 2 ? moment() : timeSelected,
-          // areaSelected: step === 2 ? DEFAULT_SELECTED_AREA : areaSelected,
         };
       },
       () => {
@@ -240,10 +236,8 @@ class SportPage extends Component<
       'DD-MM-YYYY-HH:mm',
     );
     const stopTime = moment(startTime).add(interval, 'minute');
-    console.log('sssssssssss');
-    console.log('start time', startTime.format('DD HH mm'));
-    // console.log('start', startTime.format('HH:mm'));
-    // console.log('stop', stopTime.format('HH:mm'));
+    // console.log('start time', startTime.format('DD HH mm'));
+
     const parse: TaskSport = {
       owner,
       area: areaSelected.id,

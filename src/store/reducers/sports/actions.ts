@@ -24,7 +24,6 @@ export const queryArea = () => async (
 ) => {
   const { areaId, dateSelected } = getState().SportReducers;
 
-  console.log('query area date', dateSelected);
   const areas = await sport.getFields(areaId, dateSelected);
   const maxForward = areas.reduce(
     (

@@ -53,25 +53,14 @@ interface OwnProps {
 
 // class TimePage extends Component<TimeAreaReserveType> {
 class TimePage extends Component<OwnProps & StateProps, any> {
-  // state = {
-  //   selectedDate: moment(new Date()),
-  // };
-
   onSelectDate = (d: Moment) => {
     // console.log('badge select date', d.format('DD'));
     return this.setState({ selectedDate: d }, () =>
       this.props.onSelectDate(d),
     );
   };
-  // componentDidMount = () => {
-  //   const selectedDate = this.props.date.selected;
-  //   this.setState({ selectedDate });
-  // };
 
   render() {
-    // console.log('time : ', this.props);
-    // console.log('time component', this.state.selectedDate.format('DD'));
-    // const { selectedDate } = this.state;
     const { selected: selectedDate } = this.props.date;
 
     const now = moment(new Date());
@@ -93,6 +82,7 @@ class TimePage extends Component<OwnProps & StateProps, any> {
     }
     const reserveDesc = reserveSlot.join(', ') + ' ' + unit;
     const { date, areas } = this.props;
+
     return (
       <React.Fragment>
         {/* outliner n' desc */}
