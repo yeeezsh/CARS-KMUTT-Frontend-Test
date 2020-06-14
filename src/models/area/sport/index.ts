@@ -52,16 +52,16 @@ class SportClass {
       // console.log(fetch, 'raw areas');
       const newMapped: TimeAreaReserveType['areas'] = [];
       fetch.forEach(area => {
-        const minTime =
-          area.reserve &&
-          area.reserve.reduce((prev, cur) =>
-            (prev.start || 0) < (cur.start || 0) ? prev : cur,
-          );
-        const maxTime =
-          area.reserve &&
-          area.reserve.reduce((prev, cur) =>
-            (prev.stop || 0) > (cur.stop || 0) ? prev : cur,
-          );
+        // const minTime =
+        //   area.reserve &&
+        //   area.reserve.reduce((prev, cur) =>
+        //     (prev.start || 0) < (cur.start || 0) ? prev : cur,
+        //   );
+        // const maxTime =
+        //   area.reserve &&
+        //   area.reserve.reduce((prev, cur) =>
+        //     (prev.stop || 0) > (cur.stop || 0) ? prev : cur,
+        //   );
 
         area.reserve?.forEach(reserve => {
           newMapped.push({
@@ -71,8 +71,8 @@ class SportClass {
               required: (area.required && area.required.requestor) || 0,
             },
             time: {
-              start: moment(minTime && minTime.start),
-              stop: moment(maxTime && maxTime.stop),
+              start: moment(reserve && reserve.start),
+              stop: moment(reserve && reserve.stop),
               disabled: area.disabled
                 ? area.disabled.map((e: string) => ({ value: moment(e) }))
                 : [],
