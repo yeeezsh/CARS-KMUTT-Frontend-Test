@@ -1,7 +1,9 @@
 import axios, { AxiosInstance } from 'axios';
-//export const END_POINT = 'http://157.245.147.102:3000/api';
-const DEV_END_POINT = 'http://localhost:3000/api';
-const PROD_END_POINT = 'http://10.2.14.109:3000/api';
+
+const DEV_END_POINT =
+  process.env.BACKEND_ENDPOINT || 'http://localhost:3000/api';
+const PROD_END_POINT =
+  process.env.BACKEND_ENDPOINT || 'http://0.0.0.0:3000/api';
 
 const mode = process.env.NODE_ENV;
 export const END_POINT =
