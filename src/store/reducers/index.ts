@@ -1,17 +1,14 @@
 import { combineReducers } from 'redux';
-import { SportReducers, SportPagesStore } from './sports';
-import { UserStore, UserReducers } from './users';
-import { AreaFormState } from 'Store/reducers/areaForm/types';
+import { SportReducers } from './sports';
+import { UserReducers } from './users';
 import { AreaFormReducers } from 'Store/reducers/areaForm';
 
-export default combineReducers({
+const rootReducer = combineReducers({
   SportReducers,
   UserReducers,
   AreaFormReducers,
 });
 
-export interface RootReducers {
-  SportReducers: SportPagesStore;
-  UserReducers: UserStore;
-  AreaFormReducers: AreaFormState;
-}
+export default rootReducer;
+
+export type RootReducers = ReturnType<typeof rootReducer>;
