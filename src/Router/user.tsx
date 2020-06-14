@@ -79,8 +79,6 @@ export default class PageUserRouter extends Component<
     // preload other components
     Home.preload();
     AppDrawer.preload();
-    // SportCategory.preload();
-    // SportPage.preload();
 
     // when first lunch
     const onHome = location.pathname === '/';
@@ -91,6 +89,20 @@ export default class PageUserRouter extends Component<
       const currentHome = pathname === '/';
       return this.setState({ onHome: currentHome });
     });
+  };
+
+  componentDidUpdate = () => {
+    const { location } = history;
+
+    // fix when hamburger not change
+    const onHome = location.pathname === '/';
+    if (onHome === this.state.onHome) return;
+    if (!onHome) this.setState({ onHome });
+
+    // check authorized first
+    const validUser = u.GetUser().permission === 'requestor';
+    if (!validUser && location.pathname !== '/login')
+      return history.push('/login');
   };
 
   render() {
@@ -108,6 +120,7 @@ export default class PageUserRouter extends Component<
                 position: 'fixed',
                 marginTop: '24px',
                 marginLeft: '20px',
+                cursor: 'pointer',
               }}
               src={onHome ? hamburgerWhite : hamburgerOrange}
               alt="hamburger"
