@@ -13,7 +13,7 @@ import FormLabel from 'Components/FormLabel';
 import Outline from 'Components/Outline';
 
 // data & store
-import { RootReducers } from 'Store/reducers';
+import { RootReducersType } from 'Store/reducers';
 import {
   setFormCurrentIndex,
   fillForm,
@@ -53,7 +53,9 @@ const FacilityForm: React.FC<FormComponentProps & Props> = props => {
   const CUR_IND = props.ind || 2;
   const { getFieldDecorator, validateFields } = props.form;
   const dispatch = useDispatch();
-  const { forms } = useSelector((s: RootReducers) => s.AreaFormReducers);
+  const { forms } = useSelector(
+    (s: RootReducersType) => s.AreaFormReducers,
+  );
   const data: FacilityForm = forms[CUR_IND];
 
   function onSubmit() {

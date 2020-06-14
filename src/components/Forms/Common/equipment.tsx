@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Form, { FormComponentProps } from 'antd/lib/form';
 import FormLabel from 'Components/FormLabel';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootReducers } from 'Store/reducers';
+import { RootReducersType } from 'Store/reducers';
 import NumberWithToggle from 'Components/NumberWithToggle';
 import BreakingLine from 'Components/BreakingLine';
 import { Col, Row, Input } from 'antd';
@@ -38,7 +38,9 @@ const EquipmentForm: React.FC<FormComponentProps & {
   const CUR_IND = props.ind || 3;
 
   const dispatch = useDispatch();
-  const { forms } = useSelector((s: RootReducers) => s.AreaFormReducers);
+  const { forms } = useSelector(
+    (s: RootReducersType) => s.AreaFormReducers,
+  );
   const data: EquipmentForm = forms[CUR_IND];
   const [ownForms, setOwnForms] = useState({});
   const [other, setOther] = useState('');

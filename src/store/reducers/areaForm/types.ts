@@ -59,7 +59,7 @@ export type AreaFormActionTypes =
   | SetAreaInfoFormAction
   | FinishFormAction;
 
-export interface AreaFormState {
+export interface AreaFormReducer {
   forms: Array<any>;
   canNext: boolean;
   step: number;

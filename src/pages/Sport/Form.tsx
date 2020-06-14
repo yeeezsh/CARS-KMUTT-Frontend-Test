@@ -10,7 +10,7 @@ import usernameValidator from 'Utils/username.validator';
 
 import styles from './styles.module.css';
 import { connect } from 'react-redux';
-import { RootReducers } from 'Store/reducers';
+import { RootReducersType } from 'Store/reducers';
 
 interface PropsTypes extends FormComponentProps {
   required?: number;
@@ -183,7 +183,7 @@ class FormPage extends Component<PropsTypes, StateTypes> {
   }
 }
 
-const mapStateToProps = (rootReducers: RootReducers) => {
+const mapStateToProps = (rootReducers: RootReducersType) => {
   const { SportReducers } = rootReducers;
   return {
     owner: SportReducers.owner,

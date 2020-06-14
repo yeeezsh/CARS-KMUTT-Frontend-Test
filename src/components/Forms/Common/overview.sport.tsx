@@ -16,7 +16,7 @@ import { FacilityForm } from './facility';
 
 // store & dara
 import { END_POINT } from 'Models/axios.interface';
-import { RootReducers } from 'Store/reducers';
+import { RootReducersType } from 'Store/reducers';
 import { AreaForm } from './area';
 import { EquipmentForm } from './equipment';
 import { ReturnForm } from './return';
@@ -117,10 +117,10 @@ const OverviewCommonForm: React.FC<FormComponentProps & Props> = props => {
   const dispatch = useDispatch();
 
   const {} =
-    props.data || useSelector((s: RootReducers) => s.AreaFormReducers);
+    props.data || useSelector((s: RootReducersType) => s.AreaFormReducers);
 
   const { forms, area } =
-    props.data || useSelector((s: RootReducers) => s.AreaFormReducers);
+    props.data || useSelector((s: RootReducersType) => s.AreaFormReducers);
   const requestorData: RequestorForm | undefined = forms[0];
   const projectData: ProjectForm | undefined = forms[1];
   const areaData: AreaForm | undefined = forms[2];

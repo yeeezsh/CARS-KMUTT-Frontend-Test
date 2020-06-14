@@ -14,7 +14,7 @@ import labelStyles from './styles/label';
 import calendarCurrent from 'Utils/calendar.current';
 
 // store & data
-import { RootReducers } from 'Store/reducers';
+import { RootReducersType } from 'Store/reducers';
 import { DEFAULT_REQUIRED_RULES } from './rules/required';
 import {
   setFormCurrentIndex,
@@ -36,7 +36,9 @@ const ReturnForm: React.FC<FormComponentProps & {
   const CUR_IND = props.ind || 4;
   const { getFieldDecorator, validateFields } = props.form;
   const dispatch = useDispatch();
-  const { forms } = useSelector((s: RootReducers) => s.AreaFormReducers);
+  const { forms } = useSelector(
+    (s: RootReducersType) => s.AreaFormReducers,
+  );
   const data: ReturnForm = forms[CUR_IND];
 
   //   set index when form is loaded

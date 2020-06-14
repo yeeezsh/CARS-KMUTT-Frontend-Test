@@ -12,7 +12,7 @@ import {
 } from './actions';
 import TimeAreaReserveType from '../../../models/area/time.interface';
 
-export interface SportPagesStore {
+export interface SportReducer {
   dateSelected: Moment;
   timeSelected: Moment | undefined;
   areaSelected: Area['area'];
@@ -43,9 +43,9 @@ const initialState = {
 };
 
 export const SportReducers = (
-  state: SportPagesStore = initialState,
+  state: SportReducer = initialState,
   action: any,
-) => {
+): SportReducer => {
   switch (action.type) {
     case SET_TIME_SELECTED:
       return { ...state, timeSelected: action.timeSelected };

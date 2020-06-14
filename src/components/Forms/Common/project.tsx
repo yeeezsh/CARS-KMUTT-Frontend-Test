@@ -28,7 +28,7 @@ import labelStyles from './styles/label';
 import calendarCurrent from 'Utils/calendar.current';
 
 // store & data
-import { RootReducers } from 'Store/reducers';
+import { RootReducersType } from 'Store/reducers';
 import i, { END_POINT } from 'Models/axios.interface';
 import { DEFAULT_REQUIRED_RULES } from './rules/required';
 import {
@@ -65,7 +65,9 @@ const ProjectForm: React.FC<FormComponentProps & {
   const CUR_IND = props.ind || 1;
   const { getFieldDecorator, validateFields } = props.form;
   const dispatch = useDispatch();
-  const { forms } = useSelector((s: RootReducers) => s.AreaFormReducers);
+  const { forms } = useSelector(
+    (s: RootReducersType) => s.AreaFormReducers,
+  );
   const data: ProjectForm = forms[CUR_IND];
 
   const [selectRange, setSelectRange] = useState(

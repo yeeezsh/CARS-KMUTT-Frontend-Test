@@ -16,7 +16,7 @@ import { FacilityForm } from './facility';
 
 // store & dara
 import { END_POINT } from 'Models/axios.interface';
-import { RootReducers } from 'Store/reducers';
+import { RootReducersType } from 'Store/reducers';
 import { AreaInfo } from 'Store/reducers/areaForm/types';
 import {
   finishFormAction,
@@ -96,7 +96,7 @@ const OverviewCommonForm: React.FC<FormComponentProps & Props> = props => {
   const { validateFields } = props.form;
   const dispatch = useDispatch();
   const { forms, area } =
-    props.data || useSelector((s: RootReducers) => s.AreaFormReducers);
+    props.data || useSelector((s: RootReducersType) => s.AreaFormReducers);
   const requestorData: RequestorForm | undefined = forms[0];
   const projectData: ProjectForm | undefined = forms[1];
   const facilityData: FacilityForm | undefined = forms[2];

@@ -11,7 +11,7 @@ import {
   setAreaInfoForm,
 } from 'Store/reducers/areaForm/actions';
 
-import { RootReducers } from 'Store/reducers';
+import { RootReducersType } from 'Store/reducers';
 import { areaAPI } from 'Models/area';
 import stepsList from './steps';
 
@@ -56,7 +56,7 @@ import Trail from '../common/Trail';
 const MAX_STEPS = 3;
 
 const Activity: React.FC = () => {
-  const forms = useSelector((s: RootReducers) => s.AreaFormReducers);
+  const forms = useSelector((s: RootReducersType) => s.AreaFormReducers);
   const steps = forms.step;
   const dispatch = useDispatch();
   const history = useHistory();

@@ -8,7 +8,7 @@ import Loadable from 'react-loadable';
 import labelStyles from 'Components/Forms/Common/styles/label';
 
 // data store & API
-import { RootReducers } from 'Store/reducers';
+import { RootReducersType } from 'Store/reducers';
 import {
   fillForm,
   submitForm,
@@ -80,7 +80,7 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
   const CUR_IND = props.ind || 0;
   const dispatch = useDispatch();
   const location = useLocation().pathname;
-  const forms = useSelector((s: RootReducers) => s.AreaFormReducers);
+  const forms = useSelector((s: RootReducersType) => s.AreaFormReducers);
   const initSelectedDate = moment().add(OFFSET_DAY, 'days');
   const areaId = location.split('/')[AREA_PARAM_IND];
   const [selectedDate, setSelecteDate] = useState<Moment>(

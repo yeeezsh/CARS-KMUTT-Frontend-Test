@@ -14,7 +14,7 @@ import {
   initForm,
   setFormCurrentIndex,
 } from 'Store/reducers/areaForm/actions';
-import { RootReducers } from 'Store/reducers';
+import { RootReducersType } from 'Store/reducers';
 import { areaAPI } from 'Models/area';
 
 // styles
@@ -62,7 +62,7 @@ const MAX_STEPS = 3;
 const AREA_PARAM_IND = 5;
 
 const FormClub: React.FC<FormComponentProps> = () => {
-  const forms = useSelector((s: RootReducers) => s.AreaFormReducers);
+  const forms = useSelector((s: RootReducersType) => s.AreaFormReducers);
   const steps = forms.step;
   const dispatch = useDispatch();
   const history = useHistory();

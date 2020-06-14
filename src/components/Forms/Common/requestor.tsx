@@ -7,7 +7,7 @@ import FormLabel from 'Components/FormLabel';
 import Button from 'Components/Button';
 
 // store & data
-import { RootReducers } from 'Store/reducers';
+import { RootReducersType } from 'Store/reducers';
 import { faculties, Department } from 'Models/forms/department';
 import { DEFAULT_REQUIRED_RULES } from './rules/required';
 import { DEFAULT_USERNAME_RULES } from './rules/username';
@@ -39,7 +39,9 @@ const RequestorForm: React.FC<FormComponentProps & {
   const CUR_IND = props.ind || 0;
   const { getFieldDecorator, validateFields, setFieldsValue } = props.form;
   const dispatch = useDispatch();
-  const { forms } = useSelector((s: RootReducers) => s.AreaFormReducers);
+  const { forms } = useSelector(
+    (s: RootReducersType) => s.AreaFormReducers,
+  );
   const data: RequestorForm = forms[CUR_IND];
 
   const [userType, setUserType] = useState<UserType>('student');

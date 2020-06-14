@@ -12,7 +12,7 @@ import Button from 'Components/Button';
 import Area from 'Models/area/area.interface';
 
 // store
-import { RootReducers } from 'Store/reducers';
+import { RootReducersType } from 'Store/reducers';
 
 type OwnProps = {
   onConfirm: () => void;
@@ -97,7 +97,7 @@ type StateProps = {
   interval: number;
 };
 
-const mapStateToProps = (rootReducers: RootReducers) => {
+const mapStateToProps = (rootReducers: RootReducersType) => {
   const { SportReducers } = rootReducers;
 
   return {

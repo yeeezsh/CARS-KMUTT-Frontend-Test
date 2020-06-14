@@ -1,6 +1,6 @@
-import { AreaFormActionTypes, AreaFormState } from './types';
+import { AreaFormActionTypes, AreaFormReducer } from './types';
 
-const initState: AreaFormState = {
+const initState: AreaFormReducer = {
   forms: [],
   canNext: false,
   step: 0,
@@ -10,7 +10,7 @@ const initState: AreaFormState = {
 export const AreaFormReducers = (
   state = initState,
   action: AreaFormActionTypes,
-): AreaFormState => {
+): AreaFormReducer => {
   switch (action.type) {
     case 'ADD_FORM':
       return state;
@@ -29,7 +29,7 @@ export const AreaFormReducers = (
       return state;
     case 'FILL_FORM':
       const curForm = state.step;
-      const parsed: AreaFormState = {
+      const parsed: AreaFormReducer = {
         ...state,
         canNext: action.payload.valid,
         forms: state.forms.map((e, i) =>

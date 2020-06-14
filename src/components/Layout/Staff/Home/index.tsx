@@ -4,13 +4,13 @@ import SearchBar from 'Components/SearchBar';
 import { useSelector } from 'react-redux';
 
 import styles from './styles.module.css';
-import { RootReducers } from 'store/reducers';
+import { RootReducersType } from 'store/reducers';
 
 const { Header } = Layout;
 
 const StaffLayout: React.FunctionComponent = props => {
   const username = useSelector(
-    (s: RootReducers) => s.UserReducers.username,
+    (s: RootReducersType) => s.UserReducers.username,
   );
   return (
     <Layout>

@@ -10,7 +10,7 @@ import {
   initForm,
 } from 'Store/reducers/areaForm/actions';
 import { areaAPI } from 'Models/area';
-import { RootReducers } from 'Store/reducers';
+import { RootReducersType } from 'Store/reducers';
 import { taskFormAPI } from 'Models/task/form';
 import stepsList from './steps';
 
@@ -57,7 +57,7 @@ const ConfirmModal = Loadable({
 const MAX_STEPS = 6;
 
 const Sport: React.FC = () => {
-  const forms = useSelector((s: RootReducers) => s.AreaFormReducers);
+  const forms = useSelector((s: RootReducersType) => s.AreaFormReducers);
   const steps = forms.step;
   const dispatch = useDispatch();
   const history = useHistory();

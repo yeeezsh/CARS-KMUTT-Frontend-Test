@@ -13,7 +13,7 @@ import { FacilityForm } from 'Components/Forms/Common/facility';
 import { CalendarForm } from './Calendar';
 
 // data & store
-import { RootReducers } from 'Store/reducers';
+import { RootReducersType } from 'Store/reducers';
 import { AreaInfo } from 'Store/reducers/areaForm/types';
 import {
   setFormCurrentIndex,
@@ -79,7 +79,7 @@ const Overview: React.FC<FormComponentProps & Props> = props => {
   const { validateFields } = props.form;
   const dispatch = useDispatch();
   const { forms, area } =
-    props.data || useSelector((s: RootReducers) => s.AreaFormReducers);
+    props.data || useSelector((s: RootReducersType) => s.AreaFormReducers);
   const calendarData: CalendarForm | undefined = forms[0];
   const facilityData: FacilityForm | undefined = forms[1];
 

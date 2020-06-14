@@ -1,7 +1,7 @@
 import { Moment } from 'moment';
 import Area from '../../../models/area/area.interface';
 import { sport } from '../../../models/area/sport';
-import { SportPagesStore } from '.';
+import { SportReducer } from '.';
 
 export const SET_DATE_SELECTED = 'SET_DATE_SELECTED';
 export const SET_TIME_SELECTED = 'SET_TIME_SELECTED';
@@ -59,7 +59,7 @@ export const setTimeSelected = (time: Moment) => ({
 export const setAreaSelected = (area: Area['area']) => {
   return (
     dispatch: any,
-    getState: () => { SportReducers: SportPagesStore },
+    getState: () => { SportReducers: SportReducer },
   ) => {
     const { areas } = getState().SportReducers;
     const interval =
