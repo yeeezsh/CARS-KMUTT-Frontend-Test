@@ -1,9 +1,9 @@
 import axios, { AxiosInstance } from 'axios';
 
 const DEV_END_POINT =
-  process.env.BACKEND_ENDPOINT || 'http://localhost:3000/api';
+  process.env.REACT_APP_BACKEND_ENDPOINT || 'http://localhost:3000/api';
 const PROD_END_POINT =
-  process.env.BACKEND_ENDPOINT || 'http://0.0.0.0:3000/api';
+  process.env.REACT_APP_BACKEND_ENDPOINT || 'http://0.0.0.0:3000/api';
 
 const mode = process.env.NODE_ENV;
 export const END_POINT =
