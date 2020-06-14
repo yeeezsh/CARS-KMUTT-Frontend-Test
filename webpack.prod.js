@@ -80,10 +80,7 @@ module.exports = {
   ],
   optimization: {
     minimize: true,
-    runtimeChunk: 'single',
-    splitChunks: {
-      chunks: 'all',
-    },
+    usedExports: true,
     minimizer: [
       new TerserPlugin({
         parallel: true,
