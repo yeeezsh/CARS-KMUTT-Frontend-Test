@@ -4,33 +4,59 @@ import StepsType from './step.interface';
 
 import styles from './styles.module.css';
 
+type DotSize = 's' | 'm';
+
 const dotStyle = (
   styles?: 'passed' | 'current' | 'next',
+  size?: DotSize,
 ): React.CSSProperties => {
+  let defaultDotStyle: React.CSSProperties = {
+    color: '#dadada',
+  };
+  if (size === 's') {
+    defaultDotStyle = {
+      ...defaultDotStyle,
+      width: '30px',
+      height: '30px',
+      marginTop: '-14px',
+    };
+  }
+
   switch (styles) {
     case 'passed':
       return {
+        ...defaultDotStyle,
         backgroundColor: '#FF682B',
         color: '#FFFFFF',
       };
     case 'current':
       return {
+        ...defaultDotStyle,
         backgroundColor: '#1890FF',
         fontWeight: 'bold',
         color: '#FFFFFF',
       };
     default:
-      return {
-        color: '#dadada',
-      };
+      return defaultDotStyle;
   }
+};
+
+const labelStyle = (size?: DotSize): React.CSSProperties => {
+  if (size === 's')
+    return {
+      fontSize: '14px',
+      lineHeight: '12px',
+    };
+  return {};
 };
 
 const StateSteps: React.FunctionComponent<{
   steps: StepsType[];
   current: number;
   onClick?: any;
+  size?: DotSize;
 }> = props => {
+  const { size } = props;
   const { steps, current, onClick } = props;
   return (
     <React.Fragment>
@@ -50,9 +76,11 @@ const StateSteps: React.FunctionComponent<{
               key={i}
               className={styles.dot}
               span={2}
-              style={dotStyle(dot)}
+              style={dotStyle(dot, size)}
             >
-              <p className={styles.label}>{e.label}</p>
+              <p className={styles.label} style={labelStyle(size)}>
+                {e.label}
+              </p>
             </Col>
           );
         })}
