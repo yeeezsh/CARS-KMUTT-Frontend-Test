@@ -1,12 +1,11 @@
 import React from 'react';
-import { Row } from 'antd';
 
-const DEFAULT_HEIGHT = 125;
+const DEFAULT_HEIGHT = '125px';
 const Trail: React.FC<{ size?: number }> = props => {
   return (
-    <Row
+    <div
       style={{
-        height: props.size + 'px' || DEFAULT_HEIGHT,
+        height: props.size ? props.size + 'px' : DEFAULT_HEIGHT,
       }}
     />
   );
