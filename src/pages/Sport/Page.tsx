@@ -67,6 +67,8 @@ import { RootReducersType } from 'Store/reducers';
 const CATEGORY_PAGE = '/reserve/sport/category';
 const FIRST_STEP_PAGE = '/reserve/sport/1';
 
+// @ PRESERVE FOR DEV
+
 // interface MaptoDispatchI {
 //   setDateSelected: (d: Moment) => void;
 //   setTimeSelected: (d: Moment) => void;
@@ -135,7 +137,6 @@ class SportPage extends Component<
     return this.setState(
       prevState => {
         return {
-          // timeSelected: time.value,
           step: 2,
           status: prevState.status.map((e, i) => (i === 0 ? true : e)),
         };
@@ -236,7 +237,7 @@ class SportPage extends Component<
     return this.setState({ confirmModal: true });
   };
 
-  onModal = () => this.props.history.replace('/');
+  onFinishModal = () => this.props.history.replace('/');
 
   componentDidMount = async () => {
     TimePage.preload();
@@ -363,7 +364,10 @@ class SportPage extends Component<
         </PageLayout>
 
         {/* overlay element */}
-        <ConfirmModal visible={confirmModal} onClick={this.onModal} />
+        <ConfirmModal
+          visible={confirmModal}
+          onClick={this.onFinishModal}
+        />
         {quota && (
           <Snackbar show={true}>
             <p style={{ fontWeight: 'bold' }}>

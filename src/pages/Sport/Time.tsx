@@ -46,9 +46,9 @@ const iconSquare = (text?: string, icon?: string) => (
 );
 
 interface OwnProps {
-  onSelectDate: any;
-  onSelectTime: any;
-  onSelectArea: any;
+  onSelectDate: (date: Moment) => void;
+  onSelectTime: (time: Moment, type: TimeNode['type']) => void;
+  onSelectArea: (area: Area['area']) => void;
 }
 
 // class TimePage extends Component<TimeAreaReserveType> {
