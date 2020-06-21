@@ -50,7 +50,7 @@ export default class MyReservePage extends Component<
 > {
   state = {
     data: [],
-    loading: false,
+    loading: true,
   };
 
   componentDidMount = async () => {
