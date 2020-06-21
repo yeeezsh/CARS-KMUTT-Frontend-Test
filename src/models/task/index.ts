@@ -27,9 +27,9 @@ class TaskClass {
     }
   }
 
-  async confirmTaskById(id: string): Promise<void> {
+  async confirmTaskSportById(id: string): Promise<void> {
     try {
-      await i.instance.get('/task' + '/' + id + '/confirm');
+      await i.instance.get('/task/sport/' + id + '/confirm');
     } catch (err) {
       throw new Error(err);
     }

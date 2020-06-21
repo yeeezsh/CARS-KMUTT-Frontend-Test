@@ -129,7 +129,7 @@ class ReservationInfo extends Component<
     if (action)
       // may be on confirm requsted
       taskAPI
-        .confirmTaskById(_id)
+        .confirmTaskSportById(_id)
         .then(() => this.setState({ modal: false }, () => goBack()));
 
     console.log('owner canle', cancle, action);
