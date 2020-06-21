@@ -56,7 +56,7 @@ export default class MyReservePage extends Component<
   componentDidMount = async () => {
     StateCard.preload();
     this.setState({ loading: true });
-    setTimeout(async () => await this.fetchData(), 3000);
+    await this.fetchData();
     ReservationInfo.preload();
     return;
   };
