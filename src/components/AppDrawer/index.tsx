@@ -72,7 +72,7 @@ const AppDrawer: React.FunctionComponent<{
       </Row>
 
       {/* logout */}
-      <Row style={{ position: 'absolute', width: '100%', bottom: 50 }}>
+      <Row style={{ position: 'absolute', width: '100%', bottom: 125 }}>
         <UserCard>{username}</UserCard>
 
         {/* trailing spaces */}
