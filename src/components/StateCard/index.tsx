@@ -40,24 +40,14 @@ export default function StateCard(props: {
       {reserve?.start?.format('HH:mm')}-{reserve?.stop?.format('HH:mm')} น.
     </span>
   );
-  const detail = <span>blabalbalbalbalbals</span>;
+  const detail = <span>No detail</span>;
 
   const showCard = (
     <Row>
       <Row type="flex" justify="space-between">
         {/* reservation name */}
         <Col span={18}>
-          <p
-            className={styles.title}
-            style={{
-              display: 'flex',
-              whiteSpace: 'nowrap',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-            }}
-          >
-            {name}
-          </p>
+          <p className={styles.title}>{name}</p>
         </Col>
 
         {/* reservation date */}
