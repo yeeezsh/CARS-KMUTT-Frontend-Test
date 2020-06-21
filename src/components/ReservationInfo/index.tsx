@@ -5,6 +5,8 @@ import { RouteComponentProps, withRouter } from 'react-router';
 import { Row, Col } from 'antd';
 import moment from 'moment';
 
+// components
+import Loading from 'Components/Loading';
 const Outline = Loadble({
   loader: () => import('Components/Outline'),
   loading: () => null,
@@ -30,7 +32,8 @@ const UsersReserveList = Loadble({
   loading: () => null,
 });
 
-// Models
+// Models & interfaces
+import { RootReducersType } from 'Store/reducers';
 import { TaskDetail } from 'Models/task/task.interface';
 import { taskAPI } from 'Models/task';
 
@@ -45,6 +48,20 @@ import {
   OverviewSportForm,
 } from 'Components/Forms/Common';
 import { Overview as OverviewMeetingForm } from 'Components/Forms/Meeting';
+
+// custom components
+const CenterIconLayout: React.FC = props => (
+  <div
+    style={{
+      marginTop: '30%',
+      textAlign: 'center',
+      fontSize: '14px',
+      color: '#979797',
+    }}
+  >
+    {props.children}
+  </div>
+);
 
 // const initState
 const MODAL_REJECT_MSG = 'ท่านต้องการยกเลิกรีเควส';
@@ -254,8 +271,8 @@ class ReservationInfo extends Component<
       }
     };
 
-    return (
-      <React.Fragment>
+    const DataContainer: JSX.Element = (
+      <>
         <Col span={24} className={styles.overview}>
           <Outline className={styles.header}>ข้อมูลการจอง</Outline>
           {/* sub header */}
@@ -312,12 +329,24 @@ class ReservationInfo extends Component<
           visible={modal}
           onModal={this.onModalAction}
         />
+      </>
+    );
+
+    return (
+      <React.Fragment>
+        {this.state.loading ? (
+          <CenterIconLayout>
+            <Loading />
+          </CenterIconLayout>
+        ) : (
+          DataContainer
+        )}
       </React.Fragment>
     );
   }
 }
 
-const mapStateToProps = (rootReducers: any) => {
+const mapStateToProps = (rootReducers: RootReducersType) => {
   const { UserReducers } = rootReducers;
   return {
     username: UserReducers.username,
