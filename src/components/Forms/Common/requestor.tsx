@@ -176,7 +176,7 @@ const RequestorForm: React.FC<FormComponentProps & {
               {getFieldDecorator('year', {
                 rules: [DEFAULT_REQUIRED_RULES],
                 initialValue: data.studentYear || 1,
-              })(<Input />)}
+              })(<Input type="number" />)}
             </Form.Item>
           </Col>
         )}
