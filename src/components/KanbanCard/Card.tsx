@@ -1,10 +1,10 @@
 import React from 'react';
 import { Col, Row } from 'antd';
-import Menu from '../../models/menu/interface';
+import Menu from 'Models/menu/interface';
 
 import styles from './card.module.css';
 
-const NeedActionDot: React.FunctionComponent = () => (
+const NeedActionDot: React.FC = () => (
   <div
     style={{
       background: '#1890FF',
@@ -17,11 +17,15 @@ const NeedActionDot: React.FunctionComponent = () => (
   />
 );
 
-export default function Card(props: {
+const Card: React.FC<{
   icon?: string;
   label: Array<string>;
   setting?: Menu['setting'];
-}) {
+}> = (props: {
+  icon?: string;
+  label: Array<string>;
+  setting?: Menu['setting'];
+}) => {
   const { label, icon, setting } = props;
 
   return (
@@ -83,4 +87,6 @@ export default function Card(props: {
       </div>
     </div>
   );
-}
+};
+
+export default Card;
