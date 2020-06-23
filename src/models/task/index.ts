@@ -64,9 +64,12 @@ class TaskClass {
     }
   }
 
-  async forwardTaskByStaff(_id: string): Promise<void> {
+  async forwardTaskByStaff(_id: string, desc?: string): Promise<void> {
     try {
-      await i.instance.get('/task/staff/forward/' + _id);
+      await i.instance.post('/task/staff/forward', {
+        _id,
+        desc,
+      });
     } catch (err) {
       throw new Error(err);
     }
