@@ -64,6 +64,14 @@ class TaskClass {
     }
   }
 
+  async forwardTaskByStaff(_id: string): Promise<void> {
+    try {
+      await i.instance.get('/task/staff/forward/' + _id);
+    } catch (err) {
+      throw new Error(err);
+    }
+  }
+
   async getLastTask(): Promise<TaskLastCard | undefined> {
     try {
       const data = (await i.instance.get('/task/last')).data;
