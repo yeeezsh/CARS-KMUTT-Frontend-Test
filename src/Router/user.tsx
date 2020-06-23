@@ -72,7 +72,7 @@ export default class PageUserRouter extends Component<
   componentDidMount = () => {
     // check authorized first
     const { location } = history;
-    const validUser = u.GetUser().permission === 'requestor';
+    const validUser = u.GetUser().group === 'requestor';
     if (!validUser && location.pathname !== '/login')
       return history.push('/login');
 
@@ -100,7 +100,7 @@ export default class PageUserRouter extends Component<
     if (!onHome) this.setState({ onHome });
 
     // check authorized first
-    const validUser = u.GetUser().permission === 'requestor';
+    const validUser = u.GetUser().group === 'requestor';
     if (!validUser && location.pathname !== '/login')
       return history.push('/login');
   };

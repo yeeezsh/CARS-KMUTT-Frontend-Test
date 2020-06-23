@@ -54,7 +54,7 @@ const Area = Loadable({
 const StaffRouter: React.FunctionComponent = () => {
   const location = useLocation();
   const history = useHistory();
-  const validStaff = u.GetUser().permission === 'staff';
+  const validStaff = u.GetUser().group === 'staff';
   if (!validStaff && location.pathname !== '/staff/login')
     history.push('/staff/login');
   const currentLoginPage = location.pathname.match('/login');

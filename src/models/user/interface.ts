@@ -3,6 +3,6 @@ export interface User {
   username: string;
   studentId?: string;
   email?: string;
-  permission: string;
+  group: string;
 }
 export default User;

@@ -9,7 +9,7 @@ const initialState: UserReducer = {
   username: '',
   studentId: '',
   email: '',
-  permission: '',
+  group: '',
   n: 0,
 };
 
