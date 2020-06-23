@@ -1,7 +1,8 @@
 import { Moment } from 'moment';
 import { ReserveStateDesc } from '../reserve/interface';
-import { AreaBuilding } from 'Models/area/area.building.interfaces';
 import { TimeSlot } from './timeslot.interface';
+import { AreaBuilding } from 'Models/area/area.building.interfaces';
+import { TaskArea } from './task.area.interface';
 
 export type TaskStateType =
   | 'wait'
@@ -12,13 +13,6 @@ export type TaskStateType =
   | 'requested'
   | 'forward';
 
-interface Area {
-  _id: string;
-  name: string;
-  label?: string;
-  building?: AreaBuilding;
-  type?: string | any;
-}
 export type TaskType =
   | 'common'
   | 'common-sport'
@@ -29,7 +23,7 @@ export interface Task {
   _id: string;
   reserve: TimeSlot[];
   state: TaskStateType[];
-  area: Area;
+  area: TaskArea;
   desc?: ReserveStateDesc;
   forms?: any;
   type?: TaskType | string;
