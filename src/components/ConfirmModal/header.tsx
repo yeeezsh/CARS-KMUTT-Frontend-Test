@@ -11,9 +11,12 @@ const ModalHeader: React.FC<{ type: ConfirmMoalType }> = props => {
   return (
     <Row type="flex" justify="center">
       {/* big icon */}
-      <Col>
-        <img src={templateSelected?.icon} alt="icon-header" />
-      </Col>
+      {templateSelected?.icon && (
+        <Col>
+          <img src={templateSelected?.icon} alt="icon-header" />
+        </Col>
+      )}
+
       <Col span={24}>
         <h1
           style={{

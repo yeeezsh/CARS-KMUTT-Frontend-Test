@@ -1,9 +1,9 @@
 import redIcon from 'Assets/icons/modal/red.x.svg';
 import greenIcon from 'Assets/icons/modal/green.checked.svg';
 import yellowIcon from 'Assets/icons/modal/yellow.reject.svg';
-import { ConfirmMoalType } from './interface';
+import { ConfirmMoalType, ConfirmModalTemplate } from './interface';
 
-const list = [
+const list: ConfirmModalTemplate[] = [
   {
     type: 'drop',
     icon: redIcon,
@@ -35,6 +35,16 @@ const list = [
     btn: {
       bg: '#52C41A',
       text: 'อนุมัติ',
+    },
+  },
+  {
+    type: 'forward',
+    header: 'ท่านต้องการส่งต่อการจองนี้',
+    desc: `เมื่อท่านอนุมัติการจอง นักศึกษา/บุคลากรที่ขอใช้บริการ
+      จะสามารถใช้สถานที่ ทำกิจกรรมตามที่ระบุไว้ในการจอง ณ วันเวลาดังกล่าวได้`,
+    btn: {
+      bg: '#1890FF',
+      text: 'ส่งต่อ',
     },
   },
 ];
