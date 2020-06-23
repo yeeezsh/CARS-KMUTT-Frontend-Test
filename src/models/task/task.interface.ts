@@ -3,6 +3,7 @@ import { ReserveStateDesc } from '../reserve/interface';
 import { TimeSlot } from './timeslot.interface';
 import { AreaBuilding } from 'Models/area/area.building.interfaces';
 import { TaskArea } from './task.area.interface';
+import { TaskStaffRequested } from './task.staff.requested.interface';
 
 export type TaskStateType =
   | 'wait'
@@ -58,7 +59,7 @@ export interface TaskDetailAPI extends Task {
 }
 
 export interface TaskDetail extends Task {
-  staff: [];
+  staff: TaskStaffRequested[];
   requestor: TaskDetailRequestor[];
   building: AreaBuilding;
   createAt: Moment;
