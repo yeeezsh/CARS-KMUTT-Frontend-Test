@@ -3,6 +3,15 @@ import { ReserveStateDesc } from '../reserve/interface';
 import { AreaBuilding } from 'Models/area/area.building.interfaces';
 import { TimeSlot } from './timeslot.interface';
 
+export type TaskStateType =
+  | 'wait'
+  | 'approve'
+  | 'reject'
+  | 'accept'
+  | 'drop'
+  | 'requested'
+  | 'forward';
+
 interface Area {
   _id: string;
   name: string;
@@ -19,9 +28,7 @@ export type TaskType =
 export interface Task {
   _id: string;
   reserve: TimeSlot[];
-  state: Array<
-    'wait' | 'approve' | 'reject' | 'accept' | 'drop' | 'requested'
-  >;
+  state: TaskStateType[];
   area: Area;
   desc?: ReserveStateDesc;
   forms?: any;
