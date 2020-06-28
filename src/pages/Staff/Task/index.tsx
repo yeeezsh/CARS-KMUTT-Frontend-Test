@@ -55,13 +55,17 @@ const TaskPage: React.FC = () => {
   const taskId = location.pathname.split('/')[3];
   const history = useHistory();
 
+  // modal states
   const [dropModal, setDropModal] = useState(false);
   const [acceptModal, setAcceptModel] = useState(false);
+  const [forwardModal, setForwardModal] = useState(false);
+
   const [task, setTask] = useState<TaskDetail>(initTask);
   const forms = task.forms;
   const area = task.area;
   const [cancelled, setCancle] = useState(true);
   const [accepted, setAccepted] = useState(true);
+  const [forward, setForward] = useState(true);
 
   const formInfo = (type: TaskDetail['type']) => {
     if (!forms) return null;
@@ -112,6 +116,13 @@ const TaskPage: React.FC = () => {
       .catch(err => message.error(String(err)));
   }
 
+  function onForwardDropModal(desc?: string) {
+    taskAPI
+      .forwardTaskByStaff(taskId, desc)
+      .then(() => history.goBack())
+      .catch(err => message.error(String(err)));
+  }
+
   // modal states
   function onDropModal() {
     setDropModal(prev => !prev);
@@ -119,6 +130,10 @@ const TaskPage: React.FC = () => {
 
   function onAcceptModal() {
     setAcceptModel(prev => !prev);
+  }
+
+  function onForwardModal() {
+    setForwardModal(prev => !prev);
   }
 
   //   fetch task
@@ -130,6 +145,13 @@ const TaskPage: React.FC = () => {
         const alreadyCancel =
           lastState === 'reject' || lastState === 'drop';
         const alreadyAccepted = lastState === 'accept';
+        const alreadyForward = lastState === 'forward';
+        if (alreadyForward) {
+          const canNextForward = task.staff.slice(-1)[0].approve === true;
+          setForward(canNextForward);
+        } else {
+          setForward(true);
+        }
         setCancle(alreadyCancel);
         setAccepted(alreadyAccepted);
       }
@@ -255,6 +277,7 @@ const TaskPage: React.FC = () => {
             {/* Action */}
             {
               <React.Fragment>
+                {/* accept  */}
                 {!accepted && (
                   <Button
                     style={{
@@ -274,6 +297,27 @@ const TaskPage: React.FC = () => {
                   </Button>
                 )}
 
+                {/* forward */}
+                {forward && (
+                  <Button
+                    style={{
+                      width: '275px',
+                      backgroundColor: '#1890FF',
+                    }}
+                    fontSize={12}
+                    padding={4}
+                    onClick={() => setForwardModal(true)}
+                  >
+                    <img
+                      style={{ padding: 4 }}
+                      src={checkedIcon}
+                      alt="checked-icon"
+                    />
+                    ส่งต่อถึง ผู้อำนวยการสำนักงานกิจการนักศึกษา
+                  </Button>
+                )}
+
+                {/* drop */}
                 {!cancelled && (
                   <Button
                     style={{
@@ -306,6 +350,12 @@ const TaskPage: React.FC = () => {
         onAction={onAcceptDropModal}
         type="accept"
         visible={acceptModal}
+      />
+      <ConfirmModal
+        onClick={onForwardModal}
+        onAction={onForwardDropModal}
+        type="forward"
+        visible={forwardModal}
       />
     </StaffLayout>
   );
