@@ -1,12 +1,25 @@
+import { Col, Row } from 'antd';
+// forms components
+import {
+  OverviewCommonForm,
+  OverviewSportForm,
+} from 'Components/Forms/Common';
+import { Overview as OverviewMeetingForm } from 'Components/Forms/Meeting';
+// components
+import Loading from 'Components/Loading';
+import { taskAPI } from 'Models/task';
+import { TaskDetail } from 'Models/task/task.interface';
+import moment from 'moment';
 import React, { Component } from 'react';
 import Loadble from 'react-loadable';
 import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router';
-import { Row, Col } from 'antd';
-import moment from 'moment';
+// Models & interfaces
+import { RootReducersType } from 'Store/reducers';
+import ActionModal from './modal';
+// styles sheet
+import styles from './styles.module.css';
 
-// components
-import Loading from 'Components/Loading';
 const Outline = Loadble({
   loader: () => import('Components/Outline'),
   loading: () => null,
@@ -31,23 +44,6 @@ const UsersReserveList = Loadble({
   loader: () => import('Components/UsersReserveList'),
   loading: () => null,
 });
-
-// Models & interfaces
-import { RootReducersType } from 'Store/reducers';
-import { TaskDetail } from 'Models/task/task.interface';
-import { taskAPI } from 'Models/task';
-
-import ActionModal from './modal';
-
-// styles sheet
-import styles from './styles.module.css';
-
-// forms components
-import {
-  OverviewCommonForm,
-  OverviewSportForm,
-} from 'Components/Forms/Common';
-import { Overview as OverviewMeetingForm } from 'Components/Forms/Meeting';
 
 // custom components
 const CenterIconLayout: React.FC = props => (

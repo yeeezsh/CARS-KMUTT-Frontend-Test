@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { Row, Col, message } from 'antd';
+import { Col, message, Row } from 'antd';
+import Badge from 'Components/Badge';
+import Button from 'Components/Button';
 import StaffLayout from 'Components/Layout/Staff/Home';
-import { useLocation } from 'react-router';
 import TimeTable from 'Components/TimeTable';
-import moment, { Moment } from 'moment';
 import TimeNode from 'Components/TimeTable/timetable.interface';
-import AreaInfo from './Info';
 import { areaAPI } from 'Models/area';
 import { AreaAvailableAPI } from 'Models/area/area.interface';
 import { AreaAPI } from 'Models/area/interfaces';
-import QuickTask from './QuickTask';
-import Badge from 'Components/Badge';
-import Button from 'Components/Button';
-import { CreateTaskByStaff } from 'Models/task/task.create.interface';
-import { u } from 'Models/user';
 import { taskAPI } from 'Models/task';
+import { CreateTaskByStaff } from 'Models/task/task.create.interface';
 import { QuickTask as QuickTaskInterface } from 'Models/task/task.quick.interface';
+import { u } from 'Models/user';
+import moment, { Moment } from 'moment';
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router';
+import AreaInfo from './Info';
+import QuickTask from './QuickTask';
 
 const disabledBtnProps = {
   fontColor: '#979797',

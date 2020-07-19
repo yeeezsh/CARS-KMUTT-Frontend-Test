@@ -1,8 +1,20 @@
+import { Col, Row } from 'antd';
+import blueSquareIcon from 'Assets/icons/square/blue.svg';
+import greySquareIcon from 'Assets/icons/square/grey.svg';
+import orangeSquareIcon from 'Assets/icons/square/orange.svg';
+import Badge from 'Components/Badge';
+import BreakingLine from 'Components/BreakingLine';
+import Outline from 'Components/Outline';
+// interfaces
+import TimeNode from 'Components/TimeTable/timetable.interface';
+import Area from 'Models/area/area.interface';
+import moment, { Moment } from 'moment';
 import React, { Component } from 'react';
 import Loadable from 'react-loadable';
 import { connect } from 'react-redux';
-import moment, { Moment } from 'moment';
-import { Col, Row } from 'antd';
+// helpers
+import WeekParseHelper from 'Utils/week.parse';
+import styles from './styles.module.css';
 
 const BadgeDateSelector = Loadable({
   loader: () => import('Components/BadgeDateSelector'),
@@ -12,24 +24,6 @@ const TimeTable = Loadable({
   loader: () => import('Components/TimeTable'),
   loading: () => null,
 });
-
-import BreakingLine from 'Components/BreakingLine';
-import Outline from 'Components/Outline';
-import Badge from 'Components/Badge';
-
-import styles from './styles.module.css';
-
-import orangeSquareIcon from 'Assets/icons/square/orange.svg';
-import greySquareIcon from 'Assets/icons/square/grey.svg';
-import blueSquareIcon from 'Assets/icons/square/blue.svg';
-
-// interfaces
-import TimeNode from 'Components/TimeTable/timetable.interface';
-import Area from 'Models/area/area.interface';
-
-// helpers
-
-import WeekParseHelper from 'Utils/week.parse';
 
 const iconLabel: React.CSSProperties = {
   color: '#3B4046',

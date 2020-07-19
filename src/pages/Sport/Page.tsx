@@ -1,9 +1,27 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import Loadable from 'react-loadable';
-import { Row, Col } from 'antd';
+import { Col, Row } from 'antd';
+import TimeNode from 'Components/TimeTable/timetable.interface';
+import Area from 'Models/area/area.interface';
+import { stepLists } from 'Models/sport';
+import { Mutate } from 'Models/task/sport';
+import { TaskSport } from 'Models/task/sport/sport.interface';
+import { u } from 'Models/user';
 import moment, { Moment } from 'moment';
+import React, { Component } from 'react';
+import Loadable from 'react-loadable';
+import { connect } from 'react-redux';
 import { Route, Switch, withRouter } from 'react-router';
+import { RootReducersType } from 'Store/reducers';
+import {
+  queryArea,
+  resetState,
+  setAreaId,
+  setAreaSelected,
+  setDateSelected,
+  setOwner,
+  setTimeSelected,
+  setUsers,
+} from 'Store/reducers/sports/actions';
+import styles from './styles.module.css';
 
 const PageLayout = Loadable({
   loader: () => import('Components/Layout/Page'),
@@ -41,28 +59,6 @@ const BackCard = Loadable({
   loader: () => import('Components/BackCard'),
   loading: () => null,
 });
-
-import TimeNode from 'Components/TimeTable/timetable.interface';
-import Area from 'Models/area/area.interface';
-import { TaskSport } from 'Models/task/sport/sport.interface';
-
-import { stepLists } from 'Models/sport';
-import { Mutate } from 'Models/task/sport';
-import { u } from 'Models/user';
-
-import styles from './styles.module.css';
-
-import {
-  setDateSelected,
-  setTimeSelected,
-  setAreaSelected,
-  setOwner,
-  setAreaId,
-  queryArea,
-  setUsers,
-  resetState,
-} from 'Store/reducers/sports/actions';
-import { RootReducersType } from 'Store/reducers';
 
 const CATEGORY_PAGE = '/reserve/sport/category';
 const FIRST_STEP_PAGE = '/reserve/sport/1';

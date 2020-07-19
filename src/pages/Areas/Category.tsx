@@ -1,10 +1,9 @@
-import React from 'react';
-import KanBanLayout from 'Components/Layout/Kanban';
-import KanbanCard from 'Components/KanbanCard';
-import Menu from 'Models/menu/interface';
-
-import commmonAreaIcon from 'Assets/icons/area/sport.svg';
 import meetingAreaIcon from 'Assets/icons/area/meeting.svg';
+import commmonAreaIcon from 'Assets/icons/area/sport.svg';
+import KanbanCard from 'Components/KanbanCard';
+import KanBanLayout from 'Components/Layout/Kanban';
+import Menu from 'Models/menu/interface';
+import React from 'react';
 
 const CategoryPage: React.FC = () => {
   const menu: Menu[] = [

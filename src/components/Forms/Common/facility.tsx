@@ -1,27 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import { Form, Row, Col, Checkbox, TimePicker } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
+import { Checkbox, Col, Form, Row, TimePicker } from 'antd';
+// interfaces
+import { FormComponentProps } from 'antd/lib/form';
+import Button from 'Components/Button';
+import FormLabel from 'Components/FormLabel';
+import Outline from 'Components/Outline';
 import { Moment } from 'moment';
-
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+// data & store
+import { RootReducersType } from 'Store/reducers';
+import {
+  fillForm,
+  setFormCurrentIndex,
+  submitForm,
+} from 'Store/reducers/areaForm/actions';
 // shared
 import { DEFAULT_REQUIED_MSG } from './rules/required';
 import fontOrangeBold from './styles/font.orange.bold';
 import labelStyles from './styles/label';
-
-import Button from 'Components/Button';
-import FormLabel from 'Components/FormLabel';
-import Outline from 'Components/Outline';
-
-// data & store
-import { RootReducersType } from 'Store/reducers';
-import {
-  setFormCurrentIndex,
-  fillForm,
-  submitForm,
-} from 'Store/reducers/areaForm/actions';
-
-// interfaces
-import { FormComponentProps } from 'antd/lib/form';
 
 export interface FacilityForm {
   airRequired: boolean;

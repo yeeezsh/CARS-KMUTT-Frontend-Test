@@ -1,5 +1,5 @@
+import { Icon, Input } from 'antd';
 import React from 'react';
-import { Input, Icon } from 'antd';
 
 const SearchBar: React.FunctionComponent<{
   onSearch?: (s: string) => void;

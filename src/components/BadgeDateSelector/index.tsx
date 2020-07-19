@@ -1,9 +1,8 @@
-import React from 'react';
-import moment, { Moment } from 'moment';
 import { Row } from 'antd';
-
-import styles from './styles.module.css';
+import moment, { Moment } from 'moment';
+import React from 'react';
 import Badge from './badge';
+import styles from './styles.module.css';
 
 const card = (date: Moment, selected: boolean) => (
   <div className={styles.card}>

@@ -1,5 +1,5 @@
-import React from 'react';
 import { Col, Row } from 'antd';
+import React from 'react';
 
 const HeadTitle: React.FC<{ title?: string; icon?: string }> = props => {
   const { title, icon } = props;

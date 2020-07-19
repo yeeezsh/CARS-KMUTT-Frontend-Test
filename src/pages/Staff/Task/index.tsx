@@ -1,10 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import Loadable from 'react-loadable';
-import { Row, Col, message } from 'antd';
-import { useLocation, useHistory } from 'react-router';
-
+import { Col, message, Row } from 'antd';
+import checkedIcon from 'Assets/icons/button/checked.svg';
+// common & assets
+import xIcon from 'Assets/icons/button/x.svg';
+import {
+  OverviewCommonForm,
+  OverviewSportForm,
+} from 'Components/Forms/Common';
+import { Overview as OverviewMeetingForm } from 'Components/Forms/Meeting';
+import typeDescHelper from 'Components/TaskTable/type.desc.helper';
 // data & store
 import { taskAPI } from 'Models/task';
+import { TaskDetail } from 'Models/task/task.interface';
+import React, { useEffect, useState } from 'react';
+import Loadable from 'react-loadable';
+import { useHistory, useLocation } from 'react-router';
+import { CustomBrakeLine, detailStyle, mainStyle } from './helper';
+import { initTask } from './init.state';
 
 const StaffLayout = Loadable({
   loader: () => import('Components/Layout/Staff/Home'),
@@ -34,21 +45,6 @@ const ConfirmModal = Loadable({
   loader: () => import('Components/ConfirmModal'),
   loading: () => null,
 });
-
-import {
-  OverviewCommonForm,
-  OverviewSportForm,
-} from 'Components/Forms/Common';
-import { Overview as OverviewMeetingForm } from 'Components/Forms/Meeting';
-
-// common & assets
-import xIcon from 'Assets/icons/button/x.svg';
-import checkedIcon from 'Assets/icons/button/checked.svg';
-import { mainStyle, detailStyle, CustomBrakeLine } from './helper';
-
-import { initTask } from './init.state';
-import typeDescHelper from 'Components/TaskTable/type.desc.helper';
-import { TaskDetail } from 'Models/task/task.interface';
 
 const TaskPage: React.FC = () => {
   const location = useLocation();

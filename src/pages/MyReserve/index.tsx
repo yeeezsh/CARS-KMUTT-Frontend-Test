@@ -1,10 +1,17 @@
+// icons
+import emptyIcon from 'Assets/icons/empty.box.svg';
+import Loading from 'Components/Loading';
+import Outline from 'Components/Outline';
+import { r } from 'Models/reserve';
+// models & interfaces
+import Reserve from 'Models/reserve/interface';
 import React, { Component } from 'react';
 import Loadable from 'react-loadable';
 import { Route, Switch } from 'react-router';
 import { Link } from 'react-router-dom';
+// helpers
+import OutlineType from './helpers/outline.type';
 
-import Outline from 'Components/Outline';
-import Loading from 'Components/Loading';
 const PageLayout = Loadable({
   loader: () => import('Components/Layout/Page'),
   loading: () => null,
@@ -17,16 +24,6 @@ const ReservationInfo = Loadable({
   loader: () => import('Components/ReservationInfo'),
   loading: () => null,
 });
-
-// models & interfaces
-import Reserve from 'Models/reserve/interface';
-import { r } from 'Models/reserve';
-
-// helpers
-import OutlineType from './helpers/outline.type';
-
-// icons
-import emptyIcon from 'Assets/icons/empty.box.svg';
 
 // custom components
 const CenterIconLayout: React.FC = props => (

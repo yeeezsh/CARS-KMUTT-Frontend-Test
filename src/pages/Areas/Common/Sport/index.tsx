@@ -1,33 +1,30 @@
-import React, { useEffect, useState } from 'react';
-import { Row, Col, Icon } from 'antd';
-import { Switch, Route, useHistory, useLocation } from 'react-router';
-import { useSelector, useDispatch } from 'react-redux';
-import Loadable from 'react-loadable';
-
-// store / data
+import { Col, Icon, Row } from 'antd';
 import {
-  setAreaInfoForm,
-  initForm,
-} from 'Store/reducers/areaForm/actions';
-import { areaAPI } from 'Models/area';
-import { RootReducersType } from 'Store/reducers';
-import { taskFormAPI } from 'Models/task/form';
-import stepsList from './steps';
-
-// assets
-import sharedStyles from '../common/styles/styles.module.css';
-
-import {
-  ProjectForm,
-  FacilityForm,
-  RequestorForm,
   AreaForm,
   EquipmentForm,
-  ReturnForm,
+  FacilityForm,
   OverviewSportForm,
+  ProjectForm,
+  RequestorForm,
+  ReturnForm,
 } from 'Components/Forms/Common';
-
+import { areaAPI } from 'Models/area';
+import { taskFormAPI } from 'Models/task/form';
+import React, { useEffect, useState } from 'react';
+import Loadable from 'react-loadable';
+import { useDispatch, useSelector } from 'react-redux';
+import { Route, Switch, useHistory, useLocation } from 'react-router';
+import { RootReducersType } from 'Store/reducers';
+// store / data
+import {
+  initForm,
+  setAreaInfoForm,
+} from 'Store/reducers/areaForm/actions';
+// assets
+import sharedStyles from '../common/styles/styles.module.css';
 import Trail from '../common/Trail';
+import stepsList from './steps';
+
 const StateSteps = Loadable({
   loader: () => import('Components/StateSteps'),
   loading: () => null,

@@ -1,36 +1,31 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router';
-import { useSelector, useDispatch } from 'react-redux';
-import { Col, Row, Form, DatePicker } from 'antd';
-import moment, { Moment } from 'moment';
-import Loadable from 'react-loadable';
-
+import { Col, DatePicker, Form, Row } from 'antd';
+import { FormComponentProps } from 'antd/lib/form';
+import blueSquareIcon from 'Assets/icons/square/blue.svg';
+import greySquareIcon from 'Assets/icons/square/grey.svg';
+// icons
+import orangeSquareIcon from 'Assets/icons/square/orange.svg';
 import labelStyles from 'Components/Forms/Common/styles/label';
-
+// interfaces
+import TimeNode from 'Components/TimeTable/timetable.interface';
+import { areaAPI } from 'Models/area';
+import Area from 'Models/area/area.interface';
+import moment, { Moment } from 'moment';
+import React, { useEffect, useState } from 'react';
+import Loadable from 'react-loadable';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router';
 // data store & API
 import { RootReducersType } from 'Store/reducers';
 import {
   fillForm,
-  submitForm,
-  setFormCurrentIndex,
   setAreaInfoForm,
+  setFormCurrentIndex,
+  submitForm,
 } from 'Store/reducers/areaForm/actions';
-import { areaAPI } from 'Models/area';
-
-// utils
-import weekParsedHelper from 'Utils/week.parse';
 import adjacentHour from 'Utils/adjacent.hour';
 import calendarCurrent from 'Utils/calendar.current';
-
-// interfaces
-import TimeNode from 'Components/TimeTable/timetable.interface';
-import Area from 'Models/area/area.interface';
-import { FormComponentProps } from 'antd/lib/form';
-
-// icons
-import orangeSquareIcon from 'Assets/icons/square/orange.svg';
-import greySquareIcon from 'Assets/icons/square/grey.svg';
-import blueSquareIcon from 'Assets/icons/square/blue.svg';
+// utils
+import weekParsedHelper from 'Utils/week.parse';
 
 const Button = Loadable({
   loader: () => import('Components/Button'),

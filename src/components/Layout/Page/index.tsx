@@ -1,5 +1,5 @@
+import { Col, Row } from 'antd';
 import React, { Component } from 'react';
-import { Row, Col } from 'antd';
 import styles from './page.module.css';
 
 export default class PageLayout extends Component<{

@@ -1,13 +1,11 @@
-import React from 'react';
-import { Row, Col } from 'antd';
-import moment from 'moment';
-import Loadable from 'react-loadable';
-
+import { Col, Row } from 'antd';
 // interfaces
 import { TaskLastCard } from 'Models/task/task.interface';
-
-import styles from './home.module.css';
+import moment from 'moment';
+import React from 'react';
+import Loadable from 'react-loadable';
 import { Link } from 'react-router-dom';
+import styles from './home.module.css';
 
 const StateCard = Loadable({
   loader: () => import('../../StateCard'),

@@ -1,5 +1,5 @@
-import React from 'react';
 import { Icon, Spin } from 'antd';
+import React from 'react';
 
 const LoadingIcon = <Icon type="loading" style={{ fontSize: 42 }} spin />;
 

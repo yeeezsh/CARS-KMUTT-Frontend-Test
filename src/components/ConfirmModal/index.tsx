@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { Col, Input, Modal, Row } from 'antd';
+import React, { useEffect, useState } from 'react';
 import Loadable from 'react-loadable';
 import { ConfirmMoalType } from './interface';
-import { Modal, Row, Col, Input } from 'antd';
 
 const ModalHeader = Loadable({
   loader: () => import('./header'),

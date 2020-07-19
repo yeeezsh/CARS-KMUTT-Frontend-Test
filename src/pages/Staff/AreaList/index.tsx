@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
 import StaffLayout from 'Components/Layout/Staff/Home';
 import { areaAPI } from 'Models/area';
-import AreaTable from './table';
 import { AreaTableAPI } from 'Models/area/interfaces';
+import React, { useEffect, useState } from 'react';
+import AreaTable from './table';
 
 const AreasPages: React.FC = () => {
   const init: AreaTableAPI[] = [];

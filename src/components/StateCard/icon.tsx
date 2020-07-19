@@ -1,13 +1,10 @@
-import React from 'react';
-import { ReserveState } from '../../models/reserve/interface';
-
 // Models
 import stateDesc from 'Models/task/helpers/state.desc';
-
+import React from 'react';
 import StateBlue from '../../assets/icons/state.blue.svg';
-import StateYellow from '../../assets/icons/state.yellow.svg';
 import StateGreen from '../../assets/icons/state.green.svg';
 import StateRed from '../../assets/icons/state.red.svg';
+import { ReserveState } from '../../models/reserve/interface';
 
 const StateCardIconColor: React.FunctionComponent<{
   type: ReserveState;

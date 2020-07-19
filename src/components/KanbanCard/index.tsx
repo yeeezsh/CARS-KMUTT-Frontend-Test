@@ -1,11 +1,10 @@
+import { Col, Row } from 'antd';
 import React from 'react';
-import { Row, Col } from 'antd';
-import Card from './Card';
 import { Link } from 'react-router-dom';
-
+import defaultMenu from '../../models/menu';
 // models
 import Menu from '../../models/menu/interface';
-import defaultMenu from '../../models/menu';
+import Card from './Card';
 
 export default function KanbanCard(props: {
   menu?: Menu[];

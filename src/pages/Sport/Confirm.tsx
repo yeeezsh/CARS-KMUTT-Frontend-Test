@@ -1,18 +1,14 @@
-import React, { Component } from 'react';
 import { Col, Row } from 'antd';
-import { Moment } from 'moment';
-import { connect } from 'react-redux';
-
-import styles from './styles.module.css';
-
-import Outline from 'Components/Outline';
 import Button from 'Components/Button';
-
+import Outline from 'Components/Outline';
 // interfaces & type
 import Area from 'Models/area/area.interface';
-
+import { Moment } from 'moment';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 // store
 import { RootReducersType } from 'Store/reducers';
+import styles from './styles.module.css';
 
 type OwnProps = {
   onConfirm: () => void;

@@ -1,7 +1,7 @@
+import { Col, Row } from 'antd';
 import React from 'react';
-import PageLayout from './Page';
-import { Row, Col } from 'antd';
 import Outline from '../Outline';
+import PageLayout from './Page';
 
 const KanBanLayout: React.FunctionComponent<{
   title?: string;

@@ -1,6 +1,8 @@
+import { taskAPI } from 'Models/task';
+import { TaskLastCard } from 'Models/task/task.interface';
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import Loadable from 'react-loadable';
+import { connect } from 'react-redux';
 
 const HomeMenu = Loadable({
   loader: () => import('Components/KanbanCard'),
@@ -10,9 +12,6 @@ const HomeLayout = Loadable({
   loader: () => import('Components/Layout/Home'),
   loading: () => null,
 });
-
-import { taskAPI } from 'Models/task';
-import { TaskLastCard } from 'Models/task/task.interface';
 
 type StateTypes = {
   lastCard: TaskLastCard | undefined;

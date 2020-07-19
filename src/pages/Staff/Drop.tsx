@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import queryString from 'query-string';
-import Loadable from 'react-loadable';
-
+// assets
+import dropDocsIcon from 'Assets/icons/staff/dropdocs.svg';
 // data & store
 import { taskTable } from 'Models/taskTable';
 import { TaskTableTypeAPI } from 'Models/taskTable/interface';
-
-// assets
-import dropDocsIcon from 'Assets/icons/staff/dropdocs.svg';
-import { useLocation, useHistory } from 'react-router-dom';
+import queryString from 'query-string';
+import React, { useEffect, useState } from 'react';
+import Loadable from 'react-loadable';
+import { useHistory, useLocation } from 'react-router-dom';
 
 const StaffLayout = Loadable({
   loader: () => import('Components/Layout/Staff/Home'),

@@ -1,10 +1,9 @@
-import React from 'react';
-import StaffLayout from 'Components/Layout/Staff/Home';
-import { Row, Col, Calendar } from 'antd';
-import HeadTitle from 'Components/HeadTitle';
-
+import { Calendar, Row } from 'antd';
 // assets
 import calendarIcon from 'Assets/icons/staff/calendar.svg';
+import HeadTitle from 'Components/HeadTitle';
+import StaffLayout from 'Components/Layout/Staff/Home';
+import React from 'react';
 
 const CalendarPages: React.FC = props => {
   return (

@@ -1,24 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import { Form, Radio, Row, Col, Input, Select } from 'antd';
+import { Col, Form, Input, Radio, Row, Select } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
-import { useDispatch, useSelector } from 'react-redux';
-
-import FormLabel from 'Components/FormLabel';
 import Button from 'Components/Button';
-
+import FormLabel from 'Components/FormLabel';
+import { Department, faculties } from 'Models/forms/department';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 // store & data
 import { RootReducersType } from 'Store/reducers';
-import { faculties, Department } from 'Models/forms/department';
-import { DEFAULT_REQUIRED_RULES } from './rules/required';
-import { DEFAULT_USERNAME_RULES } from './rules/username';
-
-// styles
-import labelStyles from './styles/label';
 import {
   fillForm,
   setFormCurrentIndex,
   submitForm,
 } from 'Store/reducers/areaForm/actions';
+import { DEFAULT_REQUIRED_RULES } from './rules/required';
+import { DEFAULT_USERNAME_RULES } from './rules/username';
+// styles
+import labelStyles from './styles/label';
 
 export interface RequestorForm {
   userType: string;

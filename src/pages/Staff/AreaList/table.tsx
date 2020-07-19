@@ -1,8 +1,8 @@
 /* eslint-disable react/display-name */
-import React from 'react';
 import { Table as TableAnt } from 'antd';
-import { AreaTableAPI } from 'Models/area/interfaces';
 import { ColumnProps } from 'antd/lib/table';
+import { AreaTableAPI } from 'Models/area/interfaces';
+import React from 'react';
 import { useHistory } from 'react-router';
 
 const AreaTable: React.FC<{

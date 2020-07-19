@@ -1,31 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import moment from 'moment';
-import { useLocation, useHistory, Switch, Route } from 'react-router';
-import { Icon, Row, Col } from 'antd';
-import Loadable from 'react-loadable';
-
+import { Col, Icon, Row } from 'antd';
 import Form, { FormComponentProps } from 'antd/lib/form';
-
-// store & data
-import stepsList from './steps/meeting';
-import {
-  setAreaInfoForm,
-  initForm,
-  setFormCurrentIndex,
-} from 'Store/reducers/areaForm/actions';
-import { RootReducersType } from 'Store/reducers';
-import { areaAPI } from 'Models/area';
-
-// styles
-import sharedStyles from '../common/styles/styles.module.css';
-
 import {
   Calendar as CalendarFormComp,
   Overview as OverviewForm,
 } from 'Components/Forms/Meeting';
-import { taskMeetingAPI } from 'Models/task/meeting';
 import { CalendarForm } from 'Components/Forms/Meeting/Calendar';
+import { areaAPI } from 'Models/area';
+import { taskMeetingAPI } from 'Models/task/meeting';
+import moment from 'moment';
+import React, { useEffect, useState } from 'react';
+import Loadable from 'react-loadable';
+import { useDispatch, useSelector } from 'react-redux';
+import { Route, Switch, useHistory, useLocation } from 'react-router';
+import { RootReducersType } from 'Store/reducers';
+import {
+  initForm,
+  setAreaInfoForm,
+  setFormCurrentIndex,
+} from 'Store/reducers/areaForm/actions';
+// styles
+import sharedStyles from '../common/styles/styles.module.css';
+// store & data
+import stepsList from './steps/meeting';
 
 const PageLayout = Loadable({
   loader: () => import('Components/Layout/Page'),

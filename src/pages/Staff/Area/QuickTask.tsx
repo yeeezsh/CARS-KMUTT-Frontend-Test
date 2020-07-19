@@ -1,10 +1,9 @@
 /* eslint-disable react/display-name */
-import React from 'react';
 import { Table } from 'antd';
 import { ColumnProps } from 'antd/lib/table';
 import State from 'Components/TaskTable/state';
-
 import { QuickTask } from 'Models/task/task.quick.interface';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 const QuickTask: React.FC<{

@@ -1,31 +1,28 @@
-import React, { useEffect } from 'react';
-import { Form, Row, Col, Checkbox } from 'antd';
+import { Checkbox, Col, Form, Row } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
-import { useDispatch, useSelector } from 'react-redux';
-import moment from 'moment';
-
-import Trail from 'Pages/Areas/Common/common/Trail';
-import Outline from 'Components/Outline';
 import BreakingLine from 'Components/BreakingLine';
 import Button from 'Components/Button';
-
-// interfaces
-import { RequestorForm } from './requestor';
-import { ProjectForm } from './project';
-import { FacilityForm } from './facility';
-
+import Outline from 'Components/Outline';
 // store & dara
 import { END_POINT } from 'Models/axios.interface';
+import moment from 'moment';
+import Trail from 'Pages/Areas/Common/common/Trail';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootReducersType } from 'Store/reducers';
-import { AreaForm } from './area';
-import { EquipmentForm } from './equipment';
-import { ReturnForm } from './return';
-import { AreaInfo } from 'Store/reducers/areaForm/types';
 import {
   fillForm,
   finishFormAction,
   setFormCurrentIndex,
 } from 'Store/reducers/areaForm/actions';
+import { AreaInfo } from 'Store/reducers/areaForm/types';
+import { AreaForm } from './area';
+import { EquipmentForm } from './equipment';
+import { FacilityForm } from './facility';
+import { ProjectForm } from './project';
+// interfaces
+import { RequestorForm } from './requestor';
+import { ReturnForm } from './return';
 
 // custom components
 const CustomBrakeLine: React.FC = () => (

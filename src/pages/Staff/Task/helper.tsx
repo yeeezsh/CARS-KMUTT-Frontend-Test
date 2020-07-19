@@ -1,6 +1,6 @@
-import React from 'react';
 import { Col } from 'antd';
 import BreakingLine from 'Components/BreakingLine';
+import React from 'react';
 
 export const CustomBrakeLine: React.FC = () => (
   <Col style={{ margin: '24px 0px 12px 0px' }} span={24}>

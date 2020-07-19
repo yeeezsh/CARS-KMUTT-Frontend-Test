@@ -1,10 +1,8 @@
-import React from 'react';
-
-import { Row, Col } from 'antd';
-import template from './template';
+import { Col, Row } from 'antd';
 import Button from 'Components/Button';
-
+import React from 'react';
 import { ConfirmMoalType } from './interface';
+import template from './template';
 
 const ModalFooter: React.FC<{
   type: ConfirmMoalType;

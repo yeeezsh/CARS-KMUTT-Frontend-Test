@@ -1,15 +1,12 @@
-import React, { Component } from 'react';
+import { Col, Row } from 'antd';
 import moment, { Moment } from 'moment';
-import { Row, Col } from 'antd';
-
-// interfaces
-import TimeNode from './timetable.interface';
-
+import React, { Component } from 'react';
+import BreakingLine from '../BreakingLine';
+import Outline from '../Outline';
 // styles
 import styles from './styles.module.css';
-
-import Outline from '../Outline';
-import BreakingLine from '../BreakingLine';
+// interfaces
+import TimeNode from './timetable.interface';
 
 const selecting: React.CSSProperties = {
   backgroundColor: '#1890FF',

@@ -1,9 +1,8 @@
-import React from 'react';
+import CheckIcon from 'Assets/icons/checked.user.svg';
 import { TaskDetail } from 'Models/task/task.interface';
-
+import React from 'react';
 // styles
 import styles from './styles.module.css';
-import CheckIcon from 'Assets/icons/checked.user.svg';
 
 const UsersReserveList: React.FC<{
   users: TaskDetail['requestor'];

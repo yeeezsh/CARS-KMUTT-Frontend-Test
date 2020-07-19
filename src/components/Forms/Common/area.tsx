@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import { Col, Row } from 'antd';
 import Form, { FormComponentProps } from 'antd/lib/form';
+import BreakingLine from 'Components/BreakingLine';
+import Button from 'Components/Button';
 import FormLabel from 'Components/FormLabel';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootReducersType } from 'Store/reducers';
 // import { data } from 'Models/reserve/data';
 import NumberWithToggle from 'Components/NumberWithToggle';
-import BreakingLine from 'Components/BreakingLine';
-import { Col, Row } from 'antd';
-import Button from 'Components/Button';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootReducersType } from 'Store/reducers';
 import {
   fillForm,
-  submitForm,
   setFormCurrentIndex,
+  submitForm,
 } from 'Store/reducers/areaForm/actions';
 
 export interface AreaForm {

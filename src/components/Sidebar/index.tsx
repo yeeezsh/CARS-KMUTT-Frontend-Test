@@ -1,19 +1,16 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
 import { Row } from 'antd';
-
 // components
 import MainCard from 'Components/AppDrawer/MainCard';
 import SubCard from 'Components/AppDrawer/SubCard';
-import UserCard from './UserCard';
-
+import React from 'react';
+import { useSelector } from 'react-redux';
 // data & store
 import { RootReducersType } from 'Store/reducers';
 import menu from './data';
-
+import { logoutIcon, sidebarIcon } from './icon.import';
 // assets & styles
 import styles from './styles.module.css';
-import { sidebarIcon, logoutIcon } from './icon.import';
+import UserCard from './UserCard';
 
 const Sidebar: React.FC = () => {
   const username = useSelector(

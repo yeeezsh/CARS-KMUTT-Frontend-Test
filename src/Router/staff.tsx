@@ -1,9 +1,8 @@
-import React from 'react';
-import { Router, Route, useLocation, useHistory } from 'react-router';
-import Loadable from 'react-loadable';
 import StaffSiderLayout from 'Components/Layout/Staff/Sider';
-
 import { u } from 'Models/user';
+import React from 'react';
+import Loadable from 'react-loadable';
+import { Route, Router, useHistory, useLocation } from 'react-router';
 
 const Home = Loadable({
   loader: () => import('Pages/Staff/Home'),

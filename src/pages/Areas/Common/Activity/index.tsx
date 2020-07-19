@@ -1,22 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import { Row, Col, Icon } from 'antd';
-import { Switch, Route, useHistory, useLocation } from 'react-router';
-import { useSelector, useDispatch } from 'react-redux';
-import Loadable from 'react-loadable';
-
+import { Col, Icon, Row } from 'antd';
+import { areaAPI } from 'Models/area';
 // store / data
 import { taskFormAPI } from 'Models/task/form';
+import React, { useEffect, useState } from 'react';
+import Loadable from 'react-loadable';
+import { useDispatch, useSelector } from 'react-redux';
+import { Route, Switch, useHistory, useLocation } from 'react-router';
+import { RootReducersType } from 'Store/reducers';
 import {
   initForm,
   setAreaInfoForm,
 } from 'Store/reducers/areaForm/actions';
-
-import { RootReducersType } from 'Store/reducers';
-import { areaAPI } from 'Models/area';
-import stepsList from './steps';
-
+// forms
+import {
+  FacilityForm,
+  OverviewCommonForm,
+  ProjectForm,
+  RequestorForm,
+} from '../../../../components/Forms/Common';
 // assets
 import sharedStyles from '../common/styles/styles.module.css';
+import Trail from '../common/Trail';
+import stepsList from './steps';
 
 const StateSteps = Loadable({
   loader: () => import('Components/StateSteps'),
@@ -42,15 +47,6 @@ const ConfirmModal = Loadable({
   loader: () => import('Components/AcceptedModal'),
   loading: () => null,
 });
-
-// forms
-import {
-  RequestorForm,
-  ProjectForm,
-  FacilityForm,
-  OverviewCommonForm,
-} from '../../../../components/Forms/Common';
-import Trail from '../common/Trail';
 
 // constant
 const MAX_STEPS = 3;

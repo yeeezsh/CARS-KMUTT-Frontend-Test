@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Router, Route, Switch } from 'react-router';
-import history from './history';
 import Loadable from 'react-loadable';
+import { Route, Router, Switch } from 'react-router';
+import history from './history';
 
 const PageUserRouter = Loadable({
   loader: () => import('./user'),

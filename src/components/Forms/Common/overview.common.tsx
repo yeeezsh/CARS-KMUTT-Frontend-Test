@@ -1,28 +1,25 @@
-import React, { useEffect } from 'react';
-import { Form, Row, Col, Checkbox } from 'antd';
+import { Checkbox, Col, Form, Row } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
-import { useDispatch, useSelector } from 'react-redux';
-import moment from 'moment';
-
-import Outline from 'Components/Outline';
 import BreakingLine from 'Components/BreakingLine';
 import Button from 'Components/Button';
-import Trail from 'Pages/Areas/Common/common/Trail';
-
-// interfaces
-import { RequestorForm } from './requestor';
-import { ProjectForm } from './project';
-import { FacilityForm } from './facility';
-
+import Outline from 'Components/Outline';
 // store & dara
 import { END_POINT } from 'Models/axios.interface';
+import moment from 'moment';
+import Trail from 'Pages/Areas/Common/common/Trail';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootReducersType } from 'Store/reducers';
-import { AreaInfo } from 'Store/reducers/areaForm/types';
 import {
-  finishFormAction,
   fillForm,
+  finishFormAction,
   setFormCurrentIndex,
 } from 'Store/reducers/areaForm/actions';
+import { AreaInfo } from 'Store/reducers/areaForm/types';
+import { FacilityForm } from './facility';
+import { ProjectForm } from './project';
+// interfaces
+import { RequestorForm } from './requestor';
 
 interface Props {
   ind?: number;

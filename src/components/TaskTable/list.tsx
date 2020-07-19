@@ -1,11 +1,10 @@
-import React from 'react';
-import { Row, Col } from 'antd';
-import moment from 'moment';
-
-import State from './state';
+import { Col, Row } from 'antd';
 import { TaskTable } from 'Models/taskTable/interface';
-import typeDescHelper from './type.desc.helper';
+import moment from 'moment';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import State from './state';
+import typeDescHelper from './type.desc.helper';
 
 const ListTable: React.FC<{
   header?: boolean;

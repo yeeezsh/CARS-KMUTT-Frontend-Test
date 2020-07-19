@@ -1,11 +1,10 @@
-import React from 'react';
-import { Row, Col } from 'antd';
+import { Col, Row } from 'antd';
 import { Moment } from 'moment';
+import React from 'react';
 import Loadable from 'react-loadable';
-
+import { ReserveState } from '../../models/reserve/interface';
 // assets
 import styles from './styles.module.css';
-import { ReserveState } from '../../models/reserve/interface';
 
 const StateCardIconColor = Loadable({
   loader: () => import('./icon'),

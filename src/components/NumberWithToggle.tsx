@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
-import React, { useState, useEffect } from 'react';
-import { Row, Col, Input } from 'antd';
+import { Col, Input, Row } from 'antd';
+import React, { useEffect, useState } from 'react';
 
 // styles
 const sharedLabelstyle: React.CSSProperties = {

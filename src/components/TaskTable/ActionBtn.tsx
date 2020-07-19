@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
 import EyeSVG from 'Assets/icons/staff/eye.svg';
+import React, { useState } from 'react';
 
 // styles
 const baseStyle: React.CSSProperties = {

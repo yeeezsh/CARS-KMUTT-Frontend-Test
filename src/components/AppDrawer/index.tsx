@@ -1,16 +1,12 @@
-import React from 'react';
 import { Drawer, Row } from 'antd';
-
-import MainCard from './MainCard';
-import SubCard from './SubCard';
-
-import styles from './styles.module.css';
-import menu from './data';
+import React from 'react';
 import { useSelector } from 'react-redux';
-
 import { RootReducersType } from 'Store/reducers';
-
+import menu from './data';
 import { hamburgerWhite, logoutIcon } from './icon.import';
+import MainCard from './MainCard';
+import styles from './styles.module.css';
+import SubCard from './SubCard';
 import UserCard from './UserCard';
 
 const AppDrawer: React.FunctionComponent<{

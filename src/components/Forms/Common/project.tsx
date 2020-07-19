@@ -1,41 +1,37 @@
-import React, { useEffect, useState } from 'react';
-import Form, { FormComponentProps } from 'antd/lib/form';
-import { Moment } from 'moment';
-import { useDispatch, useSelector } from 'react-redux';
 import {
-  Input,
-  Row,
-  Radio,
-  DatePicker,
   Col,
+  DatePicker,
+  Input,
+  Radio,
+  Row,
   TimePicker,
   Upload,
 } from 'antd';
+import Form, { FormComponentProps } from 'antd/lib/form';
 import { RadioChangeEvent } from 'antd/lib/radio';
 import {
   RcCustomRequestOptions,
   UploadFile,
 } from 'antd/lib/upload/interface';
-
 import Badge from 'Components/Badge';
-import FormLabel from 'Components/FormLabel';
 import Button from 'Components/Button';
-
-// styles
-import labelStyles from './styles/label';
-
-// utils
-import calendarCurrent from 'Utils/calendar.current';
-
+import FormLabel from 'Components/FormLabel';
+import i, { END_POINT } from 'Models/axios.interface';
+import { Moment } from 'moment';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 // store & data
 import { RootReducersType } from 'Store/reducers';
-import i, { END_POINT } from 'Models/axios.interface';
-import { DEFAULT_REQUIRED_RULES } from './rules/required';
 import {
-  setFormCurrentIndex,
   fillForm,
+  setFormCurrentIndex,
   submitForm,
 } from 'Store/reducers/areaForm/actions';
+// utils
+import calendarCurrent from 'Utils/calendar.current';
+import { DEFAULT_REQUIRED_RULES } from './rules/required';
+// styles
+import labelStyles from './styles/label';
 
 type DateType = 'oneday' | 'range';
 export interface ProjectForm {

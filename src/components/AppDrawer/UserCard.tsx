@@ -1,7 +1,6 @@
-import React from 'react';
-
 // assets
 import UserIcon from 'Assets/icons/drawer/user.svg';
+import React from 'react';
 
 const BoxStyle: React.CSSProperties = {
   width: '208px',

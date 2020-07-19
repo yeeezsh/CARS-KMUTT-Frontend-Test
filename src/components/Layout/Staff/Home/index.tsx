@@ -1,10 +1,9 @@
-import React from 'react';
 import { Layout, Row } from 'antd';
 import SearchBar from 'Components/SearchBar';
+import React from 'react';
 import { useSelector } from 'react-redux';
-
-import styles from './styles.module.css';
 import { RootReducersType } from 'store/reducers';
+import styles from './styles.module.css';
 
 const { Header } = Layout;
 

@@ -1,28 +1,24 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import moment from 'moment';
+import { Checkbox, Col, Row } from 'antd';
 import Form, { FormComponentProps } from 'antd/lib/form';
-import { Col, Checkbox, Row } from 'antd';
-
 import BreakingLine from 'Components/BreakingLine';
-import Outline from 'Components/Outline';
 import Button from 'Components/Button';
-
 // pages
 import { FacilityForm } from 'Components/Forms/Common/facility';
-import { CalendarForm } from './Calendar';
-
-// data & store
-import { RootReducersType } from 'Store/reducers';
-import { AreaInfo } from 'Store/reducers/areaForm/types';
-import {
-  setFormCurrentIndex,
-  fillForm,
-  finishFormAction,
-} from 'Store/reducers/areaForm/actions';
-
+import Outline from 'Components/Outline';
 // hooks
 import useWindowResize from 'Hooks/windows.resize';
+import moment from 'moment';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+// data & store
+import { RootReducersType } from 'Store/reducers';
+import {
+  fillForm,
+  finishFormAction,
+  setFormCurrentIndex,
+} from 'Store/reducers/areaForm/actions';
+import { AreaInfo } from 'Store/reducers/areaForm/types';
+import { CalendarForm } from './Calendar';
 
 interface Props {
   ind?: number;

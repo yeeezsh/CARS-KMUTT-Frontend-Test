@@ -1,13 +1,13 @@
-import React from 'react';
-import { TaskTableType, TaskTable } from 'Models/taskTable/interface';
 import { Row, Table } from 'antd';
-import HeadTitle from 'Components/HeadTitle';
 import { ColumnProps } from 'antd/lib/table';
+import HeadTitle from 'Components/HeadTitle';
+import { TaskTable, TaskTableType } from 'Models/taskTable/interface';
 import moment from 'moment';
-import typeDescHelper from './type.desc.helper';
-import State from './state';
-import ActionBtn from './ActionBtn';
+import React from 'react';
 import { useHistory } from 'react-router';
+import ActionBtn from './ActionBtn';
+import State from './state';
+import typeDescHelper from './type.desc.helper';
 
 interface Props {
   title?: string;

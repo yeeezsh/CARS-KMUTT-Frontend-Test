@@ -1,7 +1,6 @@
-import React from 'react';
 import { Col, Row } from 'antd';
 import Menu from 'Models/menu/interface';
-
+import React from 'react';
 import styles from './card.module.css';
 
 const NeedActionDot: React.FC = () => (

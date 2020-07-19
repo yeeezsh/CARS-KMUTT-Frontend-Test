@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import { Col, Input, Row } from 'antd';
 import Form, { FormComponentProps } from 'antd/lib/form';
+import BreakingLine from 'Components/BreakingLine';
+import Button from 'Components/Button';
 import FormLabel from 'Components/FormLabel';
+import NumberWithToggle from 'Components/NumberWithToggle';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootReducersType } from 'Store/reducers';
-import NumberWithToggle from 'Components/NumberWithToggle';
-import BreakingLine from 'Components/BreakingLine';
-import { Col, Row, Input } from 'antd';
-import Button from 'Components/Button';
-import labelStyles from './styles/label';
 import {
-  setFormCurrentIndex,
   fillForm,
+  setFormCurrentIndex,
   submitForm,
 } from 'Store/reducers/areaForm/actions';
+import labelStyles from './styles/label';
 
 export interface EquipmentForm {
   football: number;

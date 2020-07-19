@@ -1,7 +1,5 @@
+import { Col, Modal, Row } from 'antd';
 import React, { Component } from 'react';
-import { Modal, Row, Col } from 'antd';
-
-import icon from '../../assets/icons/checked.blue.large.svg';
 import Button from '../Button';
 
 export default class ActionModal extends Component<

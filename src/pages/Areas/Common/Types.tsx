@@ -1,13 +1,12 @@
-import React from 'react';
-import KanBanLayout from 'Components/Layout/Kanban';
-import KanbanCard from 'Components/KanbanCard';
-import { useLocation, useHistory } from 'react-router';
-import Menu from 'Models/menu/interface';
-
+import sportTypeBuildingIcon from 'Assets/icons/area/building/basketball-ball.svg';
 // assets
 import activityTypeBuildingIcon from 'Assets/icons/area/building/kfc.svg';
-import sportTypeBuildingIcon from 'Assets/icons/area/building/basketball-ball.svg';
 import BackCard from 'Components/BackCard';
+import KanbanCard from 'Components/KanbanCard';
+import KanBanLayout from 'Components/Layout/Kanban';
+import Menu from 'Models/menu/interface';
+import React from 'react';
+import { useHistory, useLocation } from 'react-router';
 import BackCardStyles from '../styles/backcard';
 
 const TypesPage: React.FunctionComponent<{

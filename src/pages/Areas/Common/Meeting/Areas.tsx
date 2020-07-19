@@ -1,6 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router';
+import { commonAreaAPI } from 'Models/area/common';
+// interfaces
+import Menu from 'Models/menu/interface';
+// styles
+import BackCardStyles from 'Pages/Areas/styles/backcard';
+import React, { useEffect, useState } from 'react';
 import Loadable from 'react-loadable';
+import { useHistory } from 'react-router';
 
 // components
 const BackCard = Loadable({
@@ -15,13 +20,6 @@ const KanbanCard = Loadable({
   loader: () => import('Components/KanbanCard'),
   loading: () => null,
 });
-
-// styles
-import BackCardStyles from 'Pages/Areas/styles/backcard';
-
-// interfaces
-import Menu from 'Models/menu/interface';
-import { commonAreaAPI } from 'Models/area/common';
 
 const Types: React.FC = () => {
   const [areas, setAreas] = useState<Menu[]>([]);

@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import Loadable from 'react-loadable';
-import queryString from 'query-string';
-
-import { taskTable } from 'Models/taskTable';
-import { TaskTableTypeAPI } from 'Models/taskTable/interface';
-
 // assets
 import allDocsIcon from 'Assets/icons/staff/alldocs.svg';
+import { taskTable } from 'Models/taskTable';
+import { TaskTableTypeAPI } from 'Models/taskTable/interface';
+import queryString from 'query-string';
+import React, { useEffect, useState } from 'react';
+import Loadable from 'react-loadable';
 import { useHistory, useLocation } from 'react-router';
 
 const StaffLayout = Loadable({

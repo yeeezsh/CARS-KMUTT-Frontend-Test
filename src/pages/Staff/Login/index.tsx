@@ -1,22 +1,18 @@
-import React, { Component } from 'react';
+import { Col, Form, Icon, Input, Row } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
-import { Row, Col, Input, Form, Icon } from 'antd';
-import { withRouter, RouteComponentProps } from 'react-router';
-
-import Button from 'Components/Button';
-
-import { u } from 'Models/user';
-
-import styles from './styles.module.css';
 import logo from 'Assets/login.logo.svg';
-
-// utils
-import usernameValidator from 'Utils/username.validator';
+import Button from 'Components/Button';
+import { u } from 'Models/user';
 import {
   MSG_BAD_USERNAME,
-  MSG_REQUIRE_USERNAME,
   MSG_REQUIRE_PASSWORD,
+  MSG_REQUIRE_USERNAME,
 } from 'Models/user/default.msg';
+import React, { Component } from 'react';
+import { RouteComponentProps, withRouter } from 'react-router';
+// utils
+import usernameValidator from 'Utils/username.validator';
+import styles from './styles.module.css';
 
 class StaffLoginPage extends Component<
   FormComponentProps & RouteComponentProps,

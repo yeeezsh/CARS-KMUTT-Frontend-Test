@@ -1,9 +1,8 @@
-import React from 'react';
 import { Layout as AntLayout } from 'antd';
-import Sidebar from 'Components/Sidebar';
-
-import styles from './styles.module.css';
 import Layout from 'antd/lib/layout/layout';
+import Sidebar from 'Components/Sidebar';
+import React from 'react';
+import styles from './styles.module.css';
 
 const { Sider } = AntLayout;
 

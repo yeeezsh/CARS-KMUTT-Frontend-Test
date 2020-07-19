@@ -1,10 +1,24 @@
-import React, { Component } from 'react';
-import { Router, Route, Switch } from 'react-router';
-import Loadable from 'react-loadable';
-import history from './history';
-
-import hamburgerWhite from 'Assets/icons/hamburger-white.svg';
 import hamburgerOrange from 'Assets/icons/hamburger-orange.svg';
+import hamburgerWhite from 'Assets/icons/hamburger-white.svg';
+import { u } from 'Models/user';
+// Common Area
+import { Category as AreaCategory } from 'Pages/Areas';
+import {
+  Activity as CommonActivity,
+  Areas as CommonArea,
+  Sport as CommonSport,
+  TypesWSport as CommonAreaTypes,
+} from 'Pages/Areas/Common';
+import {
+  Areas as MeetingArea,
+  FormClub as MeetingFormClub,
+  FormMeeting as MeetingFormMeeting,
+} from 'Pages/Areas/Common/Meeting';
+import { Category as SportCategory, Page as SportPage } from 'Pages/Sport';
+import React, { Component } from 'react';
+import Loadable from 'react-loadable';
+import { Route, Router, Switch } from 'react-router';
+import history from './history';
 
 const LoginPage = Loadable({
   loader: () => import('Pages/Login'),
@@ -22,23 +36,6 @@ const LogoutPage = Loadable({
   loader: () => import('Pages/Logout'),
   loading: () => null,
 });
-
-import { Category as SportCategory, Page as SportPage } from 'Pages/Sport';
-import { u } from 'Models/user';
-
-// Common Area
-import { Category as AreaCategory } from 'Pages/Areas';
-import {
-  Areas as CommonArea,
-  TypesWSport as CommonAreaTypes,
-  Activity as CommonActivity,
-  Sport as CommonSport,
-} from 'Pages/Areas/Common';
-import {
-  Areas as MeetingArea,
-  FormClub as MeetingFormClub,
-  FormMeeting as MeetingFormMeeting,
-} from 'Pages/Areas/Common/Meeting';
 
 const AppDrawer = Loadable({
   loader: () => import('../components/AppDrawer'),

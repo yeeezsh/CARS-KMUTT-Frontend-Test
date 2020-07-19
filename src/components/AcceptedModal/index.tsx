@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { Modal, Row, Col } from 'antd';
-import Outline from 'Components/Outline';
+import { Col, Modal, Row } from 'antd';
 import icon from 'Assets/icons/checked.blue.large.svg';
 import Button from 'Components/Button';
+import Outline from 'Components/Outline';
+import React, { Component } from 'react';
 
 export default class ConfirmModal extends Component<
   {

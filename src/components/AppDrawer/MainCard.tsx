@@ -1,9 +1,8 @@
-import React from 'react';
-import { Row, Col } from 'antd';
-import { Link } from 'react-router-dom';
-
-import styles from './styles.module.css';
+import { Col, Row } from 'antd';
 import { Drawer } from 'Models/drawer/interface';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import styles from './styles.module.css';
 
 export default function MainCard(props: {
   settings?: Drawer['settings'];

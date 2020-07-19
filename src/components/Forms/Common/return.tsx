@@ -1,26 +1,22 @@
-import React, { useEffect } from 'react';
+import { Col, DatePicker, Row } from 'antd';
 import Form, { FormComponentProps } from 'antd/lib/form';
-import { Moment } from 'moment';
-import { useDispatch, useSelector } from 'react-redux';
-import { Row, DatePicker, Col } from 'antd';
-
-import FormLabel from 'Components/FormLabel';
 import Button from 'Components/Button';
-
-// styles
-import labelStyles from './styles/label';
-
-// utils
-import calendarCurrent from 'Utils/calendar.current';
-
+import FormLabel from 'Components/FormLabel';
+import { Moment } from 'moment';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 // store & data
 import { RootReducersType } from 'Store/reducers';
-import { DEFAULT_REQUIRED_RULES } from './rules/required';
 import {
-  setFormCurrentIndex,
   fillForm,
+  setFormCurrentIndex,
   submitForm,
 } from 'Store/reducers/areaForm/actions';
+// utils
+import calendarCurrent from 'Utils/calendar.current';
+import { DEFAULT_REQUIRED_RULES } from './rules/required';
+// styles
+import labelStyles from './styles/label';
 
 export interface ReturnForm {
   return: Moment;

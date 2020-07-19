@@ -1,16 +1,12 @@
-import React, { Component } from 'react';
-import { Form, Col, Row, Input } from 'antd';
-
+import { Col, Form, Input, Row } from 'antd';
 import { FormComponentProps } from 'antd/lib/form/Form';
-
-import Outline from 'Components/Outline';
 import Button from 'Components/Button';
-
-import usernameValidator from 'Utils/username.validator';
-
-import styles from './styles.module.css';
+import Outline from 'Components/Outline';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { RootReducersType } from 'Store/reducers';
+import usernameValidator from 'Utils/username.validator';
+import styles from './styles.module.css';
 
 interface PropsTypes extends FormComponentProps {
   required?: number;
