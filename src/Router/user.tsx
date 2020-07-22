@@ -29,10 +29,6 @@ const Home = Loadable({
   loader: () => import('Pages/Home'),
   loading: () => null,
 });
-const Page = Loadable({
-  loader: () => import('Pages/Page'),
-  loading: () => null,
-});
 const LogoutPage = Loadable({
   loader: () => import('Pages/Logout'),
   loading: () => null,
@@ -137,9 +133,6 @@ export default class PageUserRouter extends Component<
           <RouteGuard>
             <Home />
           </RouteGuard>
-        </Route>
-        <Route path="/page">
-          <Page />
         </Route>
 
         {/* Area */}
