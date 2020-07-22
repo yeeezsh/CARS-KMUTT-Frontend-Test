@@ -19,6 +19,7 @@ import React, { Component } from 'react';
 import Loadable from 'react-loadable';
 import { Route, Router, Switch } from 'react-router';
 import history from './history';
+import RouteGuard from './RouteGuard';
 
 const LoginPage = Loadable({
   loader: () => import('Pages/Login'),
@@ -133,7 +134,9 @@ export default class PageUserRouter extends Component<
         </Route>
 
         <Route exact={true} path="/">
-          <Home />
+          <RouteGuard>
+            <Home />
+          </RouteGuard>
         </Route>
         <Route path="/page">
           <Page />
