@@ -35,11 +35,11 @@ const LogoutPage = Loadable({
 });
 
 const AppDrawer = Loadable({
-  loader: () => import('../components/AppDrawer'),
+  loader: () => import('Components/AppDrawer'),
   loading: () => null,
 });
 const MyReservePage = Loadable({
-  loader: () => import('../pages/MyReserve'),
+  loader: () => import('Pages/MyReserve'),
   loading: () => null,
 });
 
