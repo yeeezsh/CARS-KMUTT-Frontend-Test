@@ -10,6 +10,7 @@ CMD ["yarn", "start"]
 EXPOSE 5000
 
 FROM node:12 as uat
+# cache dependencies
 ADD yarn.lock /tmp/yarn.lock
 ADD package.json /tmp/package.json
 RUN cd /tmp && yarn install
@@ -19,6 +20,9 @@ WORKDIR /src
 RUN yarn build
 ARG REACT_APP_BACKEND_ENDPOINT
 ENV REACT_APP_BACKEND_ENDPOINT $REACT_APP_BACKEND_ENDPOINT
-WORKDIR /src/server
-CMD ["node", "--max-old-space-size=2048", "app.js"]
-EXPOSE 5000
+
+FROM nginx:alpine as nginx
+COPY --from=uat /src/dist/ /var/www
+COPY /server/nginx.conf /etc/nginx/nginx.conf
+EXPOSE 80
+ENTRYPOINT ["nginx","-g","daemon off;"]
