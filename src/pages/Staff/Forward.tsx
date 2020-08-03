@@ -44,7 +44,7 @@ function StaffForward() {
   useEffect(() => {
     setQueryString();
     setLoading(true);
-    taskTable.getAcceptTask(current, size, orderCol, order).then(e => {
+    taskTable.getForwardTask(current, size, orderCol, order).then(e => {
       setData(e);
       setLoading(false);
     });
