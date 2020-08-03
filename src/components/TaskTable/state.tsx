@@ -16,6 +16,8 @@ const State: React.FC<{ state?: string }> = props => {
       return (
         <p style={{ ...mainStyle, color: '#1890FF' }}>รอการอนุมัติ</p>
       );
+    case 'forward':
+      return <p style={{ ...mainStyle, color: '#1890FF' }}>รอการส่งต่อ</p>;
     case 'requested':
       return (
         <p style={{ ...mainStyle, color: '#1890FF' }}>
