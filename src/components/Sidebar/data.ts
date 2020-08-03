@@ -1,12 +1,13 @@
-import {
-  docsIcon,
-  allDocs,
-  rejectDocs,
-  acceptDocs,
-  dropDocs,
-  calendarIcon,
-} from './icon.import';
 import { Drawer } from 'Models/drawer/interface';
+import {
+  acceptDocs,
+  allDocs,
+  calendarIcon,
+  docsIcon,
+  dropDocs,
+  forwardDocs,
+  rejectDocs,
+} from './icon.import';
 
 const menu: Drawer[] = [
   {
@@ -50,6 +51,12 @@ const menu: Drawer[] = [
         label: ['ไม่อนุมัติ'],
         icon: dropDocs,
         link: '/staff/drop',
+      },
+      {
+        key: '5',
+        label: ['ส่งต่อ'],
+        icon: forwardDocs,
+        link: '/staff/forward',
       },
     ],
   },
