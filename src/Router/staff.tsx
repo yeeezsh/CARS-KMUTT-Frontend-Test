@@ -28,6 +28,10 @@ const Wait = Loadable({
   loader: () => import('Pages/Staff/Wait'),
   loading: () => null,
 });
+const Forward = Loadable({
+  loader: () => import('Pages/Staff/Forward'),
+  loading: () => null,
+});
 
 const Login = Loadable({
   loader: () => import('Pages/Staff/Login'),
@@ -107,6 +111,9 @@ const StaffRouter: React.FunctionComponent = () => {
       </Route>
       <Route path="**/wait">
         <Wait />
+      </Route>
+      <Route path="**/forward">
+        <Forward />
       </Route>
 
       {/* home */}
