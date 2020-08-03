@@ -44,6 +44,10 @@ const UsersReserveList = Loadble({
   loader: () => import('Components/UsersReserveList'),
   loading: () => null,
 });
+const ReservationMessage = Loadble({
+  loader: () => import('./ReservationMessage'),
+  loading: () => null,
+});
 
 // custom components
 const CenterIconLayout: React.FC = props => (
@@ -81,6 +85,7 @@ class ReservationInfo extends Component<
     cancle: boolean;
     forms?: any;
     type?: TaskDetail['type'];
+    comments: TaskDetail['desc'];
   }
 > {
   constructor(props: PropTypes) {
@@ -100,6 +105,7 @@ class ReservationInfo extends Component<
       ownConfirm: false,
       _id: '',
       cancle: false,
+      comments: [],
     };
   }
 
@@ -139,12 +145,15 @@ class ReservationInfo extends Component<
     if (!id) throw new Error('invalid id');
 
     const data = await taskAPI.getTaskById(id);
+    if (!data) return;
+
     const owner = username === (data && data.requestor[0].username);
     const ownConfirm =
       data?.requestor.filter(e => e.username === username)[0].confirm ||
       false;
 
-    if (!data) return;
+    console.log('data ja', data);
+
     const state = data.state;
     return this.setState({
       _id: data._id,
@@ -158,6 +167,7 @@ class ReservationInfo extends Component<
       cancle: data.cancle,
       forms: data.forms,
       type: data.type,
+      comments: data.desc,
     });
   };
 
@@ -269,6 +279,11 @@ class ReservationInfo extends Component<
 
     const DataContainer: JSX.Element = (
       <>
+        {/* Comment from staffs */}
+        {this.state.comments.map((e, i) => (
+          <ReservationMessage key={i} msg={e.msg} date={e.createAt} />
+        ))}
+
         <Col span={24} className={styles.overview}>
           <Outline className={styles.header}>ข้อมูลการจอง</Outline>
           {/* sub header */}
