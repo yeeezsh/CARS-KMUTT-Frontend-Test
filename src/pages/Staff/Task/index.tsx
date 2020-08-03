@@ -11,11 +11,17 @@ import typeDescHelper from 'Components/TaskTable/type.desc.helper';
 // data & store
 import { taskAPI } from 'Models/task';
 import { TaskDetail } from 'Models/task/task.interface';
+import { u } from 'Models/user';
+import { StaffPermissionType } from 'Models/user/staff.interface';
+import staffGroupHelper from 'Models/user/staffGroupHelper';
 import React, { useEffect, useState } from 'react';
 import Loadable from 'react-loadable';
 import { useHistory, useLocation } from 'react-router';
 import { CustomBrakeLine, detailStyle, mainStyle } from './helper';
 import { initTask } from './init.state';
+
+// constant
+const MAX_LEVEL_FORWARD = 2;
 
 const StaffLayout = Loadable({
   loader: () => import('Components/Layout/Staff/Home'),
@@ -142,14 +148,66 @@ const TaskPage: React.FC = () => {
           lastState === 'reject' || lastState === 'drop';
         const alreadyAccepted = lastState === 'accept';
         const alreadyForward = lastState === 'forward';
+        const currentUserLevel = staffGroupHelper(
+          u.GetUser().group as StaffPermissionType,
+        );
+
+        console.log('already forward', alreadyForward);
+        // cancle & accept
+        if (!alreadyForward) {
+          setCancle(alreadyCancel);
+          setAccepted(alreadyAccepted);
+          if (currentUserLevel >= MAX_LEVEL_FORWARD) {
+            setForward(true);
+          } else {
+            setForward(false);
+          }
+          return;
+        }
+
+        // forward ** overrides cancle & accept **
         if (alreadyForward) {
-          const canNextForward = task.staff.slice(-1)[0].approve === true;
-          setForward(canNextForward);
+          const taskLevelForward = staffGroupHelper(
+            t.staff.slice(-1)[0].group,
+          );
+
+          const canNextForward = taskLevelForward < MAX_LEVEL_FORWARD;
+
+          // when reach to max lv staff
+          if (!canNextForward) {
+            if (currentUserLevel === taskLevelForward) {
+              setAccepted(false);
+              setCancle(false);
+              return;
+            }
+            return setForward(true);
+          }
+
+          if (taskLevelForward < currentUserLevel) {
+            console.log('task < cur');
+            setAccepted(false);
+            setCancle(false);
+            // setForward(false);
+            if (currentUserLevel >= MAX_LEVEL_FORWARD) {
+              setForward(true);
+            } else {
+              setForward(false);
+            }
+          } else if (taskLevelForward === currentUserLevel) {
+            console.log('task === cur');
+            setAccepted(false);
+            setCancle(false);
+            setForward(false);
+          } else {
+            console.log('task > cur');
+            setAccepted(true);
+            setCancle(true);
+            setForward(true);
+          }
+          console.log('level', taskLevelForward, currentUserLevel);
         } else {
           setForward(true);
         }
-        setCancle(alreadyCancel);
-        setAccepted(alreadyAccepted);
       }
     });
   }, []);
@@ -294,7 +352,7 @@ const TaskPage: React.FC = () => {
                 )}
 
                 {/* forward */}
-                {forward && (
+                {!forward && (
                   <Button
                     style={{
                       width: '275px',
