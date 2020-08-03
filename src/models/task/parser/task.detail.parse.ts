@@ -1,5 +1,5 @@
-import { TaskDetailAPI, TaskDetail } from '../task.interface';
 import moment from 'moment';
+import { TaskDetail, TaskDetailAPI } from '../task.interface';
 
 export default (data: TaskDetailAPI): TaskDetail => ({
   ...data,
@@ -12,4 +12,8 @@ export default (data: TaskDetailAPI): TaskDetail => ({
     })),
   createAt: moment(data.createAt),
   updateAt: moment(data.updateAt),
+  desc:
+    data.desc && data.desc?.length != 0
+      ? data.desc?.map(e => ({ ...e, createAt: moment(e.createAt) }))
+      : [],
 });
