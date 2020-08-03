@@ -10,6 +10,8 @@ export default (state: ReserveState): ReserveStateDesc => {
       return 'ไม่ได้รับการอนุมัติ';
     case 'wait':
       return 'รอการยืนยัน';
+    case 'forward':
+      return 'รอการส่งต่อ';
     case 'requested':
       return 'รอการยืนยันจากเพื่อน';
     case 'drop':
