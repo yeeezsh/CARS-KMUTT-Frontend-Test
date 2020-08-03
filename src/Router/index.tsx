@@ -9,7 +9,7 @@ const PageUserRouter = Loadable({
 });
 
 const PageStaffRouter = Loadable({
-  loader: () => import('./staff'),
+  loader: () => import('./Staff'),
   loading: () => null,
 });
 

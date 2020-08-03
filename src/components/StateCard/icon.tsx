@@ -27,6 +27,15 @@ const StateCardIconColor: React.FunctionComponent<{
           </p>
         </React.Fragment>
       );
+    case 'forward':
+      return (
+        <React.Fragment>
+          <img src={StateBlue} alt="state-blue" />
+          <p style={{ ...label, color: '#1890FF' }}>
+            {desc || stateDesc(type)}
+          </p>
+        </React.Fragment>
+      );
     case 'requested':
       return (
         <React.Fragment>

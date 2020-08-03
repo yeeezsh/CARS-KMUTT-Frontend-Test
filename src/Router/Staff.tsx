@@ -1,5 +1,9 @@
 import StaffSiderLayout from 'Components/Layout/Staff/Sider';
 import { u } from 'Models/user';
+import {
+  StaffPermissionType,
+  STAFF_PERMISSION,
+} from 'Models/user/staff.interface';
 import React from 'react';
 import Loadable from 'react-loadable';
 import { Route, Router, useHistory, useLocation } from 'react-router';
@@ -22,6 +26,10 @@ const Drop = Loadable({
 });
 const Wait = Loadable({
   loader: () => import('Pages/Staff/Wait'),
+  loading: () => null,
+});
+const Forward = Loadable({
+  loader: () => import('Pages/Staff/Forward'),
   loading: () => null,
 });
 
@@ -53,9 +61,14 @@ const Area = Loadable({
 const StaffRouter: React.FunctionComponent = () => {
   const location = useLocation();
   const history = useHistory();
-  const validStaff = u.GetUser().group === 'staff';
-  if (!validStaff && location.pathname !== '/staff/login')
+  const validStaff = STAFF_PERMISSION.includes(
+    u.GetUser().group as StaffPermissionType,
+  );
+  if (!validStaff && location.pathname !== '/staff/login') {
+    console.warn('redirecting to login pages cuz invalid permission');
     history.push('/staff/login');
+  }
+
   const currentLoginPage = location.pathname.match('/login');
 
   return (
@@ -98,6 +111,9 @@ const StaffRouter: React.FunctionComponent = () => {
       </Route>
       <Route path="**/wait">
         <Wait />
+      </Route>
+      <Route path="**/forward">
+        <Forward />
       </Route>
 
       {/* home */}

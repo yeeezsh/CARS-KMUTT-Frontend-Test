@@ -1,5 +1,5 @@
-import moment from 'moment';
 import i from 'Models/axios.interface';
+import moment from 'moment';
 import {
   // TaskTableType,
   TaskTable as TaskTableInterface,
@@ -12,7 +12,7 @@ class TaskTable {
     size: number,
     orderCol?: string,
     order?: 1 | -1,
-    taskType?: 'all' | 'wait' | 'reject' | 'accept' | 'drop',
+    taskType?: 'all' | 'wait' | 'reject' | 'accept' | 'drop' | 'forward',
   ): Promise<TaskTableTypeAPI> {
     const res = await i.instance.get(`/task/staff/${taskType}`, {
       params: {
@@ -56,6 +56,15 @@ class TaskTable {
     order?: 1 | -1,
   ) {
     return this.getTask(current, size, orderCol, order, 'accept');
+  }
+
+  async getForwardTask(
+    current: number,
+    size: number,
+    orderCol?: string,
+    order?: 1 | -1,
+  ) {
+    return this.getTask(current, size, orderCol, order, 'forward');
   }
   async getWaitTask(
     current: number,
