@@ -1,9 +1,13 @@
-import { Moment } from 'moment';
-import { ReserveStateDesc } from '../reserve/interface';
-import { TimeSlot } from './timeslot.interface';
 import { AreaBuilding } from 'Models/area/area.building.interfaces';
+import { Moment } from 'moment';
 import { TaskArea } from './task.area.interface';
 import { TaskStaffRequested } from './task.staff.requested.interface';
+import { TimeSlot } from './timeslot.interface';
+
+export interface TaskDesc {
+  msg: string;
+  createAt: Date | Moment;
+}
 
 export type TaskStateType =
   | 'wait'
@@ -25,7 +29,7 @@ export interface Task {
   reserve: TimeSlot[];
   state: TaskStateType[];
   area: TaskArea;
-  desc?: ReserveStateDesc;
+  desc?: TaskDesc[];
   forms?: any;
   type?: TaskType | string;
 
@@ -54,6 +58,7 @@ export interface TaskDetailAPI extends Task {
   staff: [];
   requestor: TaskDetailRequestor[];
   building: AreaBuilding;
+  desc?: { msg: string; createAt: Date }[];
   createAt: Date;
   updateAt: Date;
 }
@@ -62,6 +67,7 @@ export interface TaskDetail extends Task {
   staff: TaskStaffRequested[];
   requestor: TaskDetailRequestor[];
   building: AreaBuilding;
+  desc: { msg: string; createAt: Moment }[];
   createAt: Moment;
   updateAt: Moment;
 }
