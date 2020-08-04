@@ -97,6 +97,7 @@ class SportPage extends Component<
     backCard: string[];
     confirmModal: boolean;
     quota: boolean;
+    failed: boolean;
   }
 > {
   state = {
@@ -108,6 +109,7 @@ class SportPage extends Component<
     confirmModal: false,
     areas: [],
     quota: true,
+    failed: false,
   };
 
   onSelectDate = async (date: Moment) => {
@@ -135,6 +137,7 @@ class SportPage extends Component<
         return {
           step: 2,
           status: prevState.status.map((e, i) => (i === 0 ? true : e)),
+          failed: false, // reset failed status after select a new time slot
         };
       },
       () => {
@@ -241,7 +244,7 @@ class SportPage extends Component<
       const target = pathname.replace(FINISH_PAGE, FIRST_STEP_PAGE);
       history.replace(target);
       this.props.queryArea(); // query again
-      return this.setState({ step: 1 });
+      return this.setState({ step: 1, failed: true });
     }
   };
 
@@ -288,7 +291,7 @@ class SportPage extends Component<
   }
 
   render() {
-    const { confirmModal, step, backCard, quota } = this.state;
+    const { confirmModal, step, backCard, quota, failed } = this.state;
 
     const { areaSelected } = this.props;
 
@@ -382,6 +385,15 @@ class SportPage extends Component<
               สิทธิ์การจองสนามกีฬาของคุณเต็มแล้ว
             </p>{' '}
             <p>(1 คน /1 การจองสนามกีฬา)</p>
+          </Snackbar>
+        )}
+
+        {failed && (
+          <Snackbar show={true} interval={5000}>
+            <p style={{ fontWeight: 'bold' }}>
+              เวลาดังกล่าวมีผู้ใช้งานแล้ว
+            </p>{' '}
+            <p>กรุณาเลือกเวลาใหม่อีกครั้ง</p>
           </Snackbar>
         )}
       </React.Fragment>
