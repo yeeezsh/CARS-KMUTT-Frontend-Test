@@ -132,10 +132,13 @@ const FormClub: React.FC<FormComponentProps> = () => {
     history.push(newPath);
   }, [steps]);
 
-  if (forms.finish) {
-    console.log('send data');
-    sendData();
-  }
+  useEffect(() => {
+    if (forms.finish) {
+      console.log('send data');
+      sendData();
+    }
+  }, [forms.finish]);
+
   return (
     <PageLayout titile="จองห้องประชุม">
       {/* Fixed header */}
