@@ -5,6 +5,7 @@ import {
   Overview as OverviewForm,
 } from 'Components/Forms/Meeting';
 import { CalendarForm } from 'Components/Forms/Meeting/Calendar';
+import Snackbar from 'Components/Snackbar';
 import { areaAPI } from 'Models/area';
 import { taskMeetingAPI } from 'Models/task/meeting';
 import moment from 'moment';
@@ -64,22 +65,42 @@ const FormClub: React.FC<FormComponentProps> = () => {
   const history = useHistory();
   const location = useLocation().pathname;
   const [modal, setModal] = useState<boolean>(false);
+  const [failed, setFailed] = useState<boolean>(false);
 
   const areaId = location.split('/')[AREA_PARAM_IND];
 
-  function sendData() {
+  function initFormHelper() {
+    areaAPI.getAreaInfo(areaId).then(a => dispatch(setAreaInfoForm(a)));
+    dispatch(initForm({ size: MAX_STEPS }));
+    dispatch(setFormCurrentIndex(0));
+  }
+
+  async function sendData() {
     const calendarData: CalendarForm | undefined = forms.forms[0];
-    taskMeetingAPI.createMeetingClubTask({
-      area: areaId,
-      forms: forms.forms,
-      time: [
-        {
-          start: moment(calendarData?.startTime).toDate(),
-          stop: moment(calendarData?.stopTime).toDate(),
-          allDay: false,
-        },
-      ],
-    });
+    try {
+      await taskMeetingAPI.createMeetingClubTask({
+        area: areaId,
+        forms: forms.forms,
+        time: [
+          {
+            start: moment(calendarData?.startTime).toDate(),
+            stop: moment(calendarData?.stopTime).toDate(),
+            allDay: false,
+          },
+        ],
+      });
+      setModal(true);
+      dispatch(initForm({ size: MAX_STEPS }));
+    } catch {
+      // duplicated reservation
+      const FINISH_PAGE = '/' + MAX_STEPS;
+      const FIRST_STEP_PAGE = '/1';
+
+      const target = location.replace(FINISH_PAGE, FIRST_STEP_PAGE);
+      history.replace(target);
+      setFailed(true);
+      initFormHelper();
+    }
   }
 
   function goBack() {
@@ -98,11 +119,7 @@ const FormClub: React.FC<FormComponentProps> = () => {
   }
 
   // once
-  useEffect(() => {
-    dispatch(initForm({ size: MAX_STEPS }));
-    dispatch(setFormCurrentIndex(0));
-    areaAPI.getAreaInfo(areaId).then(a => dispatch(setAreaInfoForm(a)));
-  }, []);
+  useEffect(() => initFormHelper(), []);
 
   // when steps change
   useEffect(() => {
@@ -115,9 +132,6 @@ const FormClub: React.FC<FormComponentProps> = () => {
   if (forms.finish) {
     console.log('send data');
     sendData();
-    setModal(true);
-    // then reset form
-    dispatch(initForm({ size: MAX_STEPS }));
   }
   return (
     <PageLayout titile="จองห้องประชุม">
@@ -191,6 +205,13 @@ const FormClub: React.FC<FormComponentProps> = () => {
         visible={modal}
         onClick={goHome}
       />
+
+      {failed && (
+        <Snackbar show={true} interval={5000}>
+          <p style={{ fontWeight: 'bold' }}>เวลาดังกล่าวมีผู้ใช้งานแล้ว</p>{' '}
+          <p>กรุณาเลือกเวลาใหม่อีกครั้ง</p>
+        </Snackbar>
+      )}
     </PageLayout>
   );
 };
