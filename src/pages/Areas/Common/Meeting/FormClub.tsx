@@ -5,7 +5,6 @@ import {
   Overview as OverviewForm,
 } from 'Components/Forms/Meeting';
 import { CalendarForm } from 'Components/Forms/Meeting/Calendar';
-import Snackbar from 'Components/Snackbar';
 import { areaAPI } from 'Models/area';
 import { taskMeetingAPI } from 'Models/task/meeting';
 import moment from 'moment';
@@ -51,6 +50,10 @@ const Outline = Loadable({
 });
 const OutlineDesc = Loadable({
   loader: () => import('Components/OutlineDesc'),
+  loading: () => null,
+});
+const MeetingSnackBar = Loadable({
+  loader: () => import('../common/MeetingSnackBar'),
   loading: () => null,
 });
 
@@ -206,12 +209,7 @@ const FormClub: React.FC<FormComponentProps> = () => {
         onClick={goHome}
       />
 
-      {failed && (
-        <Snackbar show={true} interval={5000}>
-          <p style={{ fontWeight: 'bold' }}>เวลาดังกล่าวมีผู้ใช้งานแล้ว</p>{' '}
-          <p>กรุณาเลือกเวลาใหม่อีกครั้ง</p>
-        </Snackbar>
-      )}
+      {failed && <MeetingSnackBar />}
     </PageLayout>
   );
 };
