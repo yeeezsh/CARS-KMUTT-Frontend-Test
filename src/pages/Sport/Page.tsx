@@ -2,7 +2,7 @@ import { Col, Row } from 'antd';
 import TimeNode from 'Components/TimeTable/timetable.interface';
 import Area from 'Models/area/area.interface';
 import { stepLists } from 'Models/sport';
-import { Mutate } from 'Models/task/sport';
+import { taskSport } from 'Models/task/sport';
 import { TaskSport } from 'Models/task/sport/sport.interface';
 import { u } from 'Models/user';
 import moment, { Moment } from 'moment';
@@ -205,7 +205,7 @@ class SportPage extends Component<
     );
   };
 
-  onConfirm = () => {
+  onConfirm = async () => {
     // on send
     const {
       areaSelected,
@@ -229,8 +229,20 @@ class SportPage extends Component<
       time: [{ start: startTime, stop: stopTime }],
       requestor: users,
     };
-    Mutate.create(parse);
-    return this.setState({ confirmModal: true });
+    try {
+      await taskSport.create(parse);
+      return this.setState({ confirmModal: true });
+    } catch {
+      // error cuase already reserved
+      const { location, history } = this.props;
+      const { pathname } = location;
+      const FINISH_PAGE = '/3';
+      const FIRST_STEP_PAGE = '/1';
+      const target = pathname.replace(FINISH_PAGE, FIRST_STEP_PAGE);
+      history.replace(target);
+      this.props.queryArea(); // query again
+      return this.setState({ step: 1 });
+    }
   };
 
   onFinishModal = () => this.props.history.replace('/');
