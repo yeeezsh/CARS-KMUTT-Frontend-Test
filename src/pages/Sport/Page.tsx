@@ -220,7 +220,7 @@ class SportPage extends Component<
         'HH:mm',
       )}`,
       'DD-MM-YYYY-HH:mm',
-    );
+    ).subtract(interval, 'minute'); // cuase some bug i don't know ¯\_(ツ)_/¯
     const stopTime = moment(startTime).add(interval, 'minute');
 
     const parse: TaskSport = {
