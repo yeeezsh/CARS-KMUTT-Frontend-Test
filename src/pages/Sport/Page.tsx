@@ -242,6 +242,7 @@ class SportPage extends Component<
       const FINISH_PAGE = '/3';
       const FIRST_STEP_PAGE = '/1';
       const target = pathname.replace(FINISH_PAGE, FIRST_STEP_PAGE);
+
       history.replace(target);
       this.props.queryArea(); // query again
       return this.setState({ step: 1, failed: true });
