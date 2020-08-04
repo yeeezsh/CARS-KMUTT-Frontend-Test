@@ -51,6 +51,10 @@ const OutlineDesc = Loadable({
   loader: () => import('Components/OutlineDesc'),
   loading: () => null,
 });
+const MeetingSnackBar = Loadable({
+  loader: () => import('../common/MeetingSnackBar'),
+  loading: () => null,
+});
 
 // constant
 const MAX_STEPS = 2;
@@ -63,22 +67,42 @@ const FormMeeting: React.FC<FormComponentProps> = () => {
   const history = useHistory();
   const location = useLocation().pathname;
   const [modal, setModal] = useState<boolean>(false);
+  const [failed, setFailed] = useState<boolean>(false);
 
   const areaId = location.split('/')[AREA_PARAM_IND];
 
-  function sendData() {
+  function initFormHelper() {
+    dispatch(initForm({ size: MAX_STEPS }));
+    dispatch(setFormCurrentIndex(0));
+    areaAPI.getAreaInfo(areaId).then(a => dispatch(setAreaInfoForm(a)));
+  }
+
+  async function sendData() {
     const calendarData: CalendarForm | undefined = forms.forms[0];
-    taskMeetingAPI.createMeetingTask({
-      area: areaId,
-      //   forms: forms.forms,
-      time: [
-        {
-          start: moment(calendarData?.startTime).toDate(),
-          stop: moment(calendarData?.stopTime).toDate(),
-          allDay: false,
-        },
-      ],
-    });
+    try {
+      await taskMeetingAPI.createMeetingTask({
+        area: areaId,
+        //   forms: forms.forms,
+        time: [
+          {
+            start: moment(calendarData?.startTime).toDate(),
+            stop: moment(calendarData?.stopTime).toDate(),
+            allDay: false,
+          },
+        ],
+      });
+      setModal(true);
+      dispatch(initForm({ size: MAX_STEPS }));
+    } catch {
+      // duplicated reservation
+      const FINISH_PAGE = '/' + MAX_STEPS;
+      const FIRST_STEP_PAGE = '/1';
+
+      const target = location.replace(FINISH_PAGE, FIRST_STEP_PAGE);
+      history.replace(target);
+      setFailed(true);
+      initFormHelper();
+    }
   }
 
   function goBack() {
@@ -97,12 +121,7 @@ const FormMeeting: React.FC<FormComponentProps> = () => {
   }
 
   // once
-  useEffect(() => {
-    console.log('area id', areaId);
-    dispatch(initForm({ size: MAX_STEPS }));
-    dispatch(setFormCurrentIndex(0));
-    areaAPI.getAreaInfo(areaId).then(a => dispatch(setAreaInfoForm(a)));
-  }, []);
+  useEffect(() => initFormHelper(), []);
 
   // when steps change
   useEffect(() => {
@@ -112,13 +131,13 @@ const FormMeeting: React.FC<FormComponentProps> = () => {
     history.push(newPath);
   }, [steps]);
 
-  if (forms.finish) {
-    console.log('send data');
-    sendData();
-    setModal(true);
-    // then reset form
-    dispatch(initForm({ size: MAX_STEPS }));
-  }
+  useEffect(() => {
+    if (forms.finish) {
+      console.log('send data');
+      sendData();
+    }
+  }, [forms.finish]);
+
   return (
     <PageLayout titile="จองห้องประชุม">
       {/* Fixed header */}
@@ -188,6 +207,8 @@ const FormMeeting: React.FC<FormComponentProps> = () => {
         visible={modal}
         onClick={goHome}
       />
+
+      {failed && <MeetingSnackBar />}
     </PageLayout>
   );
 };
