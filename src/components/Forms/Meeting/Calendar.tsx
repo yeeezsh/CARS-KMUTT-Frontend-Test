@@ -23,6 +23,7 @@ import {
   submitForm,
 } from 'Store/reducers/areaForm/actions';
 import adjacentHour from 'Utils/adjacent.hour';
+import atleastHour from 'Utils/atleast.hour';
 import calendarCurrent from 'Utils/calendar.current';
 // utils
 import weekParsedHelper from 'Utils/week.parse';
@@ -59,6 +60,7 @@ const PLACEHOLDER_DATE = 'DD/MM/YYYY';
 const DATE_FORMAT = 'DD/MM/YYYY';
 const OFFSET_DAY = 3;
 const AREA_PARAM_IND = 5;
+const RESERVATION_INTERVAL = 60;
 
 interface Props {
   ind?: number;
@@ -98,13 +100,19 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
       (a, b) => a.value.valueOf() - b.value.valueOf(),
     );
 
-    const validSelect = adjacentHour(selected, value, 60);
+    const validSelect = adjacentHour(
+      selected,
+      value,
+      RESERVATION_INTERVAL,
+    );
+
     const duplicated = selected.filter(
       e => e.value.valueOf() === value.valueOf(),
     );
     const duplicatedInd = selected.findIndex(
       e => e.value.valueOf() === value.valueOf(),
     );
+
     if (!validSelect) {
       setError(true);
       return;
@@ -115,8 +123,8 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
       return setSelected(prev => prev.slice(0, duplicatedInd));
     }
 
-    setError(false);
     setSelected(merge);
+    setError(false);
   }
   console.log('selected time node', selected);
   console.log('selected date', selectedDate?.format('DD MM YYYY'));
@@ -129,6 +137,11 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
 
   function onSubmit() {
     if (!selected[0]) return; // ignore when null
+    const atleastOne = atleastHour(selected);
+    if (!atleastOne) {
+      setError(true);
+      return;
+    }
 
     const start = moment(
       `${selected[0].value.format('HH:mm')}-${selectedDate
@@ -167,7 +180,7 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
 
   // error observation
   useEffect(() => {
-    if (error) setTimeout(() => setError(false), 1500);
+    if (error) setTimeout(() => setError(false), 2000);
   }, [error]);
 
   // once
@@ -205,11 +218,11 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
   }, [selectedDate]);
 
   return (
-    <React.Fragment>
+    <>
       {error && (
         <Snackbar show={true}>
-          <p style={{ fontWeight: 'bold' }}>ไม่สามารถจองเว้นชั่วโมงได้</p>{' '}
-          <p>กรุณาจองชั่วโมงที่ติดกัน</p>
+          <p style={{ fontWeight: 'bold' }}>ไม่สามารถจองได้</p>{' '}
+          <p>กรุณาจองอย่างน้อย 1 ชั่วโมง หรือชั่วโมงที่ติดกัน</p>
         </Snackbar>
       )}
 
@@ -327,7 +340,7 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
           </Col>
         </Row>
       </Col>
-    </React.Fragment>
+    </>
   );
 };
 
