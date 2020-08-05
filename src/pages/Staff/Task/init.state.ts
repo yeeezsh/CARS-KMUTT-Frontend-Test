@@ -20,6 +20,7 @@ export const initTask: TaskDetail = {
     type: '',
   },
   cancle: false,
+  desc: [],
   createAt: moment(),
   updateAt: moment(),
 };
