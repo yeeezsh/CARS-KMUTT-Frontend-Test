@@ -2,7 +2,7 @@ import { Col, Row } from 'antd';
 import TimeNode from 'Components/TimeTable/timetable.interface';
 import Area from 'Models/area/area.interface';
 import { stepLists } from 'Models/sport';
-import { Mutate } from 'Models/task/sport';
+import { taskSport } from 'Models/task/sport';
 import { TaskSport } from 'Models/task/sport/sport.interface';
 import { u } from 'Models/user';
 import moment, { Moment } from 'moment';
@@ -97,6 +97,7 @@ class SportPage extends Component<
     backCard: string[];
     confirmModal: boolean;
     quota: boolean;
+    failed: boolean;
   }
 > {
   state = {
@@ -108,6 +109,7 @@ class SportPage extends Component<
     confirmModal: false,
     areas: [],
     quota: true,
+    failed: false,
   };
 
   onSelectDate = async (date: Moment) => {
@@ -135,6 +137,7 @@ class SportPage extends Component<
         return {
           step: 2,
           status: prevState.status.map((e, i) => (i === 0 ? true : e)),
+          failed: false, // reset failed status after select a new time slot
         };
       },
       () => {
@@ -205,7 +208,7 @@ class SportPage extends Component<
     );
   };
 
-  onConfirm = () => {
+  onConfirm = async () => {
     // on send
     const {
       areaSelected,
@@ -220,7 +223,7 @@ class SportPage extends Component<
         'HH:mm',
       )}`,
       'DD-MM-YYYY-HH:mm',
-    );
+    ).subtract(interval, 'minute'); // cuase some bug i don't know ¯\_(ツ)_/¯
     const stopTime = moment(startTime).add(interval, 'minute');
 
     const parse: TaskSport = {
@@ -229,8 +232,21 @@ class SportPage extends Component<
       time: [{ start: startTime, stop: stopTime }],
       requestor: users,
     };
-    Mutate.create(parse);
-    return this.setState({ confirmModal: true });
+    try {
+      await taskSport.create(parse);
+      return this.setState({ confirmModal: true });
+    } catch {
+      // error cuase already reserved
+      const { location, history } = this.props;
+      const { pathname } = location;
+      const FINISH_PAGE = '/3';
+      const FIRST_STEP_PAGE = '/1';
+      const target = pathname.replace(FINISH_PAGE, FIRST_STEP_PAGE);
+
+      history.replace(target);
+      this.props.queryArea(); // query again
+      return this.setState({ step: 1, failed: true });
+    }
   };
 
   onFinishModal = () => this.props.history.replace('/');
@@ -276,7 +292,7 @@ class SportPage extends Component<
   }
 
   render() {
-    const { confirmModal, step, backCard, quota } = this.state;
+    const { confirmModal, step, backCard, quota, failed } = this.state;
 
     const { areaSelected } = this.props;
 
@@ -370,6 +386,15 @@ class SportPage extends Component<
               สิทธิ์การจองสนามกีฬาของคุณเต็มแล้ว
             </p>{' '}
             <p>(1 คน /1 การจองสนามกีฬา)</p>
+          </Snackbar>
+        )}
+
+        {failed && (
+          <Snackbar show={true} interval={5000}>
+            <p style={{ fontWeight: 'bold' }}>
+              เวลาดังกล่าวมีผู้ใช้งานแล้ว
+            </p>{' '}
+            <p>กรุณาเลือกเวลาใหม่อีกครั้ง</p>
           </Snackbar>
         )}
       </React.Fragment>

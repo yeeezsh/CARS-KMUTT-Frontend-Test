@@ -77,10 +77,12 @@ export default class MyReservePage extends Component<
       <PageLayout titile={'การจองของฉัน'}>
         <Outline>{outline}</Outline>
         <Switch>
+          {/* task info */}
           <Route path="/my/reserve/*/:id">
             <ReservationInfo onUnmount={this.requireFetch} />
           </Route>
 
+          {/* lists */}
           <Route path="/">
             {!data[0] && !this.state.loading && (
               <CenterIconLayout>

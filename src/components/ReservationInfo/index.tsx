@@ -118,23 +118,21 @@ class ReservationInfo extends Component<
     return this.setState(prevState => ({ modal: !prevState.modal }));
   };
 
-  onModalAction = (action: boolean) => {
-    console.log('modal action', action);
-
+  onModalAction = (confirmAction: boolean) => {
     const { owner, _id } = this.state;
     const { goBack } = this.props.history;
-    const cancle = owner && action;
+    const cancle = owner && confirmAction;
     if (cancle)
       taskAPI
         .cancleTaskById(_id)
         .then(() => this.setState({ modal: false }, () => goBack()));
-    if (action)
+    else if (confirmAction)
       // may be on confirm requsted
       taskAPI
         .confirmTaskSportById(_id)
         .then(() => this.setState({ modal: false }, () => goBack()));
 
-    console.log('owner canle', cancle, action);
+    console.log('owner canle', cancle, confirmAction);
     return this.setState({ modal: false });
   };
 

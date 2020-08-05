@@ -12,4 +12,4 @@ class TaskSportClass {
   }
 }
 
-export const Mutate = new TaskSportClass();
+export const taskSport = new TaskSportClass();
