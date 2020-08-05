@@ -131,7 +131,7 @@ export default class TimeTable extends Component<
               return (
                 <Row
                   className={styles.table}
-                  key={`${value.format('DD-MM-YYYY HH:mm')}`}
+                  key={`${value.format('DD-MM-YYYY HH:mm')}-${type}`}
                   onClick={() => {
                     this.onSelect(value, type);
                     this.props.onClick && this.props.onClick();

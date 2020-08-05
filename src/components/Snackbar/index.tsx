@@ -1,11 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './style.module.css';
 
-const Snackbar: React.FunctionComponent<{ show: boolean }> = props => {
-  const { children, show } = props;
+const Snackbar: React.FunctionComponent<{
+  show?: boolean;
+  interval?: number;
+}> = props => {
+  const { children, show, interval } = props;
+  const [showState, setShowState] = useState<boolean>(show || false);
+
+  if (interval) {
+    useEffect(() => {
+      const trigger = setTimeout(
+        () => setShowState(prev => !prev),
+        interval,
+      );
+
+      return () => clearTimeout(trigger);
+    }, []);
+  }
+
   return (
     <div
-      className={`${styles.snackbar} ${show ? styles.show : styles.hide}`}
+      className={`${styles.snackbar} ${
+        showState ? styles.show : styles.hide
+      }`}
     >
       {children}
     </div>
