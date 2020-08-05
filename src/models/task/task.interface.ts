@@ -29,7 +29,7 @@ export interface Task {
   reserve: TimeSlot[];
   state: TaskStateType[];
   area: TaskArea;
-  desc?: TaskDesc[];
+  desc?: TaskDesc[] | string; // string for last card api only
   forms?: any;
   type?: TaskType | string;
 
@@ -40,12 +40,14 @@ export interface Task {
 
 export interface TaskLastCard extends Task {
   owner: string;
+  desc: string;
   createAt: Moment;
   updateAt: Moment;
 }
 export interface TaskLastCardAPI extends Task {
   owner: string;
   createAt: Date;
+  desc: undefined;
   updateAt: Date;
 }
 
