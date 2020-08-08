@@ -1,7 +1,9 @@
-import redIcon from 'Assets/icons/modal/red.x.svg';
-import greenIcon from 'Assets/icons/modal/green.checked.svg';
-import yellowIcon from 'Assets/icons/modal/yellow.reject.svg';
-import { ConfirmMoalType, ConfirmModalTemplate } from './interface';
+import {
+  ConfirmMoalType,
+  ConfirmModalTemplate,
+} from 'Models/confirmModal/interface';
+import bgConfirmColor from './bgColor.type';
+import { greenIcon, redIcon, yellowIcon } from './icon';
 
 const list: ConfirmModalTemplate[] = [
   {
@@ -11,7 +13,7 @@ const list: ConfirmModalTemplate[] = [
     desc: `เมื่อท่านไม่อนุมัติการจอง นักศึกษา/บุคลากรที่ขอใช้บริการ
           จะไม่สามารถใช้งานสถานที่ในเวลาดังกล่าวได้`,
     btn: {
-      bg: '#F5222D',
+      bg: bgConfirmColor.Red,
       text: 'ไม่อนุมัติ',
     },
   },
@@ -22,7 +24,7 @@ const list: ConfirmModalTemplate[] = [
     desc: `เมื่อท่านตีกลับการจอง นักศึกษา/บุคลากรที่ขอใช้บริการ
       จะสามารถแก้ไขข้อมูลการขอใช้บริการได้`,
     btn: {
-      bg: '#1890FF',
+      bg: bgConfirmColor.Yellow,
       text: 'ตีกลับ',
     },
   },
@@ -33,7 +35,7 @@ const list: ConfirmModalTemplate[] = [
     desc: `เมื่อท่านอนุมัติการจอง นักศึกษา/บุคลากรที่ขอใช้บริการ
       จะสามารถใช้สถานที่ ทำกิจกรรมตามที่ระบุไว้ในการจอง ณ วันเวลาดังกล่าวได้`,
     btn: {
-      bg: '#52C41A',
+      bg: bgConfirmColor.Green,
       text: 'อนุมัติ',
     },
   },

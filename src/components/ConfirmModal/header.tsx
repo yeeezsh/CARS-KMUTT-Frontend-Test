@@ -1,7 +1,7 @@
 import { Col, Row } from 'antd';
+import template from 'Models/confirmModal/constant';
+import { ConfirmMoalType } from 'Models/confirmModal/interface';
 import React from 'react';
-import { ConfirmMoalType } from './interface';
-import template from './template';
 
 const ModalHeader: React.FC<{ type: ConfirmMoalType }> = props => {
   const { type } = props;
