@@ -10,7 +10,7 @@ class CommonAreaClass {
       const fetch: FetchMenu[] = (
         await i.instance.get('/area/common/building/all')
       ).data;
-      const commonAreaLists = (await import('./data/common')).default;
+      const commonAreaLists = (await import('./constant/common')).default;
       const mainMenu = commonAreaLists.map(e => {
         const fetchIndex = fetch.findIndex(d => d.name === e.query?.name);
         if (fetchIndex < 0) return e;
@@ -37,7 +37,7 @@ class CommonAreaClass {
       const fetch: FetchMenu[] = (
         await i.instance.get('/area/common/meeting/all')
       ).data;
-      const meetingAreaLits = (await import('./data/meeting')).default;
+      const meetingAreaLits = (await import('./constant/meeting')).default;
       const mainMenu = meetingAreaLits.map(e => {
         const fetchIndex = fetch.findIndex(d => d.name === e.query?.name);
         if (fetchIndex < 0) return e;
