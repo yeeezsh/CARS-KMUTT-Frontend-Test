@@ -6,7 +6,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 // data & store
 import { RootReducersType } from 'Store/reducers';
-import menu from './data';
+import menu from './constant';
 import { logoutIcon, sidebarIcon } from './icon.import';
 // assets & styles
 import styles from './styles.module.css';
