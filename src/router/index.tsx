@@ -4,7 +4,7 @@ import { Route, Router, Switch } from 'react-router';
 import history from './history';
 
 const PageUserRouter = Loadable({
-  loader: () => import('./user'),
+  loader: () => import('./User'),
   loading: () => null,
 });
 

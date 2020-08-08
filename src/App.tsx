@@ -4,7 +4,7 @@ import Loadable from 'react-loadable';
 import './App.css';
 
 const RootRouter = Loadable({
-  loader: () => import('./Router/'),
+  loader: () => import('./router/'),
   loading: () => null,
 });
 
