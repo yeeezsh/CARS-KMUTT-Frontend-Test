@@ -1,5 +1,5 @@
+import blueCheckedIcon from 'Assets/icons/checked.blue.svg';
 import React from 'react';
-import blueCheckedIcon from '../../assets/icons/checked.blue.svg';
 
 const styles = (active: boolean): React.CSSProperties => {
   return {
