@@ -5,7 +5,7 @@ import {
   footballIcon,
   tennisIcon,
   volleyballIcon,
-} from '../icon.import';
+} from './icon.import';
 
 const data: Menu[] = [
   {
