@@ -1,11 +1,9 @@
 import { Col, Row } from 'antd';
-// forms components
 import {
   OverviewCommonForm,
   OverviewSportForm,
 } from 'Components/Forms/Common';
 import { Overview as OverviewMeetingForm } from 'Components/Forms/Meeting';
-// components
 import Loading from 'Components/Loading';
 import moment from 'moment';
 import React, { Component } from 'react';
@@ -14,12 +12,13 @@ import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { taskAPI } from 'Services/task';
 import { TaskDetail } from 'Services/task/task.interface';
-// Models & interfaces
 import { RootReducersType } from 'Store/reducers';
-import ActionModal from './modal';
-// styles sheet
 import styles from './styles.module.css';
 
+const ActionModal = Loadble({
+  loader: () => import('./Modal'),
+  loading: () => null,
+});
 const Outline = Loadble({
   loader: () => import('Components/Outline'),
   loading: () => null,
