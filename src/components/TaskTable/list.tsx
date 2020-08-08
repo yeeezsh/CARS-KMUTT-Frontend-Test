@@ -1,8 +1,8 @@
 import { Col, Row } from 'antd';
-import { TaskTable } from 'Models/taskTable/interface';
 import moment from 'moment';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { TaskTable } from 'Services/taskTable/interface';
 import State from './state';
 import typeDescHelper from './type.desc.helper';
 

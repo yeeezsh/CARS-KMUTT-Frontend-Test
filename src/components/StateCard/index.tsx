@@ -2,7 +2,7 @@ import { Col, Row } from 'antd';
 import { Moment } from 'moment';
 import React from 'react';
 import Loadable from 'react-loadable';
-import { ReserveState } from '../../models/reserve/interface';
+import { ReserveState } from 'Services/reserve/interface';
 // assets
 import styles from './styles.module.css';
 

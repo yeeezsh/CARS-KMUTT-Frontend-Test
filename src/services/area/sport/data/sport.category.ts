@@ -1,13 +1,12 @@
+// interfaces
+import Menu from 'Services/menu/interface';
 import {
-  footballIcon,
   badmintonIcon,
   basketballIcon,
+  footballIcon,
   tennisIcon,
   volleyballIcon,
 } from '../icon.import';
-
-// interfaces
-import Menu from 'Models/menu/interface';
 
 const data: Menu[] = [
   {

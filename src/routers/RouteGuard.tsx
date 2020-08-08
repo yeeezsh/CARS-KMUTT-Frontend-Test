@@ -1,6 +1,6 @@
-import i from 'Models/axios.interface';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
+import i from 'Services/axios.interface';
 
 const TOKEN_VALIDATION_URL = '/users/auth/requestor';
 const LOGIN_URL = '/login';

@@ -1,12 +1,11 @@
-import { Drawer as DrawerType } from 'Models/drawer/interface';
-
+import { Drawer as DrawerType } from 'Services/drawer/interface';
 import {
-  homeIcon,
   basketballIcon,
-  footballareaIcon,
-  ticketIcon,
-  docsIcon,
   checkedIcon,
+  docsIcon,
+  footballareaIcon,
+  homeIcon,
+  ticketIcon,
   timeIcon,
 } from './icon.import';
 

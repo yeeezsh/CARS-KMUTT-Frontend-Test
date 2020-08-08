@@ -1,6 +1,5 @@
 import hamburgerOrange from 'Assets/icons/hamburger-orange.svg';
 import hamburgerWhite from 'Assets/icons/hamburger-white.svg';
-import { u } from 'Models/user';
 // Common Area
 import { Category as AreaCategory } from 'Pages/Areas';
 import {
@@ -18,6 +17,7 @@ import { Category as SportCategory, Page as SportPage } from 'Pages/Sport';
 import React, { Component } from 'react';
 import Loadable from 'react-loadable';
 import { Route, Router, Switch } from 'react-router';
+import { u } from 'Services/user';
 import history from './history';
 import RouteGuard from './RouteGuard';
 

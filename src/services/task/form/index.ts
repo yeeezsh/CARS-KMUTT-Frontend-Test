@@ -1,4 +1,4 @@
-import i from 'Models/axios.interface';
+import i from 'Services/axios.interface';
 
 class TaskFormClassAPI {
   async createCommonTask(data: any): Promise<void> {

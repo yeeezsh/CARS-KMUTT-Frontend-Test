@@ -1,5 +1,5 @@
-import i from 'Models/axios.interface';
-import { BuildingTableAPI, BuildingInfo } from './interface';
+import i from 'Services/axios.interface';
+import { BuildingInfo, BuildingTableAPI } from './interface';
 
 class BuildingAPI {
   async getBuildingInfo(id: string): Promise<BuildingInfo> {

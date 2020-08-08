@@ -1,4 +1,4 @@
-import { AreaBuilding } from 'Models/area/area.building.interfaces';
+import { AreaBuilding } from 'Services/area/area.building.interfaces';
 export interface TaskArea {
   _id: string;
   name: string;

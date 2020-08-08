@@ -1,4 +1,4 @@
-import { Drawer } from 'Models/drawer/interface';
+import { Drawer } from 'Services/drawer/interface';
 import {
   acceptDocs,
   allDocs,

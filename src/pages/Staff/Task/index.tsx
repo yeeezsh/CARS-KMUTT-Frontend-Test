@@ -8,15 +8,15 @@ import {
 } from 'Components/Forms/Common';
 import { Overview as OverviewMeetingForm } from 'Components/Forms/Meeting';
 import typeDescHelper from 'Components/TaskTable/type.desc.helper';
-// data & store
-import { taskAPI } from 'Models/task';
-import { TaskDetail } from 'Models/task/task.interface';
-import { u } from 'Models/user';
-import { StaffPermissionType } from 'Models/user/staff.interface';
-import staffGroupHelper from 'Models/user/staffGroupHelper';
 import React, { useEffect, useState } from 'react';
 import Loadable from 'react-loadable';
 import { useHistory, useLocation } from 'react-router';
+// data & store
+import { taskAPI } from 'Services/task';
+import { TaskDetail } from 'Services/task/task.interface';
+import { u } from 'Services/user';
+import { StaffPermissionType } from 'Services/user/staff.interface';
+import staffGroupHelper from 'Services/user/staffGroupHelper';
 import { CustomBrakeLine, detailStyle, mainStyle } from './helper';
 import { initTask } from './init.state';
 

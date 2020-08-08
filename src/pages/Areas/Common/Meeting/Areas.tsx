@@ -1,11 +1,11 @@
-import { commonAreaAPI } from 'Models/area/common';
-// interfaces
-import Menu from 'Models/menu/interface';
 // styles
 import BackCardStyles from 'Pages/Areas/styles/backcard';
 import React, { useEffect, useState } from 'react';
 import Loadable from 'react-loadable';
 import { useHistory } from 'react-router';
+import { commonAreaAPI } from 'Services/area/common';
+// interfaces
+import Menu from 'Services/menu/interface';
 
 // components
 const BackCard = Loadable({

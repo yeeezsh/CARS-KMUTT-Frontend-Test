@@ -1,12 +1,12 @@
 import StaffSiderLayout from 'Components/Layout/Staff/Sider';
-import { u } from 'Models/user';
-import {
-  StaffPermissionType,
-  STAFF_PERMISSION,
-} from 'Models/user/staff.interface';
 import React from 'react';
 import Loadable from 'react-loadable';
 import { Route, Router, useHistory, useLocation } from 'react-router';
+import { u } from 'Services/user';
+import {
+  StaffPermissionType,
+  STAFF_PERMISSION,
+} from 'Services/user/staff.interface';
 
 const Home = Loadable({
   loader: () => import('Pages/Staff/Home'),

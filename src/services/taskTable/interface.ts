@@ -1,5 +1,5 @@
 import { Moment } from 'moment';
-import { TaskDetailRequestor } from 'Models/task/task.interface';
+import { TaskDetailRequestor } from 'Services/task/task.interface';
 
 export interface TaskTable {
   _id: string;

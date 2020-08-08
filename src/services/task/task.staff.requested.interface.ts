@@ -1,4 +1,4 @@
-import { StaffPermissionType } from 'Models/user/staff.interface';
+import { StaffPermissionType } from 'Services/user/staff.interface';
 
 export interface TaskStaffRequested {
   group: StaffPermissionType;

@@ -1,7 +1,7 @@
 import { Col, Row } from 'antd';
-import { Drawer } from 'Models/drawer/interface';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Drawer } from 'Services/drawer/interface';
 import styles from './styles.module.css';
 
 export default function SubCard(props: {

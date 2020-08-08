@@ -7,13 +7,13 @@ import {
 import { Overview as OverviewMeetingForm } from 'Components/Forms/Meeting';
 // components
 import Loading from 'Components/Loading';
-import { taskAPI } from 'Models/task';
-import { TaskDetail } from 'Models/task/task.interface';
 import moment from 'moment';
 import React, { Component } from 'react';
 import Loadble from 'react-loadable';
 import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router';
+import { taskAPI } from 'Services/task';
+import { TaskDetail } from 'Services/task/task.interface';
 // Models & interfaces
 import { RootReducersType } from 'Store/reducers';
 import ActionModal from './modal';

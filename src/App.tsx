@@ -1,6 +1,6 @@
-import { u } from 'Models/user';
 import React, { Component } from 'react';
 import Loadable from 'react-loadable';
+import { u } from 'Services/user';
 import './App.css';
 
 const RootRouter = Loadable({

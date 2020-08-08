@@ -1,4 +1,4 @@
-import { TaskStaffRequested } from 'Models/task/task.staff.requested.interface';
+import { TaskStaffRequested } from 'Services/task/task.staff.requested.interface';
 import { STAFF_PERMISSION } from './staff.interface';
 
 export default (taskStaff: TaskStaffRequested['group']): number => {

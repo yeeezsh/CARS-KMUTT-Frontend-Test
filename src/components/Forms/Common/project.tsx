@@ -16,10 +16,10 @@ import {
 import Badge from 'Components/Badge';
 import Button from 'Components/Button';
 import FormLabel from 'Components/FormLabel';
-import i, { END_POINT } from 'Models/axios.interface';
 import { Moment } from 'moment';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import i, { END_POINT } from 'Services/axios.interface';
 // store & data
 import { RootReducersType } from 'Store/reducers';
 import {

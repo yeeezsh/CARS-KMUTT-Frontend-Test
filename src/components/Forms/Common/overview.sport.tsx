@@ -3,12 +3,12 @@ import { FormComponentProps } from 'antd/lib/form';
 import BreakingLine from 'Components/BreakingLine';
 import Button from 'Components/Button';
 import Outline from 'Components/Outline';
-// store & dara
-import { END_POINT } from 'Models/axios.interface';
 import moment from 'moment';
 import Trail from 'Pages/Areas/Common/common/Trail';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+// store & dara
+import { END_POINT } from 'Services/axios.interface';
 import { RootReducersType } from 'Store/reducers';
 import {
   fillForm,

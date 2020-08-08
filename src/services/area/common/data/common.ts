@@ -1,9 +1,8 @@
-import kfcBuildingIcon from 'Assets/icons/area/building/kfc.svg';
-import parkBuildingIcon from 'Assets/icons/area/building/park.svg';
-import lgBuildingIcon from 'Assets/icons/area/building/lg.svg';
 import basketballBuildingIcon from 'Assets/icons/area/building/basketball.svg';
-
-import Menu from 'Models/menu/interface';
+import kfcBuildingIcon from 'Assets/icons/area/building/kfc.svg';
+import lgBuildingIcon from 'Assets/icons/area/building/lg.svg';
+import parkBuildingIcon from 'Assets/icons/area/building/park.svg';
+import Menu from 'Services/menu/interface';
 
 const data: Menu[] = [
   {

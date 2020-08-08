@@ -1,6 +1,6 @@
 import { Moment } from 'moment';
-import Area from '../../../models/area/area.interface';
-import { sport } from '../../../models/area/sport';
+import Area from 'Services/area/area.interface';
+import { sport } from 'Services/area/sport';
 import { SportReducer } from '.';
 
 export const SET_DATE_SELECTED = 'SET_DATE_SELECTED';

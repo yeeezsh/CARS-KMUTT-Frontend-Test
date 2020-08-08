@@ -1,5 +1,5 @@
-import i from 'Models/axios.interface';
-import { CreateTaskMeetingClub, CreateTaskMeeting } from './interface';
+import i from 'Services/axios.interface';
+import { CreateTaskMeeting, CreateTaskMeetingClub } from './interface';
 
 class TaskMeetingClassAPI {
   async createMeetingClubTask(data: CreateTaskMeetingClub): Promise<void> {

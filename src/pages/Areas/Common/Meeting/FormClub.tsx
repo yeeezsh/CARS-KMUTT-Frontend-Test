@@ -5,13 +5,13 @@ import {
   Overview as OverviewForm,
 } from 'Components/Forms/Meeting';
 import { CalendarForm } from 'Components/Forms/Meeting/Calendar';
-import { areaAPI } from 'Models/area';
-import { taskMeetingAPI } from 'Models/task/meeting';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import Loadable from 'react-loadable';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch, useHistory, useLocation } from 'react-router';
+import { areaAPI } from 'Services/area';
+import { taskMeetingAPI } from 'Services/task/meeting';
 import { RootReducersType } from 'Store/reducers';
 import {
   initForm,

@@ -1,8 +1,8 @@
-import i from 'Models/axios.interface';
-import { AreaTableAPI, AreaAPI as AreaAPIInterfaces } from './interfaces';
-import { AreaAvailableAPI } from './area.interface';
-import moment, { Moment } from 'moment';
 import TimeNode from 'Components/TimeTable/timetable.interface';
+import moment, { Moment } from 'moment';
+import i from 'Services/axios.interface';
+import { AreaAvailableAPI } from './area.interface';
+import { AreaAPI as AreaAPIInterfaces, AreaTableAPI } from './interfaces';
 
 class AreaAPI {
   async getBuildingTable(): Promise<AreaTableAPI[]> {

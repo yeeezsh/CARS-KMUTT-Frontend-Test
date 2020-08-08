@@ -1,8 +1,8 @@
-import { taskAPI } from 'Models/task';
-import { TaskLastCard } from 'Models/task/task.interface';
 import React, { Component } from 'react';
 import Loadable from 'react-loadable';
 import { connect } from 'react-redux';
+import { taskAPI } from 'Services/task';
+import { TaskLastCard } from 'Services/task/task.interface';
 
 const HomeMenu = Loadable({
   loader: () => import('Components/KanbanCard'),

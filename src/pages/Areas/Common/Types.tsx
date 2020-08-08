@@ -4,9 +4,9 @@ import activityTypeBuildingIcon from 'Assets/icons/area/building/kfc.svg';
 import BackCard from 'Components/BackCard';
 import KanbanCard from 'Components/KanbanCard';
 import KanBanLayout from 'Components/Layout/Kanban';
-import Menu from 'Models/menu/interface';
 import React from 'react';
 import { useHistory, useLocation } from 'react-router';
+import Menu from 'Services/menu/interface';
 import BackCardStyles from '../styles/backcard';
 
 const TypesPage: React.FunctionComponent<{

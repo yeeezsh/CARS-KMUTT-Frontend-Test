@@ -1,5 +1,5 @@
-import Menu from 'Models/menu/interface';
-import i from 'Models/axios.interface';
+import i from 'Services/axios.interface';
+import Menu from 'Services/menu/interface';
 import { FetchMenu } from '../sport/fetch.menu.interface';
 
 class CommonAreaClass {

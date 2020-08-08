@@ -1,5 +1,5 @@
 import { Moment } from 'moment';
-import { TaskStateType } from 'Models/task/task.interface';
+import { TaskStateType } from 'Services/task/task.interface';
 
 export type ReserveState = TaskStateType;
 export type ReserveStateHistory = Array<ReserveState>;

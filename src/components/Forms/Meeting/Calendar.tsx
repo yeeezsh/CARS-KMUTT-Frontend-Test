@@ -7,13 +7,13 @@ import orangeSquareIcon from 'Assets/icons/square/orange.svg';
 import labelStyles from 'Components/Forms/Common/styles/label';
 // interfaces
 import TimeNode from 'Components/TimeTable/timetable.interface';
-import { areaAPI } from 'Models/area';
-import Area from 'Models/area/area.interface';
 import moment, { Moment } from 'moment';
 import React, { useEffect, useState } from 'react';
 import Loadable from 'react-loadable';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
+import { areaAPI } from 'Services/area';
+import Area from 'Services/area/area.interface';
 // data store & API
 import { RootReducersType } from 'Store/reducers';
 import {
