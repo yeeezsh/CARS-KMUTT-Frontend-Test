@@ -1,15 +1,11 @@
 import { Row } from 'antd';
-// components
 import MainCard from 'Components/AppDrawer/MainCard';
 import SubCard from 'Components/AppDrawer/SubCard';
+import menu from 'Models/staff/sidebar/constant';
+import { logoutIcon, sidebarIcon } from 'Models/staff/sidebar/icon.import';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootReducersType } from 'Store/reducers';
-import menu from '../../models/staff/sidebar/constant';
-import {
-  logoutIcon,
-  sidebarIcon,
-} from '../../models/staff/sidebar/icon.import';
 import styles from './styles.module.css';
 import UserCard from './UserCard';
 
