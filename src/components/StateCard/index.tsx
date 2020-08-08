@@ -7,7 +7,7 @@ import { ReserveState } from 'Services/reserve/interface';
 import styles from './styles.module.css';
 
 const StateCardIconColor = Loadable({
-  loader: () => import('./icon'),
+  loader: () => import('./StateCardIconColor'),
   loading: () => null,
 });
 

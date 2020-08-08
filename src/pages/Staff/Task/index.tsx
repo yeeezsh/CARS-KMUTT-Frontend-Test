@@ -1,6 +1,5 @@
 import { Col, message, Row } from 'antd';
 import checkedIcon from 'Assets/icons/button/checked.svg';
-// common & assets
 import xIcon from 'Assets/icons/button/x.svg';
 import {
   OverviewCommonForm,
@@ -11,7 +10,6 @@ import typeDescHelper from 'Components/TaskTable/type.desc.helper';
 import React, { useEffect, useState } from 'react';
 import Loadable from 'react-loadable';
 import { useHistory, useLocation } from 'react-router';
-// data & store
 import { taskAPI } from 'Services/task';
 import { TaskDetail } from 'Services/task/task.interface';
 import { u } from 'Services/user';
@@ -19,9 +17,6 @@ import { StaffPermissionType } from 'Services/user/staff.interface';
 import staffGroupHelper from 'Services/user/staffGroupHelper';
 import { CustomBrakeLine, detailStyle, mainStyle } from './helper';
 import { initTask } from './init.state';
-
-// constant
-const MAX_LEVEL_FORWARD = 2;
 
 const StaffLayout = Loadable({
   loader: () => import('Components/Layout/Staff/Home'),
@@ -36,7 +31,7 @@ const Badge = Loadable({
   loading: () => null,
 });
 const StateCardIconColor = Loadable({
-  loader: () => import('Components/StateCard/icon'),
+  loader: () => import('Components/StateCard/StateCardIconColor'),
   loading: () => null,
 });
 const UsersReserveList = Loadable({
@@ -51,6 +46,9 @@ const ConfirmModal = Loadable({
   loader: () => import('Components/ConfirmModal'),
   loading: () => null,
 });
+
+// constant
+const MAX_LEVEL_FORWARD = 2;
 
 const TaskPage: React.FC = () => {
   const location = useLocation();

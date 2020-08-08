@@ -28,7 +28,7 @@ const Badge = Loadble({
   loading: () => null,
 });
 const StateCardIconColor = Loadble({
-  loader: () => import('Components/StateCard/icon'),
+  loader: () => import('Components/StateCard/StateCardIconColor'),
   loading: () => null,
 });
 const BreakingLine = Loadble({
