@@ -19,7 +19,7 @@ import FormLabel from 'Components/FormLabel';
 import { Moment } from 'moment';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import i, { END_POINT } from 'Services/axios.interface';
+import adapter, { END_POINT } from 'Services/adapter.interface';
 // store & data
 import { RootReducersType } from 'Store/reducers';
 import {
@@ -100,7 +100,7 @@ const ProjectForm: React.FC<FormComponentProps & {
           'multipart/form-data; boundary=----WebKitFormBoundaryqTqJIxvkWFYqvP5s',
       },
     };
-    i.instance
+    adapter.instance
       .post(options.action, data, config)
       .then((res: any) => {
         options.onSuccess(res.data, options.file);

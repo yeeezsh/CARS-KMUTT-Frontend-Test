@@ -1,13 +1,13 @@
 import TimeNode from 'Components/TimeTable/timetable.interface';
 import moment, { Moment } from 'moment';
-import i from 'Services/axios.interface';
+import adapter from 'Services/adapter.interface';
 import { AreaAvailableAPI } from './area.interface';
 import { AreaAPI as AreaAPIInterfaces, AreaTableAPI } from './interfaces';
 
 class AreaAPI {
   async getBuildingTable(): Promise<AreaTableAPI[]> {
     try {
-      const data = (await i.instance.get('/area/table')).data;
+      const data = (await adapter.instance.get('/area/table')).data;
       return data;
     } catch (err) {
       throw err;
@@ -16,7 +16,8 @@ class AreaAPI {
 
   async getAreaAvailable(id: string): Promise<AreaAvailableAPI[]> {
     try {
-      const data = (await i.instance.get('/area/available/' + id)).data;
+      const data = (await adapter.instance.get('/area/available/' + id))
+        .data;
       return data.map((e: any) => ({ ...e, date: moment(e.date) }));
     } catch (err) {
       throw err;
@@ -29,7 +30,7 @@ class AreaAPI {
   ): Promise<{ disabled: TimeNode[] }> {
     try {
       const data = (
-        await i.instance.get('/area/available/meeting/' + id, {
+        await adapter.instance.get('/area/available/meeting/' + id, {
           params: {
             date: date.toISOString(),
           },
@@ -52,8 +53,9 @@ class AreaAPI {
 
   async getAreaInfo(id: string): Promise<AreaAPIInterfaces> {
     try {
-      const data: AreaAPIInterfaces = (await i.instance.get('/area/' + id))
-        .data;
+      const data: AreaAPIInterfaces = (
+        await adapter.instance.get('/area/' + id)
+      ).data;
 
       return {
         ...data,

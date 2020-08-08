@@ -9,7 +9,7 @@ const mode = process.env.NODE_ENV;
 export const END_POINT =
   mode === 'development' ? DEV_END_POINT : PROD_END_POINT;
 
-class Instance {
+class Adapter {
   instance: AxiosInstance;
   constructor() {
     this.instance = axios.create({
@@ -19,6 +19,6 @@ class Instance {
     });
   }
 }
-const i = new Instance();
+const adapter = new Adapter();
 
-export default i;
+export default adapter;

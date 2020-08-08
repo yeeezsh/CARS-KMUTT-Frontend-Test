@@ -1,5 +1,5 @@
 import Menu from 'Models/kanbanCard/interface';
-import i from 'Services/axios.interface';
+import adapter from 'Services/adapter.interface';
 import { FetchMenu } from '../sport/fetch.menu.interface';
 
 class CommonAreaClass {
@@ -8,7 +8,7 @@ class CommonAreaClass {
   async getBuilding() {
     try {
       const fetch: FetchMenu[] = (
-        await i.instance.get('/area/common/building/all')
+        await adapter.instance.get('/area/common/building/all')
       ).data;
       const commonAreaLists = (await import('./constant/common')).default;
       const mainMenu = commonAreaLists.map(e => {
@@ -35,7 +35,7 @@ class CommonAreaClass {
   async getMeeting() {
     try {
       const fetch: FetchMenu[] = (
-        await i.instance.get('/area/common/meeting/all')
+        await adapter.instance.get('/area/common/meeting/all')
       ).data;
       const meetingAreaLits = (await import('./constant/meeting')).default;
       const mainMenu = meetingAreaLits.map(e => {

@@ -1,7 +1,7 @@
 import { AxiosError, AxiosInstance } from 'axios';
 import { store } from '../../index';
 import { deleteUser, setUser } from '../../store/reducers/users/actions';
-import i from '../axios.interface';
+import adapter from '../adapter.interface';
 import { MSG_BAD_PASSWORD, MSG_INTERNAL_ERROR } from './default.msg';
 import User from './interface';
 import { QuotaType } from './quota.interface';
@@ -12,7 +12,7 @@ const loginAdapter: AxiosInstance['post'] = async (
 ) => {
   let url = '/users/auth/requestor';
   if (type === 'staff') url = '/users/auth/staff';
-  return await i.instance.post(url, data);
+  return await adapter.instance.post(url, data);
 };
 
 class UserClass {
@@ -98,7 +98,7 @@ class UserClass {
   UserLogout = async (): Promise<void> => {
     this.user = { _id: '', username: '', group: '' };
     this.DeleteCredential();
-    await i.instance.get('/users/auth/logout');
+    await adapter.instance.get('/users/auth/logout');
     return;
   };
 
@@ -107,7 +107,7 @@ class UserClass {
   };
 
   GetQuota = async (): Promise<QuotaType> => {
-    const res = (await i.instance.get('/users/quota')).data;
+    const res = (await adapter.instance.get('/users/quota')).data;
     console.log('quota', res);
     return res;
   };

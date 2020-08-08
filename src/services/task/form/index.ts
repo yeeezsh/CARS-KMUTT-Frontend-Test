@@ -1,9 +1,9 @@
-import i from 'Services/axios.interface';
+import adapter from 'Services/adapter.interface';
 
 class TaskFormClassAPI {
   async createCommonTask(data: any): Promise<void> {
     try {
-      await i.instance.post('/taskForm/common', { ...data });
+      await adapter.instance.post('/taskForm/common', { ...data });
       return;
     } catch (err) {
       console.error(err);
@@ -13,7 +13,7 @@ class TaskFormClassAPI {
 
   async createSportTask(data: any): Promise<void> {
     try {
-      await i.instance.post('/taskForm/sport', { ...data });
+      await adapter.instance.post('/taskForm/sport', { ...data });
       return;
     } catch (err) {
       console.error(err);

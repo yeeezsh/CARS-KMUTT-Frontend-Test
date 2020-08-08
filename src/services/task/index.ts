@@ -1,16 +1,16 @@
-import i from '../axios.interface';
-import { TaskDetail, TaskLastCard, Task } from './task.interface';
+import moment, { Moment } from 'moment';
+import adapter from '../adapter.interface';
 import taskDetailParse from './parser/task.detail.parse';
 import taskLastParse from './parser/task.last.parse';
-import { QuickTask, QuickTaskAPI } from './task.quick.interface';
-import moment, { Moment } from 'moment';
 import { CreateTaskByStaff } from './task.create.interface';
+import { Task, TaskDetail, TaskLastCard } from './task.interface';
+import { QuickTask, QuickTaskAPI } from './task.quick.interface';
 
 class TaskClass {
   async createSportTaskByStaff(data: CreateTaskByStaff): Promise<Task> {
     try {
       const res = (
-        await i.instance.post('/task/sport/byStaff', { ...data })
+        await adapter.instance.post('/task/sport/byStaff', { ...data })
       ).data;
       return res;
     } catch (err) {
@@ -20,7 +20,7 @@ class TaskClass {
 
   async getTaskById(id: string): Promise<TaskDetail | undefined> {
     try {
-      const data = (await i.instance.get('/task/' + id)).data;
+      const data = (await adapter.instance.get('/task/' + id)).data;
       return taskDetailParse(data);
     } catch (err) {
       throw new Error(err);
@@ -29,7 +29,7 @@ class TaskClass {
 
   async confirmTaskSportById(id: string): Promise<void> {
     try {
-      await i.instance.get('/task/sport/' + id + '/confirm');
+      await adapter.instance.get('/task/sport/' + id + '/confirm');
     } catch (err) {
       throw new Error(err);
     }
@@ -37,7 +37,7 @@ class TaskClass {
 
   async cancleTaskById(id: string): Promise<void> {
     try {
-      await i.instance.get('/task' + '/' + id + '/cancle');
+      await adapter.instance.get('/task' + '/' + id + '/cancle');
     } catch (err) {
       throw new Error(err);
     }
@@ -45,7 +45,7 @@ class TaskClass {
 
   async cancleTaskByStaff(_id: string, desc?: string): Promise<void> {
     try {
-      await i.instance.post('/task/staff/cancle', {
+      await adapter.instance.post('/task/staff/cancle', {
         _id,
         desc,
       });
@@ -55,7 +55,7 @@ class TaskClass {
   }
   async acceptTaskByStaff(_id: string, desc?: string): Promise<void> {
     try {
-      await i.instance.post('/task/staff/accept', {
+      await adapter.instance.post('/task/staff/accept', {
         _id,
         desc,
       });
@@ -66,7 +66,7 @@ class TaskClass {
 
   async forwardTaskByStaff(_id: string, desc?: string): Promise<void> {
     try {
-      await i.instance.post('/task/staff/forward', {
+      await adapter.instance.post('/task/staff/forward', {
         _id,
         desc,
       });
@@ -77,7 +77,7 @@ class TaskClass {
 
   async getLastTask(): Promise<TaskLastCard | undefined> {
     try {
-      const data = (await i.instance.get('/task/last')).data;
+      const data = (await adapter.instance.get('/task/last')).data;
       if (!data) return undefined;
       return taskLastParse(data);
     } catch (err) {
@@ -94,7 +94,7 @@ class TaskClass {
     try {
       if (!areaId) [];
       const data: QuickTaskAPI[] = (
-        await i.instance.get('/task/quickTask', {
+        await adapter.instance.get('/task/quickTask', {
           params: {
             id: areaId,
             start: start.toISOString(),

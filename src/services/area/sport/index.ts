@@ -1,6 +1,6 @@
 import Menu from 'Models/kanbanCard/interface';
 import moment, { Moment } from 'moment';
-import i from '../../axios.interface';
+import adapter from '../../adapter.interface';
 import TimeAreaReserveType from '../time.interface';
 import { AreaAPI } from './area.api.interface';
 import category from './constant';
@@ -9,7 +9,7 @@ import { FetchMenu } from './fetch.menu.interface';
 class SportClass {
   async getAreas(): Promise<Menu[]> {
     const fetch: FetchMenu[] = (
-      await i.instance.get('/area/sport/building/all')
+      await adapter.instance.get('/area/sport/building/all')
     ).data;
     const mainMenu = category
       .map(e => {
@@ -35,7 +35,7 @@ class SportClass {
   ): Promise<TimeAreaReserveType['areas'] | any> {
     try {
       const fetch: AreaAPI[] = (
-        await i.instance.get(
+        await adapter.instance.get(
           `/area/sport/fields/${id}/${date.toISOString()}`,
         )
       ).data;

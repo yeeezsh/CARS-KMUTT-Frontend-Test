@@ -1,10 +1,10 @@
-import i from '../../axios.interface';
+import adapter from '../../adapter.interface';
 import { TaskSport } from './sport.interface';
 
 class TaskSportClass {
   async create(data: TaskSport) {
     try {
-      await i.instance.post('/task/sport', data);
+      await adapter.instance.post('/task/sport', data);
       return;
     } catch (err) {
       throw err;

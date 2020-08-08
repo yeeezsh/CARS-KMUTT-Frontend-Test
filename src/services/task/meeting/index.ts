@@ -1,10 +1,12 @@
-import i from 'Services/axios.interface';
+import adapter from 'Services/adapter.interface';
 import { CreateTaskMeeting, CreateTaskMeetingClub } from './interface';
 
 class TaskMeetingClassAPI {
   async createMeetingClubTask(data: CreateTaskMeetingClub): Promise<void> {
     try {
-      await i.instance.post('/task/meeting/meeting-club', { ...data });
+      await adapter.instance.post('/task/meeting/meeting-club', {
+        ...data,
+      });
       return;
     } catch (err) {
       console.error(err);
@@ -13,7 +15,9 @@ class TaskMeetingClassAPI {
   }
   async createMeetingTask(data: CreateTaskMeeting): Promise<void> {
     try {
-      await i.instance.post('/task/meeting/meeting-room', { ...data });
+      await adapter.instance.post('/task/meeting/meeting-room', {
+        ...data,
+      });
       return;
     } catch (err) {
       console.error(err);

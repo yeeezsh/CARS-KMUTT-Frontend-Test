@@ -8,7 +8,7 @@ import Trail from 'Pages/Areas/Common/common/Trail';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // store & dara
-import { END_POINT } from 'Services/axios.interface';
+import { END_POINT } from 'Services/adapter.interface';
 import { RootReducersType } from 'Store/reducers';
 import {
   fillForm,

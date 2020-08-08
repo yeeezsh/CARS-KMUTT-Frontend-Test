@@ -1,5 +1,5 @@
 import moment from 'moment';
-import i from 'Services/axios.interface';
+import adapter from 'Services/adapter.interface';
 import {
   // TaskTableType,
   TaskTable as TaskTableInterface,
@@ -14,7 +14,7 @@ class TaskTable {
     order?: 1 | -1,
     taskType?: 'all' | 'wait' | 'reject' | 'accept' | 'drop' | 'forward',
   ): Promise<TaskTableTypeAPI> {
-    const res = await i.instance.get(`/task/staff/${taskType}`, {
+    const res = await adapter.instance.get(`/task/staff/${taskType}`, {
       params: {
         current,
         size,

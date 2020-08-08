@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
-import i from 'Services/axios.interface';
+import adapter from 'Services/adapter.interface';
 
 const TOKEN_VALIDATION_URL = '/users/auth/requestor';
 const LOGIN_URL = '/login';
@@ -10,7 +10,7 @@ const RouteGuard: React.FC<{ defaultRoute?: string }> = props => {
 
   //on start
   useEffect(() => {
-    i.instance
+    adapter.instance
       .get(TOKEN_VALIDATION_URL)
       .then(() => {
         setValid(true);
