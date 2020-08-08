@@ -7,7 +7,7 @@ import {
   homeIcon,
   ticketIcon,
   timeIcon,
-} from './icon.import';
+} from './icon';
 
 const menu: DrawerType[] = [
   {

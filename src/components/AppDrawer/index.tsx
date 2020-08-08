@@ -1,9 +1,9 @@
 import { Drawer, Row } from 'antd';
+import { hamburgerWhite, logoutIcon } from 'Models/appDrawer/icon';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootReducersType } from 'Store/reducers';
-import menu from './data';
-import { hamburgerWhite, logoutIcon } from './icon.import';
+import menu from '../../models/appDrawer/constant';
 import MainCard from './MainCard';
 import styles from './styles.module.css';
 import SubCard from './SubCard';
