@@ -1,4 +1,4 @@
-import { Drawer as DrawerType } from 'Services/drawer/interface';
+import { Drawer as DrawerType } from 'Models/drawer/interface';
 import {
   basketballIcon,
   checkedIcon,
