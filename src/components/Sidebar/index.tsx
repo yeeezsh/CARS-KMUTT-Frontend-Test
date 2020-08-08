@@ -4,11 +4,12 @@ import MainCard from 'Components/AppDrawer/MainCard';
 import SubCard from 'Components/AppDrawer/SubCard';
 import React from 'react';
 import { useSelector } from 'react-redux';
-// data & store
 import { RootReducersType } from 'Store/reducers';
-import menu from './constant';
-import { logoutIcon, sidebarIcon } from './icon.import';
-// assets & styles
+import menu from '../../models/staff/sidebar/constant';
+import {
+  logoutIcon,
+  sidebarIcon,
+} from '../../models/staff/sidebar/icon.import';
 import styles from './styles.module.css';
 import UserCard from './UserCard';
 
