@@ -63,7 +63,8 @@ export const setAreaSelected = (area: Area['area']) => {
   ) => {
     const { areas } = getState().SportReducers;
     const interval =
-      areas.find(e => e.area.id === area.id)?.time.interval || 60;
+      areas.find((e: { area: { id: string } }) => e.area.id === area.id)
+        ?.time.interval || 60;
     dispatch({
       type: SET_AREA_SELECTED,
       areaSelected: area,
