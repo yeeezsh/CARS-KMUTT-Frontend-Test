@@ -1,7 +1,7 @@
+import Menu from 'Models/kanbanCard/interface';
 import React, { Component } from 'react';
 import Loadable from 'react-loadable';
 import { sport } from 'Services/area/sport';
-import Menu from 'Services/menu/interface';
 
 const KanBanLayout = Loadable({
   loader: () => import('Components/Layout/Kanban'),

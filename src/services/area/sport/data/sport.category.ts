@@ -1,5 +1,4 @@
-// interfaces
-import Menu from 'Services/menu/interface';
+import Menu from 'Models/kanbanCard/interface';
 import {
   badmintonIcon,
   basketballIcon,

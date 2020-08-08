@@ -1,7 +1,7 @@
 import activityRoomIcon from 'Assets/icons/area/meeting/activity.svg';
 import clubRoomIcon from 'Assets/icons/area/meeting/club.svg';
 import meetingRoomIcon from 'Assets/icons/area/meeting/meeting.svg';
-import Menu from 'Services/menu/interface';
+import Menu from 'Models/kanbanCard/interface';
 
 const data: Menu[] = [
   {

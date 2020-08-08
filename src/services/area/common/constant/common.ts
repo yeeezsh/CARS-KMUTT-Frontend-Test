@@ -2,7 +2,7 @@ import basketballBuildingIcon from 'Assets/icons/area/building/basketball.svg';
 import kfcBuildingIcon from 'Assets/icons/area/building/kfc.svg';
 import lgBuildingIcon from 'Assets/icons/area/building/lg.svg';
 import parkBuildingIcon from 'Assets/icons/area/building/park.svg';
-import Menu from 'Services/menu/interface';
+import Menu from 'Models/kanbanCard/interface';
 
 const data: Menu[] = [
   {

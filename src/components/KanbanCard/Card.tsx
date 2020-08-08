@@ -1,6 +1,6 @@
 import { Col, Row } from 'antd';
+import Menu from 'Models/kanbanCard/interface';
 import React from 'react';
-import Menu from 'Services/menu/interface';
 import styles from './card.module.css';
 
 const NeedActionDot: React.FC = () => (

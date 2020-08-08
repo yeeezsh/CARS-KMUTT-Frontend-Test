@@ -1,10 +1,10 @@
 import BackCard from 'Components/BackCard';
 import KanbanCard from 'Components/KanbanCard';
 import KanBanLayout from 'Components/Layout/Kanban';
+import Menu from 'Models/kanbanCard/interface';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { commonAreaAPI } from 'Services/area/common';
-import Menu from 'Services/menu/interface';
 import BackCardStyles from '../styles/backcard';
 
 const CommonPage: React.FC = () => {

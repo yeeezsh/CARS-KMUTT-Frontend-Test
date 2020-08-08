@@ -1,15 +1,10 @@
+import Menu from 'Models/kanbanCard/interface';
 import moment, { Moment } from 'moment';
-
 import i from '../../axios.interface';
-
-// interfaces
-import Menu from '../../menu/interface';
-import { FetchMenu } from './fetch.menu.interface';
 import TimeAreaReserveType from '../time.interface';
 import { AreaAPI } from './area.api.interface';
-
-// data
 import category from './data/sport.category';
+import { FetchMenu } from './fetch.menu.interface';
 
 class SportClass {
   data: Menu[];
