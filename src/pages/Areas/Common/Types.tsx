@@ -1,10 +1,9 @@
 import sportTypeBuildingIcon from 'Assets/icons/area/building/basketball-ball.svg';
-// assets
 import activityTypeBuildingIcon from 'Assets/icons/area/building/kfc.svg';
 import BackCard from 'Components/BackCard';
 import KanbanCard from 'Components/KanbanCard';
 import KanBanLayout from 'Components/Layout/Kanban';
-import Menu from 'Models/menu/interface';
+import Menu from 'Models/kanbanCard/interface';
 import React from 'react';
 import { useHistory, useLocation } from 'react-router';
 import BackCardStyles from '../styles/backcard';

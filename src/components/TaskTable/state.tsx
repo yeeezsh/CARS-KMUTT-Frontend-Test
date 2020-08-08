@@ -1,5 +1,5 @@
-import stateDesc from 'Models/task/helpers/state.desc';
 import React from 'react';
+import stateDesc from 'Services/task/helpers/state.desc';
 
 const State: React.FC<{ state?: string }> = props => {
   const mainStyle: React.CSSProperties = {

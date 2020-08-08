@@ -1,15 +1,15 @@
 import { Col, Row } from 'antd';
 import TimeNode from 'Components/TimeTable/timetable.interface';
-import Area from 'Models/area/area.interface';
-import { stepLists } from 'Models/sport';
-import { taskSport } from 'Models/task/sport';
-import { TaskSport } from 'Models/task/sport/sport.interface';
-import { u } from 'Models/user';
 import moment, { Moment } from 'moment';
 import React, { Component } from 'react';
 import Loadable from 'react-loadable';
 import { connect } from 'react-redux';
 import { Route, Switch, withRouter } from 'react-router';
+import Area from 'Services/area/area.interface';
+import { stepLists } from 'Services/sport';
+import { taskSport } from 'Services/task/sport';
+import { TaskSport } from 'Services/task/sport/sport.interface';
+import { u } from 'Services/user';
 import { RootReducersType } from 'Store/reducers';
 import {
   queryArea,

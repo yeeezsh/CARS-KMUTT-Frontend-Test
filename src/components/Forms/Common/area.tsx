@@ -3,7 +3,7 @@ import Form, { FormComponentProps } from 'antd/lib/form';
 import BreakingLine from 'Components/BreakingLine';
 import Button from 'Components/Button';
 import FormLabel from 'Components/FormLabel';
-// import { data } from 'Models/reserve/data';
+// import { data } from 'Services/reserve/data';
 import NumberWithToggle from 'Components/NumberWithToggle';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';

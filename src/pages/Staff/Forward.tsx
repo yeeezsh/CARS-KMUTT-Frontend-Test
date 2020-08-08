@@ -1,12 +1,12 @@
 // assets
 import forwardDocsIcon from 'Assets/icons/staff/forwarddocs.svg';
-// data & store
-import { taskTable } from 'Models/taskTable';
-import { TaskTableTypeAPI } from 'Models/taskTable/interface';
 import queryString from 'query-string';
 import React, { useEffect, useState } from 'react';
 import Loadable from 'react-loadable';
 import { useHistory, useLocation } from 'react-router';
+// data & store
+import { taskTable } from 'Services/taskTable';
+import { TaskTableTypeAPI } from 'Services/taskTable/interface';
 
 const StaffLayout = Loadable({
   loader: () => import('Components/Layout/Staff/Home'),

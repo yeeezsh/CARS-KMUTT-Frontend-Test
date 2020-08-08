@@ -1,4 +1,4 @@
-import { Task } from 'Models/task/task.interface';
+import { Task } from 'Services/task/task.interface';
 
 export default (type?: Task['type']) => {
   switch (type) {

@@ -1,14 +1,14 @@
 import { Col, Input, Modal, Row } from 'antd';
+import { ConfirmMoalType } from 'Models/confirmModal/interface';
 import React, { useEffect, useState } from 'react';
 import Loadable from 'react-loadable';
-import { ConfirmMoalType } from './interface';
 
 const ModalHeader = Loadable({
-  loader: () => import('./header'),
+  loader: () => import('./Header'),
   loading: () => null,
 });
 const ModalFooter = Loadable({
-  loader: () => import('./footer'),
+  loader: () => import('./Footer'),
   loading: () => null,
 });
 

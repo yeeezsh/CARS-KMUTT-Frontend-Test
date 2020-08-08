@@ -1,13 +1,9 @@
-import { commonAreaAPI } from 'Models/area/common';
-// interfaces
-import Menu from 'Models/menu/interface';
-// styles
+import Menu from 'Models/kanbanCard/interface';
 import BackCardStyles from 'Pages/Areas/styles/backcard';
 import React, { useEffect, useState } from 'react';
 import Loadable from 'react-loadable';
 import { useHistory } from 'react-router';
-
-// components
+import { commonAreaAPI } from 'Services/area/common';
 const BackCard = Loadable({
   loader: () => import('Components/BackCard'),
   loading: () => null,

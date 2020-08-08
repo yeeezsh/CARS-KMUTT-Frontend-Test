@@ -1,5 +1,5 @@
-import { TaskDetail } from 'Models/task/task.interface';
 import moment from 'moment';
+import { TaskDetail } from 'Services/task/task.interface';
 
 export const initTask: TaskDetail = {
   _id: '',

@@ -1,6 +1,6 @@
-import User from '../../../models/user/interface';
-import { QuotaType } from '../../../models/user/quota.interface';
-import { SET_USER, DELETE_USER } from './actions';
+import User from 'Services/user/interface';
+import { QuotaType } from 'Services/user/quota.interface';
+import { DELETE_USER, SET_USER } from './actions';
 
 export type UserReducer = User & QuotaType;
 

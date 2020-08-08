@@ -1,6 +1,6 @@
 import { Moment } from 'moment';
-import Area from '../../../models/area/area.interface';
-import { sport } from '../../../models/area/sport';
+import Area from 'Services/area/area.interface';
+import { sport } from 'Services/area/sport';
 import { SportReducer } from '.';
 
 export const SET_DATE_SELECTED = 'SET_DATE_SELECTED';
@@ -63,7 +63,8 @@ export const setAreaSelected = (area: Area['area']) => {
   ) => {
     const { areas } = getState().SportReducers;
     const interval =
-      areas.find(e => e.area.id === area.id)?.time.interval || 60;
+      areas.find((e: { area: { id: string } }) => e.area.id === area.id)
+        ?.time.interval || 60;
     dispatch({
       type: SET_AREA_SELECTED,
       areaSelected: area,

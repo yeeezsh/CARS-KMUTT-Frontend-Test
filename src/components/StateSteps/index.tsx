@@ -1,6 +1,6 @@
 import { Col, Row } from 'antd';
+import StepsType from 'Models/stateSteps/type';
 import React from 'react';
-import StepsType from './step.interface';
 import styles from './styles.module.css';
 
 type DotSize = 's' | 'm';

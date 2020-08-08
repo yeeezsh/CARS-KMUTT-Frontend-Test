@@ -2,14 +2,14 @@ import { Col, Form, Icon, Input, Row } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 import logo from 'Assets/login.logo.svg';
 import Button from 'Components/Button';
-import { u } from 'Models/user';
+import React, { Component } from 'react';
+import { RouteComponentProps, withRouter } from 'react-router';
+import { u } from 'Services/user';
 import {
   MSG_BAD_USERNAME,
   MSG_REQUIRE_PASSWORD,
   MSG_REQUIRE_USERNAME,
-} from 'Models/user/default.msg';
-import React, { Component } from 'react';
-import { RouteComponentProps, withRouter } from 'react-router';
+} from 'Services/user/default.msg';
 // utils
 import usernameValidator from 'Utils/username.validator';
 import styles from './styles.module.css';

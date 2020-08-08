@@ -1,7 +1,7 @@
 import { Row } from 'antd';
 import moment, { Moment } from 'moment';
 import React from 'react';
-import Badge from './badge';
+import Badge from './Badge';
 import styles from './styles.module.css';
 
 const card = (date: Moment, selected: boolean) => (

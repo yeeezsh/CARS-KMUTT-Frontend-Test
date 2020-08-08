@@ -8,14 +8,6 @@ export default class ActionModal extends Component<
     visible: boolean;
   }
 > {
-  //   constructor(props: any) {
-  //     super(props);
-  //     this.state = {
-  //       visible: false,
-  //     };
-  //     const { visible } = this.props;
-  //     this.setState({ visible });
-  //   }
   render() {
     const { visible, desc, onModal } = this.props;
     return (

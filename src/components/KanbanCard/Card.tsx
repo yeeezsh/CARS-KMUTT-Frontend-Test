@@ -1,5 +1,5 @@
 import { Col, Row } from 'antd';
-import Menu from 'Models/menu/interface';
+import Menu from 'Models/kanbanCard/interface';
 import React from 'react';
 import styles from './card.module.css';
 

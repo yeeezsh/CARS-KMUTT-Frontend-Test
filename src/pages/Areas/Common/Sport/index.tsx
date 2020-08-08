@@ -8,12 +8,12 @@ import {
   RequestorForm,
   ReturnForm,
 } from 'Components/Forms/Common';
-import { areaAPI } from 'Models/area';
-import { taskFormAPI } from 'Models/task/form';
 import React, { useEffect, useState } from 'react';
 import Loadable from 'react-loadable';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch, useHistory, useLocation } from 'react-router';
+import { areaAPI } from 'Services/area';
+import { taskFormAPI } from 'Services/task/form';
 import { RootReducersType } from 'Store/reducers';
 // store / data
 import {

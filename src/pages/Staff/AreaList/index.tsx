@@ -1,7 +1,7 @@
 import StaffLayout from 'Components/Layout/Staff/Home';
-import { areaAPI } from 'Models/area';
-import { AreaTableAPI } from 'Models/area/interfaces';
 import React, { useEffect, useState } from 'react';
+import { areaAPI } from 'Services/area';
+import { AreaTableAPI } from 'Services/area/interfaces';
 import AreaTable from './table';
 
 const AreasPages: React.FC = () => {

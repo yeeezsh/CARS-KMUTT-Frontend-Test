@@ -1,25 +1,24 @@
 import { Col, Row } from 'antd';
-// forms components
 import {
   OverviewCommonForm,
   OverviewSportForm,
 } from 'Components/Forms/Common';
 import { Overview as OverviewMeetingForm } from 'Components/Forms/Meeting';
-// components
 import Loading from 'Components/Loading';
-import { taskAPI } from 'Models/task';
-import { TaskDetail } from 'Models/task/task.interface';
 import moment from 'moment';
 import React, { Component } from 'react';
 import Loadble from 'react-loadable';
 import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router';
-// Models & interfaces
+import { taskAPI } from 'Services/task';
+import { TaskDetail } from 'Services/task/task.interface';
 import { RootReducersType } from 'Store/reducers';
-import ActionModal from './modal';
-// styles sheet
 import styles from './styles.module.css';
 
+const ActionModal = Loadble({
+  loader: () => import('./Modal'),
+  loading: () => null,
+});
 const Outline = Loadble({
   loader: () => import('Components/Outline'),
   loading: () => null,
@@ -29,7 +28,7 @@ const Badge = Loadble({
   loading: () => null,
 });
 const StateCardIconColor = Loadble({
-  loader: () => import('Components/StateCard/icon'),
+  loader: () => import('Components/StateCard/StateCardIconColor'),
   loading: () => null,
 });
 const BreakingLine = Loadble({

@@ -1,16 +1,16 @@
 import moment, { Moment } from 'moment';
-import Area from '../../../models/area/area.interface';
+import Area from 'Services/area/area.interface';
+import TimeAreaReserveType from 'Services/area/time.interface';
 import {
-  SET_DATE_SELECTED,
-  SET_TIME_SELECTED,
-  SET_AREA_SELECTED,
-  SET_AREAID_SELECTED,
-  SET_OWNER,
   QUERY_AREA,
-  SET_USERS,
   RESET_STATE,
+  SET_AREAID_SELECTED,
+  SET_AREA_SELECTED,
+  SET_DATE_SELECTED,
+  SET_OWNER,
+  SET_TIME_SELECTED,
+  SET_USERS,
 } from './actions';
-import TimeAreaReserveType from '../../../models/area/time.interface';
 
 export interface SportReducer {
   dateSelected: Moment;
