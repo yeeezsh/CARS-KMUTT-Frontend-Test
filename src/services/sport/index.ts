@@ -1,4 +1,4 @@
-import StepsType from '../../components/StateSteps/step.interface';
+import StepsType from 'Models/stateSteps/type';
 
 const stepLists: StepsType[] = [
   {
