@@ -1,3 +1,4 @@
+import { StateColor } from 'Models/stateCard/colors.interface';
 import { StateBlue, StateGreen, StateRed } from 'Models/stateCard/icon';
 import React from 'react';
 import { ReserveState } from 'Services/reserve/interface';
@@ -28,7 +29,7 @@ const StateCardIconColor: React.FunctionComponent<{
       return (
         <React.Fragment>
           <img src={StateBlue} alt="state-blue" />
-          <p style={{ ...label, color: '#1890FF' }}>
+          <p style={{ ...label, color: StateColor.Blue }}>
             {desc || stateDesc(type)}
           </p>
         </React.Fragment>
@@ -37,7 +38,7 @@ const StateCardIconColor: React.FunctionComponent<{
       return (
         <React.Fragment>
           <img src={StateBlue} alt="state-blue" />
-          <p style={{ ...label, color: '#1890FF' }}>
+          <p style={{ ...label, color: StateColor.Blue }}>
             {desc || stateDesc(type)}
           </p>
         </React.Fragment>
@@ -46,7 +47,7 @@ const StateCardIconColor: React.FunctionComponent<{
       return (
         <React.Fragment>
           <img src={StateGreen} alt="state-green" />
-          <p style={{ ...label, color: '#52C41A' }}>
+          <p style={{ ...label, color: StateColor.Green }}>
             {desc || stateDesc(type)}
           </p>
         </React.Fragment>
@@ -55,7 +56,7 @@ const StateCardIconColor: React.FunctionComponent<{
       return (
         <React.Fragment>
           <img src={StateRed} alt="state-red" />
-          <p style={{ ...label, color: '#F5222D' }}>
+          <p style={{ ...label, color: StateColor.Red }}>
             {desc || stateDesc(type)}
           </p>
         </React.Fragment>
@@ -64,7 +65,7 @@ const StateCardIconColor: React.FunctionComponent<{
       return (
         <React.Fragment>
           <img src={StateRed} alt="state-red" />
-          <p style={{ ...label, color: '#F5222D' }}>
+          <p style={{ ...label, color: StateColor.Red }}>
             {desc || stateDesc(type)}
           </p>
         </React.Fragment>
