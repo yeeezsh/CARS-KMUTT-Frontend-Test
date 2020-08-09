@@ -1,5 +1,6 @@
 import { Col, message, Row } from 'antd';
 import checkedIcon from 'Assets/icons/button/checked.svg';
+import rejectIcon from 'Assets/icons/button/reject.svg';
 import xIcon from 'Assets/icons/button/x.svg';
 import {
   OverviewCommonForm,
@@ -46,6 +47,21 @@ const ConfirmModal = Loadable({
   loader: () => import('Components/ConfirmModal'),
   loading: () => null,
 });
+
+// Custom Components
+const ForwardButton: React.FC = () => (
+  <div style={{ height: '45px' }}>
+    <Button
+      style={{ backgroundColor: 'white', height: '30px' }}
+      fontColor="#FF682B"
+      fontSize={14}
+      padding={'0px'}
+    >
+      <img style={{ paddingRight: '6px' }} src={rejectIcon} />
+      ตีกลับ
+    </Button>
+  </div>
+);
 
 // constant
 const MAX_LEVEL_FORWARD = 2;
@@ -214,6 +230,7 @@ const TaskPage: React.FC = () => {
 
   return (
     <StaffLayout>
+      {/* Backcard */}
       <Row>
         <Col>
           <BackCard
@@ -224,11 +241,19 @@ const TaskPage: React.FC = () => {
           </BackCard>
         </Col>
       </Row>
+
+      {/* Header */}
       <Row style={{ marginTop: '24px' }} justify="center" type="flex">
         {/* header */}
         <Col span={20} style={{ ...mainStyle }}>
-          รหัสการจอง : {task._id}
+          <Row type="flex" justify="space-between">
+            <Col span={18}>รหัสการจอง : {task._id}</Col>
+            <Col style={{ right: 0 }} span={4}>
+              <ForwardButton />
+            </Col>
+          </Row>
         </Col>
+
         <Col
           span={20}
           style={{
