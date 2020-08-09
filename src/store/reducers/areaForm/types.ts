@@ -1,4 +1,4 @@
-import { BuildingType } from 'Models/building/interface';
+import { BuildingType } from 'Services/building/interface';
 
 export const ADD_FORM = 'ADD_FORM';
 export const INIT_FORM = 'INIT_FORM';

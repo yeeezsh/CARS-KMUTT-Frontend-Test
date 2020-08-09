@@ -16,10 +16,10 @@ import {
 import Badge from 'Components/Badge';
 import Button from 'Components/Button';
 import FormLabel from 'Components/FormLabel';
-import i, { END_POINT } from 'Models/axios.interface';
 import { Moment } from 'moment';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import adapter, { END_POINT } from 'Services/adapter.interface';
 // store & data
 import { RootReducersType } from 'Store/reducers';
 import {
@@ -100,7 +100,7 @@ const ProjectForm: React.FC<FormComponentProps & {
           'multipart/form-data; boundary=----WebKitFormBoundaryqTqJIxvkWFYqvP5s',
       },
     };
-    i.instance
+    adapter.instance
       .post(options.action, data, config)
       .then((res: any) => {
         options.onSuccess(res.data, options.file);

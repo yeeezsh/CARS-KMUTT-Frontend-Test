@@ -7,11 +7,11 @@ import BreakingLine from 'Components/BreakingLine';
 import Outline from 'Components/Outline';
 // interfaces
 import TimeNode from 'Components/TimeTable/timetable.interface';
-import Area from 'Models/area/area.interface';
 import moment, { Moment } from 'moment';
 import React, { Component } from 'react';
 import Loadable from 'react-loadable';
 import { connect } from 'react-redux';
+import Area from 'Services/area/area.interface';
 // helpers
 import WeekParseHelper from 'Utils/week.parse';
 import styles from './styles.module.css';

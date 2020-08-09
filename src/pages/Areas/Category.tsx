@@ -2,7 +2,7 @@ import meetingAreaIcon from 'Assets/icons/area/meeting.svg';
 import commmonAreaIcon from 'Assets/icons/area/sport.svg';
 import KanbanCard from 'Components/KanbanCard';
 import KanBanLayout from 'Components/Layout/Kanban';
-import Menu from 'Models/menu/interface';
+import Menu from 'Models/kanbanCard/interface';
 import React from 'react';
 
 const CategoryPage: React.FC = () => {

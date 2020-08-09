@@ -1,9 +1,8 @@
 import { Col, Row } from 'antd';
+import defaultMenu from 'Models/kanbanCard';
+import Menu from 'Models/kanbanCard/interface';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import defaultMenu from '../../models/menu';
-// models
-import Menu from '../../models/menu/interface';
 import Card from './Card';
 
 export default function KanbanCard(props: {

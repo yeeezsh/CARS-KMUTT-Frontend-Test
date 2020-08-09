@@ -1,11 +1,11 @@
 import { Col, Icon, Row } from 'antd';
-import { areaAPI } from 'Models/area';
-// store / data
-import { taskFormAPI } from 'Models/task/form';
 import React, { useEffect, useState } from 'react';
 import Loadable from 'react-loadable';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch, useHistory, useLocation } from 'react-router';
+import { areaAPI } from 'Services/area';
+// store / data
+import { taskFormAPI } from 'Services/task/form';
 import { RootReducersType } from 'Store/reducers';
 import {
   initForm,

@@ -1,6 +1,6 @@
 import CheckIcon from 'Assets/icons/checked.user.svg';
-import { TaskDetail } from 'Models/task/task.interface';
 import React from 'react';
+import { TaskDetail } from 'Services/task/task.interface';
 // styles
 import styles from './styles.module.css';
 

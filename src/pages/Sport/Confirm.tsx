@@ -1,11 +1,11 @@
 import { Col, Row } from 'antd';
 import Button from 'Components/Button';
 import Outline from 'Components/Outline';
-// interfaces & type
-import Area from 'Models/area/area.interface';
 import { Moment } from 'moment';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+// interfaces & type
+import Area from 'Services/area/area.interface';
 // store
 import { RootReducersType } from 'Store/reducers';
 import styles from './styles.module.css';

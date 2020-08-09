@@ -2,9 +2,9 @@ import { Col, Form, Input, Radio, Row, Select } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 import Button from 'Components/Button';
 import FormLabel from 'Components/FormLabel';
-import { Department, faculties } from 'Models/forms/department';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Department, faculties } from 'Services/forms/department';
 // store & data
 import { RootReducersType } from 'Store/reducers';
 import {

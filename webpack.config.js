@@ -33,6 +33,7 @@ module.exports = {
     extensions: ['.ts', '.tsx', '.js'],
     alias: {
       Models: path.resolve(__dirname, 'src/models'),
+      Services: path.resolve(__dirname, 'src/services'),
       Assets: path.resolve(__dirname, 'src/assets'),
       Components: path.resolve(__dirname, 'src/components'),
       Pages: path.resolve(__dirname, 'src/pages'),
