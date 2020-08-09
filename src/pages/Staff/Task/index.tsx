@@ -18,6 +18,7 @@ import { StaffPermissionType } from 'Services/user/staff.interface';
 import staffGroupHelper from 'Services/user/staffGroupHelper';
 import { CustomBrakeLine, detailStyle, mainStyle } from './helper';
 import { initTask } from './init.state';
+import useRejectTask from './useRejectTask';
 
 const StaffLayout = Loadable({
   loader: () => import('Components/Layout/Staff/Home'),
@@ -82,6 +83,7 @@ const TaskPage: React.FC = () => {
   const [cancelled, setCancle] = useState(true);
   const [accepted, setAccepted] = useState(true);
   const [forward, setForward] = useState(true);
+  const canReject = useRejectTask(task);
 
   const formInfo = (type: TaskDetail['type']) => {
     if (!forms) return null;
@@ -248,9 +250,13 @@ const TaskPage: React.FC = () => {
         <Col span={20} style={{ ...mainStyle }}>
           <Row type="flex" justify="space-between">
             <Col span={18}>รหัสการจอง : {task._id}</Col>
-            <Col style={{ right: 0 }} span={4}>
-              <ForwardButton />
-            </Col>
+
+            {/* reject button */}
+            {canReject && (
+              <Col style={{ right: 0 }} span={4}>
+                <ForwardButton />
+              </Col>
+            )}
           </Row>
         </Col>
 
