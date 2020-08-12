@@ -4,4 +4,5 @@ export enum ButtonBackgroundColor {
   Blue = '#1890ff',
   Red = '#f5222d',
   Grey = '#979797',
+  White = '#FFFFFF',
 }
