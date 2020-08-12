@@ -85,7 +85,7 @@ const TaskPage: React.FC = () => {
   const [cancelled, setCancle] = useState(true);
   const [accepted, setAccepted] = useState(true);
   const [forward, setForward] = useState(true);
-  const canReject = useRejectTask(task);
+  const [reject, setReject] = useState(true);
 
   const formInfo = (type: TaskDetail['type']) => {
     if (!forms) return null;
@@ -177,11 +177,16 @@ const TaskPage: React.FC = () => {
           lastState === 'reject' || lastState === 'drop';
         const alreadyAccepted = lastState === 'accept';
         const alreadyForward = lastState === 'forward';
+        const alreadyReject = useRejectTask(t);
+
         const currentUserLevel = staffGroupHelper(
           u.GetUser().group as StaffPermissionType,
         );
 
-        console.log('already forward', alreadyForward);
+        if (alreadyReject) {
+          setReject(false);
+        }
+
         // cancle & accept
         if (!alreadyForward) {
           setCancle(alreadyCancel);
@@ -265,7 +270,7 @@ const TaskPage: React.FC = () => {
             <Col span={18}>รหัสการจอง : {task._id}</Col>
 
             {/* reject button */}
-            {canReject && (
+            {!reject && (
               <Col style={{ right: 0 }} span={4}>
                 <ForwardButton onClick={() => setRejectModal(true)} />
               </Col>
