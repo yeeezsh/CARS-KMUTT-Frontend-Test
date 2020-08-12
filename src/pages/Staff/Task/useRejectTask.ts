@@ -5,7 +5,11 @@ function useRejectTask(task: TaskDetail): boolean {
   if (!task) return false;
 
   if (task.type === 'sport') return false;
+  // already drop
   if (task.state.slice(-1)[0] === 'drop') return false;
+  // already reject
+  if (task.state.slice(-1)[0] === 'reject') return false;
+
   return true;
 }
 
