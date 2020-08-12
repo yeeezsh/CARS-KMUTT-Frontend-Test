@@ -5,6 +5,7 @@ import {
 } from 'Components/Forms/Common';
 import { Overview as OverviewMeetingForm } from 'Components/Forms/Meeting';
 import Loading from 'Components/Loading';
+import { ButtonBackgroundColor } from 'Models/button/button.bg';
 import moment from 'moment';
 import React, { Component } from 'react';
 import Loadble from 'react-loadable';
@@ -225,7 +226,36 @@ class ReservationInfo extends Component<
     };
 
     const ActionBtn = () => {
-      if (owner && !cancle && state !== 'accept' && state !== 'drop') {
+      if (state === 'reject') {
+        return (
+          <React.Fragment>
+            <Col span={7}>
+              <Button onClick={this.goBack}>ย้อนกลับ</Button>
+            </Col>
+            <Col span={7}>
+              <Button
+                style={{ backgroundColor: ButtonBackgroundColor.Red }}
+                onClick={this.onModal}
+              >
+                ยกเลิก
+              </Button>
+            </Col>
+            <Col span={7}>
+              <Button
+                style={{ backgroundColor: ButtonBackgroundColor.Blue }}
+                // onClick={this.onModal}
+              >
+                แก้ไข
+              </Button>
+            </Col>
+          </React.Fragment>
+        );
+      } else if (
+        owner &&
+        !cancle &&
+        state !== 'accept' &&
+        state !== 'drop'
+      ) {
         return (
           <React.Fragment>
             <Col span={11}>
@@ -233,7 +263,7 @@ class ReservationInfo extends Component<
             </Col>
             <Col span={11}>
               <Button
-                style={{ backgroundColor: '#979797' }}
+                style={{ backgroundColor: ButtonBackgroundColor.Grey }}
                 onClick={this.onModal}
               >
                 ยกเลิก
@@ -255,7 +285,7 @@ class ReservationInfo extends Component<
             </Col>
             <Col span={11}>
               <Button
-                style={{ backgroundColor: '#1890FF' }}
+                style={{ backgroundColor: ButtonBackgroundColor.Blue }}
                 onClick={this.onModal}
               >
                 ยืนยัน
