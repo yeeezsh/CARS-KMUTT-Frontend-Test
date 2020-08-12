@@ -75,6 +75,18 @@ class TaskClass {
     }
   }
 
+  async rejectTaskByStaff(_id: string, desc?: string): Promise<void> {
+    try {
+      await adapter.instance.post('/task/staff/reject', {
+        _id,
+        desc,
+      });
+      return;
+    } catch (err) {
+      throw new Error(err);
+    }
+  }
+
   async getLastTask(): Promise<TaskLastCard | undefined> {
     try {
       const data = (await adapter.instance.get('/task/last')).data;
