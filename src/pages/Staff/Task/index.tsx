@@ -173,10 +173,16 @@ const TaskPage: React.FC = () => {
       if (t) {
         setTask(t);
         const lastState = t.state.slice(-1)[0];
-        const alreadyDrop = lastState === 'reject' || lastState === 'drop';
+        const alreadyDrop = lastState === 'drop';
         const alreadyAccepted = lastState === 'accept';
         const alreadyForward = lastState === 'forward';
         const canReject = useCanReject(t);
+
+        // drop
+        if (alreadyDrop) {
+          setAccepted(false);
+          return;
+        }
 
         // reject
         if (canReject) {
