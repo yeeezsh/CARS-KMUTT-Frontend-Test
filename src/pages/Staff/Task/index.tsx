@@ -18,7 +18,7 @@ import { StaffPermissionType } from 'Services/user/staff.interface';
 import staffGroupHelper from 'Services/user/staffGroupHelper';
 import { CustomBrakeLine, detailStyle, mainStyle } from './helper';
 import { initTask } from './init.state';
-import useRejectTask from './useRejectTask';
+import useCanReject from './useCanRejectTask';
 
 const StaffLayout = Loadable({
   loader: () => import('Components/Layout/Staff/Home'),
@@ -82,7 +82,7 @@ const TaskPage: React.FC = () => {
   const [task, setTask] = useState<TaskDetail>(initTask);
   const forms = task.forms;
   const area = task.area;
-  const [cancelled, setCancle] = useState(true);
+  const [drop, setDrop] = useState(true);
   const [accepted, setAccepted] = useState(true);
   const [forward, setForward] = useState(true);
   const [reject, setReject] = useState(true);
@@ -173,23 +173,28 @@ const TaskPage: React.FC = () => {
       if (t) {
         setTask(t);
         const lastState = t.state.slice(-1)[0];
-        const alreadyCancel =
-          lastState === 'reject' || lastState === 'drop';
+        const alreadyDrop = lastState === 'reject' || lastState === 'drop';
         const alreadyAccepted = lastState === 'accept';
         const alreadyForward = lastState === 'forward';
-        const alreadyReject = useRejectTask(t);
+        const canReject = useCanReject(t);
+
+        // reject
+        if (canReject) {
+          setReject(false);
+        } else {
+          setReject(true);
+          setDrop(false);
+          setAccepted(false);
+          return;
+        }
 
         const currentUserLevel = staffGroupHelper(
           u.GetUser().group as StaffPermissionType,
         );
 
-        if (alreadyReject) {
-          setReject(false);
-        }
-
         // cancle & accept
         if (!alreadyForward) {
-          setCancle(alreadyCancel);
+          setDrop(alreadyDrop);
           setAccepted(alreadyAccepted);
           if (currentUserLevel >= MAX_LEVEL_FORWARD) {
             setForward(true);
@@ -211,7 +216,7 @@ const TaskPage: React.FC = () => {
           if (!canNextForward) {
             if (currentUserLevel === taskLevelForward) {
               setAccepted(false);
-              setCancle(false);
+              setDrop(false);
               return;
             }
             return setForward(true);
@@ -220,7 +225,7 @@ const TaskPage: React.FC = () => {
           if (taskLevelForward < currentUserLevel) {
             console.log('task < cur');
             setAccepted(false);
-            setCancle(false);
+            setDrop(false);
             // setForward(false);
             if (currentUserLevel >= MAX_LEVEL_FORWARD) {
               setForward(true);
@@ -230,12 +235,12 @@ const TaskPage: React.FC = () => {
           } else if (taskLevelForward === currentUserLevel) {
             console.log('task === cur');
             setAccepted(false);
-            setCancle(false);
+            setDrop(false);
             setForward(false);
           } else {
             console.log('task > cur');
             setAccepted(true);
-            setCancle(true);
+            setDrop(true);
             setForward(true);
           }
           console.log('level', taskLevelForward, currentUserLevel);
@@ -419,7 +424,7 @@ const TaskPage: React.FC = () => {
                 )}
 
                 {/* drop */}
-                {!cancelled && (
+                {!drop && (
                   <Button
                     style={{
                       width: '175px',
