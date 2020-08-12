@@ -1,5 +1,10 @@
 import { StateColor } from 'Models/stateCard/colors.interface';
-import { StateBlue, StateGreen, StateRed } from 'Models/stateCard/icon';
+import {
+  StateBlue,
+  StateGreen,
+  StateRed,
+  StateYellow,
+} from 'Models/stateCard/icon';
 import React from 'react';
 import { ReserveState } from 'Services/reserve/interface';
 import stateDesc from 'Services/task/helpers/state.desc';
@@ -55,8 +60,8 @@ const StateCardIconColor: React.FunctionComponent<{
     case 'reject':
       return (
         <React.Fragment>
-          <img src={StateRed} alt="state-red" />
-          <p style={{ ...label, color: StateColor.Red }}>
+          <img src={StateYellow} alt="state-yellow" />
+          <p style={{ ...label, color: StateColor.Yellow }}>
             {desc || stateDesc(type)}
           </p>
         </React.Fragment>

@@ -7,7 +7,7 @@ export default (state: ReserveState): ReserveStateDesc => {
     case 'approve':
       return 'ได้รับการอนุมัติ';
     case 'reject':
-      return 'ไม่ได้รับการอนุมัติ';
+      return 'ตีกลับ';
     case 'wait':
       return 'รอการยืนยัน';
     case 'forward':
