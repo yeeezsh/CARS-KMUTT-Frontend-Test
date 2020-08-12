@@ -50,13 +50,14 @@ const ConfirmModal = Loadable({
 });
 
 // Custom Components
-const ForwardButton: React.FC = () => (
+const ForwardButton: React.FC<{ onClick?: () => void }> = props => (
   <div style={{ height: '45px' }}>
     <Button
       style={{ backgroundColor: 'white', height: '30px' }}
       fontColor="#FF682B"
       fontSize={14}
       padding={'0px'}
+      onClick={props.onClick}
     >
       <img style={{ paddingRight: '6px' }} src={rejectIcon} />
       ตีกลับ
@@ -76,6 +77,7 @@ const TaskPage: React.FC = () => {
   const [dropModal, setDropModal] = useState(false);
   const [acceptModal, setAcceptModel] = useState(false);
   const [forwardModal, setForwardModal] = useState(false);
+  const [rejectModal, setRejectModal] = useState(false);
 
   const [task, setTask] = useState<TaskDetail>(initTask);
   const forms = task.forms;
@@ -141,6 +143,13 @@ const TaskPage: React.FC = () => {
       .catch(err => message.error(String(err)));
   }
 
+  function onRejectDropModel(desc?: string) {
+    taskAPI
+      .rejectTaskByStaff(taskId, desc)
+      .then(() => history.goBack())
+      .catch(err => message.error(String(err)));
+  }
+
   // modal states
   function onDropModal() {
     setDropModal(prev => !prev);
@@ -152,6 +161,10 @@ const TaskPage: React.FC = () => {
 
   function onForwardModal() {
     setForwardModal(prev => !prev);
+  }
+
+  function onRejectModal() {
+    setRejectModal(prev => !prev);
   }
 
   //   fetch task
@@ -254,7 +267,7 @@ const TaskPage: React.FC = () => {
             {/* reject button */}
             {canReject && (
               <Col style={{ right: 0 }} span={4}>
-                <ForwardButton />
+                <ForwardButton onClick={() => setRejectModal(true)} />
               </Col>
             )}
           </Row>
@@ -439,6 +452,12 @@ const TaskPage: React.FC = () => {
         onAction={onForwardDropModal}
         type="forward"
         visible={forwardModal}
+      />
+      <ConfirmModal
+        onClick={onRejectModal}
+        onAction={onRejectDropModel}
+        type="reject"
+        visible={rejectModal}
       />
     </StaffLayout>
   );
