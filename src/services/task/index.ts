@@ -21,6 +21,7 @@ class TaskClass {
   async getTaskById(id: string): Promise<TaskDetail | undefined> {
     try {
       const data = (await adapter.instance.get('/task/' + id)).data;
+      console.log('get Task by Id', data);
       return taskDetailParse(data);
     } catch (err) {
       throw new Error(err);

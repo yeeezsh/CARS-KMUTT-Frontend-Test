@@ -1,4 +1,5 @@
 import { Col, Row } from 'antd';
+import emptyIcon from 'Assets/icons/empty.box.svg';
 import {
   OverviewCommonForm,
   OverviewSportForm,
@@ -86,12 +87,13 @@ class ReservationInfo extends Component<
     forms?: any;
     type?: TaskDetail['type'];
     comments: TaskDetail['desc'];
+    noTask: boolean;
   }
 > {
   constructor(props: PropTypes) {
     super(props);
     this.state = {
-      reserve: [{ start: moment(), stop: moment(), allDay: false }],
+      reserve: [],
       state: 'drop',
       area: {
         label: '',
@@ -106,6 +108,7 @@ class ReservationInfo extends Component<
       _id: '',
       cancle: false,
       comments: [],
+      noTask: true,
     };
   }
 
@@ -143,14 +146,18 @@ class ReservationInfo extends Component<
     if (!id) throw new Error('invalid id');
 
     const data = await taskAPI.getTaskById(id);
-    if (!data) return;
+    console.log('data ja', data);
 
-    const owner = username === (data && data.requestor[0].username);
+    if (!data) {
+      this.setState({ loading: false, noTask: true });
+      return;
+    }
+
+    const owner =
+      username === (data && data.requestor && data.requestor[0].username);
     const ownConfirm =
       data?.requestor.filter(e => e.username === username)[0].confirm ||
       false;
-
-    console.log('data ja', data);
 
     const state = data.state;
     return this.setState({
@@ -166,6 +173,7 @@ class ReservationInfo extends Component<
       forms: data.forms,
       type: data.type,
       comments: data.desc,
+      noTask: false,
     });
   };
 
@@ -304,82 +312,89 @@ class ReservationInfo extends Component<
       }
     };
 
-    const DataContainer: JSX.Element = (
-      <>
-        {/* Comment from staffs */}
-        {this.state.comments.map((e, i) => (
-          <ReservationMessage key={i} msg={e.msg} date={e.createAt} />
-        ))}
+    const DataContainer = (): JSX.Element => {
+      return (
+        <>
+          {this.state.comments.map((e, i) => (
+            <ReservationMessage key={i} msg={e.msg} date={e.createAt} />
+          ))}
 
-        <Col span={24} className={styles.overview}>
-          <Outline className={styles.header}>ข้อมูลการจอง</Outline>
-          {/* sub header */}
-          <Row type="flex" justify="start">
-            <Col>
-              <Badge>
-                <span className={styles.statusBadge}>สถานะการจอง</span>
-              </Badge>
-            </Col>
-            <Col style={{ marginLeft: '8px' }}>
-              <div className={styles.status}>
-                <StateCardIconColor type={state} />
-              </div>
-            </Col>
-          </Row>
+          <Col span={24} className={styles.overview}>
+            <Outline className={styles.header}>ข้อมูลการจอง</Outline>
 
-          {/* breaking line */}
-          <BreakingLine lineSize={0.25} color="#FDE3D4" />
-
-          {/* area info */}
-          <div className={styles.info}>
-            <p>
-              <b>สถานที่:</b> {area.label || area.name}
-            </p>
-            <p>
-              <b>วันที่จอง:</b>{' '}
-              {moment(reserve[0].start).format('DD MMMM YYYY')}
-            </p>
-            <p>
-              <b>เวลา:</b> {moment(reserve[0].start).format('HH.mm')} -{' '}
-              {moment(reserve[0].stop).format('HH.mm')}
-            </p>
-          </div>
-
-          <p className={styles.overviewStudentIds}>รหัสนักศึกษา</p>
-
-          {/* users */}
-          <Col className={styles.overviewStudentIds} offset={1} span={22}>
-            <UsersReserveList users={requestor} />
-          </Col>
-
-          {/* forms */}
-          {formInfo(type)}
-
-          {/* btn action */}
-          <Col span={24} style={{ marginTop: '55px' }}>
-            <Row type="flex" justify="space-around">
-              <ActionBtn />
+            <Row type="flex" justify="start">
+              <Col>
+                <Badge>
+                  <span className={styles.statusBadge}>สถานะการจอง</span>
+                </Badge>
+              </Col>
+              <Col style={{ marginLeft: '8px' }}>
+                <div className={styles.status}>
+                  <StateCardIconColor type={state} />
+                </div>
+              </Col>
             </Row>
+
+            <BreakingLine lineSize={0.25} color="#FDE3D4" />
+
+            <div className={styles.info}>
+              <p>
+                <b>สถานที่:</b> {area.label || area.name}
+              </p>
+              <p>
+                <b>วันที่จอง:</b>{' '}
+                {moment(reserve[0].start).format('DD MMMM YYYY')}
+              </p>
+              <p>
+                <b>เวลา:</b> {moment(reserve[0].start).format('HH.mm')} -{' '}
+                {moment(reserve[0].stop).format('HH.mm')}
+              </p>
+            </div>
+
+            <p className={styles.overviewStudentIds}>รหัสนักศึกษา</p>
+
+            <Col
+              className={styles.overviewStudentIds}
+              offset={1}
+              span={22}
+            >
+              <UsersReserveList users={requestor} />
+            </Col>
+
+            {formInfo(type)}
+
+            <Col span={24} style={{ marginTop: '55px' }}>
+              <Row type="flex" justify="space-around">
+                <ActionBtn />
+              </Row>
+            </Col>
           </Col>
-        </Col>
-        <ActionModal
-          desc={modalMsg}
-          visible={modal}
-          onModal={this.onModalAction}
-        />
-      </>
-    );
+          <ActionModal
+            desc={modalMsg}
+            visible={modal}
+            onModal={this.onModalAction}
+          />
+        </>
+      );
+    };
 
     return (
-      <React.Fragment>
-        {this.state.loading ? (
+      <>
+        {this.state.loading && (
           <CenterIconLayout>
             <Loading />
           </CenterIconLayout>
-        ) : (
-          DataContainer
         )}
-      </React.Fragment>
+
+        {!this.state.noTask && DataContainer()}
+        {!this.state.loading && this.state.noTask && (
+          <CenterIconLayout>
+            {/* Empty */}
+            <img src={emptyIcon} alt="empty icon" />
+            <p>ไม่มีข้อมูลการจอง</p>
+          </CenterIconLayout>
+        )}
+      </>
     );
   }
 }
