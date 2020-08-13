@@ -1,5 +1,10 @@
 import adapter from 'Services/adapter.interface';
 
+export interface TaskUpdatePayload {
+  id: string;
+  form: any[];
+}
+
 class TaskFormClassAPI {
   async createCommonTask(data: any): Promise<void> {
     try {
@@ -7,6 +12,15 @@ class TaskFormClassAPI {
       return;
     } catch (err) {
       console.error(err);
+      throw err;
+    }
+  }
+
+  async updateTask(data: TaskUpdatePayload): Promise<void> {
+    try {
+      await adapter.instance.patch('/taskForm', { ...data });
+      return;
+    } catch (err) {
       throw err;
     }
   }
