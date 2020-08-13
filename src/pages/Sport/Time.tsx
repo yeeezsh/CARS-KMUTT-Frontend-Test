@@ -48,7 +48,9 @@ const Empty: React.FC = () => (
       </div>
     </Col>
     <Col span={24}>
-      <p style={{ textAlign: 'center' }}>{EMPTY_TEXT_MSG}</p>
+      <p style={{ textAlign: 'center', marginTop: '8px' }}>
+        {EMPTY_TEXT_MSG}
+      </p>
     </Col>
   </>
 );
