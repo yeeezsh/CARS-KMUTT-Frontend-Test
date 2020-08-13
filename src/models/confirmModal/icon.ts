@@ -1,6 +1,6 @@
+import acceptIcon from 'Assets/icons/modal/accept.svg';
+import dropIcon from 'Assets/icons/modal/drop.svg';
 import forwardIcon from 'Assets/icons/modal/forward.svg';
-import greenIcon from 'Assets/icons/modal/green.checked.svg';
-import redIcon from 'Assets/icons/modal/red.x.svg';
-import yellowIcon from 'Assets/icons/modal/yellow.reject.svg';
+import rejectIcon from 'Assets/icons/modal/reject.svg';
 
-export { greenIcon, redIcon, yellowIcon, forwardIcon };
+export { acceptIcon, dropIcon, rejectIcon, forwardIcon };
