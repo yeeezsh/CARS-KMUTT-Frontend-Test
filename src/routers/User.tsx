@@ -42,6 +42,10 @@ const MyReservePage = Loadable({
   loader: () => import('Pages/MyReserve'),
   loading: () => null,
 });
+const MyReserveEditPage = Loadable({
+  loader: () => import('Pages/MyReserve/MyReservationEdit'),
+  loading: () => null,
+});
 
 export default class PageUserRouter extends Component<
   {},
@@ -199,6 +203,10 @@ export default class PageUserRouter extends Component<
 
         <Route path="/my/reserve/">
           <Switch>
+            <Route path="*/edit/:id">
+              <MyReserveEditPage />
+            </Route>
+
             <Route path="*/history">
               <MyReservePage key={'history'} type="history" />
             </Route>
