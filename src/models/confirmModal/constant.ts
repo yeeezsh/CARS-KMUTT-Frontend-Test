@@ -3,7 +3,7 @@ import {
   ConfirmModalTemplate,
 } from 'Models/confirmModal/interface';
 import bgConfirmColor from './bgColor.type';
-import { greenIcon, redIcon, yellowIcon } from './icon';
+import { forwardIcon, greenIcon, redIcon, yellowIcon } from './icon';
 
 const list: ConfirmModalTemplate[] = [
   {
@@ -41,6 +41,7 @@ const list: ConfirmModalTemplate[] = [
   },
   {
     type: 'forward',
+    icon: forwardIcon,
     header: 'ท่านต้องการส่งต่อการจองนี้',
     desc: `เมื่อท่านอนุมัติการจอง นักศึกษา/บุคลากรที่ขอใช้บริการ
       จะสามารถใช้สถานที่ ทำกิจกรรมตามที่ระบุไว้ในการจอง ณ วันเวลาดังกล่าวได้`,
