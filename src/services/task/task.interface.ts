@@ -18,12 +18,14 @@ export type TaskStateType =
   | 'requested'
   | 'forward';
 
-export type TaskType =
-  | 'common'
-  | 'common-sport'
-  | 'sport'
-  | 'meeting-club'
-  | 'meeting-room';
+export enum TaskType {
+  common = 'common',
+  commonSport = 'common-sport',
+  sport = 'sport',
+  meetingClub = 'meeting-club',
+  meetingRoom = 'meeting-room',
+}
+
 export interface Task {
   _id: string;
   reserve: TimeSlot[];
@@ -31,7 +33,7 @@ export interface Task {
   area: TaskArea;
   desc?: TaskDesc[] | string; // string for last card api only
   forms?: any;
-  type?: TaskType | string;
+  type?: TaskType;
 
   cancle: boolean;
   createAt: Moment | Date;

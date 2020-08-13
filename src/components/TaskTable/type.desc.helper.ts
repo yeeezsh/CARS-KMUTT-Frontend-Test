@@ -1,19 +1,18 @@
-import { Task } from 'Services/task/task.interface';
+import { Task, TaskType } from 'Services/task/task.interface';
 
 export default (type?: Task['type']) => {
   switch (type) {
-    case 'common':
+    case TaskType.common:
       return 'พื้นที่ส่วนกลาง';
-    case 'common-sport':
+    case TaskType.commonSport:
       return 'พื้นที่ส่วนกลางกีฬา';
-    case 'sport':
+    case TaskType.sport:
       return 'สนามกีฬา';
-    case 'meeting-room':
+    case TaskType.meetingRoom:
       return 'ห้องประชุม';
-    case 'meeting-club':
+    case TaskType.meetingClub:
       return 'ห้องกิจกรรม';
     default:
       'ไม่ระบุ';
   }
-  return 'ไม่ระบุ';
 };
