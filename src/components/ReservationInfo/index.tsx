@@ -64,7 +64,8 @@ const CenterIconLayout: React.FC = props => (
   </div>
 );
 
-// const initState
+// constant
+const CURRENT_PATH = '/my/reserve/history/';
 const MODAL_REJECT_MSG = 'ท่านต้องการยกเลิกรีเควส';
 type PropTypes = RouteComponentProps & {
   onUnmount?: () => void;
@@ -119,6 +120,12 @@ class ReservationInfo extends Component<
 
   onModal = () => {
     return this.setState(prevState => ({ modal: !prevState.modal }));
+  };
+
+  goEdit = () => {
+    return this.props.history.push(
+      CURRENT_PATH + 'edit/' + this.state._id,
+    );
   };
 
   onModalAction = (confirmAction: boolean) => {
@@ -251,7 +258,7 @@ class ReservationInfo extends Component<
             <Col span={7}>
               <Button
                 style={{ backgroundColor: ButtonBackgroundColor.Blue }}
-                // onClick={this.onModal}
+                onClick={this.goEdit}
               >
                 แก้ไข
               </Button>
