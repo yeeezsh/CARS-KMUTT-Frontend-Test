@@ -1,5 +1,5 @@
-import { AreaBuilding } from './area.building.interfaces';
 import { Moment } from 'moment';
+import { AreaBuilding } from './area.building.interfaces';
 
 export type AreaBuildingType = 'sport' | 'area' | 'meeting';
 export interface AreaReseveAPI {

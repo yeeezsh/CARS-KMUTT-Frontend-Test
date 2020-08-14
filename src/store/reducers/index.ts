@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
+import { AreaFormReducers } from 'Store/reducers/areaForm';
 import { SportReducers } from './sports';
 import { UserReducers } from './users';
-import { AreaFormReducers } from 'Store/reducers/areaForm';
 
 const rootReducer = combineReducers({
   SportReducers,

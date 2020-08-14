@@ -1,6 +1,6 @@
-import { TaskLastCardAPI, TaskLastCard } from '../task.interface';
 import moment from 'moment';
 import stateDesc from '../helpers/state.desc';
+import { TaskLastCard, TaskLastCardAPI } from '../task.interface';
 
 export default (data: TaskLastCardAPI): TaskLastCard => ({
   ...data,
