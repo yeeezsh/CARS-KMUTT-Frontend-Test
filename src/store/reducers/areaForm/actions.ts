@@ -1,14 +1,14 @@
 import {
   ADD_FORM,
   AreaFormActionTypes,
-  INIT_FORM,
-  SUBMIT_FORM,
+  AreaInfo,
   EachForm,
   FILL_FORM,
-  AreaInfo,
-  SET_AREA_INFO,
   FINISH_FORM,
+  INIT_FORM,
+  SET_AREA_INFO,
   SET_FORM_CUR,
+  SUBMIT_FORM,
 } from './types';
 
 export function addForm(payload: {}): AreaFormActionTypes {

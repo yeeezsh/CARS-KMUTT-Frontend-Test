@@ -1,5 +1,5 @@
-import moment, { Moment } from 'moment';
 import TimeNode from 'Components/TimeTable/timetable.interface';
+import moment, { Moment } from 'moment';
 
 export default (
   timeNode: TimeNode[],
