@@ -1,18 +1,17 @@
 import { Col, Row } from 'antd';
+import EmptyIcon from 'Assets/icons/area/empty.svg';
 import blueSquareIcon from 'Assets/icons/square/blue.svg';
 import greySquareIcon from 'Assets/icons/square/grey.svg';
 import orangeSquareIcon from 'Assets/icons/square/orange.svg';
 import Badge from 'Components/Badge';
 import BreakingLine from 'Components/BreakingLine';
 import Outline from 'Components/Outline';
-// interfaces
 import TimeNode from 'Components/TimeTable/timetable.interface';
 import moment, { Moment } from 'moment';
 import React, { Component } from 'react';
 import Loadable from 'react-loadable';
 import { connect } from 'react-redux';
 import Area from 'Services/area/area.interface';
-// helpers
 import WeekParseHelper from 'Utils/week.parse';
 import styles from './styles.module.css';
 
@@ -32,11 +31,28 @@ const iconLabel: React.CSSProperties = {
   marginTop: '14px',
 };
 
+// custom components
 const iconSquare = (text?: string, icon?: string) => (
   <div style={{ display: 'flex', padding: '0px 10px 0px 10px' }}>
     <img src={icon} alt="icon" />
     <p style={iconLabel}>{text || ''}</p>
   </div>
+);
+
+const EMPTY_TEXT_MSG = 'ไม่สามารถจองได้';
+const Empty: React.FC = () => (
+  <>
+    <Col span={24}>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <img style={{ width: '30%', marginTop: '36px' }} src={EmptyIcon} />
+      </div>
+    </Col>
+    <Col span={24}>
+      <p style={{ textAlign: 'center', marginTop: '8px' }}>
+        {EMPTY_TEXT_MSG}
+      </p>
+    </Col>
+  </>
 );
 
 interface OwnProps {
@@ -60,6 +76,12 @@ class TimePage extends Component<OwnProps & StateProps, any> {
     const now = moment(new Date());
     const today = now;
     const selectedWeek = Number(moment(selectedDate).format('E'));
+
+    const nonAvailableWeek = this.props.areas
+      .map(e => e.time.week)
+      .map(e => WeekParseHelper(e))
+      .map(e => e.some(w => w === selectedWeek))
+      .every(e => e === false);
 
     let reserveSlot: number[] = this.props.areas.map(
       e => e.time.interval || 60,
@@ -140,6 +162,15 @@ class TimePage extends Component<OwnProps & StateProps, any> {
             {iconSquare('ที่ถูกเลือก', blueSquareIcon)}
           </Row>
         </Col>
+
+        {/* Empty Icon */}
+        {nonAvailableWeek && (
+          <Col span={24}>
+            <Row type="flex" justify="center">
+              <Empty />
+            </Row>
+          </Col>
+        )}
 
         {/* TimeTable */}
         {areas &&

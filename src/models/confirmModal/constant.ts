@@ -3,12 +3,12 @@ import {
   ConfirmModalTemplate,
 } from 'Models/confirmModal/interface';
 import bgConfirmColor from './bgColor.type';
-import { greenIcon, redIcon, yellowIcon } from './icon';
+import { acceptIcon, dropIcon, forwardIcon, rejectIcon } from './icon';
 
 const list: ConfirmModalTemplate[] = [
   {
     type: 'drop',
-    icon: redIcon,
+    icon: dropIcon,
     header: 'ท่านต้องการที่จะไม่อนุมัติการจองนี้',
     desc: `เมื่อท่านไม่อนุมัติการจอง นักศึกษา/บุคลากรที่ขอใช้บริการ
           จะไม่สามารถใช้งานสถานที่ในเวลาดังกล่าวได้`,
@@ -19,7 +19,7 @@ const list: ConfirmModalTemplate[] = [
   },
   {
     type: 'reject',
-    icon: yellowIcon,
+    icon: rejectIcon,
     header: 'ท่านต้องการตีกลับการจองนี้',
     desc: `เมื่อท่านตีกลับการจอง นักศึกษา/บุคลากรที่ขอใช้บริการ
       จะสามารถแก้ไขข้อมูลการขอใช้บริการได้`,
@@ -30,7 +30,7 @@ const list: ConfirmModalTemplate[] = [
   },
   {
     type: 'accept',
-    icon: greenIcon,
+    icon: acceptIcon,
     header: 'ท่านต้องการอนุมัติการจองนี้',
     desc: `เมื่อท่านอนุมัติการจอง นักศึกษา/บุคลากรที่ขอใช้บริการ
       จะสามารถใช้สถานที่ ทำกิจกรรมตามที่ระบุไว้ในการจอง ณ วันเวลาดังกล่าวได้`,
@@ -41,6 +41,7 @@ const list: ConfirmModalTemplate[] = [
   },
   {
     type: 'forward',
+    icon: forwardIcon,
     header: 'ท่านต้องการส่งต่อการจองนี้',
     desc: `เมื่อท่านอนุมัติการจอง นักศึกษา/บุคลากรที่ขอใช้บริการ
       จะสามารถใช้สถานที่ ทำกิจกรรมตามที่ระบุไว้ในการจอง ณ วันเวลาดังกล่าวได้`,
