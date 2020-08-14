@@ -1,4 +1,4 @@
-import { basketball, footballarea, docs, check } from './icon.import';
+import { basketball, check, docs, footballarea } from './icon.import';
 import Menu from './interface';
 const defaultMenu: Menu[] = [
   {
