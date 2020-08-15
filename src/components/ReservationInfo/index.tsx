@@ -99,7 +99,7 @@ class ReservationInfo extends Component<
     super(props);
     this.state = {
       reserve: [],
-      state: 'drop',
+      state: TaskStateType.wait,
       area: {
         label: '',
         name: '',
@@ -245,7 +245,7 @@ class ReservationInfo extends Component<
     };
 
     const ActionBtn = () => {
-      if (state === 'reject') {
+      if (state === TaskStateType.reject) {
         return (
           <React.Fragment>
             <Col span={11}>
@@ -264,8 +264,8 @@ class ReservationInfo extends Component<
       } else if (
         owner &&
         !cancle &&
-        state !== 'accept' &&
-        state !== 'drop'
+        state !== TaskStateType.accept &&
+        state !== TaskStateType.drop
       ) {
         return (
           <React.Fragment>
@@ -286,8 +286,8 @@ class ReservationInfo extends Component<
         !owner &&
         !cancle &&
         !ownConfirm &&
-        state !== 'accept' &&
-        state !== 'drop'
+        state !== TaskStateType.accept &&
+        state !== TaskStateType.drop
       ) {
         return (
           <React.Fragment>
