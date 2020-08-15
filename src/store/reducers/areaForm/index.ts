@@ -46,6 +46,8 @@ export const AreaFormReducers = (
       return { ...state, area: action.payload };
     case 'FINISH_FORM':
       return { ...state, finish: true };
+    case 'FILLED_FORM':
+      return { ...state, forms: action.payload };
     default:
       return state;
   }
