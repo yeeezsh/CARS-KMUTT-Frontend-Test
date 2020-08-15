@@ -13,7 +13,11 @@ import Loadble from 'react-loadable';
 import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { taskAPI } from 'Services/task';
-import { TaskDetail, TaskType } from 'Services/task/task.interface';
+import {
+  TaskDetail,
+  TaskStateType,
+  TaskType,
+} from 'Services/task/task.interface';
 import { RootReducersType } from 'Store/reducers';
 import styles from './styles.module.css';
 
@@ -76,7 +80,7 @@ class ReservationInfo extends Component<
   PropTypes,
   {
     reserve: TaskDetail['reserve'];
-    state: TaskDetail['state'][0];
+    state: TaskStateType;
     area: TaskDetail['area'];
     requestor: TaskDetail['requestor'];
     loading: boolean;
@@ -95,7 +99,7 @@ class ReservationInfo extends Component<
     super(props);
     this.state = {
       reserve: [],
-      state: 'drop',
+      state: TaskStateType.wait,
       area: {
         label: '',
         name: '',
@@ -241,21 +245,13 @@ class ReservationInfo extends Component<
     };
 
     const ActionBtn = () => {
-      if (state === 'reject') {
+      if (state === TaskStateType.reject) {
         return (
           <React.Fragment>
-            <Col span={7}>
+            <Col span={11}>
               <Button onClick={this.goBack}>ย้อนกลับ</Button>
             </Col>
-            <Col span={7}>
-              <Button
-                style={{ backgroundColor: ButtonBackgroundColor.Red }}
-                onClick={this.onModal}
-              >
-                ยกเลิก
-              </Button>
-            </Col>
-            <Col span={7}>
+            <Col span={11}>
               <Button
                 style={{ backgroundColor: ButtonBackgroundColor.Blue }}
                 onClick={this.goEdit}
@@ -268,8 +264,8 @@ class ReservationInfo extends Component<
       } else if (
         owner &&
         !cancle &&
-        state !== 'accept' &&
-        state !== 'drop'
+        state !== TaskStateType.accept &&
+        state !== TaskStateType.drop
       ) {
         return (
           <React.Fragment>
@@ -290,8 +286,8 @@ class ReservationInfo extends Component<
         !owner &&
         !cancle &&
         !ownConfirm &&
-        state !== 'accept' &&
-        state !== 'drop'
+        state !== TaskStateType.accept &&
+        state !== TaskStateType.drop
       ) {
         return (
           <React.Fragment>
@@ -327,7 +323,29 @@ class ReservationInfo extends Component<
           ))}
 
           <Col span={24} className={styles.overview}>
-            <Outline className={styles.header}>ข้อมูลการจอง</Outline>
+            <Row type="flex" justify="space-between">
+              <Col>
+                <Outline>ข้อมูลการจอง</Outline>
+              </Col>
+              {/* cancle able */}
+              {this.state.state === 'reject' && (
+                <Col>
+                  <div>
+                    <p
+                      onClick={this.onModal}
+                      style={{
+                        color: '#979797',
+                        textDecorationLine: 'underline',
+                        lineHeight: '36px',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      ยกเลิกการจอง
+                    </p>
+                  </div>
+                </Col>
+              )}
+            </Row>
 
             <Row type="flex" justify="start">
               <Col>

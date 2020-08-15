@@ -9,14 +9,15 @@ export interface TaskDesc {
   createAt: Date | Moment;
 }
 
-export type TaskStateType =
-  | 'wait'
-  | 'approve'
-  | 'reject'
-  | 'accept'
-  | 'drop'
-  | 'requested'
-  | 'forward';
+export enum TaskStateType {
+  wait = 'wait',
+  approve = 'approve',
+  reject = 'reject',
+  accept = 'accept',
+  drop = 'drop',
+  requested = 'requested',
+  forward = 'forward',
+}
 
 export enum TaskType {
   common = 'common',
