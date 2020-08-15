@@ -124,7 +124,7 @@ class ReservationInfo extends Component<
 
   goEdit = () => {
     return this.props.history.push(
-      CURRENT_PATH + 'edit/' + this.state._id,
+      CURRENT_PATH + 'edit/' + this.state._id + '/1',
     );
   };
 
