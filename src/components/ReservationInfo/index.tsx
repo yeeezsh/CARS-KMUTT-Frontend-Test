@@ -13,7 +13,7 @@ import Loadble from 'react-loadable';
 import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { taskAPI } from 'Services/task';
-import { TaskDetail } from 'Services/task/task.interface';
+import { TaskDetail, TaskType } from 'Services/task/task.interface';
 import { RootReducersType } from 'Store/reducers';
 import styles from './styles.module.css';
 
@@ -208,17 +208,17 @@ class ReservationInfo extends Component<
     const formInfo = (type: TaskDetail['type']) => {
       console.log('form type', type);
       if (!forms) return null;
-      if (type === 'common') {
+      if (type === TaskType.common) {
         return (
           <OverviewCommonForm viewOnly={true} data={{ forms, area }} />
         );
       }
-      if (type === 'common-sport') {
+      if (type === TaskType.commonSport) {
         return (
           <OverviewSportForm viewOnly={true} data={{ forms, area }} />
         );
       }
-      if (type === 'meeting-club') {
+      if (type === TaskType.meetingClub) {
         return (
           <OverviewMeetingForm
             buttonOffeset={false}
@@ -227,7 +227,7 @@ class ReservationInfo extends Component<
           />
         );
       }
-      if (type === 'meeting-room') {
+      if (type === TaskType.meetingRoom) {
         return (
           <OverviewMeetingForm
             buttonOffeset={false}
