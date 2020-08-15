@@ -1,8 +1,11 @@
 import { AreaBuilding } from 'Services/area/area.building.interfaces';
-export interface TaskArea {
+import { BuildingType } from 'Services/building/interface';
+import { AreaInfo } from 'Store/reducers/areaForm/types';
+
+export interface TaskArea extends AreaInfo {
   _id: string;
   name: string;
   label?: string;
   building?: AreaBuilding;
-  type?: string | any;
+  type?: BuildingType;
 }
