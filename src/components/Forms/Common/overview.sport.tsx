@@ -479,8 +479,6 @@ const OverviewCommonForm: React.FC<FormComponentProps & Props> = props => {
             </Row>
           </Col>
         )}
-        {/* <Trail /> */}
-        <Row style={{ height: '125px', zIndex: -1 }} />
       </Col>
     </React.Fragment>
   );
