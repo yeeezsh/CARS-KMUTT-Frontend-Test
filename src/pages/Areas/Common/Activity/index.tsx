@@ -187,19 +187,19 @@ const Activity: React.FC<{
       {steps !== MAX_STEPS && <Outline>ฟอร์มขอใช้บริการ</Outline>}
 
       <Switch>
-        <Route path="/*1">
+        <Route path="**/1">
           <RequestorForm ind={0} />
           <Trail />
         </Route>
-        <Route path="/*2">
+        <Route path="**/2">
           <ProjectForm ind={1} />
           <Trail />
         </Route>
-        <Route path="/*3">
+        <Route path="**/3">
           <FacilityForm ind={2} />
           <Trail />
         </Route>
-        <Route path="/*4">
+        <Route path="**/4">
           <OverviewCommonForm ind={3} />
           <Trail />
         </Route>

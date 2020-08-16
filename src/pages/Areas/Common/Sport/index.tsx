@@ -214,28 +214,28 @@ const Sport: React.FC<{
       {steps !== MAX_STEPS && <Outline>ฟอร์มขอใช้บริการ</Outline>}
 
       <Switch>
-        <Route path="/*1">
+        <Route path="**/1">
           <RequestorForm ind={0} />
           <Trail />
         </Route>
-        <Route path="/*2">
+        <Route path="**/2">
           <ProjectForm ind={1} />
           <Trail />
         </Route>
-        <Route path="/*3">
+        <Route path="**/3">
           <AreaForm ind={2} />
           <Trail />
         </Route>
-        <Route path="/*4">{<EquipmentForm ind={3} />}</Route>
-        <Route path="/*5">
+        <Route path="**/4">{<EquipmentForm ind={3} />}</Route>
+        <Route path="**/5">
           <ReturnForm ind={4} />
           <Trail />
         </Route>
-        <Route path="/*6">
+        <Route path="**/6">
           <FacilityForm ind={5} />
           <Trail />
         </Route>
-        <Route path="/*7">
+        <Route path="**/7">
           <OverviewSportForm ind={6} />
           <Trail />
         </Route>
