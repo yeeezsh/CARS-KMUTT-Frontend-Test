@@ -20,6 +20,7 @@ import {
   initForm,
   setAreaInfoForm,
 } from 'Store/reducers/areaForm/actions';
+import { AreaFormReducer } from 'Store/reducers/areaForm/types';
 // assets
 import sharedStyles from '../common/styles/styles.module.css';
 import Trail from '../common/Trail';
@@ -53,31 +54,36 @@ const ConfirmModal = Loadable({
 // constant
 const MAX_STEPS = 6;
 
-const Sport: React.FC = () => {
+const Sport: React.FC<{
+  noInit?: boolean;
+  editMode?: boolean;
+  onSend?: (forms: AreaFormReducer) => void;
+}> = props => {
   const forms = useSelector((s: RootReducersType) => s.AreaFormReducers);
   const steps = forms.step;
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation().pathname;
 
-  const areaId = location.split('/')[3];
+  const areaId = forms.area?._id || location.split('/')[3];
 
   // once
   useEffect(() => {
-    dispatch(initForm({ size: MAX_STEPS }));
-    areaAPI
-      .getAreaInfo(areaId)
-      .then(area => {
-        dispatch(setAreaInfoForm(area));
-      })
-      .then(() => {
-        // pre load other forms
-        ProjectForm.preload();
-        AreaForm.preload();
-        FacilityForm.preload();
-        EquipmentForm.preload();
-        OverviewSportForm.preload();
-      });
+    if (!props.noInit) dispatch(initForm({ size: MAX_STEPS }));
+    areaId &&
+      areaAPI
+        .getAreaInfo(areaId)
+        .then(area => {
+          dispatch(setAreaInfoForm(area));
+        })
+        .then(() => {
+          // pre load other forms
+          ProjectForm.preload();
+          AreaForm.preload();
+          FacilityForm.preload();
+          EquipmentForm.preload();
+          OverviewSportForm.preload();
+        });
   }, []);
 
   function goBack() {
@@ -104,8 +110,12 @@ const Sport: React.FC = () => {
   const [modal, setModal] = useState(false);
 
   function sendData() {
-    taskFormAPI.createSportTask(forms);
-    return;
+    if (props.editMode) {
+      props.onSend && props.onSend(forms);
+      return;
+    } else {
+      taskFormAPI.createSportTask(forms);
+    }
   }
 
   // when steps change
