@@ -227,18 +227,16 @@ const Sport: React.FC<{
           <Trail />
         </Route>
         <Route path="/*4">{<EquipmentForm ind={3} />}</Route>
+        <Route path="/*5">
+          <ReturnForm ind={4} />
+          <Trail />
+        </Route>
         <Route path="/*6">
           <FacilityForm ind={5} />
           <Trail />
         </Route>
         <Route path="/*7">
           <OverviewSportForm ind={6} />
-          <Trail />
-        </Route>
-
-        {/* idk why, cause its bug ind 5 must occur here */}
-        <Route path="/*5">
-          <ReturnForm ind={4} />
           <Trail />
         </Route>
       </Switch>
