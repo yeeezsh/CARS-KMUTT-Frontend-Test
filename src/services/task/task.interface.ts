@@ -17,6 +17,7 @@ export enum TaskStateType {
   drop = 'drop',
   requested = 'requested',
   forward = 'forward',
+  resend = 'resend',
 }
 
 export enum TaskType {
