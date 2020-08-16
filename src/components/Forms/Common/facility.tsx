@@ -4,7 +4,7 @@ import { FormComponentProps } from 'antd/lib/form';
 import Button from 'Components/Button';
 import FormLabel from 'Components/FormLabel';
 import Outline from 'Components/Outline';
-import { Moment } from 'moment';
+import moment, { Moment } from 'moment';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // data & store
@@ -116,7 +116,9 @@ const FacilityForm: React.FC<FormComponentProps & Props> = props => {
               <span style={labelStyles}>ตั้งแต่เวลา</span>
               {getFieldDecorator('startAirTime', {
                 rules: [{ required: air, message: DEFAULT_REQUIED_MSG }],
-                initialValue: data.startAirTime || null,
+                initialValue: data.startAirTime
+                  ? moment(data.startAirTime)
+                  : null,
               })(
                 <TimePicker
                   style={TIME_PICKER_STYLES}
@@ -134,7 +136,9 @@ const FacilityForm: React.FC<FormComponentProps & Props> = props => {
               <span style={labelStyles}>ถึงเวลา</span>
               {getFieldDecorator('stopAirTime', {
                 rules: [{ required: air, message: DEFAULT_REQUIED_MSG }],
-                initialValue: data.stopAirTime || null,
+                initialValue: data.stopAirTime
+                  ? moment(data.stopAirTime)
+                  : null,
               })(
                 <TimePicker
                   style={TIME_PICKER_STYLES}
@@ -174,7 +178,9 @@ const FacilityForm: React.FC<FormComponentProps & Props> = props => {
               <span style={labelStyles}>ตั้งแต่เวลา</span>
               {getFieldDecorator('startSoundTime', {
                 rules: [{ required: sound, message: DEFAULT_REQUIED_MSG }],
-                initialValue: data.startSoundTime || null,
+                initialValue: data.startSoundTime
+                  ? moment(data.startSoundTime)
+                  : null,
               })(
                 <TimePicker
                   style={TIME_PICKER_STYLES}
@@ -192,7 +198,9 @@ const FacilityForm: React.FC<FormComponentProps & Props> = props => {
               <span style={labelStyles}>ถึงเวลา</span>
               {getFieldDecorator('stopSoundTime', {
                 rules: [{ required: sound, message: DEFAULT_REQUIED_MSG }],
-                initialValue: data.stopSoundTime || null,
+                initialValue: data.stopSoundTime
+                  ? moment(data.stopSoundTime)
+                  : null,
               })(
                 <TimePicker
                   style={TIME_PICKER_STYLES}
