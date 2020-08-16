@@ -7,6 +7,7 @@ import {
 
 export interface TaskTable {
   _id: string;
+  vid: string;
   requestor: TaskDetailRequestor[];
   area: {
     name: string;
