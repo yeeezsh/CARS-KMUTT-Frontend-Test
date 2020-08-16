@@ -3,6 +3,7 @@ import { Moment } from 'moment';
 import React from 'react';
 import Loadable from 'react-loadable';
 import { ReserveState } from 'Services/reserve/interface';
+import { TaskStateType } from 'Services/task/task.interface';
 // assets
 import styles from './styles.module.css';
 
@@ -65,7 +66,7 @@ export default function StateCard(props: {
         <Col span={22}>
           <span className={styles.state}>
             <StateCardIconColor
-              type={reserve?.state?.type || 'drop'}
+              type={reserve?.state?.type || TaskStateType.wait}
               desc={reserve?.state?.desc}
             />
           </span>

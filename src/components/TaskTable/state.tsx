@@ -1,8 +1,9 @@
 import { StateColor } from 'Models/stateCard/colors.interface';
 import React from 'react';
 import stateDesc from 'Services/task/helpers/state.desc';
+import { TaskStateType } from 'Services/task/task.interface';
 
-const State: React.FC<{ state?: string }> = props => {
+const State: React.FC<{ state?: TaskStateType }> = props => {
   const mainStyle: React.CSSProperties = {
     fontWeight: 'bold',
   };

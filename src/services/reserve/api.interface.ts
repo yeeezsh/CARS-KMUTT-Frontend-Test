@@ -1,3 +1,5 @@
+import { TaskStateType } from 'Services/task/task.interface';
+
 export interface AreaAPI {
   _id: string;
   name: string;
@@ -20,9 +22,7 @@ export interface TaskAPI {
   _id: string;
   reserve: TimeSlot[];
   requestor: RequestorAPI[];
-  state: Array<
-    'wait' | 'approve' | 'reject' | 'accept' | 'drop' | 'requested'
-  >;
+  state: TaskStateType[];
   // staff?: Staff[];
   area: AreaAPI;
   forms?: any;

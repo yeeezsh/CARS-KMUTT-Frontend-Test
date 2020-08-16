@@ -1,6 +1,7 @@
 import { Moment } from 'moment';
 import {
   TaskDetailRequestor,
+  TaskStateType,
   TaskType,
 } from 'Services/task/task.interface';
 
@@ -13,7 +14,7 @@ export interface TaskTable {
   };
   createAt: Moment;
   type: TaskType;
-  state: string[];
+  state: TaskStateType[];
 }
 
 export type TaskTableType = TaskTable[];

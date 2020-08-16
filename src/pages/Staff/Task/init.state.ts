@@ -11,7 +11,7 @@ export const initTask: TaskDetail = {
     _id: '',
     name: '',
     label: '',
-    type: '',
+    type: undefined,
   },
   building: {
     _id: '',
