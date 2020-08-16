@@ -9,6 +9,7 @@ import { taskFormAPI } from 'Services/task/form';
 import { Task, TaskType } from 'Services/task/task.interface';
 import { RootReducersType } from 'Store/reducers';
 import {
+  initForm,
   setAreaInfoForm,
   setFilledForm,
 } from 'Store/reducers/areaForm/actions';
@@ -36,13 +37,12 @@ const MyReservationEdit: React.FC = () => {
 
   useEffect(() => {
     taskAPI.getTaskById(taskId).then(t => {
+      dispatch(initForm({ size: t?.forms?.length || 0 }));
       setTask(t);
       dispatch(setAreaInfoForm(t?.area as AreaInfo));
       dispatch(setFilledForm(t?.forms));
     });
   }, [taskId]);
-
-  console.log('task id', taskId, task, task?.type);
 
   function onSubmit<T>(data: T) {
     taskFormAPI.updateTask({ id: task?._id, ...(data as any) });
