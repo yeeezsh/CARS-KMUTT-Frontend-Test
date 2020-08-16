@@ -88,6 +88,7 @@ class ReservationInfo extends Component<
     owner: boolean;
     ownConfirm: boolean;
     _id: string;
+    vid: string;
     cancle: boolean;
     forms?: any;
     type?: TaskDetail['type'];
@@ -111,6 +112,7 @@ class ReservationInfo extends Component<
       owner: false,
       ownConfirm: false,
       _id: '',
+      vid: '',
       cancle: false,
       comments: [],
       noTask: true,
@@ -173,6 +175,7 @@ class ReservationInfo extends Component<
     const state = data.state;
     return this.setState({
       _id: data._id,
+      vid: data.vid,
       loading: false,
       reserve: data?.reserve || [],
       state: (state && state[state.length - 1]) || [],
@@ -363,6 +366,9 @@ class ReservationInfo extends Component<
             <BreakingLine lineSize={0.25} color="#FDE3D4" />
 
             <div className={styles.info}>
+              <p>
+                <b>รหัสการจอง:</b> {this.state.vid}
+              </p>
               <p>
                 <b>สถานที่:</b> {area.label || area.name}
               </p>
