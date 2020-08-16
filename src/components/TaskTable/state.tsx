@@ -9,37 +9,43 @@ const State: React.FC<{ state?: TaskStateType }> = props => {
   };
   const { state } = props;
   switch (state) {
-    case 'accept':
+    case TaskStateType.accept:
       return (
         <p style={{ ...mainStyle, color: StateColor.Green }}>
           {stateDesc(state)}
         </p>
       );
-    case 'reject':
+    case TaskStateType.reject:
       return (
         <p style={{ ...mainStyle, color: StateColor.Yellow }}>
           {stateDesc(state)}
         </p>
       );
-    case 'drop':
+    case TaskStateType.resend:
+      return (
+        <p style={{ ...mainStyle, color: StateColor.Blue }}>
+          {stateDesc(state)}
+        </p>
+      );
+    case TaskStateType.drop:
       return (
         <p style={{ ...mainStyle, color: StateColor.Red }}>
           {stateDesc(state)}
         </p>
       );
-    case 'wait':
+    case TaskStateType.wait:
       return (
         <p style={{ ...mainStyle, color: StateColor.Blue }}>
           {stateDesc(state)}
         </p>
       );
-    case 'forward':
+    case TaskStateType.forward:
       return (
         <p style={{ ...mainStyle, color: StateColor.Blue }}>
           {stateDesc(state)}
         </p>
       );
-    case 'requested':
+    case TaskStateType.requested:
       return (
         <p style={{ ...mainStyle, color: StateColor.Blue }}>
           {stateDesc(state)}
