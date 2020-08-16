@@ -21,6 +21,7 @@ class TaskFormClassAPI {
       await adapter.instance.patch('/taskForm', { ...data });
       return;
     } catch (err) {
+      console.error(err);
       throw err;
     }
   }

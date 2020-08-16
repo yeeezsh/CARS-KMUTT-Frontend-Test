@@ -26,7 +26,7 @@ const StateCardIconColor: React.FunctionComponent<{
       return (
         <React.Fragment>
           <img src={StateBlue} alt="state-blue" />
-          <p style={{ ...label, color: '#1890FF' }}>
+          <p style={{ ...label, color: StateColor.Blue }}>
             {desc || stateDesc(type)}
           </p>
         </React.Fragment>
@@ -35,7 +35,7 @@ const StateCardIconColor: React.FunctionComponent<{
       return (
         <React.Fragment>
           <img src={StateBlue} alt="state-blue" />
-          <p style={{ ...label, color: '#1890FF' }}>
+          <p style={{ ...label, color: StateColor.Blue }}>
             {desc || stateDesc(type)}
           </p>
         </React.Fragment>

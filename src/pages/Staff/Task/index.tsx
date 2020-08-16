@@ -18,7 +18,7 @@ import { StaffPermissionType } from 'Services/user/staff.interface';
 import staffGroupHelper from 'Services/user/staffGroupHelper';
 import { CustomBrakeLine, detailStyle, mainStyle } from './helper';
 import { initTask } from './init.state';
-import useCanReject from './useCanRejectTask';
+import useCanReject from './useCanReject';
 
 const StaffLayout = Loadable({
   loader: () => import('Components/Layout/Staff/Home'),
