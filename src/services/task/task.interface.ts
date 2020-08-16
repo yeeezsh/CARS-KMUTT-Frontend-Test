@@ -34,7 +34,7 @@ export interface Task {
   state: TaskStateType[];
   area: TaskArea;
   desc?: TaskDesc[] | string; // string for last card api only
-  forms?: any;
+  forms?: any[];
   type?: TaskType;
 
   cancle: boolean;
