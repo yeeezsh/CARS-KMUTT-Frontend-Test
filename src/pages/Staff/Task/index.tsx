@@ -50,7 +50,7 @@ const ConfirmModal = Loadable({
 });
 
 // Custom Components
-const ForwardButton: React.FC<{ onClick?: () => void }> = props => (
+const RejectButton: React.FC<{ onClick?: () => void }> = props => (
   <div style={{ height: '45px' }}>
     <Button
       style={{ backgroundColor: 'white', height: '30px' }}
@@ -283,7 +283,7 @@ const TaskPage: React.FC = () => {
             {/* reject button */}
             {!reject && (
               <Col style={{ right: 0 }} span={4}>
-                <ForwardButton onClick={() => setRejectModal(true)} />
+                <RejectButton onClick={() => setRejectModal(true)} />
               </Col>
             )}
           </Row>
