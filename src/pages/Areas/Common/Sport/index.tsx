@@ -237,7 +237,6 @@ const Sport: React.FC<{
         </Route>
         <Route path="**/7">
           <OverviewSportForm ind={6} />
-          <Trail />
         </Route>
       </Switch>
     </PageLayout>
