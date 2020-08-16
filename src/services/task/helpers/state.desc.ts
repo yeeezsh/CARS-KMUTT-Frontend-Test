@@ -12,7 +12,7 @@ export default (state: ReserveState): ReserveStateDesc => {
     case TaskStateType.wait:
       return 'รอการยืนยัน';
     case TaskStateType.resend:
-      return 'รอการตอบกลับ';
+      return 'รอการตรววจสอบ';
     case TaskStateType.forward:
       return 'รอการส่งต่อ';
     case TaskStateType.requested:
