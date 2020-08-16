@@ -278,7 +278,7 @@ const TaskPage: React.FC = () => {
         {/* header */}
         <Col span={20} style={{ ...mainStyle }}>
           <Row type="flex" justify="space-between">
-            <Col span={18}>รหัสการจอง : {task._id}</Col>
+            <Col span={18}>รหัสการจอง : {task.vid}</Col>
 
             {/* reject button */}
             {!reject && (
