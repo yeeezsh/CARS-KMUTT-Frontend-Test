@@ -201,7 +201,6 @@ const Activity: React.FC<{
         </Route>
         <Route path="**/4">
           <OverviewCommonForm ind={3} />
-          <Trail />
         </Route>
       </Switch>
     </PageLayout>
