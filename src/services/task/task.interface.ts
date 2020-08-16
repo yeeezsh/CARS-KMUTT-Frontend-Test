@@ -30,6 +30,7 @@ export enum TaskType {
 
 export interface Task {
   _id: string;
+  vid: string;
   reserve: TimeSlot[];
   state: TaskStateType[];
   area: TaskArea;
