@@ -16,21 +16,19 @@ import { AreaInfo } from 'Store/reducers/areaForm/types';
 
 const FormFactory = (
   type: Task['type'],
-  forms: any,
-  area: Task['area'],
   onSubmit: <T>(forms: T) => void,
 ) => {
   switch (type) {
     case TaskType.common:
       return <Activity noInit={true} editMode={true} onSend={onSubmit} />;
     case TaskType.commonSport:
-      return <Sport />;
+      return <Sport noInit={true} editMode={true} onSend={onSubmit} />;
     default:
       return <div>no support</div>;
   }
 };
 
-const MyReservationEdit: React.FC = props => {
+const MyReservationEdit: React.FC = () => {
   const [task, setTask] = useState<Task>();
   const { id: taskId } = useParams<{ id: string }>();
   const forms = useSelector((s: RootReducersType) => s.AreaFormReducers);
@@ -39,7 +37,6 @@ const MyReservationEdit: React.FC = props => {
   useEffect(() => {
     taskAPI.getTaskById(taskId).then(t => {
       setTask(t);
-      console.log('tttttt', t);
       dispatch(setAreaInfoForm(t?.area as AreaInfo));
       dispatch(setFilledForm(t?.forms));
     });
@@ -48,16 +45,13 @@ const MyReservationEdit: React.FC = props => {
   console.log('task id', taskId, task, task?.type);
 
   function onSubmit<T>(data: T) {
-    console.log('on edit', data);
-    // task?._id &&
     taskFormAPI.updateTask({ id: task?._id, ...(data as any) });
     return;
   }
 
-  const FormElement =
-    task?.area &&
-    FormFactory(task?.type, task?.forms, task?.area, onSubmit);
-  console.log('form elem', FormElement);
+  // forms presentation
+  const FormElement = task?.area && FormFactory(task?.type, onSubmit);
+
   return (
     <div>
       <ReservationInfoEdit />
