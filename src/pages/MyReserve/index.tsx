@@ -7,9 +7,7 @@ import Loadable from 'react-loadable';
 import { Route, Switch } from 'react-router';
 import { Link } from 'react-router-dom';
 import { r } from 'Services/reserve';
-// models & interfaces
 import Reserve from 'Services/reserve/interface';
-// helpers
 import OutlineType from './helpers/outline.type';
 
 const PageLayout = Loadable({

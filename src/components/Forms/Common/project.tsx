@@ -16,7 +16,7 @@ import {
 import Badge from 'Components/Badge';
 import Button from 'Components/Button';
 import FormLabel from 'Components/FormLabel';
-import { Moment } from 'moment';
+import moment, { Moment } from 'moment';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import adapter, { END_POINT } from 'Services/adapter.interface';
@@ -157,7 +157,7 @@ const ProjectForm: React.FC<FormComponentProps & {
               <span style={labelStyles}>ตั้งแต่วันที่</span>
               {getFieldDecorator('projectStartDate', {
                 rules: [DEFAULT_REQUIRED_RULES],
-                initialValue: data.projectStartDate || null,
+                initialValue: moment(data.projectStartDate) || null,
               })(
                 <DatePicker
                   format={[DATE_FORMAT]}
@@ -174,7 +174,7 @@ const ProjectForm: React.FC<FormComponentProps & {
               <span style={labelStyles}>ถึงวันที่</span>
               {getFieldDecorator('projectStopDate', {
                 rules: [DEFAULT_REQUIRED_RULES],
-                initialValue: data.projectStopDate || null,
+                initialValue: moment(data.projectStopDate) || null,
               })(
                 <DatePicker
                   format={[DATE_FORMAT]}
@@ -196,7 +196,7 @@ const ProjectForm: React.FC<FormComponentProps & {
               <span style={labelStyles}>วันที่</span>
               {getFieldDecorator('projectStartDate', {
                 rules: [DEFAULT_REQUIRED_RULES],
-                initialValue: data.projectStartDate || null,
+                initialValue: moment(data.projectStartDate) || null,
               })(
                 <DatePicker
                   format={[DATE_FORMAT]}
@@ -217,7 +217,7 @@ const ProjectForm: React.FC<FormComponentProps & {
             <span style={labelStyles}>ตั้งแต่เวลา</span>
             {getFieldDecorator('projectStartTime', {
               rules: [DEFAULT_REQUIRED_RULES],
-              initialValue: data.projectStartTime || null,
+              initialValue: moment(data.projectStartTime) || null,
             })(
               <TimePicker
                 format={'HH:mm'}
@@ -233,7 +233,7 @@ const ProjectForm: React.FC<FormComponentProps & {
             <span style={labelStyles}>ถึงเวลา</span>
             {getFieldDecorator('projectStopTime', {
               rules: [DEFAULT_REQUIRED_RULES],
-              initialValue: data.projectStopTime || null,
+              initialValue: moment(data.projectStopTime) || null,
             })(
               <TimePicker
                 format={'HH:mm'}

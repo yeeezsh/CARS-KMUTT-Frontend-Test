@@ -9,29 +9,33 @@ export interface TaskDesc {
   createAt: Date | Moment;
 }
 
-export type TaskStateType =
-  | 'wait'
-  | 'approve'
-  | 'reject'
-  | 'accept'
-  | 'drop'
-  | 'requested'
-  | 'forward';
+export enum TaskStateType {
+  wait = 'wait',
+  approve = 'approve',
+  reject = 'reject',
+  accept = 'accept',
+  drop = 'drop',
+  requested = 'requested',
+  forward = 'forward',
+  resend = 'resend',
+}
 
-export type TaskType =
-  | 'common'
-  | 'common-sport'
-  | 'sport'
-  | 'meeting-club'
-  | 'meeting-room';
+export enum TaskType {
+  common = 'common',
+  commonSport = 'common-sport',
+  sport = 'sport',
+  meetingClub = 'meeting-club',
+  meetingRoom = 'meeting-room',
+}
+
 export interface Task {
   _id: string;
   reserve: TimeSlot[];
   state: TaskStateType[];
   area: TaskArea;
   desc?: TaskDesc[] | string; // string for last card api only
-  forms?: any;
-  type?: TaskType | string;
+  forms?: any[];
+  type?: TaskType;
 
   cancle: boolean;
   createAt: Moment | Date;

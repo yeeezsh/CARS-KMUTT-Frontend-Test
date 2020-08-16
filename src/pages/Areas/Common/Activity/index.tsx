@@ -11,6 +11,7 @@ import {
   initForm,
   setAreaInfoForm,
 } from 'Store/reducers/areaForm/actions';
+import { AreaFormReducer } from 'Store/reducers/areaForm/types';
 // forms
 import {
   FacilityForm,
@@ -51,16 +52,18 @@ const ConfirmModal = Loadable({
 // constant
 const MAX_STEPS = 3;
 
-const Activity: React.FC = () => {
+const Activity: React.FC<{
+  noInit?: boolean;
+  editMode?: boolean;
+  onSend?: (forms: AreaFormReducer) => void;
+}> = props => {
   const forms = useSelector((s: RootReducersType) => s.AreaFormReducers);
   const steps = forms.step;
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation().pathname;
 
-  const areaId = location.split('/')[3];
-  // const [canNext, setCanNext] = useState(false);
-  console.log('forms', forms);
+  const areaId = forms.area?._id || location.split('/')[3];
 
   function goBack() {
     if (steps === 0) {
@@ -80,24 +83,29 @@ const Activity: React.FC = () => {
   const [modal, setModal] = useState(false);
 
   function sendData() {
-    taskFormAPI.createCommonTask(forms);
-    return;
+    if (props.editMode) {
+      props.onSend && props.onSend(forms);
+      return;
+    } else {
+      taskFormAPI.createCommonTask(forms);
+    }
   }
 
   // once
   useEffect(() => {
-    dispatch(initForm({ size: MAX_STEPS }));
-    areaAPI
-      .getAreaInfo(areaId)
-      .then(area => {
-        dispatch(setAreaInfoForm(area));
-      })
-      .then(() => {
-        // pre load other forms
-        ProjectForm.preload();
-        FacilityForm.preload();
-        OverviewCommonForm.preload();
-      });
+    if (!props.noInit) dispatch(initForm({ size: MAX_STEPS }));
+    areaId &&
+      areaAPI
+        .getAreaInfo(areaId)
+        .then(area => {
+          dispatch(setAreaInfoForm(area));
+        })
+        .then(() => {
+          // pre load other forms
+          ProjectForm.preload();
+          FacilityForm.preload();
+          OverviewCommonForm.preload();
+        });
   }, []);
 
   // when steps change
@@ -179,21 +187,20 @@ const Activity: React.FC = () => {
       {steps !== MAX_STEPS && <Outline>ฟอร์มขอใช้บริการ</Outline>}
 
       <Switch>
-        <Route path="/*1">
+        <Route path="**/1">
           <RequestorForm ind={0} />
           <Trail />
         </Route>
-        <Route path="/*2">
+        <Route path="**/2">
           <ProjectForm ind={1} />
           <Trail />
         </Route>
-        <Route path="/*3">
+        <Route path="**/3">
           <FacilityForm ind={2} />
           <Trail />
         </Route>
-        <Route path="/*4">
+        <Route path="**/4">
           <OverviewCommonForm ind={3} />
-          <Trail />
         </Route>
       </Switch>
     </PageLayout>

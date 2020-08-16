@@ -2,7 +2,7 @@ import { Col, DatePicker, Row } from 'antd';
 import Form, { FormComponentProps } from 'antd/lib/form';
 import Button from 'Components/Button';
 import FormLabel from 'Components/FormLabel';
-import { Moment } from 'moment';
+import moment, { Moment } from 'moment';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // store & data
@@ -67,7 +67,7 @@ const ReturnForm: React.FC<FormComponentProps & {
 
             {getFieldDecorator('return', {
               rules: [DEFAULT_REQUIRED_RULES],
-              initialValue: data.return || null,
+              initialValue: moment(data.return) || null,
             })(
               <DatePicker
                 style={{ width: '100%' }}

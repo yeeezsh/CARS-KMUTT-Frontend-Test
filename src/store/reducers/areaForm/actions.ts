@@ -1,8 +1,10 @@
+import { Task } from 'Services/task/task.interface';
 import {
   ADD_FORM,
   AreaFormActionTypes,
   AreaInfo,
   EachForm,
+  FILLED_FORM,
   FILL_FORM,
   FINISH_FORM,
   INIT_FORM,
@@ -41,6 +43,12 @@ export function setAreaInfoForm(area: AreaInfo): AreaFormActionTypes {
   return {
     type: SET_AREA_INFO,
     payload: area,
+  };
+}
+export function setFilledForm(forms: Task['forms']): AreaFormActionTypes {
+  return {
+    type: FILLED_FORM,
+    payload: forms,
   };
 }
 

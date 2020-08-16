@@ -1,5 +1,6 @@
 import { Col, message, Row } from 'antd';
 import checkedIcon from 'Assets/icons/button/checked.svg';
+import rejectIcon from 'Assets/icons/button/reject.svg';
 import xIcon from 'Assets/icons/button/x.svg';
 import {
   OverviewCommonForm,
@@ -17,6 +18,7 @@ import { StaffPermissionType } from 'Services/user/staff.interface';
 import staffGroupHelper from 'Services/user/staffGroupHelper';
 import { CustomBrakeLine, detailStyle, mainStyle } from './helper';
 import { initTask } from './init.state';
+import useCanReject from './useCanReject';
 
 const StaffLayout = Loadable({
   loader: () => import('Components/Layout/Staff/Home'),
@@ -47,6 +49,22 @@ const ConfirmModal = Loadable({
   loading: () => null,
 });
 
+// Custom Components
+const RejectButton: React.FC<{ onClick?: () => void }> = props => (
+  <div style={{ height: '45px' }}>
+    <Button
+      style={{ backgroundColor: 'white', height: '30px' }}
+      fontColor="#FF682B"
+      fontSize={14}
+      padding={'0px'}
+      onClick={props.onClick}
+    >
+      <img style={{ paddingRight: '6px' }} src={rejectIcon} />
+      ตีกลับ
+    </Button>
+  </div>
+);
+
 // constant
 const MAX_LEVEL_FORWARD = 2;
 
@@ -59,13 +77,15 @@ const TaskPage: React.FC = () => {
   const [dropModal, setDropModal] = useState(false);
   const [acceptModal, setAcceptModel] = useState(false);
   const [forwardModal, setForwardModal] = useState(false);
+  const [rejectModal, setRejectModal] = useState(false);
 
   const [task, setTask] = useState<TaskDetail>(initTask);
   const forms = task.forms;
   const area = task.area;
-  const [cancelled, setCancle] = useState(true);
+  const [drop, setDrop] = useState(true);
   const [accepted, setAccepted] = useState(true);
   const [forward, setForward] = useState(true);
+  const [reject, setReject] = useState(true);
 
   const formInfo = (type: TaskDetail['type']) => {
     if (!forms) return null;
@@ -123,6 +143,13 @@ const TaskPage: React.FC = () => {
       .catch(err => message.error(String(err)));
   }
 
+  function onRejectDropModel(desc?: string) {
+    taskAPI
+      .rejectTaskByStaff(taskId, desc)
+      .then(() => history.goBack())
+      .catch(err => message.error(String(err)));
+  }
+
   // modal states
   function onDropModal() {
     setDropModal(prev => !prev);
@@ -136,24 +163,44 @@ const TaskPage: React.FC = () => {
     setForwardModal(prev => !prev);
   }
 
+  function onRejectModal() {
+    setRejectModal(prev => !prev);
+  }
+
   //   fetch task
   useEffect(() => {
     taskAPI.getTaskById(taskId).then(t => {
       if (t) {
         setTask(t);
         const lastState = t.state.slice(-1)[0];
-        const alreadyCancel =
-          lastState === 'reject' || lastState === 'drop';
+        const alreadyDrop = lastState === 'drop';
         const alreadyAccepted = lastState === 'accept';
         const alreadyForward = lastState === 'forward';
+        const canReject = useCanReject(t);
+
+        // drop
+        if (alreadyDrop) {
+          setAccepted(false);
+          return;
+        }
+
+        // reject
+        if (canReject) {
+          setReject(false);
+        } else {
+          setReject(true);
+          setDrop(false);
+          setAccepted(false);
+          return;
+        }
+
         const currentUserLevel = staffGroupHelper(
           u.GetUser().group as StaffPermissionType,
         );
 
-        console.log('already forward', alreadyForward);
         // cancle & accept
         if (!alreadyForward) {
-          setCancle(alreadyCancel);
+          setDrop(alreadyDrop);
           setAccepted(alreadyAccepted);
           if (currentUserLevel >= MAX_LEVEL_FORWARD) {
             setForward(true);
@@ -175,7 +222,7 @@ const TaskPage: React.FC = () => {
           if (!canNextForward) {
             if (currentUserLevel === taskLevelForward) {
               setAccepted(false);
-              setCancle(false);
+              setDrop(false);
               return;
             }
             return setForward(true);
@@ -184,7 +231,7 @@ const TaskPage: React.FC = () => {
           if (taskLevelForward < currentUserLevel) {
             console.log('task < cur');
             setAccepted(false);
-            setCancle(false);
+            setDrop(false);
             // setForward(false);
             if (currentUserLevel >= MAX_LEVEL_FORWARD) {
               setForward(true);
@@ -194,12 +241,12 @@ const TaskPage: React.FC = () => {
           } else if (taskLevelForward === currentUserLevel) {
             console.log('task === cur');
             setAccepted(false);
-            setCancle(false);
+            setDrop(false);
             setForward(false);
           } else {
             console.log('task > cur');
             setAccepted(true);
-            setCancle(true);
+            setDrop(true);
             setForward(true);
           }
           console.log('level', taskLevelForward, currentUserLevel);
@@ -214,6 +261,7 @@ const TaskPage: React.FC = () => {
 
   return (
     <StaffLayout>
+      {/* Backcard */}
       <Row>
         <Col>
           <BackCard
@@ -224,11 +272,23 @@ const TaskPage: React.FC = () => {
           </BackCard>
         </Col>
       </Row>
+
+      {/* Header */}
       <Row style={{ marginTop: '24px' }} justify="center" type="flex">
         {/* header */}
         <Col span={20} style={{ ...mainStyle }}>
-          รหัสการจอง : {task._id}
+          <Row type="flex" justify="space-between">
+            <Col span={18}>รหัสการจอง : {task._id}</Col>
+
+            {/* reject button */}
+            {!reject && (
+              <Col style={{ right: 0 }} span={4}>
+                <RejectButton onClick={() => setRejectModal(true)} />
+              </Col>
+            )}
+          </Row>
         </Col>
+
         <Col
           span={20}
           style={{
@@ -370,7 +430,7 @@ const TaskPage: React.FC = () => {
                 )}
 
                 {/* drop */}
-                {!cancelled && (
+                {!drop && (
                   <Button
                     style={{
                       width: '175px',
@@ -408,6 +468,12 @@ const TaskPage: React.FC = () => {
         onAction={onForwardDropModal}
         type="forward"
         visible={forwardModal}
+      />
+      <ConfirmModal
+        onClick={onRejectModal}
+        onAction={onRejectDropModel}
+        type="reject"
+        visible={rejectModal}
       />
     </StaffLayout>
   );

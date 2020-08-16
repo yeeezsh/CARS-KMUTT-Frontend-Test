@@ -1,17 +1,23 @@
 import { Col, Row } from 'antd';
+import emptyIcon from 'Assets/icons/empty.box.svg';
 import {
   OverviewCommonForm,
   OverviewSportForm,
 } from 'Components/Forms/Common';
 import { Overview as OverviewMeetingForm } from 'Components/Forms/Meeting';
 import Loading from 'Components/Loading';
+import { ButtonBackgroundColor } from 'Models/button/button.bg';
 import moment from 'moment';
 import React, { Component } from 'react';
 import Loadble from 'react-loadable';
 import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { taskAPI } from 'Services/task';
-import { TaskDetail } from 'Services/task/task.interface';
+import {
+  TaskDetail,
+  TaskStateType,
+  TaskType,
+} from 'Services/task/task.interface';
 import { RootReducersType } from 'Store/reducers';
 import styles from './styles.module.css';
 
@@ -62,7 +68,8 @@ const CenterIconLayout: React.FC = props => (
   </div>
 );
 
-// const initState
+// constant
+const CURRENT_PATH = '/my/reserve/history/';
 const MODAL_REJECT_MSG = 'ท่านต้องการยกเลิกรีเควส';
 type PropTypes = RouteComponentProps & {
   onUnmount?: () => void;
@@ -73,7 +80,7 @@ class ReservationInfo extends Component<
   PropTypes,
   {
     reserve: TaskDetail['reserve'];
-    state: TaskDetail['state'][0];
+    state: TaskStateType;
     area: TaskDetail['area'];
     requestor: TaskDetail['requestor'];
     loading: boolean;
@@ -85,13 +92,14 @@ class ReservationInfo extends Component<
     forms?: any;
     type?: TaskDetail['type'];
     comments: TaskDetail['desc'];
+    noTask: boolean;
   }
 > {
   constructor(props: PropTypes) {
     super(props);
     this.state = {
-      reserve: [{ start: moment(), stop: moment(), allDay: false }],
-      state: 'drop',
+      reserve: [],
+      state: TaskStateType.wait,
       area: {
         label: '',
         name: '',
@@ -105,6 +113,7 @@ class ReservationInfo extends Component<
       _id: '',
       cancle: false,
       comments: [],
+      noTask: true,
     };
   }
 
@@ -115,6 +124,12 @@ class ReservationInfo extends Component<
 
   onModal = () => {
     return this.setState(prevState => ({ modal: !prevState.modal }));
+  };
+
+  goEdit = () => {
+    return this.props.history.push(
+      CURRENT_PATH + 'edit/' + this.state._id + '/1',
+    );
   };
 
   onModalAction = (confirmAction: boolean) => {
@@ -142,14 +157,18 @@ class ReservationInfo extends Component<
     if (!id) throw new Error('invalid id');
 
     const data = await taskAPI.getTaskById(id);
-    if (!data) return;
+    console.log('data ja', data);
 
-    const owner = username === (data && data.requestor[0].username);
+    if (!data) {
+      this.setState({ loading: false, noTask: true });
+      return;
+    }
+
+    const owner =
+      username === (data && data.requestor && data.requestor[0].username);
     const ownConfirm =
       data?.requestor.filter(e => e.username === username)[0].confirm ||
       false;
-
-    console.log('data ja', data);
 
     const state = data.state;
     return this.setState({
@@ -165,6 +184,7 @@ class ReservationInfo extends Component<
       forms: data.forms,
       type: data.type,
       comments: data.desc,
+      noTask: false,
     });
   };
 
@@ -192,17 +212,17 @@ class ReservationInfo extends Component<
     const formInfo = (type: TaskDetail['type']) => {
       console.log('form type', type);
       if (!forms) return null;
-      if (type === 'common') {
+      if (type === TaskType.common) {
         return (
           <OverviewCommonForm viewOnly={true} data={{ forms, area }} />
         );
       }
-      if (type === 'common-sport') {
+      if (type === TaskType.commonSport) {
         return (
           <OverviewSportForm viewOnly={true} data={{ forms, area }} />
         );
       }
-      if (type === 'meeting-club') {
+      if (type === TaskType.meetingClub) {
         return (
           <OverviewMeetingForm
             buttonOffeset={false}
@@ -211,7 +231,7 @@ class ReservationInfo extends Component<
           />
         );
       }
-      if (type === 'meeting-room') {
+      if (type === TaskType.meetingRoom) {
         return (
           <OverviewMeetingForm
             buttonOffeset={false}
@@ -225,7 +245,7 @@ class ReservationInfo extends Component<
     };
 
     const ActionBtn = () => {
-      if (owner && !cancle && state !== 'accept' && state !== 'drop') {
+      if (state === TaskStateType.reject) {
         return (
           <React.Fragment>
             <Col span={11}>
@@ -233,7 +253,28 @@ class ReservationInfo extends Component<
             </Col>
             <Col span={11}>
               <Button
-                style={{ backgroundColor: '#979797' }}
+                style={{ backgroundColor: ButtonBackgroundColor.Blue }}
+                onClick={this.goEdit}
+              >
+                แก้ไข
+              </Button>
+            </Col>
+          </React.Fragment>
+        );
+      } else if (
+        owner &&
+        !cancle &&
+        state !== TaskStateType.accept &&
+        state !== TaskStateType.drop
+      ) {
+        return (
+          <React.Fragment>
+            <Col span={11}>
+              <Button onClick={this.goBack}>ย้อนกลับ</Button>
+            </Col>
+            <Col span={11}>
+              <Button
+                style={{ backgroundColor: ButtonBackgroundColor.Grey }}
                 onClick={this.onModal}
               >
                 ยกเลิก
@@ -245,8 +286,8 @@ class ReservationInfo extends Component<
         !owner &&
         !cancle &&
         !ownConfirm &&
-        state !== 'accept' &&
-        state !== 'drop'
+        state !== TaskStateType.accept &&
+        state !== TaskStateType.drop
       ) {
         return (
           <React.Fragment>
@@ -255,7 +296,7 @@ class ReservationInfo extends Component<
             </Col>
             <Col span={11}>
               <Button
-                style={{ backgroundColor: '#1890FF' }}
+                style={{ backgroundColor: ButtonBackgroundColor.Blue }}
                 onClick={this.onModal}
               >
                 ยืนยัน
@@ -274,82 +315,111 @@ class ReservationInfo extends Component<
       }
     };
 
-    const DataContainer: JSX.Element = (
-      <>
-        {/* Comment from staffs */}
-        {this.state.comments.map((e, i) => (
-          <ReservationMessage key={i} msg={e.msg} date={e.createAt} />
-        ))}
+    const DataContainer = (): JSX.Element => {
+      return (
+        <>
+          {this.state.comments.map((e, i) => (
+            <ReservationMessage key={i} msg={e.msg} date={e.createAt} />
+          ))}
 
-        <Col span={24} className={styles.overview}>
-          <Outline className={styles.header}>ข้อมูลการจอง</Outline>
-          {/* sub header */}
-          <Row type="flex" justify="start">
-            <Col>
-              <Badge>
-                <span className={styles.statusBadge}>สถานะการจอง</span>
-              </Badge>
-            </Col>
-            <Col style={{ marginLeft: '8px' }}>
-              <div className={styles.status}>
-                <StateCardIconColor type={state} />
-              </div>
-            </Col>
-          </Row>
-
-          {/* breaking line */}
-          <BreakingLine lineSize={0.25} color="#FDE3D4" />
-
-          {/* area info */}
-          <div className={styles.info}>
-            <p>
-              <b>สถานที่:</b> {area.label || area.name}
-            </p>
-            <p>
-              <b>วันที่จอง:</b>{' '}
-              {moment(reserve[0].start).format('DD MMMM YYYY')}
-            </p>
-            <p>
-              <b>เวลา:</b> {moment(reserve[0].start).format('HH.mm')} -{' '}
-              {moment(reserve[0].stop).format('HH.mm')}
-            </p>
-          </div>
-
-          <p className={styles.overviewStudentIds}>รหัสนักศึกษา</p>
-
-          {/* users */}
-          <Col className={styles.overviewStudentIds} offset={1} span={22}>
-            <UsersReserveList users={requestor} />
-          </Col>
-
-          {/* forms */}
-          {formInfo(type)}
-
-          {/* btn action */}
-          <Col span={24} style={{ marginTop: '55px' }}>
-            <Row type="flex" justify="space-around">
-              <ActionBtn />
+          <Col span={24} className={styles.overview}>
+            <Row type="flex" justify="space-between">
+              <Col>
+                <Outline>ข้อมูลการจอง</Outline>
+              </Col>
+              {/* cancle able */}
+              {this.state.state === 'reject' && (
+                <Col>
+                  <div>
+                    <p
+                      onClick={this.onModal}
+                      style={{
+                        color: '#979797',
+                        textDecorationLine: 'underline',
+                        lineHeight: '36px',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      ยกเลิกการจอง
+                    </p>
+                  </div>
+                </Col>
+              )}
             </Row>
+
+            <Row type="flex" justify="start">
+              <Col>
+                <Badge>
+                  <span className={styles.statusBadge}>สถานะการจอง</span>
+                </Badge>
+              </Col>
+              <Col style={{ marginLeft: '8px' }}>
+                <div className={styles.status}>
+                  <StateCardIconColor type={state} />
+                </div>
+              </Col>
+            </Row>
+
+            <BreakingLine lineSize={0.25} color="#FDE3D4" />
+
+            <div className={styles.info}>
+              <p>
+                <b>สถานที่:</b> {area.label || area.name}
+              </p>
+              <p>
+                <b>วันที่จอง:</b>{' '}
+                {moment(reserve[0].start).format('DD MMMM YYYY')}
+              </p>
+              <p>
+                <b>เวลา:</b> {moment(reserve[0].start).format('HH.mm')} -{' '}
+                {moment(reserve[0].stop).format('HH.mm')}
+              </p>
+            </div>
+
+            <p className={styles.overviewStudentIds}>รหัสนักศึกษา</p>
+
+            <Col
+              className={styles.overviewStudentIds}
+              offset={1}
+              span={22}
+            >
+              <UsersReserveList users={requestor} />
+            </Col>
+
+            {formInfo(type)}
+
+            <Col span={24} style={{ marginTop: '55px' }}>
+              <Row type="flex" justify="space-around">
+                <ActionBtn />
+              </Row>
+            </Col>
           </Col>
-        </Col>
-        <ActionModal
-          desc={modalMsg}
-          visible={modal}
-          onModal={this.onModalAction}
-        />
-      </>
-    );
+          <ActionModal
+            desc={modalMsg}
+            visible={modal}
+            onModal={this.onModalAction}
+          />
+        </>
+      );
+    };
 
     return (
-      <React.Fragment>
-        {this.state.loading ? (
+      <>
+        {this.state.loading && (
           <CenterIconLayout>
             <Loading />
           </CenterIconLayout>
-        ) : (
-          DataContainer
         )}
-      </React.Fragment>
+
+        {!this.state.noTask && DataContainer()}
+        {!this.state.loading && this.state.noTask && (
+          <CenterIconLayout>
+            {/* Empty */}
+            <img src={emptyIcon} alt="empty icon" />
+            <p>ไม่มีข้อมูลการจอง</p>
+          </CenterIconLayout>
+        )}
+      </>
     );
   }
 }

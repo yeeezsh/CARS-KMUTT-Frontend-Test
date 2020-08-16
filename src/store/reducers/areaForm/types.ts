@@ -7,6 +7,7 @@ export const FILL_FORM = 'FILL_FORM';
 export const SET_FORM_CUR = 'SET_FORM_CUR';
 export const SET_AREA_INFO = 'SET_AREA_INFO';
 export const FINISH_FORM = 'FINISH_FORM';
+export const FILLED_FORM = 'FILLED_FORM';
 
 interface AddDataFormAction {
   type: typeof ADD_FORM;
@@ -38,6 +39,10 @@ interface SetAreaInfoFormAction {
 interface FinishFormAction {
   type: typeof FINISH_FORM;
 }
+interface FilledFormAction {
+  type: typeof FILLED_FORM;
+  payload: any;
+}
 export type AreaInfo = {
   _id?: string;
   name?: string;
@@ -57,7 +62,8 @@ export type AreaFormActionTypes =
   | FillDataFormAction
   | SetFormCurDataFormAction
   | SetAreaInfoFormAction
-  | FinishFormAction;
+  | FinishFormAction
+  | FilledFormAction;
 
 export interface AreaFormReducer {
   forms: Array<any>;

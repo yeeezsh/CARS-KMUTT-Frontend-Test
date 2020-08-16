@@ -43,7 +43,7 @@ const EquipmentForm: React.FC<FormComponentProps & {
   );
   const data: EquipmentForm = forms[CUR_IND];
   const [ownForms, setOwnForms] = useState({});
-  const [other, setOther] = useState('');
+  const [other, setOther] = useState(data.other || '');
 
   //   set index when form is loaded
   useEffect(() => {

@@ -1,13 +1,16 @@
+import { ButtonBackgroundColor } from 'Models/button/button.bg';
 import React from 'react';
 
-interface Style {
+interface ActionButtonStyle {
   type?: 'primary' | 'confirm' | 'disabled';
 }
 
-const btnStyle = (type?: Style['type']): React.CSSProperties => {
+const btnStyle = (
+  type?: ActionButtonStyle['type'],
+): React.CSSProperties => {
   const style: React.CSSProperties = {
     width: '100%',
-    backgroundColor: '#FF682B',
+    backgroundColor: ButtonBackgroundColor.Orange,
     borderRadius: '100px',
     cursor: 'pointer',
     border: 'none',
@@ -17,12 +20,12 @@ const btnStyle = (type?: Style['type']): React.CSSProperties => {
     case 'confirm':
       return {
         ...style,
-        backgroundColor: '#1890FF',
+        backgroundColor: ButtonBackgroundColor.Blue,
       };
     case 'disabled':
       return {
         ...style,
-        backgroundColor: '#979797',
+        backgroundColor: ButtonBackgroundColor.Grey,
       };
     default:
       return style;
@@ -32,7 +35,7 @@ const btnStyle = (type?: Style['type']): React.CSSProperties => {
 const Button: React.FunctionComponent<{
   color?: string;
   onClick?: () => void;
-  type?: Style['type'];
+  type?: ActionButtonStyle['type'];
   style?: React.CSSProperties;
   fontSize?: number;
   padding?: string | number;
@@ -49,7 +52,7 @@ const Button: React.FunctionComponent<{
     <button type="submit" onClick={onClick} style={styles}>
       <p
         style={{
-          color: fontColor || '#FFFFFF',
+          color: fontColor || ButtonBackgroundColor.White,
           fontSize: fontSize || '18px',
           lineHeight: '22px',
           fontWeight: 'bold',

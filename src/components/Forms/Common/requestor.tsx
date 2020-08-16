@@ -53,12 +53,19 @@ const RequestorForm: React.FC<FormComponentProps & {
     });
   }
 
+  const [faculty, setFaculty] = useState<string>(data.faculty);
   const [departments, setDepartment] = useState<Department>([]);
+
   function onFaculty(value: string) {
-    console.log('on faculty', value);
-    const selectedDepartment = faculties.find(e => e.value === value);
-    setDepartment(selectedDepartment?.departments || []);
-    setFieldsValue({ department: '' }); // remove selected department when faculty changed
+    const selectedFaculty = faculties.find(fc => fc.value === value);
+    const selectedDepartment = selectedFaculty?.departments;
+    setFaculty(selectedFaculty?.value || '');
+    setDepartment(selectedDepartment || []);
+
+    const departmentIsInFaculty = value !== faculty;
+    if (departmentIsInFaculty) {
+      setFieldsValue({ department: '' }); // remove selected department when faculty changed
+    }
   }
 
   //   set index when form is loaded
