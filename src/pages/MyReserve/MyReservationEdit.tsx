@@ -1,4 +1,3 @@
-import ReservationInfoEdit from 'Components/ReservationInfo/ReservationInfoEdit';
 import Activity from 'Pages/Areas/Common/Activity';
 import Sport from 'Pages/Areas/Common/Sport';
 import React, { useEffect, useState } from 'react';
@@ -52,12 +51,7 @@ const MyReservationEdit: React.FC = () => {
   // forms presentation
   const FormElement = task?.area && FormFactory(task?.type, onSubmit);
 
-  return (
-    <div>
-      <ReservationInfoEdit />
-      {FormElement}
-    </div>
-  );
+  return <div>{FormElement}</div>;
 };
 
 export default MyReservationEdit;
