@@ -1,20 +1,23 @@
 import { ReserveState, ReserveStateDesc } from '../../reserve/interface';
+import { TaskStateType } from '../task.interface';
 
 export default (state: ReserveState): ReserveStateDesc => {
   switch (state) {
-    case 'accept':
+    case TaskStateType.accept:
       return 'ได้รับการอนุมัติ';
-    case 'approve':
+    case TaskStateType.approve:
       return 'ได้รับการอนุมัติ';
-    case 'reject':
+    case TaskStateType.reject:
       return 'ตีกลับ';
-    case 'wait':
+    case TaskStateType.wait:
       return 'รอการยืนยัน';
-    case 'forward':
+    case TaskStateType.resend:
+      return 'รอการตอบกลับ';
+    case TaskStateType.forward:
       return 'รอการส่งต่อ';
-    case 'requested':
+    case TaskStateType.requested:
       return 'รอการยืนยันจากเพื่อน';
-    case 'drop':
+    case TaskStateType.drop:
       return 'ยกเลิก';
     default:
       return 'undefined';
