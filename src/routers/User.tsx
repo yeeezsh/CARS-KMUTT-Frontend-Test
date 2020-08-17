@@ -72,7 +72,7 @@ export default class PageUserRouter extends Component<
     const { location } = history;
     const validUser = u.GetUser().group === 'requestor';
     if (!validUser && location.pathname !== '/login')
-      return history.push('/login');
+      return history.replace('/login');
 
     // preload other components
     Home.preload();
@@ -89,7 +89,7 @@ export default class PageUserRouter extends Component<
     // check authorized first
     const validUser = u.GetUser().group === 'requestor';
     if (!validUser && location.pathname !== '/login')
-      return history.push('/login');
+      return history.replace('/login');
   };
 
   render() {
@@ -179,7 +179,7 @@ export default class PageUserRouter extends Component<
               <CommonActivity />
             </Route>
             <Route path="*/sport">
-              <CommonSport />{' '}
+              <CommonSport />
             </Route>
           </Switch>
         </Route>
