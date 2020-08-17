@@ -118,7 +118,7 @@ export default class TimeTable extends Component<
     return (
       <React.Fragment>
         {/* outliner */}
-        <Outline>
+        <Outline style={{ margin: 0 }}>
           <span style={{ fontSize: '14px' }}>
             {this.props.title || 'Unknown'}
           </span>
