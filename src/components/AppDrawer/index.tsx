@@ -19,8 +19,6 @@ const AppDrawer: React.FunctionComponent<{
     (select: RootReducersType) => select.UserReducers.username,
   );
 
-  console.log('appdrawer ', username);
-
   return (
     <Drawer
       placement={'left'}
