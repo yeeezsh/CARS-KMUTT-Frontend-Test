@@ -58,6 +58,9 @@ const iconSquare = (text?: string, icon?: string) => (
 // constant
 const PLACEHOLDER_DATE = 'DD/MM/YYYY';
 const DATE_FORMAT = 'DD/MM/YYYY';
+const DATE_FORMAT_DASH = 'DD-MM-YYYY';
+const TIME_FORMAT = 'HH:mm';
+const FULL_TIME_DATE_FORMAT = 'HH:mm-DD-MM-YYYY';
 const OFFSET_DAY = 3;
 const AREA_PARAM_IND = 5;
 const RESERVATION_INTERVAL = 60;
@@ -95,7 +98,8 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
   const data: CalendarForm = forms.forms[CUR_IND];
   const [selected, setSelected] = useState<TimeNode[]>([]);
 
-  function onSelect(value: Moment, type: TimeNode['type']) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  function onSelect(value: Moment, _type: TimeNode['type']) {
     const merge: any = [...selected, { value, type: 'selecting' }].sort(
       (a, b) => a.value.valueOf() - b.value.valueOf(),
     );
@@ -126,14 +130,6 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
     setSelected(merge);
     setError(false);
   }
-  console.log('selected time node', selected);
-  console.log('selected date', selectedDate?.format('DD MM YYYY'));
-  console.log(
-    'time node',
-    selected.forEach(e => {
-      console.log(e.value.format('DD MM YYYY HH:mm'));
-    }),
-  );
 
   function onSubmit() {
     if (!selected[0]) return; // ignore when null
@@ -144,16 +140,16 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
     }
 
     const start = moment(
-      `${selected[0].value.format('HH:mm')}-${selectedDate
+      `${selected[0].value.format(TIME_FORMAT)}-${selectedDate
         .startOf('day')
-        .format('DD-MM-YYYY')}`,
-      'HH:mm-DD-MM-YYYY',
+        .format(DATE_FORMAT_DASH)}`,
+      FULL_TIME_DATE_FORMAT,
     );
     const stop = moment(
       `${selected[selected.length - 1].value.format(
-        'HH:mm',
-      )}-${selectedDate.startOf('day').format('DD-MM-YYYY')}`,
-      'HH:mm-DD-MM-YYYY',
+        TIME_FORMAT,
+      )}-${selectedDate.startOf('day').format(DATE_FORMAT_DASH)}`,
+      FULL_TIME_DATE_FORMAT,
     );
 
     dispatch(
@@ -162,10 +158,10 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
           selected: selected.map(e => ({
             ...e,
             value: moment(
-              `${e.value.format('HH:mm')}-${selectedDate
+              `${e.value.format(TIME_FORMAT)}-${selectedDate
                 .startOf('day')
-                .format('DD-MM-YYYY')}`,
-              'HH:mm-DD-MM-YYYY',
+                .format(DATE_FORMAT_DASH)}`,
+              FULL_TIME_DATE_FORMAT,
             ),
           })),
           date: selectedDate,
@@ -219,6 +215,7 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
 
   return (
     <>
+      {/* Error Modal */}
       {error && (
         <Snackbar show={true}>
           <p style={{ fontWeight: 'bold' }}>ไม่สามารถจองได้</p>{' '}
@@ -236,10 +233,11 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
           </Row>
         </Col>
 
-        <Col span={24}>
+        <Col span={24} style={{ margin: 0 }}>
           <Form.Item>
             <p style={labelStyles}>
-              ตั้งแต่วันที่ <span style={{ color: 'red' }}>*</span>
+              ตั้งแต่วันที่
+              <span style={{ color: 'red', marginLeft: '4px' }}>*</span>
             </p>
 
             {getFieldDecorator('date', {
@@ -261,6 +259,28 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
           </Form.Item>
         </Col>
 
+        {/* Time Selected */}
+        <Col span={24} style={{ height: '32px' }}>
+          {selected.length < 1 ? (
+            <p style={labelStyles}>
+              กรุณาเลือกเวลา
+              <span style={{ color: 'red', marginLeft: '4px' }}>*</span>
+            </p>
+          ) : (
+            <p
+              style={{
+                ...labelStyles,
+                margin: 0,
+                padding: 0,
+                marginBottom: 0,
+              }}
+            >
+              เวลา {selected[0].value.format(TIME_FORMAT)} -
+              {selected.slice(-1)[0].value.format(TIME_FORMAT)}
+            </p>
+          )}
+        </Col>
+
         {/* TimeTable */}
         {areaState &&
           areaState.map(e => {
@@ -274,12 +294,6 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
             while (cur <= time.stop) {
               disabledMapped.push({
                 value: moment(cur),
-                // value: moment(
-                //   `${cur.format('HH:mm')}-${selectedDate.format(
-                //     'DD-MM-YYY',
-                //   )}`,
-                //   'HH:mm-DD-MM-YYYY',
-                // ),
                 type: 'available',
               });
               cur.add(time.interval || 60, 'minute');
@@ -297,8 +311,8 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
                 if (today.valueOf() !== selectedDate?.valueOf()) return e;
 
                 const valueMapped = moment(
-                  e.value.format('HH.mm'),
-                  'HH.mm',
+                  e.value.format(TIME_FORMAT),
+                  TIME_FORMAT,
                 ).set('date', Number(selectedDate?.format('DD')));
                 const o: TimeNode = {
                   type: 'available',
@@ -312,8 +326,6 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
               ...disabledMapped,
               ...(time.disabled || []),
             ];
-
-            console.log('start', time);
 
             return (
               <Col key={`${Math.random()}`} span={24}>
