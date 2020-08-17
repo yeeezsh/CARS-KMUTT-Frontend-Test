@@ -81,21 +81,10 @@ export default class PageUserRouter extends Component<
     // when first lunch
     const onHome = location.pathname === '/';
     if (!onHome) this.setState({ onHome });
-
-    // on subscribe
-    return history.listen(({ pathname }) => {
-      const currentHome = pathname === '/';
-      return this.setState({ onHome: currentHome });
-    });
   };
 
   componentDidUpdate = () => {
     const { location } = history;
-
-    // fix when hamburger not change
-    const onHome = location.pathname === '/';
-    if (onHome === this.state.onHome) return;
-    if (!onHome) this.setState({ onHome });
 
     // check authorized first
     const validUser = u.GetUser().group === 'requestor';
@@ -107,6 +96,12 @@ export default class PageUserRouter extends Component<
     const { drawer, onHome } = this.state;
     const { location } = history;
     const onLogin = location.pathname === '/login';
+
+    history.listen(({ pathname }) => {
+      const currentHome = pathname === '/';
+      return this.setState({ onHome: currentHome });
+    });
+
     return (
       <Router history={history}>
         {/* hamburger */}
