@@ -3,6 +3,7 @@ import { TaskDetail } from 'Services/task/task.interface';
 
 export const initTask: TaskDetail = {
   _id: '',
+  vid: '',
   staff: [],
   requestor: [],
   reserve: [],

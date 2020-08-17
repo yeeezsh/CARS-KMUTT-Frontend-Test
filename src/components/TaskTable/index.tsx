@@ -42,8 +42,7 @@ const TaskTable: React.FC<Props> = props => {
     {
       title: 'รหัสการจอง',
       key: '_id',
-      render: data =>
-        String(data?._id).slice(0, 3) + '.' + String(data?._id).slice(-4),
+      render: data => data.vid,
     },
     {
       title: 'ประเภทการจอง',

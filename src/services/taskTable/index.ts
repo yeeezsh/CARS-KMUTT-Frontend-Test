@@ -1,5 +1,6 @@
 import moment from 'moment';
 import adapter from 'Services/adapter.interface';
+import { TaskStateType } from 'Services/task/task.interface';
 import {
   // TaskTableType,
   TaskTable as TaskTableInterface,
@@ -12,9 +13,9 @@ class TaskTable {
     size: number,
     orderCol?: string,
     order?: 1 | -1,
-    taskType?: 'all' | 'wait' | 'reject' | 'accept' | 'drop' | 'forward',
+    queryType?: TaskStateType | 'all',
   ): Promise<TaskTableTypeAPI> {
-    const res = await adapter.instance.get(`/task/staff/${taskType}`, {
+    const res = await adapter.instance.get(`/task/staff/${queryType}`, {
       params: {
         current,
         size,
@@ -47,7 +48,13 @@ class TaskTable {
     orderCol?: string,
     order?: 1 | -1,
   ) {
-    return this.getTask(current, size, orderCol, order, 'reject');
+    return this.getTask(
+      current,
+      size,
+      orderCol,
+      order,
+      TaskStateType.reject,
+    );
   }
   async getAcceptTask(
     current: number,
@@ -55,7 +62,13 @@ class TaskTable {
     orderCol?: string,
     order?: 1 | -1,
   ) {
-    return this.getTask(current, size, orderCol, order, 'accept');
+    return this.getTask(
+      current,
+      size,
+      orderCol,
+      order,
+      TaskStateType.accept,
+    );
   }
 
   async getForwardTask(
@@ -64,7 +77,13 @@ class TaskTable {
     orderCol?: string,
     order?: 1 | -1,
   ) {
-    return this.getTask(current, size, orderCol, order, 'forward');
+    return this.getTask(
+      current,
+      size,
+      orderCol,
+      order,
+      TaskStateType.forward,
+    );
   }
   async getWaitTask(
     current: number,
@@ -72,7 +91,13 @@ class TaskTable {
     orderCol?: string,
     order?: 1 | -1,
   ) {
-    return this.getTask(current, size, orderCol, order, 'wait');
+    return this.getTask(
+      current,
+      size,
+      orderCol,
+      order,
+      TaskStateType.wait,
+    );
   }
   async getDropTask(
     current: number,
@@ -80,7 +105,13 @@ class TaskTable {
     orderCol?: string,
     order?: 1 | -1,
   ) {
-    return this.getTask(current, size, orderCol, order, 'drop');
+    return this.getTask(
+      current,
+      size,
+      orderCol,
+      order,
+      TaskStateType.drop,
+    );
   }
 }
 
