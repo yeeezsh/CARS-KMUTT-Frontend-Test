@@ -1,4 +1,3 @@
-import StaffSiderLayout from 'Components/Layout/Staff/Sider';
 import React from 'react';
 import Loadable from 'react-loadable';
 import { Route, Router, useHistory, useLocation } from 'react-router';
@@ -8,6 +7,10 @@ import {
   STAFF_PERMISSION,
 } from 'Services/user/staff.interface';
 
+const StaffSiderLayout = Loadable({
+  loader: () => import('Components/Layout/Staff/Sider'),
+  loading: () => null,
+});
 const Home = Loadable({
   loader: () => import('Pages/Staff/Home'),
   loading: () => null,
