@@ -69,7 +69,7 @@ const StaffRouter: React.FunctionComponent = () => {
   );
   if (!validStaff && location.pathname !== '/staff/login') {
     console.warn('redirecting to login pages cuz invalid permission');
-    history.push('/staff/login');
+    history.replace('/staff/login');
   }
 
   const currentLoginPage = location.pathname.match('/login');
