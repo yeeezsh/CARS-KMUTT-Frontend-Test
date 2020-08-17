@@ -112,6 +112,10 @@ const ProjectForm: React.FC<FormComponentProps & {
     return;
   }
 
+  function onRemoveFile(id: string) {
+    adapter.instance.delete('/file/' + id);
+  }
+
   function normFile(e: any) {
     console.log('norm file', e);
     return e && e.fileList;
@@ -272,6 +276,7 @@ const ProjectForm: React.FC<FormComponentProps & {
             onDownload={file =>
               window.open(DOWNLOAD_URL + '/' + file.response.id)
             }
+            onRemove={file => onRemoveFile(file.response.id)}
           >
             <Badge
               style={{
