@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Loadable from 'react-loadable';
 import { Route, Router, useHistory, useLocation } from 'react-router';
 import { u } from 'Services/user';
@@ -73,6 +73,13 @@ const StaffRouter: React.FunctionComponent = () => {
   }
 
   const currentLoginPage = location.pathname.match('/login');
+  useEffect(() => {
+    if (currentLoginPage) {
+      Login.preload();
+    }
+    Home.preload();
+    StaffSiderLayout.preload();
+  }, []);
 
   return (
     <Router history={history}>
