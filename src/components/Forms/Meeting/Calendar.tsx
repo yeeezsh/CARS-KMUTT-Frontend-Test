@@ -219,6 +219,7 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
 
   return (
     <>
+      {/* Error Modal */}
       {error && (
         <Snackbar show={true}>
           <p style={{ fontWeight: 'bold' }}>ไม่สามารถจองได้</p>{' '}
@@ -236,10 +237,11 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
           </Row>
         </Col>
 
-        <Col span={24}>
+        <Col span={24} style={{ margin: 0 }}>
           <Form.Item>
             <p style={labelStyles}>
-              ตั้งแต่วันที่ <span style={{ color: 'red' }}>*</span>
+              ตั้งแต่วันที่
+              <span style={{ color: 'red', marginLeft: '4px' }}>*</span>
             </p>
 
             {getFieldDecorator('date', {
@@ -259,6 +261,28 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
               />,
             )}
           </Form.Item>
+        </Col>
+
+        {/* Time Selected */}
+        <Col span={24} style={{ height: '32px' }}>
+          {selected.length < 1 ? (
+            <p style={labelStyles}>
+              กรุณาเลือกเวลา
+              <span style={{ color: 'red', marginLeft: '4px' }}>*</span>
+            </p>
+          ) : (
+            <p
+              style={{
+                ...labelStyles,
+                margin: 0,
+                padding: 0,
+                marginBottom: 0,
+              }}
+            >
+              เวลา {selected[0].value.format('HH:mm')} -
+              {selected.slice(-1)[0].value.format('HH:mm')}
+            </p>
+          )}
         </Col>
 
         {/* TimeTable */}
