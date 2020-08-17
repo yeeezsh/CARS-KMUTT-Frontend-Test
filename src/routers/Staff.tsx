@@ -1,5 +1,4 @@
-import StaffSiderLayout from 'Components/Layout/Staff/Sider';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Loadable from 'react-loadable';
 import { Route, Router, useHistory, useLocation } from 'react-router';
 import { u } from 'Services/user';
@@ -8,6 +7,10 @@ import {
   STAFF_PERMISSION,
 } from 'Services/user/staff.interface';
 
+const StaffSiderLayout = Loadable({
+  loader: () => import('Components/Layout/Staff/Sider'),
+  loading: () => null,
+});
 const Home = Loadable({
   loader: () => import('Pages/Staff/Home'),
   loading: () => null,
@@ -66,10 +69,17 @@ const StaffRouter: React.FunctionComponent = () => {
   );
   if (!validStaff && location.pathname !== '/staff/login') {
     console.warn('redirecting to login pages cuz invalid permission');
-    history.push('/staff/login');
+    history.replace('/staff/login');
   }
 
   const currentLoginPage = location.pathname.match('/login');
+  useEffect(() => {
+    if (currentLoginPage) {
+      Login.preload();
+    }
+    Home.preload();
+    StaffSiderLayout.preload();
+  }, []);
 
   return (
     <Router history={history}>
