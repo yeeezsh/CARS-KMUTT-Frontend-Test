@@ -33,6 +33,7 @@ const BadgeTaskType: React.FC<{ type?: TaskType }> = props => {
       count={badge?.label}
       style={{
         fontSize: '14px',
+        fontWeight: 'bold',
         backgroundColor: 'white',
         color: badge?.color,
         border: `1px solid ${badge?.color}`,
