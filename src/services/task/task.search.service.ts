@@ -12,7 +12,7 @@ export interface TaskSearchDto {
 class TaskSearchService {
   async search(query: TaskSearchDto): Promise<TaskTableTypeAPI> {
     try {
-      const res = await adapter.instance.get('/task/search', {
+      const res = await adapter.instance.get('/task/staff/search', {
         params: { ...query },
       });
       return res.data;
