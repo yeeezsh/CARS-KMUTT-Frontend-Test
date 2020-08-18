@@ -1,5 +1,13 @@
 import { TaskType } from 'Services/task/task.interface';
 
+enum TaskBadgeColor {
+  orange = '#FF682B',
+  yellow = '#F7B731',
+  purple = '#8854D0',
+  blue = '#1890FF',
+  green = '#20BF6B',
+}
+
 export interface TaskBadgeInterface {
   color: React.CSSProperties['color'];
   label: string;
