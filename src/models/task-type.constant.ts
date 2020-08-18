@@ -14,11 +14,27 @@ export interface TaskBadgeInterface {
   type: TaskType;
 }
 const TASK_TYPE_BADGE: TaskBadgeInterface[] = [
-  { color: 'red', label: 'ส่วนกลาง', type: TaskType.common },
-  { color: 'green', label: 'ส่วนกลาง (กีฬา)', type: TaskType.commonSport },
-  { color: 'yellow', label: 'กีฬา', type: TaskType.sport },
-  { color: 'pink', label: 'ห้องชมรม', type: TaskType.meetingClub },
-  { color: 'orange', label: 'ห้องประชุม', type: TaskType.meetingRoom },
+  {
+    color: TaskBadgeColor.orange,
+    label: 'ส่วนกลาง',
+    type: TaskType.common,
+  },
+  {
+    color: TaskBadgeColor.blue,
+    label: 'ส่วนกลาง (กีฬา)',
+    type: TaskType.commonSport,
+  },
+  { color: TaskBadgeColor.purple, label: 'กีฬา', type: TaskType.sport },
+  {
+    color: TaskBadgeColor.yellow,
+    label: 'ห้องชมรม',
+    type: TaskType.meetingClub,
+  },
+  {
+    color: TaskBadgeColor.green,
+    label: 'ห้องประชุม',
+    type: TaskType.meetingRoom,
+  },
 ];
 
 export default (type: TaskType): TaskBadgeInterface => {
