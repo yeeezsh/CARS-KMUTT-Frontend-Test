@@ -1,13 +1,14 @@
-import { Row, Table } from 'antd';
+import { Badge, Row, Table } from 'antd';
 import { ColumnProps } from 'antd/lib/table';
 import HeadTitle from 'Components/HeadTitle';
+import taskTypeConstant from 'Models/task-type.constant';
 import moment from 'moment';
 import React from 'react';
 import { useHistory } from 'react-router';
+import { TaskType } from 'Services/task/task.interface';
 import { TaskTable, TaskTableType } from 'Services/taskTable/interface';
 import ActionBtn from './ActionBtn';
 import State from './state';
-import typeDescHelper from './type.desc.helper';
 
 interface Props {
   title?: string;
@@ -24,6 +25,21 @@ interface Props {
     order: { column: string; order: 1 | -1 },
   ) => void;
 }
+
+const BadgeTaskType: React.FC<{ type?: TaskType }> = props => {
+  const badge = props.type && taskTypeConstant(props.type);
+  return (
+    <Badge
+      count={badge?.label}
+      style={{
+        fontSize: '14px',
+        backgroundColor: 'white',
+        color: badge?.color,
+        border: `1px solid ${badge?.color}`,
+      }}
+    />
+  );
+};
 
 const TaskTable: React.FC<Props> = props => {
   const { data, icon, title, allDataCount, current } = props;
@@ -47,7 +63,9 @@ const TaskTable: React.FC<Props> = props => {
     {
       title: 'ประเภทการจอง',
       key: 'reservationType',
-      render: data => typeDescHelper(data?.type),
+      // render: data => typeDescHelper(data?.type),
+      // eslint-disable-next-line react/display-name
+      render: (data: TaskTable) => <BadgeTaskType type={data.type} />,
     },
     {
       title: 'สถานที่',
