@@ -1,4 +1,5 @@
-import React from 'react';
+import { message } from 'antd';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootReducersType } from 'Store/reducers';
 import { onQuery, onSearch } from 'Store/reducers/search/actions';
@@ -8,6 +9,11 @@ const SearchBarContainer: React.FC = () => {
   const state = useSelector((s: RootReducersType) => s.SearchReducers);
 
   const dispatch = useDispatch();
+
+  //   error message
+  useEffect(() => {
+    if (state.error) message.error('Error unexpected on search');
+  }, [state.error]);
 
   return (
     <div>
