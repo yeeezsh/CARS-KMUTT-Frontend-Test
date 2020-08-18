@@ -3,13 +3,14 @@ import React from 'react';
 
 const SearchBar: React.FunctionComponent<{
   onSearch?: (s: string) => void;
+  loading: boolean;
 }> = props => {
-  const { onSearch } = props;
+  const { onSearch, loading } = props;
   return (
     <div>
       <Input
         style={{ width: '80%' }}
-        prefix={<Icon type="search" />}
+        prefix={<Icon type={loading ? 'loading' : 'search'} />}
         onChange={e => onSearch && onSearch(e.target.value)}
       />
     </div>
