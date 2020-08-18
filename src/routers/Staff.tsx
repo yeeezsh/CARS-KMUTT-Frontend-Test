@@ -1,4 +1,4 @@
-import { PageParamType } from 'Models/staff/page-param-type.interface';
+import { StaffPageParamType } from 'Models/staff/page-param-type.interface';
 import React, { useEffect } from 'react';
 import Loadable from 'react-loadable';
 import { Route, Router, useHistory, useLocation } from 'react-router';
@@ -111,19 +111,19 @@ const StaffRouter: React.FunctionComponent = () => {
       </Route>
 
       {/* <Home /> */}
-      <Route path={`**/${PageParamType.reject}`}>
+      <Route path={`**/${StaffPageParamType.reject}`}>
         <Reject />
       </Route>
-      <Route path={`**/${PageParamType.accept}`}>
+      <Route path={`**/${StaffPageParamType.accept}`}>
         <Accept />
       </Route>
-      <Route path={`**/${PageParamType.drop}`}>
+      <Route path={`**/${StaffPageParamType.drop}`}>
         <Drop />
       </Route>
-      <Route path={`**/${PageParamType.wait}`}>
+      <Route path={`**/${StaffPageParamType.wait}`}>
         <Wait />
       </Route>
-      <Route path={`**/${PageParamType.forward}`}>
+      <Route path={`**/${StaffPageParamType.forward}`}>
         <Forward />
       </Route>
 

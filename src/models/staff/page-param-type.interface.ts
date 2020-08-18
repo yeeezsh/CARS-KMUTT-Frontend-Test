@@ -1,4 +1,4 @@
-export enum PageParamType {
+export enum StaffPageParamType {
   all = 'all',
   accept = 'accept',
   wait = 'wait',
