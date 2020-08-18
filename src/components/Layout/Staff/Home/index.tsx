@@ -1,5 +1,4 @@
 import { Layout, Row } from 'antd';
-import SearchBar from 'Components/SearchBar';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootReducersType } from 'store/reducers';
@@ -15,9 +14,6 @@ const StaffLayout: React.FunctionComponent = props => {
     <Layout>
       <Header className={styles.header}>
         <Row>
-          <div style={{ width: 400 }}>
-            <SearchBar />
-          </div>
           <p className={styles.username}>{username}</p>
         </Row>
       </Header>
