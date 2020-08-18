@@ -20,7 +20,7 @@ const initState: SearchState = {
 export const SearchReducers = createReducer(initState, {
   [onSearch.type]: (state, action: PayloadAction<OnSearch>) => ({
     ...state,
-    s: action.payload.s,
+    s: action.payload,
   }),
   [onClear.type]: () => initState,
 });
