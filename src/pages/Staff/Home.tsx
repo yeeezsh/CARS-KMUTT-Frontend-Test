@@ -3,9 +3,11 @@ import allDocsIcon from 'Assets/icons/staff/alldocs.svg';
 import queryString from 'query-string';
 import React, { useEffect, useState } from 'react';
 import Loadable from 'react-loadable';
+import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
 import { taskTable } from 'Services/taskTable';
 import { TaskTableTypeAPI } from 'Services/taskTable/interface';
+import { RootReducersType } from 'Store/reducers';
 
 const StaffLayout = Loadable({
   loader: () => import('Components/Layout/Staff/Home'),
@@ -38,6 +40,26 @@ function StaffHome() {
         DEFAULT_ORDER_COL}&order=${order || '-1'}`,
     );
   }
+
+  // search
+  const dataSearchQuery = useSelector(
+    (s: RootReducersType) => s.SearchReducers,
+  );
+  useEffect(() => {
+    if (
+      !dataSearchQuery.error &&
+      !dataSearchQuery.loading &&
+      dataSearchQuery.data.count > 0
+    )
+      setData(dataSearchQuery.data);
+
+    if (dataSearchQuery.data.count === 0) {
+      taskTable.getAllTask(current, size, orderCol, order).then(e => {
+        setData(e);
+        setLoading(false);
+      });
+    }
+  }, [dataSearchQuery.loading]);
 
   // fetching
   useEffect(() => {

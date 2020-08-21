@@ -32,6 +32,10 @@ function StaffAccept() {
   const [orderCol, setOrderCol] = useState<string>(DEFAULT_ORDER_COL);
   const [order, setOrder] = useState<undefined | 1 | -1>(undefined);
   const [loading, setLoading] = useState<boolean>(true);
+  // const [dataSearch, setDataSearch] = useState<TaskTableTypeAPI>({
+  //   data: [],
+  //   count: 0,
+  // });
 
   function setQueryString() {
     history.replace(
@@ -40,6 +44,7 @@ function StaffAccept() {
         DEFAULT_ORDER_COL}&order=${order || '-1'}`,
     );
   }
+
   // fetching
   useEffect(() => {
     setQueryString();
