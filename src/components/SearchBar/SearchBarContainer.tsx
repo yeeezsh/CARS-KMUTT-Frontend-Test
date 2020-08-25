@@ -21,7 +21,7 @@ const SearchBarContainer: React.FC = () => {
         loading={state.loading}
         onSearch={text => {
           dispatch(onSearch(text));
-          dispatch(onQuery({ s: text }));
+          dispatch(onQuery({ s: text, type: state.type }));
         }}
       />
     </div>

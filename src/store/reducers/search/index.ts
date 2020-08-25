@@ -1,7 +1,8 @@
 import { createReducer, PayloadAction } from '@reduxjs/toolkit';
+import { TaskStateType } from 'Services/task/task.interface';
 import { TaskTableTypeAPI } from 'Services/taskTable/interface';
-import { onClear, onQuery, onSearch } from './actions';
-import { OnSearch } from './types';
+import { onClear, onQuery, onSearch, onSetType } from './actions';
+import { OnSearch, OnSetType } from './types';
 export interface SearchState {
   s: string;
   vid?: string;
@@ -11,12 +12,14 @@ export interface SearchState {
   data: TaskTableTypeAPI;
   loading: boolean;
   error: boolean;
+  type: TaskStateType[];
 }
 const initState: SearchState = {
   s: '',
   data: { count: 0, data: [] },
   loading: false,
   error: false,
+  type: [],
 };
 
 export const SearchReducers = createReducer(initState, {
@@ -27,6 +30,12 @@ export const SearchReducers = createReducer(initState, {
     };
   },
   [onClear.type]: () => initState,
+  [onSetType.type]: (state, action: PayloadAction<OnSetType>) => {
+    return {
+      ...state,
+      type: action.payload,
+    };
+  },
   [onQuery.pending.type]: state => ({
     ...state,
     loading: true,

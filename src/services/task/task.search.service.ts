@@ -1,5 +1,6 @@
 import adapter from 'Services/adapter.interface';
 import { TaskTableTypeAPI } from 'Services/taskTable/interface';
+import { TaskStateType } from './task.interface';
 
 export interface TaskSearchDto {
   s: string;
@@ -7,6 +8,7 @@ export interface TaskSearchDto {
   areaName?: string;
   requestorName?: string;
   date?: string;
+  type?: TaskStateType[];
 }
 
 class TaskSearchService {
