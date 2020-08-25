@@ -46,14 +46,10 @@ function StaffHome() {
     (s: RootReducersType) => s.SearchReducers,
   );
   useEffect(() => {
-    if (
-      !dataSearchQuery.error &&
-      !dataSearchQuery.loading &&
-      dataSearchQuery.data.count > 0
-    )
+    if (!dataSearchQuery.error && !dataSearchQuery.loading)
       setData(dataSearchQuery.data);
 
-    if (dataSearchQuery.data.count === 0) {
+    if (dataSearchQuery.s.length === 0) {
       taskTable.getAllTask(current, size, orderCol, order).then(e => {
         setData(e);
         setLoading(false);
@@ -79,7 +75,6 @@ function StaffHome() {
     setSize(Number(query.size || LIMIT));
     setOrderCol(String(query.orderlCol || DEFAULT_ORDER_COL));
     setOrder(Number(query.order) as 1 | -1);
-    console.log('query config', query, Number(query.current));
   }, []);
 
   return (
