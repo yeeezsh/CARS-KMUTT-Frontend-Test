@@ -55,7 +55,7 @@ function StaffAccept() {
       setData(dataSearchQuery.data);
 
     if (dataSearchQuery.s.length === 0) {
-      taskTable.getAllTask(current, size, orderCol, order).then(e => {
+      taskTable.getAcceptTask(current, size, orderCol, order).then(e => {
         setData(e);
         setLoading(false);
       });

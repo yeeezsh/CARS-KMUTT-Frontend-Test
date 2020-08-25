@@ -55,7 +55,7 @@ function StaffDrop() {
       setData(dataSearchQuery.data);
 
     if (dataSearchQuery.s.length === 0) {
-      taskTable.getAllTask(current, size, orderCol, order).then(e => {
+      taskTable.getDropTask(current, size, orderCol, order).then(e => {
         setData(e);
         setLoading(false);
       });
