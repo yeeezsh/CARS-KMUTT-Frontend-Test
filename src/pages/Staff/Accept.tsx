@@ -3,10 +3,14 @@ import acceptDocsIcon from 'Assets/icons/staff/acceptdocs.svg';
 import queryString from 'query-string';
 import React, { useEffect, useState } from 'react';
 import Loadable from 'react-loadable';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
+import { TaskStateType } from 'Services/task/task.interface';
 // data & store
 import { taskTable } from 'Services/taskTable';
 import { TaskTableTypeAPI } from 'Services/taskTable/interface';
+import { RootReducersType } from 'Store/reducers';
+import { onSetType } from 'Store/reducers/search/actions';
 
 const StaffLayout = Loadable({
   loader: () => import('Components/Layout/Staff/Home'),
@@ -32,6 +36,7 @@ function StaffAccept() {
   const [orderCol, setOrderCol] = useState<string>(DEFAULT_ORDER_COL);
   const [order, setOrder] = useState<undefined | 1 | -1>(undefined);
   const [loading, setLoading] = useState<boolean>(true);
+  const dispatch = useDispatch();
   // const [dataSearch, setDataSearch] = useState<TaskTableTypeAPI>({
   //   data: [],
   //   count: 0,
@@ -44,6 +49,22 @@ function StaffAccept() {
         DEFAULT_ORDER_COL}&order=${order || '-1'}`,
     );
   }
+
+  // search
+  const dataSearchQuery = useSelector(
+    (s: RootReducersType) => s.SearchReducers,
+  );
+  useEffect(() => {
+    if (!dataSearchQuery.error && !dataSearchQuery.loading)
+      setData(dataSearchQuery.data);
+
+    if (dataSearchQuery.s.length === 0) {
+      taskTable.getAllTask(current, size, orderCol, order).then(e => {
+        setData(e);
+        setLoading(false);
+      });
+    }
+  }, [dataSearchQuery.loading]);
 
   // fetching
   useEffect(() => {
@@ -63,6 +84,7 @@ function StaffAccept() {
     setSize(Number(query.size || LIMIT));
     setOrderCol(String(query.orderlCol || DEFAULT_ORDER_COL));
     setOrder(Number(query.order) as 1 | -1);
+    dispatch(onSetType([TaskStateType.accept]));
   }, []);
   return (
     <StaffLayout>
