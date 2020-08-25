@@ -54,30 +54,30 @@ const TaskTable: React.FC<Props> = props => {
       width: 110,
       sorter: (a, b) =>
         moment(a.createAt).valueOf() - moment(b.createAt).valueOf(),
-      render: data => moment(data?.createAt).format('DD-MM-YYYY'),
+      render: d => moment(d?.createAt).format('DD-MM-YYYY'),
     },
     {
       title: 'รหัสการจอง',
       key: '_id',
-      render: data => data.vid,
+      render: d => d.vid,
     },
     {
       title: 'ประเภทการจอง',
       key: 'reservationType',
       // render: data => typeDescHelper(data?.type),
       // eslint-disable-next-line react/display-name
-      render: (data: TaskTable) => <BadgeTaskType type={data.type} />,
+      render: (d: TaskTable) => <BadgeTaskType type={d.type} />,
     },
     {
       title: 'สถานที่',
       key: 'area',
       width: 280,
-      render: data => data?.area?.label || data?.area?.name,
+      render: d => d?.area?.label || d?.area?.name,
     },
     {
       title: 'รหัสผู้จอง',
       key: 'requestor',
-      render: data => data?.requestor[0] && data?.requestor[0].username,
+      render: d => d?.requestor[0] && d?.requestor[0].username,
     },
     {
       title: 'สถานะ',
@@ -86,15 +86,15 @@ const TaskTable: React.FC<Props> = props => {
       sorter: (a, b) =>
         a.state.slice(-1)[0].localeCompare(b.state.slice(-1)[0]),
       // eslint-disable-next-line react/display-name
-      render: data => <State state={data?.state.slice(-1)[0]} />,
+      render: d => <State state={d?.state.slice(-1)[0]} />,
     },
     {
       title: 'Action',
       key: 'action',
       width: 120,
       // eslint-disable-next-line react/display-name
-      render: data => (
-        <ActionBtn onClick={() => history.push(TASK_LINK(data._id))} />
+      render: d => (
+        <ActionBtn onClick={() => history.push(TASK_LINK(d._id))} />
       ),
     },
   ];
