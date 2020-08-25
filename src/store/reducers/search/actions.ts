@@ -3,7 +3,7 @@ import {
   TaskSearchDto,
   taskSearchService,
 } from 'Services/task/task.search.service';
-import withPayload from '../common/wthPayload';
+import withPayload from '../common/withPayload';
 import {
   OnSearch,
   OnSetType,
