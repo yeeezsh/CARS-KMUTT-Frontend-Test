@@ -98,6 +98,7 @@ function StaffWait() {
         loading={loading}
         current={current}
         allDataCount={data.count}
+        disablePagination={dataSearchQuery.s.length !== 0}
         dataRequest={(pagination, order) => {
           setCurrent(pagination.current);
           setSize(pagination.pageSize);
