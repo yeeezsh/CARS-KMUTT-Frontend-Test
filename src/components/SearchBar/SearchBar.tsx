@@ -9,7 +9,8 @@ const SearchBar: React.FunctionComponent<{
   return (
     <div>
       <Input
-        style={{ width: '80%' }}
+        style={{ width: '100%' }}
+        placeholder="ชื่อสถานที่ รหัสการจอง รหัสนักศึกษา วัน-เดือน-ปี"
         prefix={<Icon type={loading ? 'loading' : 'search'} />}
         onChange={e => onSearch && onSearch(e.target.value)}
       />
