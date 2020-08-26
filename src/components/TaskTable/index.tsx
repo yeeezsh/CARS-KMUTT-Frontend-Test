@@ -17,6 +17,7 @@ interface Props {
   allDataCount: number;
   loading?: boolean;
   current?: number;
+  disablePagination?: boolean;
   dataRequest?: (
     pagination: {
       current: number;
@@ -99,8 +100,6 @@ const TaskTable: React.FC<Props> = props => {
     },
   ];
 
-  console.log('task table', data);
-
   return (
     <div>
       <Row>
@@ -112,7 +111,11 @@ const TaskTable: React.FC<Props> = props => {
       <Table
         style={{ minHeight: 500 }}
         loading={props.loading || false}
-        pagination={{ total: allDataCount, current }}
+        pagination={
+          props.disablePagination
+            ? false
+            : { total: allDataCount, current }
+        }
         onChange={(pagination, filters, sorter) => {
           const { dataRequest } = props;
           dataRequest &&
