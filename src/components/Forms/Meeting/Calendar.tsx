@@ -97,8 +97,10 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
   const data: CalendarForm = forms.forms[CUR_IND];
   const [selected, setSelected] = useState<TimeNode[]>([]);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  function onSelect(value: Moment, _type: TimeNode['type']) {
+  function onSelect(value: Moment, type: TimeNode['type']) {
+    // fix when slot is disabled
+    if (type === 'disabled') return;
+
     const merge: any = [...selected, { value, type: 'selecting' }].sort(
       (a, b) => a.value.valueOf() - b.value.valueOf(),
     );
