@@ -14,7 +14,7 @@ class Adapter {
   constructor() {
     this.instance = axios.create({
       baseURL: END_POINT,
-      timeout: 5000,
+      timeout: 10000,
       withCredentials: true,
     });
   }
