@@ -23,7 +23,6 @@ import {
   submitForm,
 } from 'Store/reducers/areaForm/actions';
 import adjacentHour from 'Utils/adjacent.hour';
-import atleastHour from 'Utils/atleast.hour';
 import calendarCurrent from 'Utils/calendar.current';
 // utils
 import weekParsedHelper from 'Utils/week.parse';
@@ -64,6 +63,7 @@ const FULL_TIME_DATE_FORMAT = 'HH:mm-DD-MM-YYYY';
 const OFFSET_DAY = 3;
 const AREA_PARAM_IND = 5;
 const RESERVATION_INTERVAL = 60;
+const RESERVATION_OFFSET_INTERVAL = RESERVATION_INTERVAL - 1;
 
 interface Props {
   ind?: number;
@@ -98,8 +98,10 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
   const data: CalendarForm = forms.forms[CUR_IND];
   const [selected, setSelected] = useState<TimeNode[]>([]);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  function onSelect(value: Moment, _type: TimeNode['type']) {
+  function onSelect(value: Moment, type: TimeNode['type']) {
+    // fix when slot is disabled
+    if (type === 'disabled') return;
+
     const merge: any = [...selected, { value, type: 'selecting' }].sort(
       (a, b) => a.value.valueOf() - b.value.valueOf(),
     );
@@ -133,11 +135,6 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
 
   function onSubmit() {
     if (!selected[0]) return; // ignore when null
-    const atleastOne = atleastHour(selected);
-    if (!atleastOne) {
-      setError(true);
-      return;
-    }
 
     const start = moment(
       `${selected[0].value.format(TIME_FORMAT)}-${selectedDate
@@ -275,8 +272,10 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
                 marginBottom: 0,
               }}
             >
-              เวลา {selected[0].value.format(TIME_FORMAT)} -
-              {selected.slice(-1)[0].value.format(TIME_FORMAT)}
+              เวลา {moment(selected[0].value).format(TIME_FORMAT)} -
+              {moment(selected.slice(-1)[0].value)
+                .add(59, 'minutes')
+                .format(TIME_FORMAT)}
             </p>
           )}
         </Col>
@@ -287,6 +286,9 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
             const { area, time } = e;
             const start = moment(time.start).startOf('hour');
             const weekParsed = weekParsedHelper(e.time.week);
+            const intervalOffset =
+              (time.interval && time.interval - 1) ||
+              RESERVATION_OFFSET_INTERVAL;
             if (!weekParsed.includes(selectedWeek)) return null;
 
             let disabledMapped: TimeNode[] = [];
@@ -296,7 +298,7 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
                 value: moment(cur),
                 type: 'available',
               });
-              cur.add(time.interval || 60, 'minute');
+              cur.add(intervalOffset, 'minute');
             }
             disabledMapped.push({
               value: moment(cur),
