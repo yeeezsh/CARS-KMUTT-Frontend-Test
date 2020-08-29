@@ -23,7 +23,6 @@ import {
   submitForm,
 } from 'Store/reducers/areaForm/actions';
 import adjacentHour from 'Utils/adjacent.hour';
-import atleastHour from 'Utils/atleast.hour';
 import calendarCurrent from 'Utils/calendar.current';
 // utils
 import weekParsedHelper from 'Utils/week.parse';
@@ -133,11 +132,6 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
 
   function onSubmit() {
     if (!selected[0]) return; // ignore when null
-    const atleastOne = atleastHour(selected);
-    if (!atleastOne) {
-      setError(true);
-      return;
-    }
 
     const start = moment(
       `${selected[0].value.format(TIME_FORMAT)}-${selectedDate
