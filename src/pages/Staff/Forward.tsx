@@ -1,5 +1,6 @@
 // assets
 import forwardDocsIcon from 'Assets/icons/staff/forwarddocs.svg';
+import useSearchQuery from 'Hooks/search.query';
 import queryString from 'query-string';
 import React, { useEffect, useState } from 'react';
 import Loadable from 'react-loadable';
@@ -49,17 +50,12 @@ function StaffForward() {
   const dataSearchQuery = useSelector(
     (s: RootReducersType) => s.SearchReducers,
   );
-  useEffect(() => {
-    if (!dataSearchQuery.error && !dataSearchQuery.loading)
-      setData(dataSearchQuery.data);
-
-    if (dataSearchQuery.s.length === 0) {
-      taskTable.getForwardTask(current, size, orderCol, order).then(e => {
-        setData(e);
-        setLoading(false);
-      });
-    }
-  }, [dataSearchQuery.loading]);
+  useSearchQuery(
+    { current, size, orderCol, order },
+    setData,
+    setLoading,
+    TaskStateType.forward,
+  );
 
   // fetching
   useEffect(() => {

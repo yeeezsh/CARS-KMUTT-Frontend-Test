@@ -1,5 +1,6 @@
 // assets
 import waitDocsIcon from 'Assets/icons/staff/waitdocs.svg';
+import useSearchQuery from 'Hooks/search.query';
 import queryString from 'query-string';
 import React, { useEffect, useState } from 'react';
 import Loadable from 'react-loadable';
@@ -50,17 +51,12 @@ function StaffWait() {
   const dataSearchQuery = useSelector(
     (s: RootReducersType) => s.SearchReducers,
   );
-  useEffect(() => {
-    if (!dataSearchQuery.error && !dataSearchQuery.loading)
-      setData(dataSearchQuery.data);
-
-    if (dataSearchQuery.s.length === 0) {
-      taskTable.getWaitTask(current, size, orderCol, order).then(e => {
-        setData(e);
-        setLoading(false);
-      });
-    }
-  }, [dataSearchQuery.loading]);
+  useSearchQuery(
+    { current, size, orderCol, order },
+    setData,
+    setLoading,
+    TaskStateType.wait,
+  );
 
   // fetching
   useEffect(() => {
