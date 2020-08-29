@@ -39,6 +39,7 @@ function useSearchQuery(
               setData(e);
               setLoading(false);
             });
+          break;
         case TaskStateType.accept:
           taskTable
             .getAcceptTask(current, size, orderCol, order)
@@ -46,6 +47,7 @@ function useSearchQuery(
               setData(e);
               setLoading(false);
             });
+          break;
         case TaskStateType.forward:
           taskTable
             .getForwardTask(current, size, orderCol, order)
@@ -53,16 +55,19 @@ function useSearchQuery(
               setData(e);
               setLoading(false);
             });
+          break;
         case TaskStateType.wait:
           taskTable.getWaitTask(current, size, orderCol, order).then(e => {
             setData(e);
             setLoading(false);
           });
+          break;
         case TaskStateType.drop:
           taskTable.getDropTask(current, size, orderCol, order).then(e => {
             setData(e);
             setLoading(false);
           });
+          break;
       }
     }
   }, [dataSearchQuery.loading]);
