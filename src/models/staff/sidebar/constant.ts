@@ -1,6 +1,7 @@
 import { Drawer } from 'Models/drawer/interface';
 import {
   acceptDocs,
+  allAreaIcon,
   allDocs,
   calendarIcon,
   docsIcon,
@@ -19,7 +20,7 @@ const menu: Drawer[] = [
   {
     key: '1',
     label: ['พื้นที่ทั้งหมด'],
-    icon: calendarIcon,
+    icon: allAreaIcon,
     link: '/staff/areas',
   },
   {

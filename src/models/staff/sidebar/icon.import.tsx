@@ -1,4 +1,5 @@
 import acceptDocs from 'Assets/icons/drawer/acceptdocs.svg';
+import allAreaIcon from 'Assets/icons/drawer/allarea.svg';
 import allDocs from 'Assets/icons/drawer/alldocs.svg';
 import calendarIcon from 'Assets/icons/drawer/calendar.svg';
 import docsIcon from 'Assets/icons/drawer/docs.svg';
@@ -18,4 +19,5 @@ export {
   logoutIcon,
   calendarIcon,
   forwardDocs,
+  allAreaIcon,
 };
