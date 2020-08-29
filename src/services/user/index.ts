@@ -1,5 +1,5 @@
 import { AxiosError, AxiosInstance } from 'axios';
-import { store } from '../../index';
+import store from 'Store/index';
 import { deleteUser, setUser } from '../../store/reducers/users/actions';
 import adapter from '../adapter.interface';
 import { MSG_BAD_PASSWORD, MSG_INTERNAL_ERROR } from './default.msg';

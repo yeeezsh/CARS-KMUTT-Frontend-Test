@@ -1,12 +1,17 @@
 // assets
 import acceptDocsIcon from 'Assets/icons/staff/acceptdocs.svg';
+import useSearchQuery from 'Hooks/search.query';
 import queryString from 'query-string';
 import React, { useEffect, useState } from 'react';
 import Loadable from 'react-loadable';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
+import { TaskStateType } from 'Services/task/task.interface';
 // data & store
 import { taskTable } from 'Services/taskTable';
 import { TaskTableTypeAPI } from 'Services/taskTable/interface';
+import { RootReducersType } from 'Store/reducers';
+import { onSetType } from 'Store/reducers/search/actions';
 
 const StaffLayout = Loadable({
   loader: () => import('Components/Layout/Staff/Home'),
@@ -32,6 +37,7 @@ function StaffAccept() {
   const [orderCol, setOrderCol] = useState<string>(DEFAULT_ORDER_COL);
   const [order, setOrder] = useState<undefined | 1 | -1>(undefined);
   const [loading, setLoading] = useState<boolean>(true);
+  const dispatch = useDispatch();
 
   function setQueryString() {
     history.replace(
@@ -40,6 +46,18 @@ function StaffAccept() {
         DEFAULT_ORDER_COL}&order=${order || '-1'}`,
     );
   }
+
+  // search
+  const dataSearchQuery = useSelector(
+    (s: RootReducersType) => s.SearchReducers,
+  );
+  useSearchQuery(
+    { current, size, orderCol, order },
+    setData,
+    setLoading,
+    TaskStateType.accept,
+  );
+
   // fetching
   useEffect(() => {
     setQueryString();
@@ -58,6 +76,7 @@ function StaffAccept() {
     setSize(Number(query.size || LIMIT));
     setOrderCol(String(query.orderlCol || DEFAULT_ORDER_COL));
     setOrder(Number(query.order) as 1 | -1);
+    dispatch(onSetType([TaskStateType.accept]));
   }, []);
   return (
     <StaffLayout>
@@ -68,6 +87,7 @@ function StaffAccept() {
         loading={loading}
         current={current}
         allDataCount={data.count}
+        disablePagination={dataSearchQuery.s.length !== 0}
         dataRequest={(pagination, order) => {
           setCurrent(pagination.current);
           setSize(pagination.pageSize);

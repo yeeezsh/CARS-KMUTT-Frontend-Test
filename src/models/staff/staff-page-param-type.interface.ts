@@ -1,0 +1,15 @@
+export enum StaffPageParamType {
+  all = 'all',
+  accept = 'accept',
+  wait = 'wait',
+  reject = 'reject',
+  drop = 'drop',
+  forward = 'forward',
+  login = 'login',
+  logout = 'logout',
+  staff = 'staff',
+  areas = 'areas',
+  area = 'area',
+  task = 'task',
+  calendar = 'calendar',
+}

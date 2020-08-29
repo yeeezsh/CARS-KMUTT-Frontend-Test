@@ -1,3 +1,4 @@
+import { StaffPageParamType } from 'Models/staff/staff-page-param-type.interface';
 import React, { useEffect } from 'react';
 import Loadable from 'react-loadable';
 import { Route, Router, useHistory, useLocation } from 'react-router';
@@ -72,7 +73,9 @@ const StaffRouter: React.FunctionComponent = () => {
     history.replace('/staff/login');
   }
 
-  const currentLoginPage = location.pathname.match('/login');
+  const currentLoginPage = location.pathname.match(
+    `/${StaffPageParamType.login}`,
+  );
   useEffect(() => {
     if (currentLoginPage) {
       Login.preload();
@@ -85,53 +88,53 @@ const StaffRouter: React.FunctionComponent = () => {
     <Router history={history}>
       <Route path="/">{!currentLoginPage && <StaffSiderLayout />}</Route>
 
-      <Route path="**/login">
+      <Route path={`**/${StaffPageParamType.login}`}>
         <Login />
       </Route>
 
       {/* Task */}
-      <Route path="**/task/:id">
+      <Route path={`**/${StaffPageParamType.task}/:id`}>
         <Task />
       </Route>
 
       {/* Calendar */}
-      <Route path="**/calendar/">
+      <Route path={`**/${StaffPageParamType.calendar}`}>
         <Calendar />
       </Route>
 
       {/* Area list */}
-      <Route path="**/areas/">
+      <Route path={`**/${StaffPageParamType.areas}`}>
         <AreaList />
       </Route>
 
       {/* Area list */}
-      <Route path="**/area/:id">
+      <Route path={`**/${StaffPageParamType.area}/:id`}>
         <Area />
       </Route>
 
       {/* <Home /> */}
-      <Route path="**/reject">
+      <Route path={`**/${StaffPageParamType.reject}`}>
         <Reject />
       </Route>
-      <Route path="**/accept">
+      <Route path={`**/${StaffPageParamType.accept}`}>
         <Accept />
       </Route>
-      <Route path="**/drop">
+      <Route path={`**/${StaffPageParamType.drop}`}>
         <Drop />
       </Route>
-      <Route path="**/wait">
+      <Route path={`**/${StaffPageParamType.wait}`}>
         <Wait />
       </Route>
-      <Route path="**/forward">
+      <Route path={`**/${StaffPageParamType.forward}`}>
         <Forward />
       </Route>
 
       {/* home */}
-      <Route path="/staff" exact>
+      <Route path={`/${StaffPageParamType.staff}`} exact>
         <Home />
       </Route>
 
-      <Route path="**/logout">
+      <Route path={`**/${StaffPageParamType.logout}`}>
         <Logout />
       </Route>
     </Router>
