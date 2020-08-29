@@ -6,14 +6,14 @@ import {
   TaskTable as TaskTableInterface,
   TaskTableTypeAPI,
 } from './interface';
-
+export type TaskTableQueryType = TaskStateType | 'all';
 class TaskTable {
   async getTask(
     current: number,
     size: number,
     orderCol?: string,
     order?: 1 | -1,
-    queryType?: TaskStateType | 'all',
+    queryType?: TaskTableQueryType,
   ): Promise<TaskTableTypeAPI> {
     const res = await adapter.instance.get(`/task/staff/${queryType}`, {
       params: {
@@ -24,7 +24,6 @@ class TaskTable {
       },
     });
 
-    console.log('task staff', res.data);
     return {
       data: res.data.data.map((e: TaskTableInterface) => ({
         ...e,
