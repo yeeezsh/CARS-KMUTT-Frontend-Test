@@ -1,6 +1,7 @@
 import { Col, message, Row } from 'antd';
 import Button from 'Components/Button';
 import StaffLayout from 'Components/Layout/Staff/Home';
+import TimeRangeSelect from 'Components/TimeRangeSelect/TimeRangeSelect';
 import TimeTable from 'Components/TimeTable';
 import TimeNode from 'Components/TimeTable/timetable.interface';
 import confirmButton from 'Models/button/confirm.button';
@@ -41,6 +42,16 @@ const AreaPageSport: React.FC = () => {
     reserve: [],
   };
   const [areaInfo, setAreaInfo] = useState(initAreaInfo);
+
+  const [selectedDate, setSelectedDate] = useState<{
+    start: Moment;
+    stop: Moment;
+  }>({
+    start: moment().startOf('day'),
+    stop: moment()
+      .startOf('day')
+      .add(areaInfo.forward, 'day'),
+  });
 
   async function fetch() {
     setLoading(true);
@@ -136,6 +147,7 @@ const AreaPageSport: React.FC = () => {
     return setCanReserve(false);
   }, [selecting]);
 
+  console.log(availArea, areaInfo);
   return (
     <StaffLayout>
       <Row justify="space-around" type="flex">
@@ -161,6 +173,7 @@ const AreaPageSport: React.FC = () => {
 
         {/* right side */}
         <Col style={cardStyle} span={11}>
+          <TimeRangeSelect />
           {/* time table area */}
           {areaInfo.reserve[0] &&
             availArea.map((e, i) => {
