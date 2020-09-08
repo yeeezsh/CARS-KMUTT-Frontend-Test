@@ -101,32 +101,37 @@ const AreaPage: React.FC = () => {
   }
 
   async function onReserve() {
-    const parser: CreateTaskByStaff = {
-      time: [],
-      area: areaId,
-      owner: u.GetUser()._id,
-      requestor: [u.GetUser().username],
-    };
-    const mapped = selecting
-      .map(e => ({
-        ...parser,
-        time: e.map(t => ({
-          start: t.value.toDate(),
-          stop: t.value
-            .add(areaInfo.reserve[0].interval, 'minutes')
-            .toDate(),
-          allDay: false,
-        })),
-      }))
-      .filter(e => e.time.length > 0);
-    console.log('maopped ja', mapped);
-    const allTask = await Promise.all(
-      mapped.map(e => taskAPI.createSportTaskByStaff(e)),
-    );
-    console.log('all task res', allTask);
-    fetch();
-    onCancel();
-    return message.success('จองสำเร็จ');
+    try {
+      const parser: CreateTaskByStaff = {
+        time: [],
+        area: areaId,
+        owner: u.GetUser()._id,
+        requestor: [u.GetUser().username],
+      };
+      const mapped = selecting
+        .map(e => ({
+          ...parser,
+          time: e.map(t => ({
+            start: t.value.toDate(),
+            stop: t.value
+              .add(areaInfo.reserve[0].interval, 'minutes')
+              .toDate(),
+            allDay: false,
+          })),
+        }))
+        .filter(e => e.time.length > 0);
+
+      await Promise.all(
+        mapped.map(e => taskAPI.createSportTaskByStaff(e)),
+      );
+
+      fetch();
+      onCancel();
+      return message.success('จองสำเร็จ');
+    } catch (err) {
+      fetch();
+      return message.error(String(err));
+    }
   }
 
   // subscribe seclecting to change can reserve states
