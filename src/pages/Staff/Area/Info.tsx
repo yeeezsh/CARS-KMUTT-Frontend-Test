@@ -59,7 +59,7 @@ const AreaInfo: React.FC<AreaInfoProps> = props => {
       <Divider style={lineStyle} />
       <p>
         <Data
-          label="เวลาทำการ:: "
+          label="เวลาทำการ: "
           value={`
       ${props.time?.start && props.time?.start.format('HH:mm')} - ${props
             .time?.stop && props.time?.stop.format('HH:mm')}
