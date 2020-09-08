@@ -46,6 +46,7 @@ const AreaPageSport: React.FC = () => {
   const { pathname } = useLocation();
   const areaId = pathname.split('/')[3];
 
+  const today = moment().startOf('day');
   const initSelecting: TimeNode[][] = [[]];
   const [selecting, setSelecting] = useState(initSelecting);
   const initAvailArea: AreaAvailableAPI[] = [];
@@ -69,8 +70,8 @@ const AreaPageSport: React.FC = () => {
     start: Moment;
     stop: Moment;
   }>({
-    start: moment().startOf('day'),
-    stop: moment()
+    start: moment(today).startOf('day'),
+    stop: moment(today)
       .startOf('day')
       .add(areaInfo.forward, 'day'),
   });
@@ -89,8 +90,8 @@ const AreaPageSport: React.FC = () => {
     // get quick task
     const quickTask = await taskAPI.getQuickTask(
       area._id,
-      moment().startOf('day'),
-      moment()
+      moment(selectedDate.start).startOf('day'),
+      moment(selectedDate.stop)
         .startOf('day')
         .add(area.forward, 'day'),
     );
@@ -98,10 +99,10 @@ const AreaPageSport: React.FC = () => {
     setLoading(false);
   }
 
-  // fetch when start
+  // fetch when dateChange
   useEffect(() => {
     fetch();
-  }, []);
+  }, [selectedDate]);
 
   function onSelect(value: Moment, type: TimeNode['type'], i: number) {
     console.log(value, type, i);
@@ -160,6 +161,10 @@ const AreaPageSport: React.FC = () => {
     }
   }
 
+  function onSelectDate(start: Moment, stop: Moment) {
+    setSelectedDate({ start, stop });
+  }
+
   // subscribe seclecting to change can reserve states
   useEffect(() => {
     const validReserve = selecting.some(e => e.length >= 1);
@@ -168,7 +173,6 @@ const AreaPageSport: React.FC = () => {
     return setCanReserve(false);
   }, [selecting]);
 
-  console.log(availArea, areaInfo);
   return (
     <StaffLayout>
       <Row justify="space-around" type="flex">
@@ -194,7 +198,11 @@ const AreaPageSport: React.FC = () => {
 
         {/* right side */}
         <Col style={cardStyle} span={10}>
-          <TimeRangeSelect />
+          <TimeRangeSelect
+            now={today}
+            forward={areaInfo.forward}
+            onSelect={onSelectDate}
+          />
           {/* time table area */}
           {areaInfo.reserve[0] ? (
             availArea.map((e, i) => {
