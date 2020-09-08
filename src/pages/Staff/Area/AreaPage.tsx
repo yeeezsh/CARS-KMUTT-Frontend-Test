@@ -4,6 +4,8 @@ import Button from 'Components/Button';
 import StaffLayout from 'Components/Layout/Staff/Home';
 import TimeTable from 'Components/TimeTable';
 import TimeNode from 'Components/TimeTable/timetable.interface';
+import confirmButton from 'Models/button/confirm.button';
+import disabledButton from 'Models/button/disabled.button';
 import moment, { Moment } from 'moment';
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
@@ -16,14 +18,6 @@ import { QuickTask as QuickTaskInterface } from 'Services/task/task.quick.interf
 import { u } from 'Services/user';
 import AreaInfo from './Info';
 import QuickTask from './QuickTask';
-
-const disabledBtnProps = {
-  fontColor: '#979797',
-  style: {
-    background: '#FFFFFF',
-    border: '1px solid #979797',
-  },
-};
 
 const badgeStyles: React.CSSProperties = {
   marginBottom: 12,
@@ -180,20 +174,17 @@ const AreaPage: React.FC = () => {
 
           {/* Action */}
           <Col span={12}>
-            <Button onClick={onCancel} {...disabledBtnProps}>
+            <Button {...disabledButton} onClick={onCancel}>
               ยกเลิก
             </Button>
           </Col>
           <Col span={12}>
             {canReserve ? (
-              <Button
-                onClick={onReserve}
-                style={{ background: '#1890FF' }}
-              >
+              <Button {...confirmButton} onClick={onReserve}>
                 จอง
               </Button>
             ) : (
-              <Button {...disabledBtnProps}>จอง</Button>
+              <Button {...disabledButton}>จอง</Button>
             )}
           </Col>
         </Col>

@@ -1,9 +1,6 @@
 import { ButtonBackgroundColor } from 'Models/button/button.bg';
+import { ActionButtonStyle } from 'Models/button/button.interface';
 import React from 'react';
-
-interface ActionButtonStyle {
-  type?: 'primary' | 'confirm' | 'disabled';
-}
 
 const btnStyle = (
   type?: ActionButtonStyle['type'],
