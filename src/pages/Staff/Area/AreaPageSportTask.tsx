@@ -1,5 +1,4 @@
 import { Col, message, Row } from 'antd';
-import Badge from 'Components/Badge';
 import Button from 'Components/Button';
 import StaffLayout from 'Components/Layout/Staff/Home';
 import TimeTable from 'Components/TimeTable';
@@ -37,6 +36,7 @@ const AreaPageSport: React.FC = () => {
   // const [modal, setModal] = useState(false);
   const initQuickTask: QuickTaskInterface[] = [];
   const [quickTask, setQuickTask] = useState(initQuickTask);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const initAreaInfo: AreaAPI = {
     _id: '',
@@ -47,29 +47,27 @@ const AreaPageSport: React.FC = () => {
   };
   const [areaInfo, setAreaInfo] = useState(initAreaInfo);
 
-  function fetch() {
-    areaAPI.getAreaInfo(areaId).then(a => {
-      setAreaInfo(a);
-      // get available
-      areaAPI.getAreaAvailable(areaId).then(avail => {
-        setAvailArea(avail);
-        setSelecting(Array(avail.length).fill([]));
-      });
+  async function fetch() {
+    setLoading(true);
+    // fetch area info
+    const area = await areaAPI.getAreaInfo(areaId);
+    setAreaInfo(area);
 
-      // get quick task
-      taskAPI
-        .getQuickTask(
-          a._id,
-          moment().startOf('day'),
-          moment()
-            .startOf('day')
-            .add(a.forward, 'day'),
-        )
-        .then(qt => {
-          console.log('quick task data', qt);
-          setQuickTask(qt);
-        });
-    });
+    // fetch avalable
+    const available = await areaAPI.getAreaAvailable(areaId);
+    setAvailArea(available);
+    setSelecting(Array(available.length).fill([]));
+
+    // get quick task
+    const quickTask = await taskAPI.getQuickTask(
+      area._id,
+      moment().startOf('day'),
+      moment()
+        .startOf('day')
+        .add(area.forward, 'day'),
+    );
+    setQuickTask(quickTask);
+    setLoading(false);
   }
 
   // fetch when start
@@ -197,7 +195,6 @@ const AreaPageSport: React.FC = () => {
         {/* right side */}
         <Col span={12}>
           <Row>
-            <Badge style={badgeStyles}>ข้อมูลสถานที่</Badge>
             <AreaInfo
               building={areaInfo.building?.label}
               area={areaInfo.label}
@@ -209,8 +206,8 @@ const AreaPageSport: React.FC = () => {
               forward={areaInfo.forward}
               required={areaInfo.required?.requestor}
             />
-            <Badge style={badgeStyles}>ข้อมูลการจอง</Badge>
-            <QuickTask data={quickTask} />
+
+            <QuickTask data={quickTask} loading={loading} />
           </Row>
         </Col>
       </Row>
