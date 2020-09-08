@@ -4,7 +4,7 @@ import { areaAPI } from 'Services/area';
 import { AreaTableAPI } from 'Services/area/interfaces';
 import AreaTable from './table';
 
-const AreasPages: React.FC = () => {
+const AreaList: React.FC = () => {
   const init: AreaTableAPI[] = [];
   const [data, setData] = useState(init);
   const [loading, setLoading] = useState(true);
@@ -22,4 +22,4 @@ const AreasPages: React.FC = () => {
   );
 };
 
-export default AreasPages;
+export default AreaList;

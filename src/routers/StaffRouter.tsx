@@ -54,7 +54,7 @@ const Calendar = Loadable({
   loading: () => null,
 });
 const AreaList = Loadable({
-  loader: () => import('Pages/Staff/AreaList'),
+  loader: () => import('Pages/Staff/AreaList/AreaListPage'),
   loading: () => null,
 });
 const AreaPage = Loadable({
@@ -65,13 +65,16 @@ const AreaPage = Loadable({
 const StaffRouter: React.FunctionComponent = () => {
   const location = useLocation();
   const history = useHistory();
-  const validStaff = STAFF_PERMISSION.includes(
-    u.GetUser().group as StaffPermissionType,
-  );
-  if (!validStaff && location.pathname !== '/staff/login') {
-    console.warn('redirecting to login pages cuz invalid permission');
-    history.replace('/staff/login');
-  }
+
+  useEffect(() => {
+    const validStaff = STAFF_PERMISSION.includes(
+      u.GetUser().group as StaffPermissionType,
+    );
+    if (!validStaff && location.pathname !== '/staff/login') {
+      console.warn('redirecting to login pages cuz invalid permission');
+      history.replace('/staff/login');
+    }
+  }, [location.pathname]);
 
   const currentLoginPage = location.pathname.match(
     `/${StaffPageParamType.login}`,
