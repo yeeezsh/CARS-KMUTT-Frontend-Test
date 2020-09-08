@@ -12,7 +12,7 @@ const AreaTable: React.FC<{
 }> = props => {
   const history = useHistory();
   const TARGET_AREA = (area: AreaTableAPI) =>
-    history.push('/staff/area/' + area._id);
+    history.replace('/staff/area/' + area._id);
   const columns: ColumnProps<AreaTableAPI>[] = [
     {
       title: 'สนาม / ห้อง',
