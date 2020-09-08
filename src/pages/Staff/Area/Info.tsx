@@ -27,11 +27,16 @@ const Data: React.FC<{
   unit?: string | string[] | number;
 }> = props => {
   return (
-    <div style={{ paddingTop: '24px', paddingBottom: '48px' }}>
+    <div style={{ paddingTop: '12px', paddingBottom: '20px' }}>
       <Col span={6}>{props.label}</Col>
       <Col span={18}>
-        {props.value ? props.value : <Loading size={16} />}
-        {props.unit && props.unit}
+        {props.value ? (
+          <p>
+            {props.value} {props.unit && props.unit}
+          </p>
+        ) : (
+          <Loading size={16} />
+        )}
       </Col>
     </div>
   );
