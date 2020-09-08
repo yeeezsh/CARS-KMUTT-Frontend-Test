@@ -15,14 +15,9 @@ import { taskAPI } from 'Services/task';
 import { CreateTaskByStaff } from 'Services/task/task.create.interface';
 import { QuickTask as QuickTaskInterface } from 'Services/task/task.quick.interface';
 import { u } from 'Services/user';
+import cardStyle from './common/card.style';
 import AreaInfo from './Info';
 import QuickTask from './QuickTask';
-
-const badgeStyles: React.CSSProperties = {
-  marginBottom: 12,
-  width: '145px',
-  fontSize: '16px',
-};
 
 const AreaPageSport: React.FC = () => {
   const { pathname } = useLocation();
@@ -140,13 +135,31 @@ const AreaPageSport: React.FC = () => {
     return setCanReserve(false);
   }, [selecting]);
 
-  console.log('avail list', availArea);
-  console.log('selectung', selecting);
   return (
     <StaffLayout>
-      <Row gutter={8}>
+      <Row justify="space-around" type="flex">
         {/* left side */}
-        <Col span={12}>
+
+        <Col style={cardStyle} span={11}>
+          <Row>
+            <AreaInfo
+              building={areaInfo.building?.label}
+              area={areaInfo.label}
+              time={{
+                start: areaInfo.reserve[0] && areaInfo.reserve[0].start,
+                stop: areaInfo.reserve[0] && areaInfo.reserve[0].stop,
+              }}
+              week={areaInfo.reserve[0] && areaInfo.reserve[0].week}
+              forward={areaInfo.forward}
+              required={areaInfo.required?.requestor}
+            />
+
+            <QuickTask data={quickTask} loading={loading} />
+          </Row>
+        </Col>
+
+        {/* right side */}
+        <Col style={cardStyle} span={11}>
           {/* time table area */}
           {areaInfo.reserve[0] &&
             availArea.map((e, i) => {
@@ -190,25 +203,6 @@ const AreaPageSport: React.FC = () => {
               <Button {...disabledButton}>จอง</Button>
             )}
           </Col>
-        </Col>
-
-        {/* right side */}
-        <Col span={12}>
-          <Row>
-            <AreaInfo
-              building={areaInfo.building?.label}
-              area={areaInfo.label}
-              time={{
-                start: areaInfo.reserve[0] && areaInfo.reserve[0].start,
-                stop: areaInfo.reserve[0] && areaInfo.reserve[0].stop,
-              }}
-              week={areaInfo.reserve[0] && areaInfo.reserve[0].week}
-              forward={areaInfo.forward}
-              required={areaInfo.required?.requestor}
-            />
-
-            <QuickTask data={quickTask} loading={loading} />
-          </Row>
         </Col>
       </Row>
     </StaffLayout>
