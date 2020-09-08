@@ -1,4 +1,7 @@
-import { Divider } from 'antd';
+import { Col, Divider, Row } from 'antd';
+import Loading from 'Components/Loading';
+import Outline from 'Components/Outline';
+import orangeOutline from 'Models/outline/orange.outline';
 import moment, { Moment } from 'moment';
 import React from 'react';
 import weekParse from 'Utils/week.parse';
@@ -6,7 +9,7 @@ import weekParse from 'Utils/week.parse';
 const lineStyle: React.CSSProperties = {
   margin: 0,
 };
-const AreaInfo: React.FC<{
+interface AreaInfoProps {
   building?: string;
   area?: string;
   time?: {
@@ -16,39 +19,69 @@ const AreaInfo: React.FC<{
   week?: string;
   forward?: number;
   required?: number;
+}
+
+const Data: React.FC<{
+  label?: string;
+  value?: string | string[] | number;
+  unit?: string | string[] | number;
 }> = props => {
-  const week = weekParse(props.week || '');
-  console.log('week ja', week);
   return (
-    <div>
-      <p>
-        <b>สถานที่:</b> {props.building}
-      </p>
-      <Divider style={lineStyle} />
-      <p>
-        <b>สนาม / ห้อง:</b> {props.area}
-      </p>
-      <Divider style={lineStyle} />
-      <p>
-        <b>เวลาทำการ:</b>{' '}
-        {props.time?.start && props.time?.start.format('HH:mm')} -{' '}
-        {props.time?.stop && props.time?.stop.format('HH:mm')}
-      </p>
-      <Divider style={lineStyle} />
-      <p>
-        <b>วันทำการ:</b>{' '}
-        {week.map(e => moment(e, 'E').format('dddd') + ', ')}
-      </p>
-      <Divider style={lineStyle} />
-      <p>
-        <b>จองล่วงหน้าได้:</b> {props.forward} วัน
-      </p>
-      <Divider style={lineStyle} />
-      <p>
-        <b>ต้องใช้รหัสนักศึกษา:</b> {props.required} คน
-      </p>
-      <Divider style={lineStyle} />
+    <div style={{ paddingTop: '24px', paddingBottom: '48px' }}>
+      <Col span={6}>{props.label}</Col>
+      <Col span={18}>
+        {props.value ? props.value : <Loading size={16} />}
+        {props.unit && props.unit}
+      </Col>
     </div>
+  );
+};
+
+const AreaInfo: React.FC<AreaInfoProps> = props => {
+  const week = weekParse(props.week || '');
+  return (
+    <Col>
+      <Row>
+        <Outline {...orangeOutline}>ข้อมูลสถานที่</Outline>
+      </Row>
+      <Row>
+        <Data label="สถานที่: " value={props.building} />
+      </Row>
+      <Divider style={lineStyle} />
+      <p>
+        <Data label="สนาม / ห้อง: " value={props.area} />
+      </p>
+      <Divider style={lineStyle} />
+      <p>
+        <Data
+          label="เวลาทำการ:: "
+          value={`
+      ${props.time?.start && props.time?.start.format('HH:mm')} - ${props
+            .time?.stop && props.time?.stop.format('HH:mm')}
+      `}
+        />
+      </p>
+      <Divider style={lineStyle} />
+      <p>
+        <Data
+          label="วันทำการ: "
+          value={week.map(e => moment(e, 'E').format('dddd') + ', ')}
+        />
+      </p>
+      <Divider style={lineStyle} />
+      <p>
+        <Data label="จองล่วงหน้าได้: " value={props.forward} unit="วัน" />
+      </p>
+      <Divider style={lineStyle} />
+      <p>
+        <Data
+          label="ต้องใช้รหัสนักศึกษา: "
+          value={props.required}
+          unit="คน"
+        />
+      </p>
+      <Divider style={lineStyle} />
+    </Col>
   );
 };
 
