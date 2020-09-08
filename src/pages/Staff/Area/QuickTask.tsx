@@ -1,13 +1,16 @@
 /* eslint-disable react/display-name */
 import { Table } from 'antd';
 import { ColumnProps } from 'antd/lib/table';
+import Outline from 'Components/Outline';
 import State from 'Components/TaskTable/state';
+import orangeOutline from 'Models/outline/orange.outline';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { QuickTask } from 'Services/task/task.quick.interface';
 
 const QuickTask: React.FC<{
   data: QuickTask[];
+  loading?: boolean;
 }> = props => {
   const columns: ColumnProps<QuickTask>[] = [
     {
@@ -40,17 +43,19 @@ const QuickTask: React.FC<{
       title: 'สถานะ',
       width: '15%',
       dataIndex: 'state',
-      //   render: data => <State state={data?.state} />,
       render: data => <State state={data} />,
     },
   ];
   return (
-    <Table
-      pagination={false}
-      //   loading={loading}
-      columns={columns}
-      dataSource={props.data}
-    />
+    <>
+      <Outline {...orangeOutline}>ข้อมูลการจอง</Outline>
+      <Table
+        pagination={false}
+        loading={props.loading || false}
+        columns={columns}
+        dataSource={props.data}
+      />
+    </>
   );
 };
 
