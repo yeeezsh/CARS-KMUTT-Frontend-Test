@@ -1,4 +1,5 @@
 import { Col, message, Row } from 'antd';
+import Loading from 'Components/Loading';
 import TimeNode from 'Components/TimeTable/timetable.interface';
 import confirmButton from 'Models/button/confirm.button';
 import disabledButton from 'Models/button/disabled.button';
@@ -174,7 +175,7 @@ const AreaPageSport: React.FC = () => {
       <Row justify="space-around" type="flex">
         {/* left side */}
 
-        <Col style={cardStyle} span={11}>
+        <Col style={cardStyle} span={13}>
           <Row>
             <AreaInfo
               building={areaInfo.building?.label}
@@ -193,10 +194,10 @@ const AreaPageSport: React.FC = () => {
         </Col>
 
         {/* right side */}
-        <Col style={cardStyle} span={11}>
+        <Col style={cardStyle} span={10}>
           <TimeRangeSelect />
           {/* time table area */}
-          {areaInfo.reserve[0] &&
+          {areaInfo.reserve[0] ? (
             availArea.map((e, i) => {
               return (
                 <TimeTable
@@ -221,22 +222,35 @@ const AreaPageSport: React.FC = () => {
                   interval={areaInfo.reserve[0].interval}
                 />
               );
-            })}
+            })
+          ) : (
+            <Loading />
+          )}
 
           {/* Action */}
-          <Col span={12}>
-            <Button {...disabledButton} onClick={onCancel}>
-              ยกเลิก
-            </Button>
-          </Col>
-          <Col span={12}>
-            {canReserve ? (
-              <Button {...confirmButton} onClick={onReserve}>
-                จอง
-              </Button>
-            ) : (
-              <Button {...disabledButton}>จอง</Button>
-            )}
+          <Col span={24} style={{ marginTop: '18px' }}>
+            <Row type="flex" justify="space-around">
+              <Col span={11}>
+                <Button {...disabledButton} padding={6} onClick={onCancel}>
+                  ยกเลิก
+                </Button>
+              </Col>
+              <Col span={11}>
+                {canReserve ? (
+                  <Button
+                    {...confirmButton}
+                    padding={6}
+                    onClick={onReserve}
+                  >
+                    จอง
+                  </Button>
+                ) : (
+                  <Button {...disabledButton} padding={6}>
+                    จอง
+                  </Button>
+                )}
+              </Col>
+            </Row>
           </Col>
         </Col>
       </Row>
