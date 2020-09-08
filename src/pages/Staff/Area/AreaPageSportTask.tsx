@@ -1,13 +1,10 @@
 import { Col, message, Row } from 'antd';
-import Button from 'Components/Button';
-import StaffLayout from 'Components/Layout/Staff/Home';
-import TimeRangeSelect from 'Components/TimeRangeSelect/TimeRangeSelect';
-import TimeTable from 'Components/TimeTable';
 import TimeNode from 'Components/TimeTable/timetable.interface';
 import confirmButton from 'Models/button/confirm.button';
 import disabledButton from 'Models/button/disabled.button';
 import moment, { Moment } from 'moment';
 import React, { useEffect, useState } from 'react';
+import Loadable from 'react-loadable';
 import { useLocation } from 'react-router';
 import { areaAPI } from 'Services/area';
 import { AreaAvailableAPI } from 'Services/area/area.interface';
@@ -17,8 +14,32 @@ import { CreateTaskByStaff } from 'Services/task/task.create.interface';
 import { QuickTask as QuickTaskInterface } from 'Services/task/task.quick.interface';
 import { u } from 'Services/user';
 import cardStyle from './common/card.style';
-import AreaInfo from './Info';
-import QuickTask from './QuickTask';
+
+const AreaInfo = Loadable({
+  loading: () => null,
+  loader: () => import('./Info'),
+});
+const QuickTask = Loadable({
+  loading: () => null,
+  loader: () => import('./QuickTask'),
+});
+const TimeRangeSelect = Loadable({
+  loading: () => null,
+  loader: () => import('Components/TimeRangeSelect/TimeRangeSelect'),
+});
+const TimeTable = Loadable({
+  loading: () => null,
+  loader: () => import('Components/TimeTable'),
+});
+
+const Button = Loadable({
+  loading: () => null,
+  loader: () => import('Components/Button'),
+});
+const StaffLayout = Loadable({
+  loading: () => null,
+  loader: () => import('Components/Layout/Staff/Home'),
+});
 
 const AreaPageSport: React.FC = () => {
   const { pathname } = useLocation();
