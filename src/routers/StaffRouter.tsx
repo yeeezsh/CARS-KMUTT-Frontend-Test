@@ -5,7 +5,7 @@ import { Route, Router, useHistory, useLocation } from 'react-router';
 import { u } from 'Services/user';
 import {
   StaffPermissionType,
-  STAFF_PERMISSION,
+  STAFF_PERMISSION
 } from 'Services/user/staff.interface';
 
 const StaffSiderLayout = Loadable({

@@ -47,7 +47,7 @@ const MyReserveEditPage = Loadable({
   loading: () => null,
 });
 
-export default class PageUserRouter extends Component<
+export default class UserRouter extends Component<
   {},
   {
     drawer: boolean;
