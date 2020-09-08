@@ -5,7 +5,7 @@ import { Route, Router, useHistory, useLocation } from 'react-router';
 import { u } from 'Services/user';
 import {
   StaffPermissionType,
-  STAFF_PERMISSION
+  STAFF_PERMISSION,
 } from 'Services/user/staff.interface';
 
 const StaffSiderLayout = Loadable({
@@ -57,8 +57,8 @@ const AreaList = Loadable({
   loader: () => import('Pages/Staff/AreaList'),
   loading: () => null,
 });
-const Area = Loadable({
-  loader: () => import('Pages/Staff/Area'),
+const AreaPage = Loadable({
+  loader: () => import('Pages/Staff/Area/AreaPage'),
   loading: () => null,
 });
 
@@ -107,9 +107,9 @@ const StaffRouter: React.FunctionComponent = () => {
         <AreaList />
       </Route>
 
-      {/* Area list */}
+      {/* Area page */}
       <Route path={`**/${StaffPageParamType.area}/:id`}>
-        <Area />
+        <AreaPage />
       </Route>
 
       {/* <Home /> */}
