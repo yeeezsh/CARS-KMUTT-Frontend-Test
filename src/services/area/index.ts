@@ -14,10 +14,20 @@ class AreaAPI {
     }
   }
 
-  async getAreaAvailable(id: string): Promise<AreaAvailableAPI[]> {
+  async getAreaAvailable(
+    id: string,
+    startDate: Moment,
+    stopDate: Moment,
+  ): Promise<AreaAvailableAPI[]> {
     try {
-      const data = (await adapter.instance.get('/area/available/' + id))
-        .data;
+      const data = (
+        await adapter.instance.get('/area/available/' + id, {
+          params: {
+            start: startDate,
+            stop: stopDate,
+          },
+        })
+      ).data;
       return data.map((e: any) => ({ ...e, date: moment(e.date) }));
     } catch (err) {
       throw err;

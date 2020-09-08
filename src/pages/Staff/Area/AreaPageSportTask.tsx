@@ -60,12 +60,7 @@ const AreaPageSport: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<{
     start: Moment;
     stop: Moment;
-  }>({
-    start: moment(today).startOf('day'),
-    stop: moment(today)
-      .startOf('day')
-      .add(7, 'day'),
-  });
+  }>();
 
   async function fetch(startDate: Moment, stopDate: Moment) {
     setLoading(true);
@@ -74,7 +69,11 @@ const AreaPageSport: React.FC = () => {
     setAreaInfo(area);
 
     // fetch avalable
-    const available = await areaAPI.getAreaAvailable(areaId);
+    const available = await areaAPI.getAreaAvailable(
+      areaId,
+      startDate,
+      stopDate,
+    );
     setAvailArea(available);
     setSelecting(Array(available.length).fill([]));
 
@@ -90,8 +89,19 @@ const AreaPageSport: React.FC = () => {
 
   // fetch when dateChange
   useEffect(() => {
-    fetch(selectedDate.start, selectedDate.stop);
+    selectedDate && fetch(selectedDate.start, selectedDate.stop);
   }, [selectedDate]);
+
+  useEffect(() => {
+    fetch(moment(today), moment());
+  }, []);
+
+  useEffect(() => {
+    setSelectedDate({
+      start: moment(today),
+      stop: moment(today).add(areaInfo?.forward, 'day'),
+    });
+  }, [areaInfo]);
 
   function onSelect(value: Moment, type: TimeNode['type'], i: number) {
     console.log(value, type, i);
@@ -142,11 +152,11 @@ const AreaPageSport: React.FC = () => {
         mapped.map(e => taskAPI.createSportTaskByStaff(e)),
       );
 
-      fetch(selectedDate.start, selectedDate.stop);
+      selectedDate && fetch(selectedDate.start, selectedDate.stop);
       onCancel();
       return message.success('จองสำเร็จ');
     } catch (err) {
-      fetch(selectedDate.start, selectedDate.stop);
+      selectedDate && fetch(selectedDate.start, selectedDate.stop);
       return message.error(String(err));
     }
   }
