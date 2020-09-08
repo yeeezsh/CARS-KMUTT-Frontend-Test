@@ -49,22 +49,13 @@ const AreaPageSport: React.FC = () => {
   const today = moment().startOf('day');
   const initSelecting: TimeNode[][] = [[]];
   const [selecting, setSelecting] = useState(initSelecting);
-  const initAvailArea: AreaAvailableAPI[] = [];
-  const [availArea, setAvailArea] = useState(initAvailArea);
+  const [availArea, setAvailArea] = useState<AreaAvailableAPI[]>();
   const [canReserve, setCanReserve] = useState(false);
   // const [modal, setModal] = useState(false);
   const initQuickTask: QuickTaskInterface[] = [];
   const [quickTask, setQuickTask] = useState(initQuickTask);
   const [loading, setLoading] = useState<boolean>(true);
-
-  const initAreaInfo: AreaAPI = {
-    _id: '',
-    label: '',
-    name: '',
-    forward: 0,
-    reserve: [],
-  };
-  const [areaInfo, setAreaInfo] = useState(initAreaInfo);
+  const [areaInfo, setAreaInfo] = useState<AreaAPI>();
 
   const [selectedDate, setSelectedDate] = useState<{
     start: Moment;
@@ -73,13 +64,13 @@ const AreaPageSport: React.FC = () => {
     start: moment(today).startOf('day'),
     stop: moment(today)
       .startOf('day')
-      .add(areaInfo.forward, 'day'),
+      .add(7, 'day'),
   });
 
-  async function fetch() {
+  async function fetch(startDate: Moment, stopDate: Moment) {
     setLoading(true);
     // fetch area info
-    const area = await areaAPI.getAreaInfo(areaId);
+    const area = areaInfo || (await areaAPI.getAreaInfo(areaId));
     setAreaInfo(area);
 
     // fetch avalable
@@ -90,10 +81,8 @@ const AreaPageSport: React.FC = () => {
     // get quick task
     const quickTask = await taskAPI.getQuickTask(
       area._id,
-      moment(selectedDate.start).startOf('day'),
-      moment(selectedDate.stop)
-        .startOf('day')
-        .add(area.forward, 'day'),
+      moment(startDate).startOf('day'),
+      moment(stopDate),
     );
     setQuickTask(quickTask);
     setLoading(false);
@@ -101,7 +90,7 @@ const AreaPageSport: React.FC = () => {
 
   // fetch when dateChange
   useEffect(() => {
-    fetch();
+    fetch(selectedDate.start, selectedDate.stop);
   }, [selectedDate]);
 
   function onSelect(value: Moment, type: TimeNode['type'], i: number) {
@@ -135,6 +124,7 @@ const AreaPageSport: React.FC = () => {
         owner: u.GetUser()._id,
         requestor: [u.GetUser().username],
       };
+      if (!areaInfo) throw new Error('need area info');
       const mapped = selecting
         .map(e => ({
           ...parser,
@@ -152,11 +142,11 @@ const AreaPageSport: React.FC = () => {
         mapped.map(e => taskAPI.createSportTaskByStaff(e)),
       );
 
-      fetch();
+      fetch(selectedDate.start, selectedDate.stop);
       onCancel();
       return message.success('จองสำเร็จ');
     } catch (err) {
-      fetch();
+      fetch(selectedDate.start, selectedDate.stop);
       return message.error(String(err));
     }
   }
@@ -180,17 +170,21 @@ const AreaPageSport: React.FC = () => {
 
         <Col style={cardStyle} span={13}>
           <Row>
-            <AreaInfo
-              building={areaInfo.building?.label}
-              area={areaInfo.label}
-              time={{
-                start: areaInfo.reserve[0] && areaInfo.reserve[0].start,
-                stop: areaInfo.reserve[0] && areaInfo.reserve[0].stop,
-              }}
-              week={areaInfo.reserve[0] && areaInfo.reserve[0].week}
-              forward={areaInfo.forward}
-              required={areaInfo.required?.requestor}
-            />
+            {areaInfo ? (
+              <AreaInfo
+                building={areaInfo.building?.label}
+                area={areaInfo.label}
+                time={{
+                  start: areaInfo.reserve[0] && areaInfo.reserve[0].start,
+                  stop: areaInfo.reserve[0] && areaInfo.reserve[0].stop,
+                }}
+                week={areaInfo.reserve[0] && areaInfo.reserve[0].week}
+                forward={areaInfo.forward}
+                required={areaInfo.required?.requestor}
+              />
+            ) : (
+              <Loading />
+            )}
 
             <QuickTask data={quickTask} loading={loading} />
           </Row>
@@ -198,13 +192,18 @@ const AreaPageSport: React.FC = () => {
 
         {/* right side */}
         <Col style={cardStyle} span={10}>
-          <TimeRangeSelect
-            now={today}
-            forward={areaInfo.forward}
-            onSelect={onSelectDate}
-          />
+          {areaInfo ? (
+            <TimeRangeSelect
+              now={today}
+              forward={areaInfo.forward}
+              onSelect={onSelectDate}
+            />
+          ) : (
+            <Loading />
+          )}
           {/* time table area */}
-          {areaInfo.reserve[0] ? (
+          {areaInfo && areaInfo.reserve[0] ? (
+            availArea &&
             availArea.map((e, i) => {
               if (i === 0) return; // HOT FIX OFFSET DATE
               return (
