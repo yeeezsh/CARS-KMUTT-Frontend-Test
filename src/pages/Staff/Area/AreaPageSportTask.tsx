@@ -50,7 +50,8 @@ const AreaPageSport: React.FC = () => {
 
     // fetch avalable
     const available = await areaAPI.getAreaAvailable(areaId);
-    setAvailArea(available);
+    // remove old day by splice 1
+    setAvailArea(available.splice(1));
     setSelecting(Array(available.length).fill([]));
 
     // get quick task
