@@ -32,7 +32,7 @@ const Data: React.FC<{
       <Col span={18}>
         {props.value ? (
           <p>
-            {props.value} {props.unit && props.unit}
+            {props.value} {props.unit}
           </p>
         ) : (
           <Loading size={16} />
