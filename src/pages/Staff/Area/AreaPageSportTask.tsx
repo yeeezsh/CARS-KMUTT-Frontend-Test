@@ -83,8 +83,7 @@ const AreaPageSport: React.FC = () => {
 
     // fetch avalable
     const available = await areaAPI.getAreaAvailable(areaId);
-    // remove old day by splice 1
-    setAvailArea(available.splice(1));
+    setAvailArea(available);
     setSelecting(Array(available.length).fill([]));
 
     // get quick task
@@ -199,6 +198,7 @@ const AreaPageSport: React.FC = () => {
           {/* time table area */}
           {areaInfo.reserve[0] ? (
             availArea.map((e, i) => {
+              if (i === 0) return; // HOT FIX OFFSET DATE
               return (
                 <TimeTable
                   selected={selecting[i]}
