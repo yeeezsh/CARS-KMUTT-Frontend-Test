@@ -1,12 +1,12 @@
 import { Col, message, Row } from 'antd';
 import Loading from 'Components/Loading';
 import TimeNode from 'Components/TimeTable/timetable.interface';
+import useAreaId from 'Hooks/useAreaId';
 import confirmButton from 'Models/button/confirm.button';
 import disabledButton from 'Models/button/disabled.button';
 import moment, { Moment } from 'moment';
 import React, { useEffect, useState } from 'react';
 import Loadable from 'react-loadable';
-import { useLocation } from 'react-router';
 import { areaAPI } from 'Services/area';
 import { AreaAvailableAPI } from 'Services/area/area.interface';
 import { AreaAPI } from 'Services/area/interfaces';
@@ -43,8 +43,7 @@ const StaffLayout = Loadable({
 });
 
 const AreaPageSportTask: React.FC = () => {
-  const { pathname } = useLocation();
-  const areaId = pathname.split('/')[3];
+  const areaId = useAreaId();
 
   const today = moment().startOf('day');
   const initSelecting: TimeNode[][] = [[]];
