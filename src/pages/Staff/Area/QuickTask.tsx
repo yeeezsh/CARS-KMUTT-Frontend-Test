@@ -16,10 +16,9 @@ const QuickTask: React.FC<{
     {
       title: 'รหัสการจอง',
       width: '25%',
-      dataIndex: '_id',
       render: data => (
-        <Link style={{ color: '#1890FF' }} to={'/staff/task/' + data}>
-          {String(data).slice(0, 3) + '.' + String(data).slice(-4)}
+        <Link style={{ color: '#1890FF' }} to={'/staff/task/' + data._id}>
+          {data.vid}
         </Link>
       ),
     },
