@@ -42,7 +42,7 @@ const StaffLayout = Loadable({
   loader: () => import('Components/Layout/Staff/Home'),
 });
 
-const AreaPageSport: React.FC = () => {
+const AreaPageSportTask: React.FC = () => {
   const { pathname } = useLocation();
   const areaId = pathname.split('/')[3];
 
@@ -78,12 +78,12 @@ const AreaPageSport: React.FC = () => {
     setSelecting(Array(available.length).fill([]));
 
     // get quick task
-    const quickTask = await taskAPI.getQuickTask(
+    const quickTaskAPIResponse = await taskAPI.getQuickTask(
       area._id,
       startDate,
       stopDate,
     );
-    setQuickTask(quickTask);
+    setQuickTask(quickTaskAPIResponse);
     setLoading(false);
   }
 
@@ -274,4 +274,4 @@ const AreaPageSport: React.FC = () => {
   );
 };
 
-export default AreaPageSport;
+export default AreaPageSportTask;
