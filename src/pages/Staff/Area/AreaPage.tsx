@@ -3,7 +3,6 @@ import useAreaId from 'Hooks/useAreaId';
 import React, { useEffect, useState } from 'react';
 import { areaAPI } from 'Services/area';
 import { AreaAPI } from 'Services/area/interfaces';
-import { TaskType } from 'Services/task/task.interface';
 import Factory from './Factory';
 
 const AreaPage: React.FC = () => {
@@ -13,7 +12,7 @@ const AreaPage: React.FC = () => {
     areaAPI.getAreaInfo(areaId).then(area => setAreaInfo(area));
   }, []);
 
-  const page = (areaInfo && Factory(TaskType.sport, areaInfo)) || (
+  const page = (areaInfo && Factory(areaInfo.type, areaInfo)) || (
     <div>
       <Loading />
     </div>
