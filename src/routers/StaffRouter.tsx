@@ -46,7 +46,7 @@ const Logout = Loadable({
   loading: () => null,
 });
 const Task = Loadable({
-  loader: () => import('Pages/Staff/Task'),
+  loader: () => import('Pages/Staff/Task/TaskPage'),
   loading: () => null,
 });
 const Calendar = Loadable({
