@@ -80,8 +80,8 @@ const AreaPageSport: React.FC = () => {
     // get quick task
     const quickTask = await taskAPI.getQuickTask(
       area._id,
-      moment(startDate).startOf('day'),
-      moment(stopDate),
+      startDate,
+      stopDate,
     );
     setQuickTask(quickTask);
     setLoading(false);
