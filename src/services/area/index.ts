@@ -23,8 +23,8 @@ class AreaAPI {
       const data = (
         await adapter.instance.get('/area/available/' + id, {
           params: {
-            start: startDate,
-            stop: stopDate,
+            start: startDate.toISOString(),
+            stop: stopDate.toISOString(),
           },
         })
       ).data;
