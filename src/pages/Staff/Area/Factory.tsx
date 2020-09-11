@@ -1,14 +1,15 @@
 import React from 'react';
+import { AreaAPI } from 'Services/area/interfaces';
 import { TaskType } from 'Services/task/task.interface';
 import AreaPageSportTask from './AreaPageSportTask';
 
 export type AreaPageFactoryType = TaskType;
 
 // eslint-disable-next-line react/display-name
-export default (type: AreaPageFactoryType): JSX.Element => {
+export default (type: AreaPageFactoryType, area: AreaAPI): JSX.Element => {
   switch (type) {
     case TaskType.sport:
-      return <AreaPageSportTask />;
+      return <AreaPageSportTask areaInfo={area} />;
     default:
       return <div>type not supported</div>;
   }

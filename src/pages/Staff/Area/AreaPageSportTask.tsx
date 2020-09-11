@@ -1,7 +1,6 @@
 import { Col, message, Row } from 'antd';
 import Loading from 'Components/Loading';
 import TimeNode from 'Components/TimeTable/timetable.interface';
-import useAreaId from 'Hooks/useAreaId';
 import confirmButton from 'Models/button/confirm.button';
 import disabledButton from 'Models/button/disabled.button';
 import moment, { Moment } from 'moment';
@@ -42,9 +41,7 @@ const StaffLayout = Loadable({
   loader: () => import('Components/Layout/Staff/Home'),
 });
 
-const AreaPageSportTask: React.FC = () => {
-  const areaId = useAreaId();
-
+const AreaPageSportTask: React.FC<{ areaInfo: AreaAPI }> = props => {
   const today = moment().startOf('day');
   const initSelecting: TimeNode[][] = [[]];
   const [selecting, setSelecting] = useState(initSelecting);
@@ -54,7 +51,8 @@ const AreaPageSportTask: React.FC = () => {
   const initQuickTask: QuickTaskInterface[] = [];
   const [quickTask, setQuickTask] = useState(initQuickTask);
   const [loading, setLoading] = useState<boolean>(true);
-  const [areaInfo, setAreaInfo] = useState<AreaAPI>();
+  // const [areaInfo, setAreaInfo] = useState<AreaAPI>();
+  const areaInfo = props.areaInfo;
 
   const [selectedDate, setSelectedDate] = useState<{
     start: Moment;
@@ -64,12 +62,11 @@ const AreaPageSportTask: React.FC = () => {
   async function fetch(startDate: Moment, stopDate: Moment) {
     setLoading(true);
     // fetch area info
-    const area = areaInfo || (await areaAPI.getAreaInfo(areaId));
-    setAreaInfo(area);
+    // const area = areaInfo || (await areaAPI.getAreaInfo(areaId));
 
     // fetch avalable
     const available = await areaAPI.getAreaAvailable(
-      areaId,
+      areaInfo._id,
       startDate,
       stopDate,
     );
@@ -78,7 +75,7 @@ const AreaPageSportTask: React.FC = () => {
 
     // get quick task
     const quickTaskAPIResponse = await taskAPI.getQuickTask(
-      area._id,
+      areaInfo._id,
       startDate,
       stopDate,
     );
@@ -129,7 +126,7 @@ const AreaPageSportTask: React.FC = () => {
     try {
       const parser: CreateTaskByStaff = {
         time: [],
-        area: areaId,
+        area: areaInfo._id,
         owner: u.GetUser()._id,
         requestor: [u.GetUser().username],
       };
