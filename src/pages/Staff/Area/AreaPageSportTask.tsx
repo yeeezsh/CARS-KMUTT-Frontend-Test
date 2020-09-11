@@ -215,7 +215,6 @@ const AreaPageSport: React.FC = () => {
           {areaInfo && areaInfo.reserve[0] ? (
             availArea &&
             availArea.map((e, i) => {
-              if (i === 0) return; // HOT FIX OFFSET DATE
               return (
                 <TimeTable
                   selected={selecting[i]}
