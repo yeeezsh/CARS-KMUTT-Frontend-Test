@@ -1,5 +1,6 @@
 import { DatePicker } from 'antd';
 import { RangePickerValue } from 'antd/lib/date-picker/interface';
+import Outline from 'Components/Outline';
 import moment, { Moment } from 'moment';
 import React from 'react';
 import calendarCurrent from 'Utils/calendar.current';
@@ -19,6 +20,8 @@ const TimeRangeSelect: React.FC<{
   }
   return (
     <div>
+      <Outline>ตารางเวลา</Outline>
+
       <RangePicker
         defaultValue={[
           moment(props.now),
