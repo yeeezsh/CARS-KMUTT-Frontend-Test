@@ -1,7 +1,7 @@
 import { Moment } from 'moment';
+import AreaBuildingType from './@types/area.building.type';
 import { AreaBuilding } from './area.building.interfaces';
 
-export type AreaBuildingType = 'sport' | 'area' | 'meeting';
 export interface AreaReseveAPI {
   interval: number;
   max: number;
@@ -31,6 +31,7 @@ export interface AreaAPI {
   required?: {
     requestor: number;
   };
+  type: AreaBuildingType;
   forward: number;
   reserve: AreaReseveAPI[];
 }
