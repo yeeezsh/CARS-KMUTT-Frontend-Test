@@ -1,4 +1,4 @@
-import { Col, message, Row } from 'antd';
+import { Col, Row } from 'antd';
 import Loading from 'Components/Loading';
 import TimeNode from 'Components/TimeTable/timetable.interface';
 import confirmButton from 'Models/button/confirm.button';
@@ -10,10 +10,11 @@ import { areaAPI } from 'Services/area';
 import { AreaAvailableAPI } from 'Services/area/area.interface';
 import { AreaAPI } from 'Services/area/interfaces';
 import { taskAPI } from 'Services/task';
-import { CreateTaskByStaff } from 'Services/task/task.create.interface';
 import { QuickTask as QuickTaskInterface } from 'Services/task/task.quick.interface';
 import { u } from 'Services/user';
+import SelectedDateType from './@types/selected.date.type';
 import cardStyle from './common/card.style';
+import useOnRserveTimeTable from './hooks/useOnReserveTimeTable';
 
 const AreaInfo = Loadable({
   loading: () => null,
@@ -53,10 +54,7 @@ const AreaPageSportTask: React.FC<{ areaInfo: AreaAPI }> = props => {
   const [loading, setLoading] = useState<boolean>(true);
   const areaInfo = props.areaInfo;
 
-  const [selectedDate, setSelectedDate] = useState<{
-    start: Moment;
-    stop: Moment;
-  }>();
+  const [selectedDate, setSelectedDate] = useState<SelectedDateType>();
 
   async function fetch(startDate: Moment, stopDate: Moment) {
     setLoading(true);
@@ -120,41 +118,7 @@ const AreaPageSportTask: React.FC<{ areaInfo: AreaAPI }> = props => {
   function onCancel() {
     setSelecting(prev => prev.map(() => []));
   }
-
-  async function onReserve() {
-    try {
-      const parser: CreateTaskByStaff = {
-        time: [],
-        area: areaInfo._id,
-        owner: u.GetUser()._id,
-        requestor: [u.GetUser().username],
-      };
-      if (!areaInfo) throw new Error('need area info');
-      const mapped = selecting
-        .map(e => ({
-          ...parser,
-          time: e.map(t => ({
-            start: t.value.toDate(),
-            stop: t.value
-              .add(areaInfo.reserve[0].interval, 'minutes')
-              .toDate(),
-            allDay: false,
-          })),
-        }))
-        .filter(e => e.time.length > 0);
-
-      await Promise.all(
-        mapped.map(e => taskAPI.createSportTaskByStaff(e)),
-      );
-
-      selectedDate && fetch(selectedDate.start, selectedDate.stop);
-      onCancel();
-      return message.success('จองสำเร็จ');
-    } catch (err) {
-      selectedDate && fetch(selectedDate.start, selectedDate.stop);
-      return message.error(String(err));
-    }
-  }
+  const [onReserve] = useOnRserveTimeTable(u, areaInfo, onCancel, fetch);
 
   function onSelectDate(start: Moment, stop: Moment) {
     setSelectedDate({ start, stop });
@@ -251,7 +215,9 @@ const AreaPageSportTask: React.FC<{ areaInfo: AreaAPI }> = props => {
                   <Button
                     {...confirmButton}
                     padding={6}
-                    onClick={onReserve}
+                    onClick={() =>
+                      selectedDate && onReserve(selectedDate, selecting)
+                    }
                   >
                     จอง
                   </Button>
