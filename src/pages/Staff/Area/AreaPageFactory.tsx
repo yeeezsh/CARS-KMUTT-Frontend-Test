@@ -2,6 +2,7 @@ import React from 'react';
 import AreaBuildingEnum from 'Services/area/@enums/area.building.enum';
 import AreaBuildingType from 'Services/area/@types/area.building.type';
 import { AreaAPI } from 'Services/area/interfaces';
+import AreaPageCommonMeetingTask from './AreaPageCommonMeetingTask';
 import AreaPageSportTask from './AreaPageSportTask';
 
 export type AreaPageFactoryType = AreaBuildingType;
@@ -11,6 +12,8 @@ export default (type: AreaPageFactoryType, area: AreaAPI): JSX.Element => {
   switch (type) {
     case AreaBuildingEnum.sport:
       return <AreaPageSportTask areaInfo={area} />;
+    case AreaBuildingEnum.meeting:
+      return <AreaPageCommonMeetingTask areaInfo={area} />;
     default:
       return <div>type not supported</div>;
   }
