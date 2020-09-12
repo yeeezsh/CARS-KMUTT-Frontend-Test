@@ -1,6 +1,5 @@
 import { Col, Row } from 'antd';
 import Loading from 'Components/Loading';
-import TimeNode from 'Components/TimeTable/timetable.interface';
 import confirmButton from 'Models/button/confirm.button';
 import disabledButton from 'Models/button/disabled.button';
 import moment, { Moment } from 'moment';
@@ -12,9 +11,9 @@ import { AreaAPI } from 'Services/area/interfaces';
 import { taskAPI } from 'Services/task';
 import { QuickTask as QuickTaskInterface } from 'Services/task/task.quick.interface';
 import { u } from 'Services/user';
-import SelectedDateType from './@types/selected.date.type';
 import cardStyle from './common/card.style';
 import useOnRserveTimeTable from './hooks/useOnReserveTimeTable';
+import useOnSelectingTimeTable from './hooks/useOnSelectingTimeTable';
 
 const AreaInfo = Loadable({
   loading: () => null,
@@ -44,22 +43,23 @@ const StaffLayout = Loadable({
 
 const AreaPageSportTask: React.FC<{ areaInfo: AreaAPI }> = props => {
   const today = moment().startOf('day');
-  const initSelecting: TimeNode[][] = [[]];
-  const [selecting, setSelecting] = useState(initSelecting);
   const [availArea, setAvailArea] = useState<AreaAvailableAPI[]>();
   const [canReserve, setCanReserve] = useState(false);
-  // const [modal, setModal] = useState(false);
   const initQuickTask: QuickTaskInterface[] = [];
   const [quickTask, setQuickTask] = useState(initQuickTask);
   const [loading, setLoading] = useState<boolean>(true);
   const areaInfo = props.areaInfo;
 
-  const [selectedDate, setSelectedDate] = useState<SelectedDateType>();
+  const [
+    selecting,
+    setSelecting,
+    selectedDate,
+    setSelectedDate,
+    onSelect,
+  ] = useOnSelectingTimeTable();
 
   async function fetch(startDate: Moment, stopDate: Moment) {
     setLoading(true);
-    // fetch area info
-    // const area = areaInfo || (await areaAPI.getAreaInfo(areaId));
 
     // fetch avalable
     const available = await areaAPI.getAreaAvailable(
@@ -95,25 +95,6 @@ const AreaPageSportTask: React.FC<{ areaInfo: AreaAPI }> = props => {
       stop: moment(today).add(areaInfo?.forward, 'day'),
     });
   }, [areaInfo]);
-
-  function onSelect(value: Moment, type: TimeNode['type'], i: number) {
-    console.log(value, type, i);
-    const selectingDay = selecting[i];
-    if (type === 'disabled') return;
-    if (type === 'available') {
-      const d: TimeNode[] = [
-        ...selectingDay,
-        { value, type: 'selecting' },
-      ];
-      setSelecting(prev => prev.map((e, ix) => (ix === i ? d : e)));
-    }
-    if (type === 'selecting') {
-      const d: TimeNode[] = selectingDay.filter(
-        f => moment(f.value).format('HH:mm') !== value.format('HH:mm'),
-      );
-      setSelecting(prev => prev.map((e, ix) => (ix === i ? d : e)));
-    }
-  }
 
   function onCancel() {
     setSelecting(prev => prev.map(() => []));
