@@ -5,13 +5,10 @@ import disabledButton from 'Models/button/disabled.button';
 import moment, { Moment } from 'moment';
 import React, { useEffect, useState } from 'react';
 import Loadable from 'react-loadable';
-import { areaAPI } from 'Services/area';
-import { AreaAvailableAPI } from 'Services/area/area.interface';
 import { AreaAPI } from 'Services/area/interfaces';
-import { taskAPI } from 'Services/task';
-import { QuickTask as QuickTaskInterface } from 'Services/task/task.quick.interface';
 import { u } from 'Services/user';
 import cardStyle from './common/card.style';
+import useFetchAvailableAndQuickTask from './hooks/useFetchAvailableAndQuickTask';
 import useOnRserveTimeTable from './hooks/useOnReserveTimeTable';
 import useOnSelectingTimeTable from './hooks/useOnSelectingTimeTable';
 
@@ -42,14 +39,9 @@ const StaffLayout = Loadable({
 });
 
 const AreaPageSportTask: React.FC<{ areaInfo: AreaAPI }> = props => {
+  const { areaInfo } = props;
   const today = moment().startOf('day');
-  const [availArea, setAvailArea] = useState<AreaAvailableAPI[]>();
   const [canReserve, setCanReserve] = useState(false);
-  const initQuickTask: QuickTaskInterface[] = [];
-  const [quickTask, setQuickTask] = useState(initQuickTask);
-  const [loading, setLoading] = useState<boolean>(true);
-  const areaInfo = props.areaInfo;
-
   const [
     selecting,
     setSelecting,
@@ -58,27 +50,12 @@ const AreaPageSportTask: React.FC<{ areaInfo: AreaAPI }> = props => {
     onSelect,
   ] = useOnSelectingTimeTable();
 
-  async function fetch(startDate: Moment, stopDate: Moment) {
-    setLoading(true);
-
-    // fetch avalable
-    const available = await areaAPI.getAreaAvailable(
-      areaInfo._id,
-      startDate,
-      stopDate,
-    );
-    setAvailArea(available);
-    setSelecting(Array(available.length).fill([]));
-
-    // get quick task
-    const quickTaskAPIResponse = await taskAPI.getQuickTask(
-      areaInfo._id,
-      startDate,
-      stopDate,
-    );
-    setQuickTask(quickTaskAPIResponse);
-    setLoading(false);
-  }
+  const [
+    quickTask,
+    availArea,
+    loading,
+    fetch,
+  ] = useFetchAvailableAndQuickTask(areaInfo, setSelecting);
 
   // fetch when dateChange
   useEffect(() => {
