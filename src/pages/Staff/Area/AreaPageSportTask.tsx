@@ -17,11 +17,11 @@ import cardStyle from './common/card.style';
 
 const AreaInfo = Loadable({
   loading: () => null,
-  loader: () => import('./Info'),
+  loader: () => import('./AreaInfo'),
 });
 const QuickTask = Loadable({
   loading: () => null,
-  loader: () => import('./QuickTask'),
+  loader: () => import('./AreaQuickTask'),
 });
 const TimeRangeSelect = Loadable({
   loading: () => null,
@@ -51,7 +51,6 @@ const AreaPageSportTask: React.FC<{ areaInfo: AreaAPI }> = props => {
   const initQuickTask: QuickTaskInterface[] = [];
   const [quickTask, setQuickTask] = useState(initQuickTask);
   const [loading, setLoading] = useState<boolean>(true);
-  // const [areaInfo, setAreaInfo] = useState<AreaAPI>();
   const areaInfo = props.areaInfo;
 
   const [selectedDate, setSelectedDate] = useState<{

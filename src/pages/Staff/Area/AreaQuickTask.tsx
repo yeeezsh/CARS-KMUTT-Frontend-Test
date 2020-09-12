@@ -8,7 +8,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { QuickTask } from 'Services/task/task.quick.interface';
 
-const QuickTask: React.FC<{
+const AreaQuickTask: React.FC<{
   data: QuickTask[];
   loading?: boolean;
 }> = props => {
@@ -58,4 +58,4 @@ const QuickTask: React.FC<{
   );
 };
 
-export default QuickTask;
+export default AreaQuickTask;
