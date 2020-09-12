@@ -1,4 +1,4 @@
-import { BuildingType } from 'Services/building/interface';
+import AreaBuildingType from 'Services/area/@types/area.building.type';
 
 export const ADD_FORM = 'ADD_FORM';
 export const INIT_FORM = 'INIT_FORM';
@@ -47,7 +47,7 @@ export type AreaInfo = {
   _id?: string;
   name?: string;
   label?: string;
-  type?: BuildingType;
+  type?: AreaBuildingType;
 };
 
 export interface EachForm {

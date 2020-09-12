@@ -1,3 +1,5 @@
+import AreaBuildingType from '../@types/area.building.type';
+
 interface ReserveAPI {
   interval: number | -1 | 60;
   max: number;
@@ -17,6 +19,7 @@ export interface AreaAPI {
     staff?: string[];
     requestor: number;
   };
+  type?: AreaBuildingType;
   disabled?: string[];
   forward?: number;
   reserve?: ReserveAPI[];
