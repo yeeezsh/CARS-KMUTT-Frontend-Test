@@ -3,7 +3,7 @@ import useAreaId from 'Hooks/useAreaId';
 import React, { useEffect, useState } from 'react';
 import { areaAPI } from 'Services/area';
 import { AreaAPI } from 'Services/area/interfaces';
-import Factory from './Factory';
+import AreaPageFactory from './AreaPageFactory';
 
 const AreaPage: React.FC = () => {
   const [areaInfo, setAreaInfo] = useState<AreaAPI>();
@@ -12,7 +12,7 @@ const AreaPage: React.FC = () => {
     areaAPI.getAreaInfo(areaId).then(area => setAreaInfo(area));
   }, []);
 
-  const page = (areaInfo && Factory(areaInfo.type, areaInfo)) || (
+  const page = (areaInfo && AreaPageFactory(areaInfo.type, areaInfo)) || (
     <div>
       <Loading />
     </div>
