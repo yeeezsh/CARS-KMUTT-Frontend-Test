@@ -2,7 +2,7 @@ import { Col, Row } from 'antd';
 import Loading from 'Components/Loading';
 import confirmButton from 'Models/button/confirm.button';
 import disabledButton from 'Models/button/disabled.button';
-import moment, { Moment } from 'moment';
+import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import Loadable from 'react-loadable';
 import { AreaAPI } from 'Services/area/interfaces';
@@ -63,10 +63,6 @@ const AreaPageSportTask: React.FC<{ areaInfo: AreaAPI }> = props => {
   }, [selectedDate]);
 
   useEffect(() => {
-    fetch(moment(today), moment());
-  }, []);
-
-  useEffect(() => {
     setSelectedDate({
       start: moment(today),
       stop: moment(today).add(areaInfo?.forward, 'day'),
@@ -77,10 +73,6 @@ const AreaPageSportTask: React.FC<{ areaInfo: AreaAPI }> = props => {
     setSelecting(prev => prev.map(() => []));
   }
   const [onReserve] = useOnRserveTimeTable(u, areaInfo, onCancel, fetch);
-
-  function onSelectDate(start: Moment, stop: Moment) {
-    setSelectedDate({ start, stop });
-  }
 
   // subscribe seclecting to change can reserve states
   useEffect(() => {
@@ -123,7 +115,7 @@ const AreaPageSportTask: React.FC<{ areaInfo: AreaAPI }> = props => {
             <TimeRangeSelect
               now={today}
               forward={areaInfo.forward}
-              onSelect={onSelectDate}
+              onSelect={(start, stop) => setSelectedDate({ start, stop })}
             />
           ) : (
             <Loading />
