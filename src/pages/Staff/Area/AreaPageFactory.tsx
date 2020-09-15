@@ -1,9 +1,17 @@
 import React from 'react';
+import Loadable from 'react-loadable';
 import AreaBuildingEnum from 'Services/area/@enums/area.building.enum';
 import AreaBuildingType from 'Services/area/@types/area.building.type';
 import { AreaAPI } from 'Services/area/interfaces';
-import AreaPageCommonMeetingTask from './AreaPageCommonMeetingTask';
-import AreaPageSportTask from './AreaPageSportTask';
+
+const AreaPageCommonMeetingTask = Loadable({
+  loading: () => null,
+  loader: () => import('./AreaPageCommonMeetingTask'),
+});
+const AreaPageSportTask = Loadable({
+  loading: () => null,
+  loader: () => import('./AreaPageSportTask'),
+});
 
 export type AreaPageFactoryType = AreaBuildingType;
 

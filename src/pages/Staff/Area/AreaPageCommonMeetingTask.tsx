@@ -2,8 +2,6 @@ import { Col, Row } from 'antd';
 import Button from 'Components/Button';
 import StaffLayout from 'Components/Layout/Staff/Home';
 import Loading from 'Components/Loading';
-import TimeRangeSelect from 'Components/TimeRangeSelect/TimeRangeSelect';
-import TimeTable from 'Components/TimeTable';
 import confirmButton from 'Models/button/confirm.button';
 import disabledButton from 'Models/button/disabled.button';
 import moment from 'moment';
@@ -12,7 +10,6 @@ import Loadable from 'react-loadable';
 import AreaBuildingEnum from 'Services/area/@enums/area.building.enum';
 import { AreaAPI } from 'Services/area/interfaces';
 import { u } from 'Services/user';
-import AreaInfo from './AreaInfo';
 import cardStyle from './common/card.style';
 import useFetchAvailableAndQuickTask from './hooks/useFetchAvailableAndQuickTask';
 import useOnRserveTimeTableAPI from './hooks/useOnReserveTimeTableAPI';
@@ -21,6 +18,18 @@ import useOnSelectingTimeTable from './hooks/useOnSelectingTimeTable';
 const AreaQuickTask = Loadable({
   loading: () => null,
   loader: () => import('./AreaQuickTask'),
+});
+const AreaInfo = Loadable({
+  loading: () => null,
+  loader: () => import('./AreaInfo'),
+});
+const TimeRangeSelect = Loadable({
+  loading: () => null,
+  loader: () => import('Components/TimeRangeSelect/TimeRangeSelect'),
+});
+const TimeTable = Loadable({
+  loading: () => null,
+  loader: () => import('Components/TimeTable'),
 });
 
 const AreaPageCommonMeetingTask: React.FC<{
