@@ -36,13 +36,14 @@ async function callAPI(
     .filter(e => e.time.length > 0);
 
   await Promise.all(mapped.map(e => taskAPI.createSportTaskByStaff(e)));
+  // taskMeetingAPI.createMeetingTask({ time: mapped, area: areaInfo._id });
 
   selectedDate && fetchData(selectedDate.start, selectedDate.stop);
   onCancel();
   return message.success('จองสำเร็จ');
 }
 
-function useOnRserveTimeTable(
+function useOnRserveTimeTableAPI(
   u: UserClass,
   areaInfo: AreaAPI,
   onCancel: () => void,
@@ -60,4 +61,4 @@ function useOnRserveTimeTable(
   }
 }
 
-export default useOnRserveTimeTable;
+export default useOnRserveTimeTableAPI;

@@ -9,7 +9,7 @@ import { AreaAPI } from 'Services/area/interfaces';
 import { u } from 'Services/user';
 import cardStyle from './common/card.style';
 import useFetchAvailableAndQuickTask from './hooks/useFetchAvailableAndQuickTask';
-import useOnRserveTimeTable from './hooks/useOnReserveTimeTable';
+import useOnRserveTimeTableAPI from './hooks/useOnReserveTimeTableAPI';
 import useOnSelectingTimeTable from './hooks/useOnSelectingTimeTable';
 
 const AreaInfo = Loadable({
@@ -72,7 +72,12 @@ const AreaPageSportTask: React.FC<{ areaInfo: AreaAPI }> = props => {
   function onCancel() {
     setSelecting(prev => prev.map(() => []));
   }
-  const [onReserve] = useOnRserveTimeTable(u, areaInfo, onCancel, fetch);
+  const [onReserve] = useOnRserveTimeTableAPI(
+    u,
+    areaInfo,
+    onCancel,
+    fetch,
+  );
 
   // subscribe seclecting to change can reserve states
   useEffect(() => {

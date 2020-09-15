@@ -14,7 +14,7 @@ import { u } from 'Services/user';
 import AreaInfo from './AreaInfo';
 import cardStyle from './common/card.style';
 import useFetchAvailableAndQuickTask from './hooks/useFetchAvailableAndQuickTask';
-import useOnRserveTimeTable from './hooks/useOnReserveTimeTable';
+import useOnRserveTimeTableAPI from './hooks/useOnReserveTimeTableAPI';
 import useOnSelectingTimeTable from './hooks/useOnSelectingTimeTable';
 
 const AreaQuickTask = Loadable({
@@ -60,7 +60,12 @@ const AreaPageCommonMeetingTask: React.FC<{
   function onCancel() {
     setSelecting(prev => prev.map(() => []));
   }
-  const [onReserve] = useOnRserveTimeTable(u, areaInfo, onCancel, fetch);
+  const [onReserve] = useOnRserveTimeTableAPI(
+    u,
+    areaInfo,
+    onCancel,
+    fetch,
+  );
 
   // subscribe seclecting to change can reserve states
   useEffect(() => {
