@@ -9,6 +9,7 @@ import disabledButton from 'Models/button/disabled.button';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import Loadable from 'react-loadable';
+import AreaBuildingEnum from 'Services/area/@enums/area.building.enum';
 import { AreaAPI } from 'Services/area/interfaces';
 import { u } from 'Services/user';
 import AreaInfo from './AreaInfo';
@@ -65,6 +66,7 @@ const AreaPageCommonMeetingTask: React.FC<{
     areaInfo,
     onCancel,
     fetch,
+    AreaBuildingEnum.meeting,
   );
 
   // subscribe seclecting to change can reserve states

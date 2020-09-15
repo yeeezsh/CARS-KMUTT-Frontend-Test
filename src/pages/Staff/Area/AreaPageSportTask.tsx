@@ -5,6 +5,7 @@ import disabledButton from 'Models/button/disabled.button';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import Loadable from 'react-loadable';
+import AreaBuildingEnum from 'Services/area/@enums/area.building.enum';
 import { AreaAPI } from 'Services/area/interfaces';
 import { u } from 'Services/user';
 import cardStyle from './common/card.style';
@@ -77,6 +78,7 @@ const AreaPageSportTask: React.FC<{ areaInfo: AreaAPI }> = props => {
     areaInfo,
     onCancel,
     fetch,
+    AreaBuildingEnum.sport,
   );
 
   // subscribe seclecting to change can reserve states
