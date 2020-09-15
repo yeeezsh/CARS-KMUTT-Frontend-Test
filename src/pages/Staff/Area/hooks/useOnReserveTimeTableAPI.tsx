@@ -29,12 +29,11 @@ async function sportTaskAPI(
     owner: u.GetUser()._id,
     requestor: [u.GetUser().username],
   };
-  const mapped = selecting
-    .map(e => ({
-      ...parser,
-      time: selectingToDateAPI(e, areaInfo),
-    }))
-    .filter(e => e.time.length > 0);
+  const mapped = selecting.map(e => ({
+    ...parser,
+    time: selectingToDateAPI(e, areaInfo),
+  }));
+
   await Promise.all(mapped.map(e => taskAPI.createSportTaskByStaff(e)));
 }
 
@@ -59,12 +58,14 @@ async function callAPI(
 ) {
   if (!areaInfo) throw new Error('need area info');
 
+  const selectingFiltered = selecting.filter(e => e.length !== 0);
+
   switch (API) {
     case AreaBuildingEnum.sport:
-      await sportTaskAPI(selecting, areaInfo, u);
+      await sportTaskAPI(selectingFiltered, areaInfo, u);
       break;
     case AreaBuildingEnum.meeting:
-      await meetingTaskAPI(selecting, areaInfo);
+      await meetingTaskAPI(selectingFiltered, areaInfo);
       break;
   }
 
