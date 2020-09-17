@@ -52,7 +52,7 @@ const ConfirmModal = Loadable({
 // constant
 const MAX_STEPS = 3;
 
-const Activity: React.FC<{
+const AreaCommonActivityPage: React.FC<{
   noInit?: boolean;
   editMode?: boolean;
   useModal?: boolean;
@@ -205,4 +205,4 @@ const Activity: React.FC<{
   );
 };
 
-export default Activity;
+export default AreaCommonActivityPage;

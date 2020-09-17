@@ -54,7 +54,7 @@ const ConfirmModal = Loadable({
 // constant
 const MAX_STEPS = 6;
 
-const Sport: React.FC<{
+const AreaCommonSportPage: React.FC<{
   noInit?: boolean;
   editMode?: boolean;
   useModal?: boolean;
@@ -241,4 +241,4 @@ const Sport: React.FC<{
   );
 };
 
-export default Sport;
+export default AreaCommonSportPage;

@@ -1,5 +1,5 @@
-import Activity from 'Pages/Areas/Common/Activity';
-import Sport from 'Pages/Areas/Common/Sport';
+import AreaCommonActivityPage from 'Pages/Areas/Common/Activity/AreaCommonActivityPage';
+import AreaCommonSportPage from 'Pages/Areas/Common/Sport/AreaCommonSportPage';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
@@ -20,9 +20,21 @@ const FormFactory = (
 ) => {
   switch (type) {
     case TaskType.common:
-      return <Activity noInit={true} editMode={true} onSend={onSubmit} />;
+      return (
+        <AreaCommonActivityPage
+          noInit={true}
+          editMode={true}
+          onSend={onSubmit}
+        />
+      );
     case TaskType.commonSport:
-      return <Sport noInit={true} editMode={true} onSend={onSubmit} />;
+      return (
+        <AreaCommonSportPage
+          noInit={true}
+          editMode={true}
+          onSend={onSubmit}
+        />
+      );
     default:
       return <div>no support</div>;
   }
