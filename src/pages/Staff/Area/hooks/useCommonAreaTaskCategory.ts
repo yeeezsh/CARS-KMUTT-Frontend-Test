@@ -5,10 +5,12 @@ import { AreaServiceResponseAPI } from 'Services/area/@interfaces/area.interface
 
 type AreaTaskType = 'sport' | 'activity' | undefined;
 type AllowSport = boolean;
+type OnReset = () => void;
 type UseCommonAreaCategory = [
   AreaTaskType,
   (e: AreaTaskType) => void,
   AllowSport,
+  OnReset,
 ];
 
 function useCommonAreaTaskCategory(
@@ -18,6 +20,15 @@ function useCommonAreaTaskCategory(
   const history = useHistory();
   const [areaType, setAreaType] = useState<AreaTaskType>();
 
+  function reset() {
+    const correctPath = pathname
+      .split('/')
+      .slice(0, 4)
+      .join('/');
+    setAreaType(undefined);
+    history.replace(correctPath);
+  }
+
   //pattern pathname test for value sync
   useEffect(() => {
     const homePattern = /\/staff\/area\/\w*$/;
@@ -26,12 +37,7 @@ function useCommonAreaTaskCategory(
     if (onHome) setAreaType(undefined);
 
     if (!onHome && !areaType) {
-      const correctPath = pathname
-        .split('/')
-        .slice(0, 4)
-        .join('/');
-      setAreaType(undefined);
-      history.replace(correctPath);
+      reset();
     }
   }, [pathname]);
 
@@ -44,6 +50,7 @@ function useCommonAreaTaskCategory(
       setAreaType(e);
     },
     allowSport,
+    () => reset(),
   ];
 }
 
