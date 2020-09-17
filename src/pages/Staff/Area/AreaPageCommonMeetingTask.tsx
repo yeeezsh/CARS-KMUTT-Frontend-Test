@@ -8,8 +8,8 @@ import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import Loadable from 'react-loadable';
 import AreaBuildingEnum from 'Services/area/@enums/area.building.enum';
-import { AreaAPI } from 'Services/area/interfaces';
 import { u } from 'Services/user';
+import AreaPagePropsType from './@types/area.page.props.type';
 import cardStyle from './common/card.style';
 import useFetchAvailableAndQuickTask from './hooks/useFetchAvailableAndQuickTask';
 import useOnRserveTimeTableAPI from './hooks/useOnReserveTimeTableAPI';
@@ -32,9 +32,7 @@ const TimeTable = Loadable({
   loader: () => import('Components/TimeTable'),
 });
 
-const AreaPageCommonMeetingTask: React.FC<{
-  areaInfo: AreaAPI;
-}> = props => {
+const AreaPageCommonMeetingTask: React.FC<AreaPagePropsType> = props => {
   const { areaInfo } = props;
   const today = moment().startOf('day');
   const [canReserve, setCanReserve] = useState(false);
