@@ -1,17 +1,28 @@
 import { Col, Row } from 'antd';
-import StaffLayout from 'Components/Layout/Staff/Home';
 import Loading from 'Components/Loading';
 import {
   Activity as CommonActivity,
   Sport as CommonSportActivity,
 } from 'Pages/Areas/Common';
-import AreaCommonCategoryTypesPage from 'Pages/Areas/Common/AreaCommonCategoryTypes';
 import React from 'react';
+import Loadable from 'react-loadable';
 import { useLocation } from 'react-router';
 import AreaPagePropsType from './@types/area.page.props.type';
-import AreaInfo from './AreaInfo';
 import cardStyle from './common/card.style';
 import useCommonAreaTaskCategory from './hooks/useCommonAreaTaskCategory';
+
+const AreaInfo = Loadable({
+  loading: () => null,
+  loader: () => import('./AreaInfo'),
+});
+const StaffLayout = Loadable({
+  loading: () => null,
+  loader: () => import('Components/Layout/Staff/Home'),
+});
+const AreaCommonCategoryTypesPage = Loadable({
+  loading: () => null,
+  loader: () => import('Pages/Areas/Common/AreaCommonCategoryTypes'),
+});
 
 const AreaPageCommon: React.FC<AreaPagePropsType> = props => {
   const { areaInfo } = props;
@@ -25,7 +36,7 @@ const AreaPageCommon: React.FC<AreaPagePropsType> = props => {
     onReset,
   ] = useCommonAreaTaskCategory(pathname, props.areaInfo);
   const ColStyle: React.CSSProperties = { minHeight: '500px' };
-  console.log('select a', selectAreaTaskType);
+
   return (
     <StaffLayout>
       <Row>
