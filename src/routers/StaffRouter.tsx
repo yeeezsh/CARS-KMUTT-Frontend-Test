@@ -1,4 +1,4 @@
-import { StaffPageParamType } from 'Models/staff/staff-page-param-type.interface';
+import { StaffPageParamType } from 'Models/staff/staff.page.param.type.interface';
 import React, { useEffect } from 'react';
 import Loadable from 'react-loadable';
 import { Route, Router, useHistory, useLocation } from 'react-router';
