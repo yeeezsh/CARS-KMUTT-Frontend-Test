@@ -1,5 +1,4 @@
 import { Col, Icon, Row } from 'antd';
-import Form, { FormComponentProps } from 'antd/lib/form';
 import {
   Calendar as CalendarFormComp,
   Overview as OverviewForm,
@@ -11,6 +10,7 @@ import Loadable from 'react-loadable';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch, useHistory, useLocation } from 'react-router';
 import { areaAPI } from 'Services/area';
+import { AreaServiceResponseAPI } from 'Services/area/@interfaces/area.interfaces';
 import { taskMeetingAPI } from 'Services/task/meeting';
 import { RootReducersType } from 'Store/reducers';
 import {
@@ -61,7 +61,9 @@ const MeetingSnackBar = Loadable({
 const MAX_STEPS = 3;
 const AREA_PARAM_IND = 5;
 
-const FormClub: React.FC<FormComponentProps> = () => {
+const FormClub: React.FC<{
+  areaInfo?: AreaServiceResponseAPI;
+}> = props => {
   const forms = useSelector((s: RootReducersType) => s.AreaFormReducers);
   const steps = forms.step;
   const dispatch = useDispatch();
@@ -70,7 +72,8 @@ const FormClub: React.FC<FormComponentProps> = () => {
   const [modal, setModal] = useState<boolean>(false);
   const [failed, setFailed] = useState<boolean>(false);
 
-  const areaId = location.split('/')[AREA_PARAM_IND];
+  const areaId =
+    props.areaInfo?._id || location.split('/')[AREA_PARAM_IND];
 
   function initFormHelper() {
     areaAPI.getAreaInfo(areaId).then(a => dispatch(setAreaInfoForm(a)));
@@ -192,7 +195,7 @@ const FormClub: React.FC<FormComponentProps> = () => {
             ระบุวันที่เวลาที่ใช้บริการ
           </Outline>
           <OutlineDesc>กรุณาจองล่วงหน้า 3 วันก่อนใช้บริการ</OutlineDesc>
-          <CalendarFormComp ind={0} />
+          <CalendarFormComp ind={0} areaInfo={props.areaInfo} />
         </Route>
         <Route path="/*2">
           <FacilityForm ind={1} showStepLabel={false} />
@@ -217,4 +220,4 @@ const FormClub: React.FC<FormComponentProps> = () => {
   );
 };
 
-export default Form.create({ name: 'formclub' })(FormClub);
+export default FormClub;
