@@ -1,7 +1,7 @@
-import { AreaAPI } from 'Services/area/interfaces';
+import { AreaServiceResponseAPI } from 'Services/area/area.interfaces';
 
 type AreaPagePropsType = {
-  areaInfo: AreaAPI;
+  areaInfo: AreaServiceResponseAPI;
 };
 
 export default AreaPagePropsType;

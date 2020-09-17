@@ -3,14 +3,14 @@ import { Moment } from 'moment';
 import { useState } from 'react';
 import { areaAPI } from 'Services/area';
 import { AreaAvailableAPI } from 'Services/area/area.interface';
-import { AreaAPI } from 'Services/area/interfaces';
+import { AreaServiceResponseAPI } from 'Services/area/area.interfaces';
 import { taskAPI } from 'Services/task';
 import { QuickTask as QuickTaskInterface } from 'Services/task/task.quick.interface';
 
 async function fetch(
   startDate: Moment,
   stopDate: Moment,
-  areaInfo: AreaAPI,
+  areaInfo: AreaServiceResponseAPI,
   setSelecting: React.Dispatch<React.SetStateAction<TimeNode[][]>>,
   setAvailArea: React.Dispatch<
     React.SetStateAction<AreaAvailableAPI[] | undefined>
@@ -42,7 +42,7 @@ async function fetch(
 }
 
 function useFetchAvailableAndQuickTask(
-  areaInfo: AreaAPI,
+  areaInfo: AreaServiceResponseAPI,
   setSelecting: React.Dispatch<React.SetStateAction<TimeNode[][]>>,
 ): [
   QuickTaskInterface[],

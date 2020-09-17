@@ -2,7 +2,7 @@ import { message } from 'antd';
 import TimeNode from 'Components/TimeTable/timetable.interface';
 import { Moment } from 'moment';
 import AreaBuildingEnum from 'Services/area/@enums/area.building.enum';
-import { AreaAPI } from 'Services/area/interfaces';
+import { AreaServiceResponseAPI } from 'Services/area/area.interfaces';
 import { taskAPI } from 'Services/task';
 import { taskMeetingAPI } from 'Services/task/meeting';
 import { CreateTaskMeeting } from 'Services/task/meeting/interface';
@@ -10,7 +10,10 @@ import { CreateTaskByStaff } from 'Services/task/task.create.interface';
 import { UserClass } from 'Services/user';
 import SelectedDateType from '../@types/selected.date.type';
 
-function selectingToDateAPI(e: TimeNode[], areaInfo: AreaAPI) {
+function selectingToDateAPI(
+  e: TimeNode[],
+  areaInfo: AreaServiceResponseAPI,
+) {
   return e.map(t => ({
     start: t.value.toDate(),
     stop: t.value.add(areaInfo.reserve[0].interval, 'minutes').toDate(),
@@ -20,7 +23,7 @@ function selectingToDateAPI(e: TimeNode[], areaInfo: AreaAPI) {
 
 async function sportTaskAPI(
   selecting: TimeNode[][],
-  areaInfo: AreaAPI,
+  areaInfo: AreaServiceResponseAPI,
   u: UserClass,
 ) {
   const parser: CreateTaskByStaff = {
@@ -37,7 +40,10 @@ async function sportTaskAPI(
   await Promise.all(mapped.map(e => taskAPI.createSportTaskByStaff(e)));
 }
 
-async function meetingTaskAPI(selecting: TimeNode[][], areaInfo: AreaAPI) {
+async function meetingTaskAPI(
+  selecting: TimeNode[][],
+  areaInfo: AreaServiceResponseAPI,
+) {
   const mapped: CreateTaskMeeting[] = selecting.map(e => ({
     time: selectingToDateAPI(e, areaInfo),
     area: areaInfo._id,
@@ -49,7 +55,7 @@ async function meetingTaskAPI(selecting: TimeNode[][], areaInfo: AreaAPI) {
 
 async function callAPI(
   u: UserClass,
-  areaInfo: AreaAPI,
+  areaInfo: AreaServiceResponseAPI,
   selectedDate: SelectedDateType | undefined,
   selecting: TimeNode[][],
   onCancel: () => void,
@@ -78,7 +84,7 @@ async function callAPI(
 
 function useOnRserveTimeTableAPI(
   u: UserClass,
-  areaInfo: AreaAPI,
+  areaInfo: AreaServiceResponseAPI,
   onCancel: () => void,
   fetchData: (startDate: Moment, stopDate: Moment) => void,
   API: AreaBuildingEnum,

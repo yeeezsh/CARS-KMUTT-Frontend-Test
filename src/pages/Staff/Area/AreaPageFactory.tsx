@@ -2,7 +2,7 @@ import React from 'react';
 import Loadable from 'react-loadable';
 import AreaBuildingEnum from 'Services/area/@enums/area.building.enum';
 import AreaBuildingType from 'Services/area/@types/area.building.type';
-import { AreaAPI } from 'Services/area/interfaces';
+import { AreaServiceResponseAPI } from 'Services/area/area.interfaces';
 
 const AreaPageCommonMeetingTask = Loadable({
   loading: () => null,
@@ -16,7 +16,10 @@ const AreaPageSportTask = Loadable({
 export type AreaPageFactoryType = AreaBuildingType;
 
 // eslint-disable-next-line react/display-name
-export default (type: AreaPageFactoryType, area: AreaAPI): JSX.Element => {
+export default (
+  type: AreaPageFactoryType,
+  area: AreaServiceResponseAPI,
+): JSX.Element => {
   switch (type) {
     case AreaBuildingEnum.sport:
       return <AreaPageSportTask areaInfo={area} />;

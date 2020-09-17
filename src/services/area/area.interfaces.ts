@@ -23,7 +23,7 @@ export interface AreaTableAPI {
   type: AreaBuildingType;
 }
 
-export interface AreaAPI {
+export interface AreaServiceResponseAPI {
   _id: string;
   name: string;
   label: string;

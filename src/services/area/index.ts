@@ -2,7 +2,10 @@ import TimeNode from 'Components/TimeTable/timetable.interface';
 import moment, { Moment } from 'moment';
 import adapter from 'Services/adapter.interface';
 import { AreaAvailableAPI } from './area.interface';
-import { AreaAPI as AreaAPIInterfaces, AreaTableAPI } from './interfaces';
+import {
+  AreaServiceResponseAPI as AreaAPIInterfaces,
+  AreaTableAPI,
+} from './area.interfaces';
 
 class AreaAPI {
   async getBuildingTable(): Promise<AreaTableAPI[]> {
