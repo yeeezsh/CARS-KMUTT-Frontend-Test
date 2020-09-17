@@ -22,6 +22,7 @@ const AreaPageCommon: React.FC<AreaPagePropsType> = props => {
     selectAreaTaskType,
     setSelectAreaTaskType,
     allowSport,
+    onReset,
   ] = useCommonAreaTaskCategory(pathname, props.areaInfo);
   const ColStyle: React.CSSProperties = { minHeight: '500px' };
   console.log('select a', selectAreaTaskType);
@@ -56,8 +57,12 @@ const AreaPageCommon: React.FC<AreaPagePropsType> = props => {
               allowSport={allowSport}
             />
           )}
-          {selectAreaTaskType === 'activity' && <CommonActivity />}
-          {selectAreaTaskType === 'sport' && <CommonSportActivity />}
+          {selectAreaTaskType === 'activity' && (
+            <CommonActivity useModal={false} onSend={onReset} />
+          )}
+          {selectAreaTaskType === 'sport' && (
+            <CommonSportActivity useModal={false} onSend={onReset} />
+          )}
         </Col>
       </Row>
     </StaffLayout>
