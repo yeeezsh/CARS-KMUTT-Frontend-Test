@@ -35,7 +35,7 @@ const AreaPageCommon: React.FC<AreaPagePropsType> = props => {
     allowSport,
     onReset,
   ] = useCommonAreaTaskCategory(pathname, props.areaInfo);
-  const ColStyle: React.CSSProperties = { minHeight: '500px' };
+  const ColStyle: React.CSSProperties = { minHeight: '800px' };
 
   return (
     <StaffLayout>
