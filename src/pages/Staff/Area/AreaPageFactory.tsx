@@ -1,8 +1,8 @@
 import React from 'react';
 import Loadable from 'react-loadable';
 import AreaBuildingEnum from 'Services/area/@enums/area.building.enum';
+import { AreaServiceResponseAPI } from 'Services/area/@interfaces/area.interfaces';
 import AreaBuildingType from 'Services/area/@types/area.building.type';
-import { AreaServiceResponseAPI } from 'Services/area/area.interfaces';
 
 const AreaPageCommonMeetingTask = Loadable({
   loading: () => null,

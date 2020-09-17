@@ -6,7 +6,7 @@ import { Moment } from 'moment';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // interfaces & type
-import Area from 'Services/area/area.interface';
+import Area from 'Services/area/@interfaces/area.available.interface';
 // store
 import { RootReducersType } from 'Store/reducers';
 import styles from './styles.module.css';

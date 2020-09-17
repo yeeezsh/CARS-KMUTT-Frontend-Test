@@ -2,7 +2,7 @@ import { message } from 'antd';
 import TimeNode from 'Components/TimeTable/timetable.interface';
 import { Moment } from 'moment';
 import AreaBuildingEnum from 'Services/area/@enums/area.building.enum';
-import { AreaServiceResponseAPI } from 'Services/area/area.interfaces';
+import { AreaServiceResponseAPI } from 'Services/area/@interfaces/area.interfaces';
 import { taskAPI } from 'Services/task';
 import { taskMeetingAPI } from 'Services/task/meeting';
 import { CreateTaskMeeting } from 'Services/task/meeting/interface';

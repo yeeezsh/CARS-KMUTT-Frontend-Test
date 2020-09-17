@@ -1,4 +1,4 @@
-import { AreaServiceResponseAPI } from 'Services/area/area.interfaces';
+import { AreaServiceResponseAPI } from 'Services/area/@interfaces/area.interfaces';
 
 type AreaPagePropsType = {
   areaInfo: AreaServiceResponseAPI;

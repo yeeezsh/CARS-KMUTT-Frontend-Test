@@ -4,7 +4,7 @@ import { ColumnProps } from 'antd/lib/table';
 import ActionBtn from 'Components/TaskTable/ActionBtn';
 import React from 'react';
 import { useHistory } from 'react-router';
-import { AreaTableAPI } from 'Services/area/area.interfaces';
+import { AreaTableAPI } from 'Services/area/@interfaces/area.interfaces';
 
 const AreaTable: React.FC<{
   data: AreaTableAPI[];

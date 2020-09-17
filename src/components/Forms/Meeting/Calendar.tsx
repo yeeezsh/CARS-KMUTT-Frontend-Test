@@ -13,7 +13,7 @@ import Loadable from 'react-loadable';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 import { areaAPI } from 'Services/area';
-import Area from 'Services/area/area.interface';
+import Area from 'Services/area/@interfaces/area.available.interface';
 // data store & API
 import { RootReducersType } from 'Store/reducers';
 import {

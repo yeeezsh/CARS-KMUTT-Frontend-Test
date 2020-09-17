@@ -1,7 +1,7 @@
 import Menu from 'Models/kanbanCard/interface';
 import moment, { Moment } from 'moment';
 import adapter from '../../adapter.interface';
-import TimeAreaReserveType from '../time.interface';
+import TimeAreaReserveType from '../@interfaces/time.interface';
 import { AreaAPI } from './area.api.interface';
 import category from './constant';
 import { FetchMenu } from './fetch.menu.interface';
