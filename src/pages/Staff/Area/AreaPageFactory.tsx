@@ -6,11 +6,15 @@ import AreaBuildingType from 'Services/area/@types/area.building.type';
 
 const AreaPageCommonMeetingTask = Loadable({
   loading: () => null,
-  loader: () => import('./AreaPageCommonMeetingTask'),
+  loader: () => import('./AreaPageCommonMeeting'),
 });
 const AreaPageSportTask = Loadable({
   loading: () => null,
-  loader: () => import('./AreaPageSportTask'),
+  loader: () => import('./AreaPageSport'),
+});
+const AreaPageCommonTask = Loadable({
+  loading: () => null,
+  loader: () => import('./AreaPageCommon'),
 });
 
 export type AreaPageFactoryType = AreaBuildingType;
@@ -25,6 +29,8 @@ export default (
       return <AreaPageSportTask areaInfo={area} />;
     case AreaBuildingEnum.meeting:
       return <AreaPageCommonMeetingTask areaInfo={area} />;
+    case AreaBuildingEnum.common:
+      return <AreaPageCommonTask areaInfo={area} />;
     default:
       return <div>type not supported</div>;
   }

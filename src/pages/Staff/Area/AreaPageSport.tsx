@@ -39,7 +39,7 @@ const StaffLayout = Loadable({
   loader: () => import('Components/Layout/Staff/Home'),
 });
 
-const AreaPageSportTask: React.FC<AreaPagePropsType> = props => {
+const AreaPageSport: React.FC<AreaPagePropsType> = props => {
   const { areaInfo } = props;
   const today = moment().startOf('day');
   const [canReserve, setCanReserve] = useState(false);
@@ -192,4 +192,4 @@ const AreaPageSportTask: React.FC<AreaPagePropsType> = props => {
   );
 };
 
-export default AreaPageSportTask;
+export default AreaPageSport;

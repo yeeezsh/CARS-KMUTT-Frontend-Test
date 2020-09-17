@@ -32,7 +32,7 @@ const TimeTable = Loadable({
   loader: () => import('Components/TimeTable'),
 });
 
-const AreaPageCommonMeetingTask: React.FC<AreaPagePropsType> = props => {
+const AreaPageCommonMeeting: React.FC<AreaPagePropsType> = props => {
   const { areaInfo } = props;
   const today = moment().startOf('day');
   const [canReserve, setCanReserve] = useState(false);
@@ -183,4 +183,4 @@ const AreaPageCommonMeetingTask: React.FC<AreaPagePropsType> = props => {
   );
 };
 
-export default AreaPageCommonMeetingTask;
+export default AreaPageCommonMeeting;
