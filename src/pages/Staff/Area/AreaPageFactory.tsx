@@ -31,6 +31,8 @@ export default (
       return <AreaPageCommonMeetingTask areaInfo={area} />;
     case AreaBuildingEnum.common:
       return <AreaPageCommonTask areaInfo={area} />;
+    case AreaBuildingEnum.commonSport:
+      return <AreaPageCommonTask areaInfo={area} />;
     default:
       return <div>type not supported</div>;
   }
