@@ -5,7 +5,6 @@ import styles from './page.module.css';
 
 const PageLayout: React.FC<{ title: string }> = props => {
   const width = useWindowResize();
-  console.log(width);
   return (
     <Row>
       {/* hotfix background */}
