@@ -8,7 +8,7 @@ import React from 'react';
 import { useHistory, useLocation } from 'react-router';
 import BackCardStyles from '../styles/backcard';
 
-const TypesPage: React.FunctionComponent<{
+const AreaCommonCategoryTypesPage: React.FunctionComponent<{
   allowSport?: boolean;
 }> = props => {
   const location = useLocation();
@@ -47,4 +47,4 @@ const TypesPage: React.FunctionComponent<{
   );
 };
 
-export default TypesPage;
+export default AreaCommonCategoryTypesPage;
