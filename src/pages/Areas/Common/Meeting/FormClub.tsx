@@ -4,7 +4,7 @@ import {
   Overview as OverviewForm,
 } from 'Components/Forms/Meeting';
 import { CalendarForm } from 'Components/Forms/Meeting/Calendar';
-import moment from 'moment';
+import moment, { Moment } from 'moment';
 import React, { useEffect, useState } from 'react';
 import Loadable from 'react-loadable';
 import { useDispatch, useSelector } from 'react-redux';
@@ -63,6 +63,9 @@ const AREA_PARAM_IND = 5;
 
 const FormClub: React.FC<{
   areaInfo?: AreaServiceResponseAPI;
+  createByStaff?: boolean;
+  selectDate?: (date: Moment) => void;
+  onSubmit?: () => void;
 }> = props => {
   const forms = useSelector((s: RootReducersType) => s.AreaFormReducers);
   const steps = forms.step;
@@ -82,9 +85,9 @@ const FormClub: React.FC<{
   }
 
   async function sendData() {
-    const calendarData: CalendarForm | undefined = forms.forms[0];
     try {
-      await taskMeetingAPI.createMeetingClubTask({
+      const calendarData: CalendarForm | undefined = forms.forms[0];
+      const parsed = {
         area: areaId,
         forms: forms.forms,
         time: [
@@ -94,8 +97,15 @@ const FormClub: React.FC<{
             allDay: false,
           },
         ],
-      });
-      setModal(true);
+      };
+
+      if (props.createByStaff) {
+        await taskMeetingAPI.createMeetingClubTaskByStaff(parsed);
+      } else {
+        await taskMeetingAPI.createMeetingClubTask(parsed);
+      }
+
+      !props.createByStaff && setModal(true);
       dispatch(initForm({ size: MAX_STEPS }));
     } catch {
       // duplicated reservation
@@ -195,7 +205,11 @@ const FormClub: React.FC<{
             ระบุวันที่เวลาที่ใช้บริการ
           </Outline>
           <OutlineDesc>กรุณาจองล่วงหน้า 3 วันก่อนใช้บริการ</OutlineDesc>
-          <CalendarFormComp ind={0} areaInfo={props.areaInfo} />
+          <CalendarFormComp
+            ind={0}
+            areaInfo={props.areaInfo}
+            selectDate={e => props.selectDate && props.selectDate(e)}
+          />
         </Route>
         <Route path="/*2">
           <FacilityForm ind={1} showStepLabel={false} />

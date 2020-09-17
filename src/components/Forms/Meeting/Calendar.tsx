@@ -69,6 +69,7 @@ const RESERVATION_OFFSET_INTERVAL = RESERVATION_INTERVAL - 1;
 interface Props {
   ind?: number;
   areaInfo?: AreaServiceResponseAPI;
+  selectDate?: (date: Moment) => void;
 }
 
 export interface CalendarForm {
@@ -192,6 +193,8 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
         areaId,
         selectedDate,
       );
+
+      props.selectDate && props.selectDate(selectedDate);
 
       setAreaState([
         {
