@@ -108,13 +108,13 @@ const FormClub: React.FC<FormComponentProps> = () => {
 
   function goBack() {
     if (steps === 0) {
-      return history.push('/reserve/area/meeting/areas');
+      return history.goBack();
     }
+    dispatch(setFormCurrentIndex(steps - 1));
     const oldPath = location;
     const pathStep = steps + 1;
     const backPath = oldPath.slice(0, -1) + (pathStep - 1);
-    dispatch(setFormCurrentIndex(steps - 1));
-    return history.push(backPath);
+    return history.replace(backPath);
   }
 
   function goHome() {
@@ -129,7 +129,7 @@ const FormClub: React.FC<FormComponentProps> = () => {
     if (steps === 0) return;
     const oldPath = location;
     const newPath = oldPath.slice(0, -1) + (steps + 1);
-    history.push(newPath);
+    history.replace(newPath);
   }, [steps]);
 
   useEffect(() => {
