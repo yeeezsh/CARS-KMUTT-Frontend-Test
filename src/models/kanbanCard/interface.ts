@@ -17,8 +17,9 @@ export default interface Menu {
     iconSize?: number;
     needAction?: boolean;
   };
-  style?: 'center';
+  style?: 'center' | string;
   state?: RouterStates;
   query?: Query;
   allowSport?: boolean;
+  callback?: () => any;
 }

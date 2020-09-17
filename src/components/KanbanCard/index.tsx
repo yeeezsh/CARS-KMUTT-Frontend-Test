@@ -8,6 +8,7 @@ import Card from './Card';
 export default function KanbanCard(props: {
   menu?: Menu[];
   needActions?: string[];
+  callback?: (e: Menu) => void;
 }) {
   const { needActions } = props;
   let menu = props.menu ? props.menu : defaultMenu;
@@ -21,40 +22,48 @@ export default function KanbanCard(props: {
     });
   }
 
+  function callbackHelper(e: Menu) {
+    props.callback && props.callback(e);
+  }
+
   return (
     <React.Fragment>
       <Row type="flex" justify="space-between">
         {menu &&
-          menu.map(({ icon, label, setting, key, link, state, style }) => (
-            <Col key={key} span={11}>
-              <Link
-                to={
-                  {
-                    pathname: link,
-                    state: {
-                      ...state,
-                      label,
-                    },
-                  } || ''
-                }
-              >
-                <Card
-                  label={label}
-                  icon={icon}
-                  setting={
-                    style === 'center' // if use center styles
-                      ? {
-                          ...setting,
-                          center: true,
-                          iconSize: 70,
-                          labelColor: '#666666',
-                        }
-                      : setting
+          menu.map(e => {
+            const { icon, label, setting, key, link, state, style } = e;
+            return (
+              <Col key={key} span={11}>
+                <Link
+                  onClick={() => callbackHelper(e)}
+                  to={
+                    {
+                      pathname: link,
+                      state: {
+                        ...state,
+                        label,
+                      },
+                    } || ''
                   }
-                />
-              </Link>
-            </Col>
-          ))}
+                >
+                  <Card
+                    label={label}
+                    icon={icon}
+                    setting={
+                      style === 'center' // if use center styles
+                        ? {
+                            ...setting,
+                            center: true,
+                            iconSize: 70,
+                            labelColor: '#666666',
+                          }
+                        : setting
+                    }
+                  />
+                </Link>
+              </Col>
+            );
+          })}
       </Row>
     </React.Fragment>
   );
