@@ -1,3 +1,4 @@
+import { message } from 'antd';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import AreaBuildingEnum from 'Services/area/@enums/area.building.enum';
@@ -46,11 +47,15 @@ function useCommonAreaTaskCategory(
   return [
     areaType,
     e => {
+      // if valid then go to /1
       if (!areaType) history.push(pathname + '/1');
       setAreaType(e);
     },
     allowSport,
-    () => reset(),
+    () => {
+      reset();
+      message.success('จองสำเร็จ', 5);
+    },
   ];
 }
 
