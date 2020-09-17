@@ -57,6 +57,7 @@ const MAX_STEPS = 6;
 const Sport: React.FC<{
   noInit?: boolean;
   editMode?: boolean;
+  useModal?: boolean;
   onSend?: (forms: AreaFormReducer) => void;
 }> = props => {
   const forms = useSelector((s: RootReducersType) => s.AreaFormReducers);
@@ -64,6 +65,7 @@ const Sport: React.FC<{
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation().pathname;
+  const useModal = props.useModal !== undefined ? props.useModal : true;
 
   const areaId = forms.area?._id || location.split('/')[3];
 
@@ -110,12 +112,8 @@ const Sport: React.FC<{
   const [modal, setModal] = useState(false);
 
   function sendData() {
-    if (props.editMode) {
-      props.onSend && props.onSend(forms);
-      return;
-    } else {
-      taskFormAPI.createSportTask(forms);
-    }
+    props.onSend && props.onSend(forms);
+    !props.editMode && taskFormAPI.createSportTask(forms);
   }
 
   // when steps change
@@ -141,7 +139,7 @@ const Sport: React.FC<{
   console.log('ready to send form', forms.finish);
   if (forms.finish) {
     sendData();
-    setModal(true);
+    useModal && setModal(true);
     // then reset form
     // dispatch({ type: 'INIT_FORM', payload: { size: 7 } });
     dispatch(initForm({ size: MAX_STEPS }));
