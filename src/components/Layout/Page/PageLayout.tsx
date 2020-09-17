@@ -14,7 +14,7 @@ const PageLayout: React.FC<{ title: string }> = props => {
           backgroundColor: 'white',
           zIndex: 1,
           width: width.width,
-          height: '190px',
+          height: '70px',
           position: 'fixed',
         }}
       />
