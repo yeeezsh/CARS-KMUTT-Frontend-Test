@@ -1,5 +1,5 @@
 import BackCard from 'Components/BackCard';
-import KanbanCard from 'Components/KanbanCard';
+import KanbanCard from 'Components/KanbanCard/KanbanCard';
 import KanBanLayout from 'Components/Layout/Kanban';
 import Menu from 'Models/kanbanCard/interface';
 import React, { useEffect, useState } from 'react';

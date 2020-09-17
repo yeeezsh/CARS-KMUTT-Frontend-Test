@@ -5,7 +5,7 @@ import { taskAPI } from 'Services/task';
 import { TaskLastCard } from 'Services/task/task.interface';
 
 const HomeMenu = Loadable({
-  loader: () => import('Components/KanbanCard'),
+  loader: () => import('Components/KanbanCard/KanbanCard'),
   loading: () => null,
 });
 const HomeLayout = Loadable({

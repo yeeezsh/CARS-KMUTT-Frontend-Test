@@ -26,8 +26,16 @@ export default function KanbanCard(props: {
     props.callback && props.callback(e);
   }
 
-  const LinkCard: React.FC<{ e: Menu }> = props => {
-    const { icon, label, setting, key, link, state, style } = props.e;
+  const LinkCard: React.FC<{ e: Menu }> = linkCardProps => {
+    const {
+      icon,
+      label,
+      setting,
+      key,
+      link,
+      state,
+      style,
+    } = linkCardProps.e;
     const CardElement = () => (
       <Card
         label={label}
@@ -45,10 +53,10 @@ export default function KanbanCard(props: {
       />
     );
 
-    if (!props.e.link)
+    if (!linkCardProps.e.link)
       return (
         <Col key={key} span={11}>
-          <div onClick={() => callbackHelper(props.e)}>
+          <div onClick={() => callbackHelper(linkCardProps.e)}>
             <CardElement />
           </div>
         </Col>
@@ -56,7 +64,7 @@ export default function KanbanCard(props: {
     return (
       <Col key={key} span={11}>
         <Link
-          onClick={() => callbackHelper(props.e)}
+          onClick={() => callbackHelper(linkCardProps.e)}
           to={
             {
               pathname: link,
