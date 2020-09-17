@@ -9,7 +9,7 @@ interface ReserveAPI {
   week: string | '1-7' | '1,2,3';
 }
 
-export interface AreaAPI {
+export interface AreaSportResponseAPI {
   _id?: string;
   name?: string;
   label?: string;

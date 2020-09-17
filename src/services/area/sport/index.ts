@@ -1,10 +1,10 @@
 import Menu from 'Models/kanbanCard/interface';
 import moment, { Moment } from 'moment';
 import adapter from '../../adapter.interface';
+import { AreaSportResponseAPI } from '../@interfaces/area.sport.api.interface';
+import { FetchMenu } from '../@interfaces/fetch.menu.interface';
 import TimeAreaReserveType from '../@interfaces/time.interface';
-import { AreaAPI } from './area.api.interface';
 import category from './constant';
-import { FetchMenu } from './fetch.menu.interface';
 
 class SportClass {
   async getAreas(): Promise<Menu[]> {
@@ -34,7 +34,7 @@ class SportClass {
     date: Moment,
   ): Promise<TimeAreaReserveType['areas'] | any> {
     try {
-      const fetch: AreaAPI[] = (
+      const fetch: AreaSportResponseAPI[] = (
         await adapter.instance.get(
           `/area/sport/fields/${id}/${date.toISOString()}`,
         )
