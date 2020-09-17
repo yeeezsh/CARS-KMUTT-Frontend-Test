@@ -40,8 +40,8 @@ const AreaCommonCategoryTypesPage: React.FunctionComponent<{
   const mappedMenu: Menu[] = menu
     .map(e => ({ ...e, style: 'center' }))
     .map(e => {
-      if (props.useRouter) return e;
-      return { ...e, link: '#' };
+      if (props.useRouter === false) return { ...e, link: undefined };
+      return e;
     });
 
   function callbackHelper(e: Menu) {
