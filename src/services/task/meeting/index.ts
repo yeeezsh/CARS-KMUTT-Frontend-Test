@@ -13,6 +13,19 @@ class TaskMeetingClassAPI {
       throw err;
     }
   }
+  async createMeetingClubTaskByStaff(
+    data: CreateTaskMeetingClub,
+  ): Promise<void> {
+    try {
+      await adapter.instance.post('/task/meeting/meeting-club/byStaff', {
+        ...data,
+      });
+      return;
+    } catch (err) {
+      console.error(err);
+      throw err;
+    }
+  }
   async createMeetingTask(data: CreateTaskMeeting): Promise<void> {
     try {
       await adapter.instance.post('/task/meeting/meeting-room', {

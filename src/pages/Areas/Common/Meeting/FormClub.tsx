@@ -98,7 +98,6 @@ const FormClub: React.FC<{
           },
         ],
       };
-
       if (props.createByStaff) {
         await taskMeetingAPI.createMeetingClubTaskByStaff(parsed);
       } else {
@@ -106,6 +105,7 @@ const FormClub: React.FC<{
       }
 
       !props.createByStaff && setModal(true);
+      props.onSubmit && props.onSubmit();
       dispatch(initForm({ size: MAX_STEPS }));
     } catch {
       // duplicated reservation

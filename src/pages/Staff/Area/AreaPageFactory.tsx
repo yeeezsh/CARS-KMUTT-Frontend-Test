@@ -3,6 +3,7 @@ import Loadable from 'react-loadable';
 import AreaBuildingEnum from 'Services/area/@enums/area.building.enum';
 import { AreaServiceResponseAPI } from 'Services/area/@interfaces/area.interfaces';
 import AreaBuildingType from 'Services/area/@types/area.building.type';
+import AreaPageCommonMeetingClub from './AreaPageMeetingClub';
 
 const AreaPageCommonMeetingTask = Loadable({
   loading: () => null,
@@ -29,6 +30,8 @@ export default (
       return <AreaPageSportTask areaInfo={area} />;
     case AreaBuildingEnum.meeting:
       return <AreaPageCommonMeetingTask areaInfo={area} />;
+    case AreaBuildingEnum.meetingClub:
+      return <AreaPageCommonMeetingClub areaInfo={area} />;
     case AreaBuildingEnum.common:
       return <AreaPageCommonTask areaInfo={area} />;
     case AreaBuildingEnum.commonSport:
