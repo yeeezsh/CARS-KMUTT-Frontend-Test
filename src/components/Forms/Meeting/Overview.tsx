@@ -6,7 +6,7 @@ import Button from 'Components/Button';
 import { FacilityForm } from 'Components/Forms/Common/facility';
 import Outline from 'Components/Outline';
 // hooks
-import useWindowResize from 'Hooks/windows.resize';
+import useWindowResize from 'Hooks/use.windows.resize';
 import moment from 'moment';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
