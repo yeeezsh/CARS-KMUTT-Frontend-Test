@@ -1,7 +1,10 @@
 import { Col, Row } from 'antd';
 import StaffLayout from 'Components/Layout/Staff/Home';
 import Loading from 'Components/Loading';
-import { Activity as CommonActivity } from 'Pages/Areas/Common';
+import {
+  Activity as CommonActivity,
+  Sport as CommonSportActivity,
+} from 'Pages/Areas/Common';
 import AreaCommonCategoryTypesPage from 'Pages/Areas/Common/AreaCommonCategoryTypes';
 import React from 'react';
 import { useLocation } from 'react-router';
@@ -54,6 +57,7 @@ const AreaPageCommon: React.FC<AreaPagePropsType> = props => {
             />
           )}
           {selectAreaTaskType === 'activity' && <CommonActivity />}
+          {selectAreaTaskType === 'sport' && <CommonSportActivity />}
         </Col>
       </Row>
     </StaffLayout>
