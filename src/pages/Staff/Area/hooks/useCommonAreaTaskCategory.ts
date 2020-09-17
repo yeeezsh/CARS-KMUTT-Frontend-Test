@@ -21,8 +21,18 @@ function useCommonAreaTaskCategory(
   //pattern pathname test for value sync
   useEffect(() => {
     const homePattern = /\/staff\/area\/\w*$/;
-    console.log('home', homePattern.test(pathname));
-    if (homePattern.test(pathname)) setAreaType(undefined);
+
+    const onHome = homePattern.test(pathname);
+    if (onHome) setAreaType(undefined);
+
+    if (!onHome && !areaType) {
+      const correctPath = pathname
+        .split('/')
+        .slice(0, 4)
+        .join('/');
+      setAreaType(undefined);
+      history.replace(correctPath);
+    }
   }, [pathname]);
 
   const allowSport = area.type === AreaBuildingEnum.commonSport;
