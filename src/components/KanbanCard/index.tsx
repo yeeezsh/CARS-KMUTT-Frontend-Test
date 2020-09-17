@@ -26,43 +26,59 @@ export default function KanbanCard(props: {
     props.callback && props.callback(e);
   }
 
+  const LinkCard: React.FC<{ e: Menu }> = props => {
+    const { icon, label, setting, key, link, state, style } = props.e;
+    const CardElement = () => (
+      <Card
+        label={label}
+        icon={icon}
+        setting={
+          style === 'center' // if use center styles
+            ? {
+                ...setting,
+                center: true,
+                iconSize: 70,
+                labelColor: '#666666',
+              }
+            : setting
+        }
+      />
+    );
+
+    if (!props.e.link)
+      return (
+        <Col key={key} span={11}>
+          <div onClick={() => callbackHelper(props.e)}>
+            <CardElement />
+          </div>
+        </Col>
+      );
+    return (
+      <Col key={key} span={11}>
+        <Link
+          onClick={() => callbackHelper(props.e)}
+          to={
+            {
+              pathname: link,
+              state: {
+                ...state,
+                label,
+              },
+            } || ''
+          }
+        >
+          <CardElement />
+        </Link>
+      </Col>
+    );
+  };
+
   return (
     <React.Fragment>
       <Row type="flex" justify="space-between">
         {menu &&
           menu.map(e => {
-            const { icon, label, setting, key, link, state, style } = e;
-            return (
-              <Col key={key} span={11}>
-                <Link
-                  onClick={() => callbackHelper(e)}
-                  to={
-                    {
-                      pathname: link,
-                      state: {
-                        ...state,
-                        label,
-                      },
-                    } || ''
-                  }
-                >
-                  <Card
-                    label={label}
-                    icon={icon}
-                    setting={
-                      style === 'center' // if use center styles
-                        ? {
-                            ...setting,
-                            center: true,
-                            iconSize: 70,
-                            labelColor: '#666666',
-                          }
-                        : setting
-                    }
-                  />
-                </Link>
-              </Col>
-            );
+            return <LinkCard key={e.key} e={e} />;
           })}
       </Row>
     </React.Fragment>
