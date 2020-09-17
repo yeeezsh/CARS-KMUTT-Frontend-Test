@@ -4,11 +4,11 @@ import { u } from 'Services/user';
 import './App.css';
 
 const RootRouter = Loadable({
-  loader: () => import('./routers'),
+  loader: () => import('./routers/RootRouter'),
   loading: () => null,
 });
 
-const EXCEPION_PATH = ['/login', '/staff/login', '/staff'];
+// const EXCEPION_PATH = ['/login', '/staff/login', '/staff'];
 
 class App extends Component {
   componentDidMount() {

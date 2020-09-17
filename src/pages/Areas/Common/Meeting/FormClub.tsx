@@ -1,16 +1,16 @@
 import { Col, Icon, Row } from 'antd';
-import Form, { FormComponentProps } from 'antd/lib/form';
 import {
   Calendar as CalendarFormComp,
   Overview as OverviewForm,
 } from 'Components/Forms/Meeting';
 import { CalendarForm } from 'Components/Forms/Meeting/Calendar';
-import moment from 'moment';
+import moment, { Moment } from 'moment';
 import React, { useEffect, useState } from 'react';
 import Loadable from 'react-loadable';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch, useHistory, useLocation } from 'react-router';
 import { areaAPI } from 'Services/area';
+import { AreaServiceResponseAPI } from 'Services/area/@interfaces/area.interfaces';
 import { taskMeetingAPI } from 'Services/task/meeting';
 import { RootReducersType } from 'Store/reducers';
 import {
@@ -25,7 +25,7 @@ import sharedStyles from '../common/styles/styles.module.css';
 import stepsList from './steps/club';
 
 const PageLayout = Loadable({
-  loader: () => import('Components/Layout/Page'),
+  loader: () => import('Components/Layout/Page/PageLayout'),
   loading: () => null,
 });
 const Badge = Loadable({
@@ -61,7 +61,12 @@ const MeetingSnackBar = Loadable({
 const MAX_STEPS = 3;
 const AREA_PARAM_IND = 5;
 
-const FormClub: React.FC<FormComponentProps> = () => {
+const FormClub: React.FC<{
+  areaInfo?: AreaServiceResponseAPI;
+  createByStaff?: boolean;
+  selectDate?: (date: Moment) => void;
+  onSubmit?: () => void;
+}> = props => {
   const forms = useSelector((s: RootReducersType) => s.AreaFormReducers);
   const steps = forms.step;
   const dispatch = useDispatch();
@@ -70,7 +75,8 @@ const FormClub: React.FC<FormComponentProps> = () => {
   const [modal, setModal] = useState<boolean>(false);
   const [failed, setFailed] = useState<boolean>(false);
 
-  const areaId = location.split('/')[AREA_PARAM_IND];
+  const areaId =
+    props.areaInfo?._id || location.split('/')[AREA_PARAM_IND];
 
   function initFormHelper() {
     areaAPI.getAreaInfo(areaId).then(a => dispatch(setAreaInfoForm(a)));
@@ -79,9 +85,9 @@ const FormClub: React.FC<FormComponentProps> = () => {
   }
 
   async function sendData() {
-    const calendarData: CalendarForm | undefined = forms.forms[0];
     try {
-      await taskMeetingAPI.createMeetingClubTask({
+      const calendarData: CalendarForm | undefined = forms.forms[0];
+      const parsed = {
         area: areaId,
         forms: forms.forms,
         time: [
@@ -91,8 +97,15 @@ const FormClub: React.FC<FormComponentProps> = () => {
             allDay: false,
           },
         ],
-      });
-      setModal(true);
+      };
+      if (props.createByStaff) {
+        await taskMeetingAPI.createMeetingClubTaskByStaff(parsed);
+      } else {
+        await taskMeetingAPI.createMeetingClubTask(parsed);
+      }
+
+      !props.createByStaff && setModal(true);
+      props.onSubmit && props.onSubmit();
       dispatch(initForm({ size: MAX_STEPS }));
     } catch {
       // duplicated reservation
@@ -108,13 +121,13 @@ const FormClub: React.FC<FormComponentProps> = () => {
 
   function goBack() {
     if (steps === 0) {
-      return history.push('/reserve/area/meeting/areas');
+      return history.goBack();
     }
+    dispatch(setFormCurrentIndex(steps - 1));
     const oldPath = location;
     const pathStep = steps + 1;
     const backPath = oldPath.slice(0, -1) + (pathStep - 1);
-    dispatch(setFormCurrentIndex(steps - 1));
-    return history.push(backPath);
+    return history.replace(backPath);
   }
 
   function goHome() {
@@ -129,7 +142,7 @@ const FormClub: React.FC<FormComponentProps> = () => {
     if (steps === 0) return;
     const oldPath = location;
     const newPath = oldPath.slice(0, -1) + (steps + 1);
-    history.push(newPath);
+    history.replace(newPath);
   }, [steps]);
 
   useEffect(() => {
@@ -140,7 +153,7 @@ const FormClub: React.FC<FormComponentProps> = () => {
   }, [forms.finish]);
 
   return (
-    <PageLayout titile="จองห้องประชุม">
+    <PageLayout title="จองห้องประชุม">
       {/* Fixed header */}
       <Row
         className={sharedStyles.innerFixedHeader}
@@ -192,7 +205,11 @@ const FormClub: React.FC<FormComponentProps> = () => {
             ระบุวันที่เวลาที่ใช้บริการ
           </Outline>
           <OutlineDesc>กรุณาจองล่วงหน้า 3 วันก่อนใช้บริการ</OutlineDesc>
-          <CalendarFormComp ind={0} />
+          <CalendarFormComp
+            ind={0}
+            areaInfo={props.areaInfo}
+            selectDate={e => props.selectDate && props.selectDate(e)}
+          />
         </Route>
         <Route path="/*2">
           <FacilityForm ind={1} showStepLabel={false} />
@@ -217,4 +234,4 @@ const FormClub: React.FC<FormComponentProps> = () => {
   );
 };
 
-export default Form.create({ name: 'formclub' })(FormClub);
+export default FormClub;

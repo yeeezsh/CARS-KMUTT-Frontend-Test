@@ -1,10 +1,10 @@
 import StaffLayout from 'Components/Layout/Staff/Home';
 import React, { useEffect, useState } from 'react';
 import { areaAPI } from 'Services/area';
-import { AreaTableAPI } from 'Services/area/interfaces';
-import AreaTable from './table';
+import { AreaTableAPI } from 'Services/area/@interfaces/area.interfaces';
+import AreaTable from './AreaTable';
 
-const AreasPages: React.FC = () => {
+const AreaListPage: React.FC = () => {
   const init: AreaTableAPI[] = [];
   const [data, setData] = useState(init);
   const [loading, setLoading] = useState(true);
@@ -22,4 +22,4 @@ const AreasPages: React.FC = () => {
   );
 };
 
-export default AreasPages;
+export default AreaListPage;

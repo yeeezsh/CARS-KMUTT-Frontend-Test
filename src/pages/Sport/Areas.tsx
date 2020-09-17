@@ -8,7 +8,7 @@ const KanBanLayout = Loadable({
   loading: () => null,
 });
 const KanbanCard = Loadable({
-  loader: () => import('Components/KanbanCard'),
+  loader: () => import('Components/KanbanCard/KanbanCard'),
   loading: () => null,
 });
 

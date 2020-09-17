@@ -2,6 +2,7 @@ import { Moment } from 'moment';
 
 interface QuickTaskParent {
   _id: string;
+  vid: string;
   key: string;
   username: string;
   state: string;

@@ -15,7 +15,7 @@ const loginAdapter: AxiosInstance['post'] = async (
   return await adapter.instance.post(url, data);
 };
 
-class UserClass {
+export class UserClass {
   user: User;
   constructor() {
     const data = localStorage.getItem('user');

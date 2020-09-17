@@ -1,5 +1,5 @@
 import { Moment } from 'moment';
-import { AreaBuilding } from 'Services/area/area.building.interfaces';
+import { AreaBuilding } from 'Services/area/@interfaces/area.building.interfaces';
 import { TaskArea } from './task.area.interface';
 import { TaskStaffRequested } from './task.staff.requested.interface';
 import { TimeSlot } from './timeslot.interface';

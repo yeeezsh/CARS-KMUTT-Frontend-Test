@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import Loadable from 'react-loadable';
 import { connect } from 'react-redux';
 import { Route, Switch, withRouter } from 'react-router';
-import Area from 'Services/area/area.interface';
+import Area from 'Services/area/@interfaces/area.available.interface';
 import { stepLists } from 'Services/sport';
 import { taskSport } from 'Services/task/sport';
 import { TaskSport } from 'Services/task/sport/sport.interface';
@@ -24,7 +24,7 @@ import {
 import styles from './styles.module.css';
 
 const PageLayout = Loadable({
-  loader: () => import('Components/Layout/Page'),
+  loader: () => import('Components/Layout/Page/PageLayout'),
   loading: () => null,
 });
 const TimePage = Loadable({
@@ -298,7 +298,7 @@ class SportPage extends Component<
 
     return (
       <React.Fragment>
-        <PageLayout titile={'จองสนามกีฬา'}>
+        <PageLayout title={'จองสนามกีฬา'}>
           <Row
             type="flex"
             justify="center"

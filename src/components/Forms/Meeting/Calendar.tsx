@@ -13,7 +13,8 @@ import Loadable from 'react-loadable';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 import { areaAPI } from 'Services/area';
-import Area from 'Services/area/area.interface';
+import Area from 'Services/area/@interfaces/area.available.interface';
+import { AreaServiceResponseAPI } from 'Services/area/@interfaces/area.interfaces';
 // data store & API
 import { RootReducersType } from 'Store/reducers';
 import {
@@ -67,6 +68,8 @@ const RESERVATION_OFFSET_INTERVAL = RESERVATION_INTERVAL - 1;
 
 interface Props {
   ind?: number;
+  areaInfo?: AreaServiceResponseAPI;
+  selectDate?: (date: Moment) => void;
 }
 
 export interface CalendarForm {
@@ -82,7 +85,8 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
   const location = useLocation().pathname;
   const forms = useSelector((s: RootReducersType) => s.AreaFormReducers);
   const initSelectedDate = moment().add(OFFSET_DAY, 'days');
-  const areaId = location.split('/')[AREA_PARAM_IND];
+  const areaId =
+    props.areaInfo?._id || location.split('/')[AREA_PARAM_IND];
   const [selectedDate, setSelecteDate] = useState<Moment>(
     initSelectedDate,
   );
@@ -189,6 +193,8 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
         areaId,
         selectedDate,
       );
+
+      props.selectDate && props.selectDate(selectedDate);
 
       setAreaState([
         {

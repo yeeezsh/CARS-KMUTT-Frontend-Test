@@ -1,19 +1,19 @@
 import Loadable from 'react-loadable';
 
 const Areas = Loadable({
-  loader: () => import('./Areas'),
+  loader: () => import('./AreasCommonPage'),
   loading: () => null,
 });
 const TypesWSport = Loadable({
-  loader: () => import('./Types'),
+  loader: () => import('./AreaCommonCategoryTypes'),
   loading: () => null,
 });
 const Activity = Loadable({
-  loader: () => import('./Activity'),
+  loader: () => import('./Activity/AreaCommonActivityPage'),
   loading: () => null,
 });
 const Sport = Loadable({
-  loader: () => import('./Sport'),
+  loader: () => import('./Sport/AreaCommonSportPage'),
   loading: () => null,
 });
 

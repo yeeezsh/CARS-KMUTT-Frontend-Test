@@ -1,8 +1,11 @@
 import TimeNode from 'Components/TimeTable/timetable.interface';
 import moment, { Moment } from 'moment';
 import adapter from 'Services/adapter.interface';
-import { AreaAvailableAPI } from './area.interface';
-import { AreaAPI as AreaAPIInterfaces, AreaTableAPI } from './interfaces';
+import { AreaAvailableAPI } from './@interfaces/area.available.interface';
+import {
+  AreaServiceResponseAPI as AreaAPIInterfaces,
+  AreaTableAPI,
+} from './@interfaces/area.interfaces';
 
 class AreaAPI {
   async getBuildingTable(): Promise<AreaTableAPI[]> {
@@ -14,10 +17,20 @@ class AreaAPI {
     }
   }
 
-  async getAreaAvailable(id: string): Promise<AreaAvailableAPI[]> {
+  async getAreaAvailable(
+    id: string,
+    startDate: Moment,
+    stopDate: Moment,
+  ): Promise<AreaAvailableAPI[]> {
     try {
-      const data = (await adapter.instance.get('/area/available/' + id))
-        .data;
+      const data = (
+        await adapter.instance.get('/area/available/' + id, {
+          params: {
+            start: startDate.toISOString(),
+            stop: stopDate.toISOString(),
+          },
+        })
+      ).data;
       return data.map((e: any) => ({ ...e, date: moment(e.date) }));
     } catch (err) {
       throw err;

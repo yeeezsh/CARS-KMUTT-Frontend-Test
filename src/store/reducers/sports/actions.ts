@@ -1,5 +1,5 @@
 import { Moment } from 'moment';
-import Area from 'Services/area/area.interface';
+import Area from 'Services/area/@interfaces/area.available.interface';
 import { sport } from 'Services/area/sport';
 import { SportReducer } from '.';
 

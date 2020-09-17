@@ -1,14 +1,14 @@
 import { Col, Row } from 'antd';
 import React from 'react';
 import Outline from '../Outline';
-import PageLayout from './Page';
+import PageLayout from './Page/PageLayout';
 
 const KanBanLayout: React.FunctionComponent<{
   title?: string;
   outline?: string;
 }> = props => (
   <React.Fragment>
-    <PageLayout titile={props.title || ''}>
+    <PageLayout title={props.title || ''}>
       {/* spacing */}
       <div style={{ height: 30 }}></div>
 

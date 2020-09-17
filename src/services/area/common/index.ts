@@ -1,6 +1,6 @@
 import Menu from 'Models/kanbanCard/interface';
 import adapter from 'Services/adapter.interface';
-import { FetchMenu } from '../sport/fetch.menu.interface';
+import { FetchMenu } from '../@interfaces/fetch.menu.interface';
 
 class CommonAreaClass {
   list?: Menu[];

@@ -11,7 +11,7 @@ import Reserve from 'Services/reserve/interface';
 import OutlineType from './helpers/outline.type';
 
 const PageLayout = Loadable({
-  loader: () => import('Components/Layout/Page'),
+  loader: () => import('Components/Layout/Page/PageLayout'),
   loading: () => null,
 });
 const StateCard = Loadable({
@@ -72,7 +72,7 @@ export default class MyReservePage extends Component<
     const { type } = this.props;
     const outline = OutlineType(type);
     return (
-      <PageLayout titile={'การจองของฉัน'}>
+      <PageLayout title={'การจองของฉัน'}>
         <Outline>{outline}</Outline>
         <Switch>
           {/* task info */}

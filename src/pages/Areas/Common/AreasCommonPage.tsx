@@ -1,5 +1,5 @@
 import BackCard from 'Components/BackCard';
-import KanbanCard from 'Components/KanbanCard';
+import KanbanCard from 'Components/KanbanCard/KanbanCard';
 import KanBanLayout from 'Components/Layout/Kanban';
 import Menu from 'Models/kanbanCard/interface';
 import React, { useEffect, useState } from 'react';
@@ -7,7 +7,7 @@ import { useHistory } from 'react-router';
 import { commonAreaAPI } from 'Services/area/common';
 import BackCardStyles from '../styles/backcard';
 
-const CommonPage: React.FC = () => {
+const AreaCommonPage: React.FC = () => {
   const [areas, setAreas] = useState<Menu[]>([]);
   const history = useHistory();
 
@@ -32,4 +32,4 @@ const CommonPage: React.FC = () => {
   );
 };
 
-export default CommonPage;
+export default AreaCommonPage;

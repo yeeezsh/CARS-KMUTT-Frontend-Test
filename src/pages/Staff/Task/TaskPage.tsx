@@ -184,6 +184,12 @@ const TaskPage: React.FC = () => {
           return;
         }
 
+        // drop
+        if (alreadyAccepted) {
+          setDrop(false);
+          return;
+        }
+
         // reject
         if (canReject) {
           setReject(false);

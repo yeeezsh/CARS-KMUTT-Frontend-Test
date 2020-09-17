@@ -1,7 +1,10 @@
 .innerFixedHeader {
   position: fixed;
   display: block;
-  width: 100%;
+  padding: 0px;
+  margin: 0px;
   z-index: 1;
   background-color: white;
+  width: 100%;
+  top: 65px;
 }

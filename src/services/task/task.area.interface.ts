@@ -1,5 +1,5 @@
-import { AreaBuilding } from 'Services/area/area.building.interfaces';
-import { BuildingType } from 'Services/building/interface';
+import { AreaBuilding } from 'Services/area/@interfaces/area.building.interfaces';
+import AreaBuildingType from 'Services/area/@types/area.building.type';
 import { AreaInfo } from 'Store/reducers/areaForm/types';
 
 export interface TaskArea extends AreaInfo {
@@ -7,5 +7,5 @@ export interface TaskArea extends AreaInfo {
   name: string;
   label?: string;
   building?: AreaBuilding;
-  type?: BuildingType;
+  type?: AreaBuildingType;
 }

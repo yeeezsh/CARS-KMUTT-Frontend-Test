@@ -1,6 +1,6 @@
 import moment, { Moment } from 'moment';
-import Area from 'Services/area/area.interface';
-import TimeAreaReserveType from 'Services/area/time.interface';
+import Area from 'Services/area/@interfaces/area.available.interface';
+import TimeAreaReserveType from 'Services/area/@interfaces/time.interface';
 import {
   QUERY_AREA,
   RESET_STATE,

@@ -4,12 +4,12 @@ import { Route, Router, Switch } from 'react-router';
 import history from './history';
 
 const PageUserRouter = Loadable({
-  loader: () => import('./User'),
+  loader: () => import('./UserRouter'),
   loading: () => null,
 });
 
 const PageStaffRouter = Loadable({
-  loader: () => import('./Staff'),
+  loader: () => import('./StaffRouter'),
   loading: () => null,
 });
 

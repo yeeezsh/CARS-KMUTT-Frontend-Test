@@ -33,7 +33,7 @@ const Badge = Loadable({
   loading: () => null,
 });
 const PageLayout = Loadable({
-  loader: () => import('Components/Layout/Page'),
+  loader: () => import('Components/Layout/Page/PageLayout'),
   loading: () => null,
 });
 const BackCard = Loadable({
@@ -52,9 +52,10 @@ const ConfirmModal = Loadable({
 // constant
 const MAX_STEPS = 3;
 
-const Activity: React.FC<{
+const AreaCommonActivityPage: React.FC<{
   noInit?: boolean;
   editMode?: boolean;
+  useModal?: boolean;
   onSend?: (forms: AreaFormReducer) => void;
 }> = props => {
   const forms = useSelector((s: RootReducersType) => s.AreaFormReducers);
@@ -62,6 +63,7 @@ const Activity: React.FC<{
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation().pathname;
+  const useModal = props.useModal !== undefined ? props.useModal : true;
 
   const areaId = forms.area?._id || location.split('/')[3];
 
@@ -83,12 +85,8 @@ const Activity: React.FC<{
   const [modal, setModal] = useState(false);
 
   function sendData() {
-    if (props.editMode) {
-      props.onSend && props.onSend(forms);
-      return;
-    } else {
-      taskFormAPI.createCommonTask(forms);
-    }
+    props.onSend && props.onSend(forms);
+    !props.editMode && taskFormAPI.createCommonTask(forms);
   }
 
   // once
@@ -118,12 +116,12 @@ const Activity: React.FC<{
 
   if (forms.finish) {
     sendData();
-    setModal(true);
+    useModal && setModal(true);
     dispatch(initForm({ size: MAX_STEPS }));
   }
 
   return (
-    <PageLayout titile="จองพื้นที่ส่วนกลาง">
+    <PageLayout title="จองพื้นที่ส่วนกลาง">
       {/* confirm modal */}
       <ConfirmModal
         desc={{
@@ -207,4 +205,4 @@ const Activity: React.FC<{
   );
 };
 
-export default Activity;
+export default AreaCommonActivityPage;

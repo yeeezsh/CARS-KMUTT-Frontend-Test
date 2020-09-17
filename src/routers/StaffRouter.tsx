@@ -1,4 +1,4 @@
-import { StaffPageParamType } from 'Models/staff/staff-page-param-type.interface';
+import { StaffPageParamType } from 'Models/staff/staff.page.param.type.interface';
 import React, { useEffect } from 'react';
 import Loadable from 'react-loadable';
 import { Route, Router, useHistory, useLocation } from 'react-router';
@@ -46,7 +46,7 @@ const Logout = Loadable({
   loading: () => null,
 });
 const Task = Loadable({
-  loader: () => import('Pages/Staff/Task'),
+  loader: () => import('Pages/Staff/Task/TaskPage'),
   loading: () => null,
 });
 const Calendar = Loadable({
@@ -54,24 +54,27 @@ const Calendar = Loadable({
   loading: () => null,
 });
 const AreaList = Loadable({
-  loader: () => import('Pages/Staff/AreaList'),
+  loader: () => import('Pages/Staff/AreaList/AreaListPage'),
   loading: () => null,
 });
-const Area = Loadable({
-  loader: () => import('Pages/Staff/Area'),
+const AreaPage = Loadable({
+  loader: () => import('Pages/Staff/Area/AreaPage'),
   loading: () => null,
 });
 
 const StaffRouter: React.FunctionComponent = () => {
   const location = useLocation();
   const history = useHistory();
-  const validStaff = STAFF_PERMISSION.includes(
-    u.GetUser().group as StaffPermissionType,
-  );
-  if (!validStaff && location.pathname !== '/staff/login') {
-    console.warn('redirecting to login pages cuz invalid permission');
-    history.replace('/staff/login');
-  }
+
+  useEffect(() => {
+    const validStaff = STAFF_PERMISSION.includes(
+      u.GetUser().group as StaffPermissionType,
+    );
+    if (!validStaff && location.pathname !== '/staff/login') {
+      console.warn('redirecting to login pages cuz invalid permission');
+      history.replace('/staff/login');
+    }
+  }, [location.pathname]);
 
   const currentLoginPage = location.pathname.match(
     `/${StaffPageParamType.login}`,
@@ -107,9 +110,9 @@ const StaffRouter: React.FunctionComponent = () => {
         <AreaList />
       </Route>
 
-      {/* Area list */}
+      {/* Area page */}
       <Route path={`**/${StaffPageParamType.area}/:id`}>
-        <Area />
+        <AreaPage />
       </Route>
 
       {/* <Home /> */}

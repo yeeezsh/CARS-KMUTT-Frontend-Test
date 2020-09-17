@@ -1,11 +1,11 @@
-export type BuildingType = 'sport' | 'area' | 'meeting';
+import AreaBuildingType from 'Services/area/@types/area.building.type';
 
 export interface BuildingTableAPI {
   _id: string;
   key: string;
   name: string;
   label: string;
-  type: BuildingType;
+  type: AreaBuildingType;
   areas: Array<{
     _id: string;
     name: string;
@@ -17,5 +17,5 @@ export interface BuildingInfo {
   _id: string;
   name: string;
   label: string;
-  type: BuildingType;
+  type: AreaBuildingType;
 }

@@ -11,7 +11,7 @@ import moment, { Moment } from 'moment';
 import React, { Component } from 'react';
 import Loadable from 'react-loadable';
 import { connect } from 'react-redux';
-import Area from 'Services/area/area.interface';
+import Area from 'Services/area/@interfaces/area.available.interface';
 import WeekParseHelper from 'Utils/week.parse';
 import styles from './styles.module.css';
 

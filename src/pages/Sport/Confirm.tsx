@@ -1,11 +1,12 @@
 import { Col, Row } from 'antd';
 import Button from 'Components/Button';
 import Outline from 'Components/Outline';
+import blueOutline from 'Models/outline/blue.outline';
 import { Moment } from 'moment';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // interfaces & type
-import Area from 'Services/area/area.interface';
+import Area from 'Services/area/@interfaces/area.available.interface';
 // store
 import { RootReducersType } from 'Store/reducers';
 import styles from './styles.module.css';
@@ -31,7 +32,7 @@ class ConfirmPage extends Component<Props, {}> {
         <Col className={styles.overview} span={24}>
           <Row type="flex" justify="center">
             <Col span={20}>
-              <Outline style={{ color: '#1890FF' }}>ข้อมูลการจอง</Outline>
+              <Outline {...blueOutline}>ข้อมูลการจอง</Outline>
             </Col>
 
             <Col style={{ marginTop: '-14px' }} span={20}>

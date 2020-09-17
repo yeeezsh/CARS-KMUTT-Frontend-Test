@@ -1,5 +1,5 @@
 import { Moment } from 'moment';
-import Area from './area.interface';
+import Area from './area.available.interface';
 
 interface TimeAreaReserveType {
   date: {
