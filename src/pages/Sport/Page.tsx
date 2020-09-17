@@ -24,7 +24,7 @@ import {
 import styles from './styles.module.css';
 
 const PageLayout = Loadable({
-  loader: () => import('Components/Layout/Page'),
+  loader: () => import('Components/Layout/Page/PageLayout'),
   loading: () => null,
 });
 const TimePage = Loadable({
@@ -298,7 +298,7 @@ class SportPage extends Component<
 
     return (
       <React.Fragment>
-        <PageLayout titile={'จองสนามกีฬา'}>
+        <PageLayout title={'จองสนามกีฬา'}>
           <Row
             type="flex"
             justify="center"

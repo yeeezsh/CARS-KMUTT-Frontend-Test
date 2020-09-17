@@ -35,7 +35,7 @@ const Badge = Loadable({
   loading: () => null,
 });
 const PageLayout = Loadable({
-  loader: () => import('Components/Layout/Page'),
+  loader: () => import('Components/Layout/Page/PageLayout'),
   loading: () => null,
 });
 const BackCard = Loadable({
@@ -146,7 +146,7 @@ const AreaCommonSportPage: React.FC<{
   }
 
   return (
-    <PageLayout titile="จองพื้นที่ส่วนกลาง">
+    <PageLayout title="จองพื้นที่ส่วนกลาง">
       {/* confirm modal */}
       <ConfirmModal
         desc={{

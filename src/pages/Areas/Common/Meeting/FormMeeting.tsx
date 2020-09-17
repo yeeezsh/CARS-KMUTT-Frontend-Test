@@ -24,7 +24,7 @@ import sharedStyles from '../common/styles/styles.module.css';
 import stepsList from './steps/meeting';
 
 const PageLayout = Loadable({
-  loader: () => import('Components/Layout/Page'),
+  loader: () => import('Components/Layout/Page/PageLayout'),
   loading: () => null,
 });
 const Badge = Loadable({
@@ -139,7 +139,7 @@ const FormMeeting: React.FC<FormComponentProps> = () => {
   }, [forms.finish]);
 
   return (
-    <PageLayout titile="จองห้องประชุม">
+    <PageLayout title="จองห้องประชุม">
       {/* Fixed header */}
       <Row
         className={sharedStyles.innerFixedHeader}

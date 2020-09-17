@@ -3,7 +3,7 @@ import useWindowResize from 'Hooks/use.windows.resize';
 import React from 'react';
 import styles from './page.module.css';
 
-const PageLayout: React.FC<{ titile: string }> = props => {
+const PageLayout: React.FC<{ title: string }> = props => {
   const width = useWindowResize();
   console.log(width);
   return (
@@ -23,7 +23,7 @@ const PageLayout: React.FC<{ titile: string }> = props => {
       <Row type="flex" justify="center">
         <div className={styles.header}>
           <Col className={styles.title} span={20}>
-            <p className={styles.orange}>{props.titile}</p>
+            <p className={styles.orange}>{props.title}</p>
           </Col>
         </div>
       </Row>
