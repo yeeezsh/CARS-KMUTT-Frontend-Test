@@ -1,3 +1,4 @@
+import { message } from 'antd';
 import { Moment } from 'moment';
 import { useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router';
@@ -23,10 +24,6 @@ function useMeetingClubTask(
 
   //pattern pathname test for value sync
   useEffect(() => {
-    const homePattern = /\/staff\/area\/\w*$/;
-
-    const onHome = homePattern.test(pathname);
-
     const correctPath = pathname
       .split('/')
       .slice(0, 4)
@@ -38,7 +35,7 @@ function useMeetingClubTask(
     () => {
       fetch(selectedDate.start, selectedDate.stop);
       reset();
-      return;
+      return message.success('จองสำเร็จ', 5);
     },
   ];
 }
