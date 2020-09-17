@@ -17,19 +17,22 @@ async function fetch(
   >,
   setQuickTask: React.Dispatch<React.SetStateAction<QuickTaskInterface[]>>,
   setLoading: React.Dispatch<React.SetStateAction<boolean>>,
+  noQueryAvailableArea: boolean,
 ) {
   setLoading(true);
 
   if (!areaInfo._id) throw new Error('must area id before');
 
   // fetch avalable
-  const available = await areaAPI.getAreaAvailable(
-    areaInfo._id,
-    startDate,
-    stopDate,
-  );
-  setAvailArea(available);
-  setSelecting(Array(available.length).fill([]));
+  if (!noQueryAvailableArea) {
+    const available = await areaAPI.getAreaAvailable(
+      areaInfo._id,
+      startDate,
+      stopDate,
+    );
+    setAvailArea(available);
+    setSelecting(Array(available.length).fill([]));
+  }
 
   // get quick task
   const quickTaskAPIResponse = await taskAPI.getQuickTask(
@@ -40,10 +43,12 @@ async function fetch(
   setQuickTask(quickTaskAPIResponse);
   setLoading(false);
 }
+type NoQueryAvailableArea = boolean;
 
 function useFetchAvailableAndQuickTask(
   areaInfo: AreaServiceResponseAPI,
   setSelecting: React.Dispatch<React.SetStateAction<TimeNode[][]>>,
+  noQueryAvailableArea?: NoQueryAvailableArea,
 ): [
   QuickTaskInterface[],
   AreaAvailableAPI[] | undefined,
@@ -70,6 +75,7 @@ function useFetchAvailableAndQuickTask(
         setAvailArea,
         setQuickTask,
         setLoading,
+        noQueryAvailableArea || false,
       );
     },
   ];

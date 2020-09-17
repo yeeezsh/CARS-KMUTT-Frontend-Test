@@ -18,32 +18,23 @@ const AreaInfo = Loadable({
   loading: () => null,
   loader: () => import('./AreaInfo'),
 });
-const TimeRangeSelect = Loadable({
-  loading: () => null,
-  loader: () => import('Components/TimeRangeSelect/TimeRangeSelect'),
-});
-const TimeTable = Loadable({
-  loading: () => null,
-  loader: () => import('Components/TimeTable'),
-});
 
 const AreaPageCommonMeetingClub: React.FC<AreaPagePropsType> = props => {
   const { areaInfo } = props;
 
   const [
-    selecting,
+    ,
     setSelecting,
     selectedDate,
     setSelectedDate,
-    onSelect,
+    ,
   ] = useOnSelectingTimeTable();
 
-  const [
-    quickTask,
-    availArea,
-    loading,
-    fetch,
-  ] = useFetchAvailableAndQuickTask(areaInfo, setSelecting);
+  const [quickTask, , loading, fetch] = useFetchAvailableAndQuickTask(
+    areaInfo,
+    setSelecting,
+    true,
+  );
 
   // fetch when dateChange
   useEffect(() => {
@@ -86,11 +77,7 @@ const AreaPageCommonMeetingClub: React.FC<AreaPagePropsType> = props => {
                 stop: e,
               })
             }
-            onSubmit={() => {
-              console.log('sgasghagshagsgha');
-              // fetch(selectedDate.start, selectedDate.stop);
-              onReset();
-            }}
+            onSubmit={onReset}
           />
         </Col>
       </Row>
