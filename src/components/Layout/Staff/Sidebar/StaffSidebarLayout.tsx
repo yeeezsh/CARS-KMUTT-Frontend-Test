@@ -6,7 +6,7 @@ import styles from './styles.module.css';
 
 const { Sider } = AntLayout;
 
-const StaffSiderLayout: React.FC = () => {
+const StaffSidebarLayout: React.FC = () => {
   return (
     <Layout className={styles.main}>
       <Sider width={250} className={styles.sider}>
@@ -16,4 +16,4 @@ const StaffSiderLayout: React.FC = () => {
   );
 };
 
-export default StaffSiderLayout;
+export default StaffSidebarLayout;
