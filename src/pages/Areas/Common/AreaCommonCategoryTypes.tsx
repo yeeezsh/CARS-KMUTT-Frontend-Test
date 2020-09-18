@@ -2,7 +2,7 @@ import sportTypeBuildingIcon from 'Assets/icons/area/building/basketball-ball.sv
 import activityTypeBuildingIcon from 'Assets/icons/area/building/kfc.svg';
 import BackCard from 'Components/BackCard';
 import KanbanCard from 'Components/KanbanCard/KanbanCard';
-import KanBanLayout from 'Components/Layout/Kanban';
+import KanBanLayout from 'Components/Layout/KanbanLayout';
 import Menu from 'Models/kanbanCard/interface';
 import React from 'react';
 import { useHistory, useLocation } from 'react-router';

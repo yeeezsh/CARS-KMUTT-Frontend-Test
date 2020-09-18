@@ -15,7 +15,7 @@ const PageLayout = Loadable({
   loading: () => null,
 });
 const StateCard = Loadable({
-  loader: () => import('Components/StateCard'),
+  loader: () => import('Components/StateCard/StateCard'),
   loading: () => null,
 });
 const ReservationInfo = Loadable({

@@ -1,6 +1,6 @@
 import BackCard from 'Components/BackCard';
 import KanbanCard from 'Components/KanbanCard/KanbanCard';
-import KanBanLayout from 'Components/Layout/Kanban';
+import KanBanLayout from 'Components/Layout/KanbanLayout';
 import Menu from 'Models/kanbanCard/interface';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';

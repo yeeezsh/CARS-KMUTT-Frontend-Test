@@ -13,7 +13,7 @@ const StateCardIconColor = Loadable({
 });
 
 export default function StateCard(props: {
-  name?: string | undefined;
+  name?: string;
   desc?: string;
   reserve?: {
     date?: Moment;

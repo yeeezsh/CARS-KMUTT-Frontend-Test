@@ -46,7 +46,7 @@ const Button = Loadble({
   loading: () => null,
 });
 const UsersReserveList = Loadble({
-  loader: () => import('Components/UsersReserveList'),
+  loader: () => import('Components/UsersReserveList/UsersReserveList'),
   loading: () => null,
 });
 const ReservationMessage = Loadble({

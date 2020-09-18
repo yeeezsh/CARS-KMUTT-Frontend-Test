@@ -4,10 +4,10 @@ import {
   allAreaIcon,
   allDocs,
   calendarIcon,
-  docsIcon,
   dropDocs,
   forwardDocs,
   rejectDocs,
+  waitingDocs,
 } from './icon.import';
 
 const menu: Drawer[] = [
@@ -32,7 +32,7 @@ const menu: Drawer[] = [
       {
         key: '1',
         label: ['รอดำเนินการ'],
-        icon: docsIcon,
+        icon: waitingDocs,
         link: '/staff/wait',
       },
       {
