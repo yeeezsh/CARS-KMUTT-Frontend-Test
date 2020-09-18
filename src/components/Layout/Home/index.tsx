@@ -8,7 +8,7 @@ import { TaskLastCard } from 'Services/task/task.interface';
 import styles from './home.module.css';
 
 const StateCard = Loadable({
-  loader: () => import('../../StateCard'),
+  loader: () => import('../../StateCard/StateCard'),
   loading: () => null,
 });
 

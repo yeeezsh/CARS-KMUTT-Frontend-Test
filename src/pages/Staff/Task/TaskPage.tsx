@@ -37,7 +37,7 @@ const StateCardIconColor = Loadable({
   loading: () => null,
 });
 const UsersReserveList = Loadable({
-  loader: () => import('Components/UsersReserveList'),
+  loader: () => import('Components/UsersReserveList/UsersReserveList'),
   loading: () => null,
 });
 const Button = Loadable({
