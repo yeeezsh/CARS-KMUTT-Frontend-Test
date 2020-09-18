@@ -9,7 +9,7 @@ const BackCard = Loadable({
   loading: () => null,
 });
 const KanBanLayout = Loadable({
-  loader: () => import('Components/Layout/Kanban'),
+  loader: () => import('Components/Layout/KanbanLayout'),
   loading: () => null,
 });
 const KanbanCard = Loadable({
