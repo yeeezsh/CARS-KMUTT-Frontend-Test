@@ -9,7 +9,7 @@ import {
 } from 'Services/user/staff.interface';
 
 const StaffSiderLayout = Loadable({
-  loader: () => import('Components/Layout/Staff/Sider'),
+  loader: () => import('Components/Layout/Staff/Sidebar/StaffSiderLayout'),
   loading: () => null,
 });
 const Home = Loadable({
