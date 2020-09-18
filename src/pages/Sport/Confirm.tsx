@@ -1,5 +1,6 @@
 import { Col, Row } from 'antd';
 import Button from 'Components/Button';
+import ButtonActionLayout from 'Components/Layout/ButtonActionLayout';
 import Outline from 'Components/Outline';
 import blueOutline from 'Models/outline/blue.outline';
 import { Moment } from 'moment';
@@ -66,20 +67,14 @@ class ConfirmPage extends Component<Props, {}> {
           </Row>
 
           {/* Button */}
-          <Col style={{ marginTop: '16px' }} span={24}>
-            <Row type="flex" justify="center">
-              <Col span={22}>
-                <Button
-                  style={{ backgroundColor: '#1890FF' }}
-                  onClick={this.props.onConfirm}
-                >
-                  {users?.length > 1
-                    ? 'ส่งรีเควสไปให้เพื่อน'
-                    : 'ยืนยันการจอง'}
-                </Button>
-              </Col>
-            </Row>
-          </Col>
+          <ButtonActionLayout>
+            <Button
+              style={{ backgroundColor: '#1890FF' }}
+              onClick={this.props.onConfirm}
+            >
+              {users?.length > 1 ? 'ส่งรีเควสไปให้เพื่อน' : 'ยืนยันการจอง'}
+            </Button>
+          </ButtonActionLayout>
         </Col>
       </React.Fragment>
     );

@@ -2,6 +2,7 @@ import { Checkbox, Col, Form, Row } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 import BreakingLine from 'Components/BreakingLine';
 import Button from 'Components/Button';
+import ButtonActionLayout from 'Components/Layout/ButtonActionLayout';
 import Outline from 'Components/Outline';
 import moment from 'moment';
 import Trail from 'Pages/Areas/Common/common/Trail';
@@ -469,15 +470,11 @@ const OverviewCommonForm: React.FC<FormComponentProps & Props> = props => {
         <Trail size={25} />
         {/* action */}
         {!props.viewOnly && (
-          <Col span={24}>
-            <Row type="flex" justify="center">
-              <Col span={22}>
-                <Button type="confirm" onClick={onSubmit}>
-                  ยืนยันข้อมูลการจอง
-                </Button>
-              </Col>
-            </Row>
-          </Col>
+          <ButtonActionLayout>
+            <Button type="confirm" onClick={onSubmit}>
+              ยืนยันข้อมูลการจอง
+            </Button>
+          </ButtonActionLayout>
         )}
       </Col>
     </React.Fragment>

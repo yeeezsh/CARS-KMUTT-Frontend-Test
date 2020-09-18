@@ -2,6 +2,7 @@ import { Col, DatePicker, Row } from 'antd';
 import Form, { FormComponentProps } from 'antd/lib/form';
 import Button from 'Components/Button';
 import FormLabel from 'Components/FormLabel';
+import ButtonActionLayout from 'Components/Layout/ButtonActionLayout';
 import moment, { Moment } from 'moment';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -81,13 +82,9 @@ const ReturnForm: React.FC<FormComponentProps & {
       </Row>
 
       {/* action */}
-      <Col span={24}>
-        <Row type="flex" justify="center">
-          <Col span={22}>
-            <Button onClick={onSubmit}>ต่อไป</Button>
-          </Col>
-        </Row>
-      </Col>
+      <ButtonActionLayout>
+        <Button onClick={onSubmit}>ต่อไป</Button>
+      </ButtonActionLayout>
     </React.Fragment>
   );
 };

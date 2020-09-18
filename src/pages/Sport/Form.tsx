@@ -1,6 +1,7 @@
 import { Col, Form, Input, Row } from 'antd';
 import { FormComponentProps } from 'antd/lib/form/Form';
 import Button from 'Components/Button';
+import ButtonActionLayout from 'Components/Layout/ButtonActionLayout';
 import Outline from 'Components/Outline';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -167,13 +168,9 @@ class FormPage extends Component<PropsTypes, StateTypes> {
         </Col>
 
         {/* Button */}
-        <Col span={24}>
-          <Row type="flex" justify="center">
-            <Col span={22}>
-              <Button onClick={this.onSubmit}>ต่อไป</Button>
-            </Col>
-          </Row>
-        </Col>
+        <ButtonActionLayout>
+          <Button onClick={this.onSubmit}>ต่อไป</Button>
+        </ButtonActionLayout>
       </React.Fragment>
     );
   }

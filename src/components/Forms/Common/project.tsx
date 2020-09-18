@@ -16,6 +16,7 @@ import {
 import Badge from 'Components/Badge';
 import Button from 'Components/Button';
 import FormLabel from 'Components/FormLabel';
+import ButtonActionLayout from 'Components/Layout/ButtonActionLayout';
 import moment, { Moment } from 'moment';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -292,13 +293,9 @@ const ProjectForm: React.FC<FormComponentProps & {
       </Form.Item>
 
       {/* action */}
-      <Col span={24}>
-        <Row type="flex" justify="center">
-          <Col span={22}>
-            <Button onClick={onSubmit}>ต่อไป</Button>
-          </Col>
-        </Row>
-      </Col>
+      <ButtonActionLayout>
+        <Button onClick={onSubmit}>ต่อไป</Button>
+      </ButtonActionLayout>
     </React.Fragment>
   );
 };

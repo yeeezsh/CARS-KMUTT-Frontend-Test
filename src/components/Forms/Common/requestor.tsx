@@ -2,6 +2,7 @@ import { Col, Form, Input, Radio, Row, Select } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 import Button from 'Components/Button';
 import FormLabel from 'Components/FormLabel';
+import ButtonActionLayout from 'Components/Layout/ButtonActionLayout';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Department, faculties } from 'Services/forms/department';
@@ -197,13 +198,9 @@ const RequestorForm: React.FC<FormComponentProps & {
       </Row>
 
       {/* action */}
-      <Col span={24}>
-        <Row type="flex" justify="center">
-          <Col span={22}>
-            <Button onClick={onSubmit}>ต่อไป</Button>
-          </Col>
-        </Row>
-      </Col>
+      <ButtonActionLayout>
+        <Button onClick={onSubmit}>ต่อไป</Button>
+      </ButtonActionLayout>
     </React.Fragment>
   );
 };

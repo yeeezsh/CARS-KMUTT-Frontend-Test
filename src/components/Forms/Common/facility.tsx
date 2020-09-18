@@ -3,6 +3,7 @@ import { Checkbox, Col, Form, Row, TimePicker } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 import Button from 'Components/Button';
 import FormLabel from 'Components/FormLabel';
+import ButtonActionLayout from 'Components/Layout/ButtonActionLayout';
 import Outline from 'Components/Outline';
 import moment, { Moment } from 'moment';
 import React, { useEffect, useState } from 'react';
@@ -215,13 +216,9 @@ const FacilityForm: React.FC<FormComponentProps & Props> = props => {
       </div>
 
       {/* action */}
-      <Col span={24}>
-        <Row type="flex" justify="center">
-          <Col span={22}>
-            <Button onClick={onSubmit}>ต่อไป</Button>
-          </Col>
-        </Row>
-      </Col>
+      <ButtonActionLayout>
+        <Button onClick={onSubmit}>ต่อไป</Button>
+      </ButtonActionLayout>
     </React.Fragment>
   );
 };

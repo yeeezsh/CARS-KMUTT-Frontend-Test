@@ -1,9 +1,10 @@
-import { Checkbox, Col, Row } from 'antd';
+import { Checkbox, Col } from 'antd';
 import Form, { FormComponentProps } from 'antd/lib/form';
 import BreakingLine from 'Components/BreakingLine';
 import Button from 'Components/Button';
 // pages
 import { FacilityForm } from 'Components/Forms/Common/facility';
+import ButtonActionLayout from 'Components/Layout/ButtonActionLayout';
 import Outline from 'Components/Outline';
 // hooks
 import useWindowResize from 'Hooks/use.windows.resize';
@@ -181,27 +182,14 @@ const Overview: React.FC<FormComponentProps & Props> = props => {
             </Checkbox>
           </div>
         </div>
-        {/* space */}
-        {props.buttonOffeset === false ? null : (
-          <div
-            style={{
-              height:
-                size.height - (Number(props.buttonOffeset) || OFFSET_BTN),
-            }}
-          />
-        )}
 
         {/* action */}
         {!props.viewOnly && (
-          <Col span={24}>
-            <Row type="flex" justify="center">
-              <Col span={22}>
-                <Button type="confirm" onClick={onSubmit}>
-                  ยืนยันข้อมูลการจอง
-                </Button>
-              </Col>
-            </Row>
-          </Col>
+          <ButtonActionLayout>
+            <Button type="confirm" onClick={onSubmit}>
+              ยืนยันข้อมูลการจอง
+            </Button>
+          </ButtonActionLayout>
         )}
       </Col>
     </React.Fragment>
