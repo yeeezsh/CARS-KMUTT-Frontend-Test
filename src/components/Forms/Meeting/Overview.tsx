@@ -6,8 +6,6 @@ import Button from 'Components/Button';
 import { FacilityForm } from 'Components/Forms/Common/facility';
 import ButtonActionLayout from 'Components/Layout/ButtonActionLayout';
 import Outline from 'Components/Outline';
-// hooks
-import useWindowResize from 'Hooks/use.windows.resize';
 import moment from 'moment';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -31,9 +29,6 @@ interface Props {
   showFacility?: boolean;
   buttonOffeset?: boolean | number;
 }
-
-// constant
-const OFFSET_BTN = 595;
 
 // custom components
 const CustomBrakeLine: React.FC = () => (
@@ -85,8 +80,6 @@ const Overview: React.FC<FormComponentProps & Props> = props => {
     if (props.viewOnly) return; // prevent when viewOnly
     dispatch(setFormCurrentIndex(CUR_IND));
   }, []);
-
-  const size = useWindowResize();
 
   function onSubmit() {
     validateFields((err, values) => {
