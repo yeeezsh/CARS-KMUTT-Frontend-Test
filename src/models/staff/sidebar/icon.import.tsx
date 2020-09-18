@@ -7,6 +7,7 @@ import dropDocs from 'Assets/icons/drawer/dropdocs.svg';
 import forwardDocs from 'Assets/icons/drawer/forwarddocs.svg';
 import logoutIcon from 'Assets/icons/drawer/logout.svg';
 import rejectDocs from 'Assets/icons/drawer/rejectdocs.svg';
+import waitingDocs from 'Assets/icons/drawer/waitdocs.svg';
 import sidebarIcon from 'Assets/logo.sidebar.svg';
 
 export {
@@ -20,4 +21,5 @@ export {
   calendarIcon,
   forwardDocs,
   allAreaIcon,
+  waitingDocs,
 };
