@@ -9,7 +9,7 @@ import { RootReducersType } from 'Store/reducers';
 import styles from './styles.module.css';
 import UserCard from './UserCard';
 
-const Sidebar: React.FC = () => {
+const SidebarStaff: React.FC = () => {
   const username = useSelector(
     (s: RootReducersType) => s.UserReducers.username,
   );
@@ -70,4 +70,4 @@ const Sidebar: React.FC = () => {
   );
 };
 
-export default Sidebar;
+export default SidebarStaff;
