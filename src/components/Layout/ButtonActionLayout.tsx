@@ -10,7 +10,7 @@ const baseLayout: React.CSSProperties = {
 };
 
 const staffLayout: React.CSSProperties = {
-  bottom: 50,
+  bottom: 0,
   position: 'relative',
   width: '100%',
 };
