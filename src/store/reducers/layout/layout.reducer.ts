@@ -4,7 +4,7 @@ import { ButtonActionLayoutPayload, LayoutState } from './layout.type';
 const initState: LayoutState = {
   buttonActionLayout: 'base',
 };
-const layoutReducer = createReducer(initState, {
+export const LayoutReducer = createReducer(initState, {
   [setButtonActionLayout.type]: (
     state,
     action: PayloadAction<ButtonActionLayoutPayload>,
@@ -15,4 +15,3 @@ const layoutReducer = createReducer(initState, {
     };
   },
 });
-export default layoutReducer;
