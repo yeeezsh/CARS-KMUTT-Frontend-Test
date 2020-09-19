@@ -1,12 +1,14 @@
 import { StaffPageParamType } from 'Models/staff/staff.page.param.type.interface';
 import React, { useEffect } from 'react';
 import Loadable from 'react-loadable';
+import { useDispatch } from 'react-redux';
 import { Route, Router, useHistory, useLocation } from 'react-router';
 import { u } from 'Services/user';
 import {
   StaffPermissionType,
   STAFF_PERMISSION,
 } from 'Services/user/staff.interface';
+import { setButtonActionLayout } from 'Store/reducers/layout/layout.action';
 
 const StaffSiderLayout = Loadable({
   loader: () =>
@@ -66,6 +68,7 @@ const AreaPage = Loadable({
 const StaffRouter: React.FunctionComponent = () => {
   const location = useLocation();
   const history = useHistory();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const validStaff = STAFF_PERMISSION.includes(
@@ -80,12 +83,15 @@ const StaffRouter: React.FunctionComponent = () => {
   const currentLoginPage = location.pathname.match(
     `/${StaffPageParamType.login}`,
   );
+
   useEffect(() => {
     if (currentLoginPage) {
       Login.preload();
     }
     Home.preload();
     StaffSiderLayout.preload();
+
+    dispatch(setButtonActionLayout({ style: 'staff' }));
   }, []);
 
   return (
@@ -144,5 +150,4 @@ const StaffRouter: React.FunctionComponent = () => {
     </Router>
   );
 };
-
 export default StaffRouter;

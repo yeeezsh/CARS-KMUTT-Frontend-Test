@@ -16,8 +16,10 @@ import {
 import { Category as SportCategory, Page as SportPage } from 'Pages/Sport';
 import React, { Component } from 'react';
 import Loadable from 'react-loadable';
+import { connect, ConnectedProps } from 'react-redux';
 import { Route, Router, Switch } from 'react-router';
 import { u } from 'Services/user';
+import { setButtonActionLayout } from 'Store/reducers/layout/layout.action';
 import history from './history';
 import RouteGuard from './RouteGuard';
 
@@ -47,8 +49,9 @@ const MyReserveEditPage = Loadable({
   loading: () => null,
 });
 
-export default class UserRouter extends Component<
-  {},
+type Props = PropsRedux;
+class UserRouter extends Component<
+  Props,
   {
     drawer: boolean;
     onHome: boolean;
@@ -81,6 +84,9 @@ export default class UserRouter extends Component<
     // when first lunch
     const onHome = location.pathname === '/';
     if (!onHome) this.setState({ onHome });
+
+    // set layout styles
+    this.props.setButtonActionLayout();
   };
 
   componentDidUpdate = () => {
@@ -221,3 +227,14 @@ export default class UserRouter extends Component<
     );
   }
 }
+
+function mapDispatchToProps(dispatch: any) {
+  return {
+    setButtonActionLayout: () => {
+      dispatch(setButtonActionLayout({ style: 'base' }));
+    },
+  };
+}
+const connector = connect(null, mapDispatchToProps);
+type PropsRedux = ConnectedProps<typeof connector>;
+export default connector(UserRouter);
