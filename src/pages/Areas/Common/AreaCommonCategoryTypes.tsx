@@ -54,7 +54,7 @@ const AreaCommonCategoryTypesPage: React.FunctionComponent<{
   return (
     <KanBanLayout title="จองพื้นที่ส่วนกลาง" outline="เลือกประเภทกิจกรรม">
       <div style={BackCardStyles}>
-        {!!props.useRouter && (
+        {!props.useRouter && (
           <BackCard onClick={() => history.push('/reserve/area/common')}>
             เลือกสถานที่
           </BackCard>
