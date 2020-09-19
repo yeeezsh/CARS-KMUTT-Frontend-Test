@@ -50,7 +50,6 @@ const AreaCommonCategoryTypesPage: React.FunctionComponent<{
       e.callback &&
       props.selected(e.callback());
   }
-  console.log(areaId);
 
   return (
     <KanBanLayout title="จองพื้นที่ส่วนกลาง" outline="เลือกประเภทกิจกรรม">
@@ -66,4 +65,4 @@ const AreaCommonCategoryTypesPage: React.FunctionComponent<{
   );
 };
 
-export default AreaCommonCategoryTypesPage;
+export default React.memo(AreaCommonCategoryTypesPage);
