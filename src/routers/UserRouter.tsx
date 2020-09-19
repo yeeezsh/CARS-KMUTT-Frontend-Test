@@ -41,7 +41,7 @@ const AppDrawer = Loadable({
   loading: () => null,
 });
 const MyReservePage = Loadable({
-  loader: () => import('Pages/MyReserve'),
+  loader: () => import('Pages/MyReserve/MyReservePage'),
   loading: () => null,
 });
 const MyReserveEditPage = Loadable({

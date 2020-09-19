@@ -5,6 +5,7 @@ import {
   OverviewSportForm,
 } from 'Components/Forms/Common';
 import { Overview as OverviewMeetingForm } from 'Components/Forms/Meeting';
+import ButtonActionLayout from 'Components/Layout/ButtonActionLayout';
 import Loading from 'Components/Loading';
 import { ButtonBackgroundColor } from 'Models/button/button.bg';
 import moment from 'moment';
@@ -251,17 +252,19 @@ class ReservationInfo extends Component<
       if (state === TaskStateType.reject) {
         return (
           <React.Fragment>
-            <Col span={11}>
-              <Button onClick={this.goBack}>ย้อนกลับ</Button>
-            </Col>
-            <Col span={11}>
-              <Button
-                style={{ backgroundColor: ButtonBackgroundColor.Blue }}
-                onClick={this.goEdit}
-              >
-                แก้ไข
-              </Button>
-            </Col>
+            <ButtonActionLayout>
+              <Col span={11}>
+                <Button onClick={this.goBack}>ย้อนกลับ</Button>
+              </Col>
+              <Col span={11}>
+                <Button
+                  style={{ backgroundColor: ButtonBackgroundColor.Blue }}
+                  onClick={this.goEdit}
+                >
+                  แก้ไข
+                </Button>
+              </Col>
+            </ButtonActionLayout>
           </React.Fragment>
         );
       } else if (
@@ -272,17 +275,21 @@ class ReservationInfo extends Component<
       ) {
         return (
           <React.Fragment>
-            <Col span={11}>
-              <Button onClick={this.goBack}>ย้อนกลับ</Button>
-            </Col>
-            <Col span={11}>
-              <Button
-                style={{ backgroundColor: ButtonBackgroundColor.Grey }}
-                onClick={this.onModal}
-              >
-                ยกเลิก
-              </Button>
-            </Col>
+            <ButtonActionLayout>
+              <Row type="flex" justify="space-around">
+                <Col span={11}>
+                  <Button onClick={this.goBack}>ย้อนกลับ</Button>
+                </Col>
+                <Col span={11}>
+                  <Button
+                    style={{ backgroundColor: ButtonBackgroundColor.Grey }}
+                    onClick={this.onModal}
+                  >
+                    ยกเลิก
+                  </Button>
+                </Col>
+              </Row>
+            </ButtonActionLayout>
           </React.Fragment>
         );
       } else if (
@@ -294,25 +301,30 @@ class ReservationInfo extends Component<
       ) {
         return (
           <React.Fragment>
-            <Col span={11}>
-              <Button onClick={this.goBack}>ย้อนกลับ</Button>
-            </Col>
-            <Col span={11}>
-              <Button
-                style={{ backgroundColor: ButtonBackgroundColor.Blue }}
-                onClick={this.onModal}
-              >
-                ยืนยัน
-              </Button>
-            </Col>
+            <ButtonActionLayout>
+              <Col span={11}>
+                <Button onClick={this.goBack}>ย้อนกลับ</Button>
+              </Col>
+              <Col span={11}>
+                <Button
+                  style={{ backgroundColor: ButtonBackgroundColor.Blue }}
+                  onClick={this.onModal}
+                >
+                  ยืนยัน
+                </Button>
+              </Col>
+            </ButtonActionLayout>
           </React.Fragment>
         );
       } else {
         return (
           <React.Fragment>
-            <Col span={24}>
+            <ButtonActionLayout>
               <Button onClick={this.goBack}>ย้อนกลับ</Button>
-            </Col>
+            </ButtonActionLayout>
+            {/* <Col span={24}>
+              
+            </Col> */}
           </React.Fragment>
         );
       }
