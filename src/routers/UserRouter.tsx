@@ -87,6 +87,12 @@ class UserRouter extends Component<
 
     // set layout styles
     this.props.setButtonActionLayout();
+
+    // check on home
+    history.listen(({ pathname }) => {
+      const currentHome = pathname === '/';
+      return this.setState({ onHome: currentHome });
+    });
   };
 
   componentDidUpdate = () => {
@@ -102,11 +108,6 @@ class UserRouter extends Component<
     const { drawer, onHome } = this.state;
     const { location } = history;
     const onLogin = location.pathname === '/login';
-
-    history.listen(({ pathname }) => {
-      const currentHome = pathname === '/';
-      return this.setState({ onHome: currentHome });
-    });
 
     return (
       <Router history={history}>
@@ -153,6 +154,7 @@ class UserRouter extends Component<
         <Route path="/reserve/area/meeting">
           <Switch>
             <Route path="*/areas">
+              {console.log('area kaaaa', this.state)}
               <MeetingArea />
             </Route>
             <Route path="*/meeting-club/:id">
