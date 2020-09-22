@@ -469,6 +469,7 @@ const OverviewCommonForm: React.FC<FormComponentProps & Props> = props => {
 
         <Trail size={25} />
         {/* action */}
+
         {!props.viewOnly && (
           <ButtonActionLayout>
             <Button type="confirm" onClick={onSubmit}>

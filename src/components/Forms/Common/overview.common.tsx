@@ -288,15 +288,9 @@ const OverviewCommonForm: React.FC<FormComponentProps & Props> = props => {
         </div>
 
         <Trail size={25} />
+
         {/* action */}
         {!props.viewOnly && (
-          // <Col span={24}>
-          //   <Row type="flex" justify="center">
-          //     <Col span={22}>
-
-          //     </Col>
-          //   </Row>
-          // </Col>
           <ButtonActionLayout>
             <Button type="confirm" onClick={onSubmit}>
               ยืนยันข้อมูลการจอง
