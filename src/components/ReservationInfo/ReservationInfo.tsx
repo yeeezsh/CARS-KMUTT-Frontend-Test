@@ -213,20 +213,19 @@ class ReservationInfo extends Component<
     } = this.state;
 
     const modalMsg = owner ? MODAL_REJECT_MSG : undefined;
-    const formInfo = (type: TaskDetail['type']) => {
-      console.log('form type', type);
+    const formInfo = (taskType: TaskDetail['type']) => {
       if (!forms) return null;
-      if (type === TaskType.common) {
+      if (taskType === TaskType.common) {
         return (
           <OverviewCommonForm viewOnly={true} data={{ forms, area }} />
         );
       }
-      if (type === TaskType.commonSport) {
+      if (taskType === TaskType.commonSport) {
         return (
           <OverviewSportForm viewOnly={true} data={{ forms, area }} />
         );
       }
-      if (type === TaskType.meetingClub) {
+      if (taskType === TaskType.meetingClub) {
         return (
           <OverviewMeetingForm
             buttonOffeset={false}
@@ -235,7 +234,7 @@ class ReservationInfo extends Component<
           />
         );
       }
-      if (type === TaskType.meetingRoom) {
+      if (taskType === TaskType.meetingRoom) {
         return (
           <OverviewMeetingForm
             buttonOffeset={false}
