@@ -1,8 +1,9 @@
-import { Checkbox, Col, Form } from 'antd';
+import { Checkbox, Form } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 import BreakingLine from 'Components/BreakingLine';
 import Button from 'Components/Button';
 import ButtonActionLayout from 'Components/Layout/ButtonActionLayout';
+import OverviewBorderLayout from 'Components/Layout/OverviewBorderLayout';
 import Outline from 'Components/Outline';
 import moment from 'moment';
 import Trail from 'Pages/Areas/Common/common/Trail';
@@ -121,13 +122,7 @@ const OverviewCommonForm: React.FC<FormComponentProps & Props> = props => {
 
   return (
     <React.Fragment>
-      <Col
-        style={{
-          border: props.viewOnly ? '' : '1px solid #1890FF',
-          padding: '0px 16px 16px 16px',
-        }}
-        span={24}
-      >
+      <OverviewBorderLayout viewOnly={props.viewOnly} offset={540}>
         {!props.viewOnly && (
           <Outline style={{ color: '#1890FF', paddingTop: '25px' }}>
             ข้อมูลการจอง
@@ -297,7 +292,7 @@ const OverviewCommonForm: React.FC<FormComponentProps & Props> = props => {
             </Button>
           </ButtonActionLayout>
         )}
-      </Col>
+      </OverviewBorderLayout>
     </React.Fragment>
   );
 };
