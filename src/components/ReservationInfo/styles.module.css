@@ -25,6 +25,7 @@
   line-height: 28px;
   color: #1890FF;
   font-weight: bold;
+  display: flex;
 }
 
 .info p {

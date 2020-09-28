@@ -403,7 +403,9 @@ class ReservationInfo extends Component<
               <UsersReserveList users={requestor} />
             </Col>
 
-            {formInfo(type)}
+            <Col span={24} style={{ marginTop: 64 }}>
+              {formInfo(type)}
+            </Col>
 
             <Col span={24} style={{ marginTop: '55px' }}>
               <Row type="flex" justify="space-around">
@@ -429,6 +431,7 @@ class ReservationInfo extends Component<
         )}
 
         {!this.state.noTask && DataContainer()}
+
         {!this.state.loading && this.state.noTask && (
           <CenterIconLayout>
             {/* Empty */}
