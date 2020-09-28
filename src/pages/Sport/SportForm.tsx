@@ -10,9 +10,10 @@ import usernameValidator from 'Utils/username.validator';
 import styles from './styles.module.css';
 
 interface PropsTypes extends FormComponentProps {
-  required?: number;
-  onSubmit?: any;
-  owner?: string;
+  required: number;
+  onSubmit: any;
+  owner: string;
+  areaName: string;
 }
 
 interface StateTypes {
@@ -111,7 +112,7 @@ class SportForm extends Component<PropsTypes, StateTypes> {
   render() {
     const { getFieldDecorator } = this.props.form;
     const { users } = this.state;
-    const { owner } = this.props;
+    const { owner, areaName } = this.props;
 
     console.log('owner from props jaaa', owner);
     return (
@@ -125,8 +126,8 @@ class SportForm extends Component<PropsTypes, StateTypes> {
             {/* description */}
             <Col className={styles.desc} span={20}>
               <p>
-                ใช้รหัสนักศึกษา {users.length} คน
-                สำหรับการจองพื้นที่กีฬาแบดมินตัน
+                ใช้รหัสนักศึกษา {users.length} คน สำหรับการจองพื้นที่กีฬา
+                {areaName}
               </p>
             </Col>
           </Row>
