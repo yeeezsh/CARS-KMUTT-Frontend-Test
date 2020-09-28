@@ -31,7 +31,7 @@ class ConfirmPage extends Component<Props, {}> {
 
     return (
       <React.Fragment>
-        <OverviewBorderLayout expandOffset={445} marginTop={-32}>
+        <OverviewBorderLayout expandOffset={475} marginTop={-16}>
           <Row type="flex" justify="center">
             <Col span={24}>
               <Outline {...blueOutline}>ข้อมูลการจอง</Outline>
