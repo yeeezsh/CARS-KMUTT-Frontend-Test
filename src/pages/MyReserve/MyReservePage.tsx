@@ -19,7 +19,7 @@ const StateCard = Loadable({
   loading: () => null,
 });
 const ReservationInfo = Loadable({
-  loader: () => import('Components/ReservationInfo'),
+  loader: () => import('Components/ReservationInfo/ReservationInfo'),
   loading: () => null,
 });
 

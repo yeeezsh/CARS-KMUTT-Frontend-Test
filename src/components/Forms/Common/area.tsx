@@ -1,9 +1,8 @@
-import { Col, Row } from 'antd';
 import Form, { FormComponentProps } from 'antd/lib/form';
 import BreakingLine from 'Components/BreakingLine';
 import Button from 'Components/Button';
 import FormLabel from 'Components/FormLabel';
-// import { data } from 'Services/reserve/data';
+import ButtonActionLayout from 'Components/Layout/ButtonActionLayout';
 import NumberWithToggle from 'Components/NumberWithToggle';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -123,13 +122,9 @@ const AreaForm: React.FC<FormComponentProps & {
       <CustomBreakLine />
 
       {/* action */}
-      <Col span={24}>
-        <Row type="flex" justify="center">
-          <Col span={22}>
-            <Button onClick={onSubmit}>ต่อไป</Button>
-          </Col>
-        </Row>
-      </Col>
+      <ButtonActionLayout>
+        <Button onClick={onSubmit}>ต่อไป</Button>
+      </ButtonActionLayout>
     </React.Fragment>
   );
 };

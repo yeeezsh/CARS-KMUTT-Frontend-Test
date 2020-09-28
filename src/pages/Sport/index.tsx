@@ -5,7 +5,7 @@ const Category = Loadable({
   loading: () => null,
 });
 const PageSport = Loadable({
-  loader: () => import('./Page'),
+  loader: () => import('./SportPage'),
   loading: () => null,
 });
 

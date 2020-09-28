@@ -1,6 +1,7 @@
 import { Col, Form, Input, Row } from 'antd';
 import { FormComponentProps } from 'antd/lib/form/Form';
 import Button from 'Components/Button';
+import ButtonActionLayout from 'Components/Layout/ButtonActionLayout';
 import Outline from 'Components/Outline';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -9,9 +10,10 @@ import usernameValidator from 'Utils/username.validator';
 import styles from './styles.module.css';
 
 interface PropsTypes extends FormComponentProps {
-  required?: number;
-  onSubmit?: any;
-  owner?: string;
+  required: number;
+  onSubmit: any;
+  owner: string;
+  sportName: string;
 }
 
 interface StateTypes {
@@ -26,7 +28,7 @@ let CACHE_STATE: StateTypes = {
   status: false,
 };
 
-class FormPage extends Component<PropsTypes, StateTypes> {
+class SportForm extends Component<PropsTypes, StateTypes> {
   constructor(props: PropsTypes) {
     super(props);
     this.state = {
@@ -95,7 +97,9 @@ class FormPage extends Component<PropsTypes, StateTypes> {
     const { users } = this.state;
     const { setFields } = this.props.form;
     return this.setState(
-      { users: users.map((e, i) => (Number(key) === i ? value : e)) },
+      {
+        users: users.map((user, i) => (Number(key) === i ? value : user)),
+      },
       () => {
         //   error exception when type
         return setFields({
@@ -110,7 +114,7 @@ class FormPage extends Component<PropsTypes, StateTypes> {
   render() {
     const { getFieldDecorator } = this.props.form;
     const { users } = this.state;
-    const { owner } = this.props;
+    const { owner, sportName: areaName } = this.props;
 
     console.log('owner from props jaaa', owner);
     return (
@@ -124,8 +128,8 @@ class FormPage extends Component<PropsTypes, StateTypes> {
             {/* description */}
             <Col className={styles.desc} span={20}>
               <p>
-                ใช้รหัสนักศึกษา {users.length} คน
-                สำหรับการจองพื้นที่กีฬาแบดมินตัน
+                ใช้รหัสนักศึกษา {users.length} คน สำหรับการจองพื้นที่กีฬา
+                {areaName}
               </p>
             </Col>
           </Row>
@@ -167,13 +171,9 @@ class FormPage extends Component<PropsTypes, StateTypes> {
         </Col>
 
         {/* Button */}
-        <Col span={24}>
-          <Row type="flex" justify="center">
-            <Col span={22}>
-              <Button onClick={this.onSubmit}>ต่อไป</Button>
-            </Col>
-          </Row>
-        </Col>
+        <ButtonActionLayout>
+          <Button onClick={this.onSubmit}>ต่อไป</Button>
+        </ButtonActionLayout>
       </React.Fragment>
     );
   }
@@ -186,6 +186,6 @@ const mapStateToProps = (rootReducers: RootReducersType) => {
   };
 };
 
-const wrapped = Form.create<PropsTypes>({})(FormPage);
+const wrapped = Form.create<PropsTypes>({})(SportForm);
 
 export default connect(mapStateToProps)(wrapped);

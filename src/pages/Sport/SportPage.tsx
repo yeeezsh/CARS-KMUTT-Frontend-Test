@@ -32,7 +32,7 @@ const TimePage = Loadable({
   loading: () => null,
 });
 const FormPage = Loadable({
-  loader: () => import('./Form'),
+  loader: () => import('./SportForm'),
   loading: () => null,
 });
 const ConfirmPage = Loadable({
@@ -240,8 +240,11 @@ class SportPage extends Component<
       const { location, history } = this.props;
       const { pathname } = location;
       const FINISH_PAGE = '/3';
-      const FIRST_STEP_PAGE = '/1';
-      const target = pathname.replace(FINISH_PAGE, FIRST_STEP_PAGE);
+      const FIRST_STEP_PAGE_NUMBER_IND = '/1';
+      const target = pathname.replace(
+        FINISH_PAGE,
+        FIRST_STEP_PAGE_NUMBER_IND,
+      );
 
       history.replace(target);
       this.props.queryArea(); // query again
@@ -292,9 +295,18 @@ class SportPage extends Component<
   }
 
   render() {
-    const { confirmModal, step, backCard, quota, failed } = this.state;
+    const {
+      confirmModal,
+      step,
+      backCard,
+      quota,
+      failed,
+      badge,
+    } = this.state;
 
     const { areaSelected } = this.props;
+
+    console.log('render', this.props, this.state);
 
     return (
       <React.Fragment>
@@ -360,6 +372,7 @@ class SportPage extends Component<
                 key={areaSelected.id}
                 required={areaSelected.required}
                 onSubmit={this.onForm}
+                sportName={badge}
               />
 
               {/* traling spaces */}
@@ -369,8 +382,6 @@ class SportPage extends Component<
             {/* overview */}
             <Route path="*/3">
               <ConfirmPage onConfirm={this.onConfirm} />
-              {/* traling spaces */}
-              <Col span={24} style={{ height: '150px' }} />
             </Route>
           </Switch>
         </PageLayout>

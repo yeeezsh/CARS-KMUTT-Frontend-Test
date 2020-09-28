@@ -5,6 +5,8 @@ import {
   OverviewSportForm,
 } from 'Components/Forms/Common';
 import { Overview as OverviewMeetingForm } from 'Components/Forms/Meeting';
+import ButtonActionLayout from 'Components/Layout/ButtonActionLayout';
+import OverviewBorderLayout from 'Components/Layout/OverviewBorderLayout';
 import Loading from 'Components/Loading';
 import { ButtonBackgroundColor } from 'Models/button/button.bg';
 import moment from 'moment';
@@ -212,20 +214,19 @@ class ReservationInfo extends Component<
     } = this.state;
 
     const modalMsg = owner ? MODAL_REJECT_MSG : undefined;
-    const formInfo = (type: TaskDetail['type']) => {
-      console.log('form type', type);
+    const formInfo = (taskType: TaskDetail['type']) => {
       if (!forms) return null;
-      if (type === TaskType.common) {
+      if (taskType === TaskType.common) {
         return (
           <OverviewCommonForm viewOnly={true} data={{ forms, area }} />
         );
       }
-      if (type === TaskType.commonSport) {
+      if (taskType === TaskType.commonSport) {
         return (
           <OverviewSportForm viewOnly={true} data={{ forms, area }} />
         );
       }
-      if (type === TaskType.meetingClub) {
+      if (taskType === TaskType.meetingClub) {
         return (
           <OverviewMeetingForm
             buttonOffeset={false}
@@ -234,7 +235,7 @@ class ReservationInfo extends Component<
           />
         );
       }
-      if (type === TaskType.meetingRoom) {
+      if (taskType === TaskType.meetingRoom) {
         return (
           <OverviewMeetingForm
             buttonOffeset={false}
@@ -251,17 +252,19 @@ class ReservationInfo extends Component<
       if (state === TaskStateType.reject) {
         return (
           <React.Fragment>
-            <Col span={11}>
-              <Button onClick={this.goBack}>ย้อนกลับ</Button>
-            </Col>
-            <Col span={11}>
-              <Button
-                style={{ backgroundColor: ButtonBackgroundColor.Blue }}
-                onClick={this.goEdit}
-              >
-                แก้ไข
-              </Button>
-            </Col>
+            <ButtonActionLayout>
+              <Col span={11}>
+                <Button onClick={this.goBack}>ย้อนกลับ</Button>
+              </Col>
+              <Col span={11}>
+                <Button
+                  style={{ backgroundColor: ButtonBackgroundColor.Blue }}
+                  onClick={this.goEdit}
+                >
+                  แก้ไข
+                </Button>
+              </Col>
+            </ButtonActionLayout>
           </React.Fragment>
         );
       } else if (
@@ -272,17 +275,21 @@ class ReservationInfo extends Component<
       ) {
         return (
           <React.Fragment>
-            <Col span={11}>
-              <Button onClick={this.goBack}>ย้อนกลับ</Button>
-            </Col>
-            <Col span={11}>
-              <Button
-                style={{ backgroundColor: ButtonBackgroundColor.Grey }}
-                onClick={this.onModal}
-              >
-                ยกเลิก
-              </Button>
-            </Col>
+            <ButtonActionLayout>
+              <Row type="flex" justify="space-around">
+                <Col span={11}>
+                  <Button onClick={this.goBack}>ย้อนกลับ</Button>
+                </Col>
+                <Col span={11}>
+                  <Button
+                    style={{ backgroundColor: ButtonBackgroundColor.Grey }}
+                    onClick={this.onModal}
+                  >
+                    ยกเลิก
+                  </Button>
+                </Col>
+              </Row>
+            </ButtonActionLayout>
           </React.Fragment>
         );
       } else if (
@@ -294,25 +301,30 @@ class ReservationInfo extends Component<
       ) {
         return (
           <React.Fragment>
-            <Col span={11}>
-              <Button onClick={this.goBack}>ย้อนกลับ</Button>
-            </Col>
-            <Col span={11}>
-              <Button
-                style={{ backgroundColor: ButtonBackgroundColor.Blue }}
-                onClick={this.onModal}
-              >
-                ยืนยัน
-              </Button>
-            </Col>
+            <ButtonActionLayout>
+              <Col span={11}>
+                <Button onClick={this.goBack}>ย้อนกลับ</Button>
+              </Col>
+              <Col span={11}>
+                <Button
+                  style={{ backgroundColor: ButtonBackgroundColor.Blue }}
+                  onClick={this.onModal}
+                >
+                  ยืนยัน
+                </Button>
+              </Col>
+            </ButtonActionLayout>
           </React.Fragment>
         );
       } else {
         return (
           <React.Fragment>
-            <Col span={24}>
+            <ButtonActionLayout>
               <Button onClick={this.goBack}>ย้อนกลับ</Button>
-            </Col>
+            </ButtonActionLayout>
+            {/* <Col span={24}>
+              
+            </Col> */}
           </React.Fragment>
         );
       }
@@ -325,7 +337,7 @@ class ReservationInfo extends Component<
             <ReservationMessage key={i} msg={e.msg} date={e.createAt} />
           ))}
 
-          <Col span={24} className={styles.overview}>
+          <Col span={24}>
             <Row type="flex" justify="space-between">
               <Col>
                 <Outline>ข้อมูลการจอง</Outline>
@@ -392,7 +404,9 @@ class ReservationInfo extends Component<
               <UsersReserveList users={requestor} />
             </Col>
 
-            {formInfo(type)}
+            <Col span={24} style={{ marginTop: 64 }}>
+              {formInfo(type)}
+            </Col>
 
             <Col span={24} style={{ marginTop: '55px' }}>
               <Row type="flex" justify="space-around">
@@ -417,7 +431,12 @@ class ReservationInfo extends Component<
           </CenterIconLayout>
         )}
 
-        {!this.state.noTask && DataContainer()}
+        {!this.state.noTask && (
+          <OverviewBorderLayout marginTop={-6} color="#fbbe9b">
+            <DataContainer />
+          </OverviewBorderLayout>
+        )}
+
         {!this.state.loading && this.state.noTask && (
           <CenterIconLayout>
             {/* Empty */}

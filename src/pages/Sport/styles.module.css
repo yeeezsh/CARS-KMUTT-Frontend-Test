@@ -19,13 +19,6 @@
   background-color: white;
 }
 
-.overview {
-  border: 1px solid #91d5ff;
-  box-sizing: border-box;
-  border-radius: 4px;
-  padding: 12px;
-}
-
 .overviewHeader {
   font-weight: bold;
   font-size: 16px;

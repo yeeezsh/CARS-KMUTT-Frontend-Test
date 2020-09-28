@@ -5,11 +5,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Card from './Card';
 
-export default function KanbanCard(props: {
+interface Props {
   menu?: Menu[];
   needActions?: string[];
   callback?: (e: Menu) => void;
-}) {
+}
+
+const KanbanCard: React.FC<Props> = props => {
   const { needActions } = props;
   let menu = props.menu ? props.menu : defaultMenu;
 
@@ -91,4 +93,5 @@ export default function KanbanCard(props: {
       </Row>
     </React.Fragment>
   );
-}
+};
+export default React.memo(KanbanCard);

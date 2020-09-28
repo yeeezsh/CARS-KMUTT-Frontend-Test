@@ -1,5 +1,7 @@
 import { Col, Row } from 'antd';
 import Button from 'Components/Button';
+import ButtonActionLayout from 'Components/Layout/ButtonActionLayout';
+import OverviewBorderLayout from 'Components/Layout/OverviewBorderLayout';
 import Outline from 'Components/Outline';
 import blueOutline from 'Models/outline/blue.outline';
 import { Moment } from 'moment';
@@ -29,21 +31,21 @@ class ConfirmPage extends Component<Props, {}> {
 
     return (
       <React.Fragment>
-        <Col className={styles.overview} span={24}>
+        <OverviewBorderLayout expandOffset={475} marginTop={-16}>
           <Row type="flex" justify="center">
-            <Col span={20}>
+            <Col span={24}>
               <Outline {...blueOutline}>ข้อมูลการจอง</Outline>
             </Col>
 
-            <Col style={{ marginTop: '-14px' }} span={20}>
+            <Col style={{ marginTop: '-14px' }} span={24}>
               <span className={styles.overviewHeader}>สนามกีฬา</span>
               <span>{areaSelected.label}</span>
             </Col>
-            <Col span={20}>
+            <Col span={24}>
               <span className={styles.overviewHeader}>วันที่จอง</span>
               <span>วันที่ {dateSelected.format('DD MMMM YYYY')}</span>
             </Col>
-            <Col span={20}>
+            <Col span={24}>
               <span className={styles.overviewHeader}>เวลา</span>
               <span>
                 เวลา {timeSelected && timeSelected.format('HH.mm')} -{' '}
@@ -52,7 +54,7 @@ class ConfirmPage extends Component<Props, {}> {
               </span>
             </Col>
 
-            <Col style={{ marginTop: '6px' }} span={20}>
+            <Col style={{ marginTop: '6px' }} span={24}>
               <span className={styles.overviewStudentIds}>
                 รหัสนักศึกษา
               </span>
@@ -66,21 +68,15 @@ class ConfirmPage extends Component<Props, {}> {
           </Row>
 
           {/* Button */}
-          <Col style={{ marginTop: '16px' }} span={24}>
-            <Row type="flex" justify="center">
-              <Col span={22}>
-                <Button
-                  style={{ backgroundColor: '#1890FF' }}
-                  onClick={this.props.onConfirm}
-                >
-                  {users?.length > 1
-                    ? 'ส่งรีเควสไปให้เพื่อน'
-                    : 'ยืนยันการจอง'}
-                </Button>
-              </Col>
-            </Row>
-          </Col>
-        </Col>
+          <ButtonActionLayout>
+            <Button
+              style={{ backgroundColor: '#1890FF' }}
+              onClick={this.props.onConfirm}
+            >
+              {users?.length > 1 ? 'ส่งรีเควสไปให้เพื่อน' : 'ยืนยันการจอง'}
+            </Button>
+          </ButtonActionLayout>
+        </OverviewBorderLayout>
       </React.Fragment>
     );
   }

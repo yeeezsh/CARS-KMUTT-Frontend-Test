@@ -1,7 +1,9 @@
-import { Checkbox, Col, Form, Row } from 'antd';
+import { Checkbox, Form } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 import BreakingLine from 'Components/BreakingLine';
 import Button from 'Components/Button';
+import ButtonActionLayout from 'Components/Layout/ButtonActionLayout';
+import OverviewBorderLayout from 'Components/Layout/OverviewBorderLayout';
 import Outline from 'Components/Outline';
 import moment from 'moment';
 import Trail from 'Pages/Areas/Common/common/Trail';
@@ -17,6 +19,10 @@ import {
 } from 'Store/reducers/areaForm/actions';
 import { AreaInfo } from 'Store/reducers/areaForm/types';
 import { FacilityForm } from './facility';
+import {
+  FORM_COMMON_LAYOUT_EXPAND_OFFSET,
+  FORM_COMMON_LAYOUT_MARGIN_TOP,
+} from './layout.constant';
 import { ProjectForm } from './project';
 // interfaces
 import { RequestorForm } from './requestor';
@@ -120,17 +126,13 @@ const OverviewCommonForm: React.FC<FormComponentProps & Props> = props => {
 
   return (
     <React.Fragment>
-      <Col
-        style={{
-          border: props.viewOnly ? '' : '1px solid #1890FF',
-          padding: '0px 16px 16px 16px',
-        }}
-        span={24}
+      <OverviewBorderLayout
+        viewOnly={props.viewOnly}
+        expandOffset={FORM_COMMON_LAYOUT_EXPAND_OFFSET}
+        marginTop={FORM_COMMON_LAYOUT_MARGIN_TOP}
       >
         {!props.viewOnly && (
-          <Outline style={{ color: '#1890FF', paddingTop: '25px' }}>
-            ข้อมูลการจอง
-          </Outline>
+          <Outline style={{ color: '#1890FF' }}>ข้อมูลการจอง</Outline>
         )}
         {/* overview section */}
         <CustomLabel>สถานที่</CustomLabel>
@@ -152,13 +154,13 @@ const OverviewCommonForm: React.FC<FormComponentProps & Props> = props => {
           {projectData &&
             projectData.projectStartTime &&
             moment(projectData.projectStartTime).format('HH.mm')}{' '}
-          น. <br />
+          น.
           {projectData &&
           !projectData.projectStopDate && // when not have stop date show end time here
             projectData.projectStopTime &&
             ' ถึง ' +
               moment(projectData.projectStopTime).format('HH.mm')}{' '}
-          น. <br />
+          <br />
           {/* stop date */}
           {projectData && projectData.projectStopDate && (
             <React.Fragment>
@@ -287,19 +289,16 @@ const OverviewCommonForm: React.FC<FormComponentProps & Props> = props => {
         </div>
 
         <Trail size={25} />
+
         {/* action */}
         {!props.viewOnly && (
-          <Col span={24}>
-            <Row type="flex" justify="center">
-              <Col span={22}>
-                <Button type="confirm" onClick={onSubmit}>
-                  ยืนยันข้อมูลการจอง
-                </Button>
-              </Col>
-            </Row>
-          </Col>
+          <ButtonActionLayout>
+            <Button type="confirm" onClick={onSubmit}>
+              ยืนยันข้อมูลการจอง
+            </Button>
+          </ButtonActionLayout>
         )}
-      </Col>
+      </OverviewBorderLayout>
     </React.Fragment>
   );
 };

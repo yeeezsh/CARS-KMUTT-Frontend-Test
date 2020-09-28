@@ -9,7 +9,7 @@ const UsersReserveList: React.FC<{
 }> = props => {
   const { users } = props;
   return (
-    <React.Fragment>
+    <div>
       {users &&
         users.map((e, i) => (
           <p className={styles.studentId} key={i}>
@@ -23,7 +23,7 @@ const UsersReserveList: React.FC<{
             )}
           </p>
         ))}
-    </React.Fragment>
+    </div>
   );
 };
 

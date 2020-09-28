@@ -5,6 +5,7 @@ import greySquareIcon from 'Assets/icons/square/grey.svg';
 // icons
 import orangeSquareIcon from 'Assets/icons/square/orange.svg';
 import labelStyles from 'Components/Forms/Common/styles/label';
+import ButtonActionLayout from 'Components/Layout/ButtonActionLayout';
 // interfaces
 import TimeNode from 'Components/TimeTable/timetable.interface';
 import moment, { Moment } from 'moment';
@@ -65,6 +66,8 @@ const OFFSET_DAY = 3;
 const AREA_PARAM_IND = 5;
 const RESERVATION_INTERVAL = 60;
 const RESERVATION_OFFSET_INTERVAL = RESERVATION_INTERVAL - 1;
+// const OFFSET_BOTTOM = 595;
+const OFFSET_BOTTOM = 355;
 
 interface Props {
   ind?: number;
@@ -353,13 +356,9 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
       </Col>
 
       {/* action */}
-      <Col span={24}>
-        <Row type="flex" justify="center">
-          <Col span={22}>
-            <Button onClick={onSubmit}>ต่อไป</Button>
-          </Col>
-        </Row>
-      </Col>
+      <ButtonActionLayout>
+        <Button onClick={onSubmit}>ต่อไป</Button>
+      </ButtonActionLayout>
     </>
   );
 };

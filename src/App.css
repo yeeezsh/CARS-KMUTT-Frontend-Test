@@ -9,6 +9,10 @@ a:hover {
 
 /* antd overrides */
 
+.ant-scrolling-effect {
+  width: 0 !important;
+} 
+
 /* steps */
 .ant-steps-horizontal.ant-steps-label-horizontal {
   display: flex;

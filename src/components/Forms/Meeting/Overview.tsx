@@ -1,12 +1,12 @@
-import { Checkbox, Col, Row } from 'antd';
+import { Checkbox } from 'antd';
 import Form, { FormComponentProps } from 'antd/lib/form';
 import BreakingLine from 'Components/BreakingLine';
 import Button from 'Components/Button';
 // pages
 import { FacilityForm } from 'Components/Forms/Common/facility';
+import ButtonActionLayout from 'Components/Layout/ButtonActionLayout';
+import OverviewBorderLayout from 'Components/Layout/OverviewBorderLayout';
 import Outline from 'Components/Outline';
-// hooks
-import useWindowResize from 'Hooks/use.windows.resize';
 import moment from 'moment';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -30,9 +30,6 @@ interface Props {
   showFacility?: boolean;
   buttonOffeset?: boolean | number;
 }
-
-// constant
-const OFFSET_BTN = 595;
 
 // custom components
 const CustomBrakeLine: React.FC = () => (
@@ -85,8 +82,6 @@ const Overview: React.FC<FormComponentProps & Props> = props => {
     dispatch(setFormCurrentIndex(CUR_IND));
   }, []);
 
-  const size = useWindowResize();
-
   function onSubmit() {
     validateFields((err, values) => {
       dispatch(fillForm({ form: values, valid: false }));
@@ -98,15 +93,7 @@ const Overview: React.FC<FormComponentProps & Props> = props => {
   }
   return (
     <React.Fragment>
-      <Col
-        style={{
-          border: props.viewOnly ? '' : '1px solid #1890FF',
-          // padding: '0px 16px 16px 16px',
-          padding: 24,
-          marginTop: -16,
-        }}
-        span={24}
-      >
+      <OverviewBorderLayout viewOnly={props.viewOnly} expandOffset={540}>
         {!props.viewOnly && (
           <Outline style={{ color: '#1890FF' }}>ข้อมูลการจอง</Outline>
         )}
@@ -181,29 +168,16 @@ const Overview: React.FC<FormComponentProps & Props> = props => {
             </Checkbox>
           </div>
         </div>
-        {/* space */}
-        {props.buttonOffeset === false ? null : (
-          <div
-            style={{
-              height:
-                size.height - (Number(props.buttonOffeset) || OFFSET_BTN),
-            }}
-          />
-        )}
 
         {/* action */}
         {!props.viewOnly && (
-          <Col span={24}>
-            <Row type="flex" justify="center">
-              <Col span={22}>
-                <Button type="confirm" onClick={onSubmit}>
-                  ยืนยันข้อมูลการจอง
-                </Button>
-              </Col>
-            </Row>
-          </Col>
+          <ButtonActionLayout>
+            <Button type="confirm" onClick={onSubmit}>
+              ยืนยันข้อมูลการจอง
+            </Button>
+          </ButtonActionLayout>
         )}
-      </Col>
+      </OverviewBorderLayout>
     </React.Fragment>
   );
 };
