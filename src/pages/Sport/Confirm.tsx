@@ -30,7 +30,7 @@ class ConfirmPage extends Component<Props, {}> {
 
     return (
       <React.Fragment>
-        <Col className={styles.overview} span={24}>
+        <Col span={24}>
           <Row type="flex" justify="center">
             <Col span={20}>
               <Outline {...blueOutline}>ข้อมูลการจอง</Outline>
