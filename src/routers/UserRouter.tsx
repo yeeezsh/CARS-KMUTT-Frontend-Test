@@ -154,7 +154,6 @@ class UserRouter extends Component<
         <Route path="/reserve/area/meeting">
           <Switch>
             <Route path="*/areas">
-              {console.log('area kaaaa', this.state)}
               <MeetingArea />
             </Route>
             <Route path="*/meeting-club/:id">
