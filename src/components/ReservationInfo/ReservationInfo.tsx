@@ -253,17 +253,19 @@ class ReservationInfo extends Component<
         return (
           <React.Fragment>
             <ButtonActionLayout>
-              <Col span={11}>
-                <Button onClick={this.goBack}>ย้อนกลับ</Button>
-              </Col>
-              <Col span={11}>
-                <Button
-                  style={{ backgroundColor: ButtonBackgroundColor.Blue }}
-                  onClick={this.goEdit}
-                >
-                  แก้ไข
-                </Button>
-              </Col>
+              <Row type="flex" justify="space-around">
+                <Col span={11}>
+                  <Button onClick={this.goBack}>ย้อนกลับ</Button>
+                </Col>
+                <Col span={11}>
+                  <Button
+                    style={{ backgroundColor: ButtonBackgroundColor.Blue }}
+                    onClick={this.goEdit}
+                  >
+                    แก้ไข
+                  </Button>
+                </Col>
+              </Row>
             </ButtonActionLayout>
           </React.Fragment>
         );
