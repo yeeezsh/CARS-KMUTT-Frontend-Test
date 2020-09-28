@@ -19,6 +19,10 @@ import {
 } from 'Store/reducers/areaForm/actions';
 import { AreaInfo } from 'Store/reducers/areaForm/types';
 import { FacilityForm } from './facility';
+import {
+  FORM_COMMON_LAYOUT_EXPAND_OFFSET,
+  FORM_COMMON_LAYOUT_MARGIN_TOP,
+} from './layout.constant';
 import { ProjectForm } from './project';
 // interfaces
 import { RequestorForm } from './requestor';
@@ -122,11 +126,13 @@ const OverviewCommonForm: React.FC<FormComponentProps & Props> = props => {
 
   return (
     <React.Fragment>
-      <OverviewBorderLayout viewOnly={props.viewOnly} offset={540}>
+      <OverviewBorderLayout
+        viewOnly={props.viewOnly}
+        expandOffset={FORM_COMMON_LAYOUT_EXPAND_OFFSET}
+        marginTop={FORM_COMMON_LAYOUT_MARGIN_TOP}
+      >
         {!props.viewOnly && (
-          <Outline style={{ color: '#1890FF', paddingTop: '25px' }}>
-            ข้อมูลการจอง
-          </Outline>
+          <Outline style={{ color: '#1890FF' }}>ข้อมูลการจอง</Outline>
         )}
         {/* overview section */}
         <CustomLabel>สถานที่</CustomLabel>

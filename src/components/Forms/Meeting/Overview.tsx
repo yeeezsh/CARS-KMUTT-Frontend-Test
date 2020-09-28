@@ -93,7 +93,7 @@ const Overview: React.FC<FormComponentProps & Props> = props => {
   }
   return (
     <React.Fragment>
-      <OverviewBorderLayout viewOnly={props.viewOnly} offset={540}>
+      <OverviewBorderLayout viewOnly={props.viewOnly} expandOffset={540}>
         {!props.viewOnly && (
           <Outline style={{ color: '#1890FF' }}>ข้อมูลการจอง</Outline>
         )}
