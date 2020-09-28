@@ -305,7 +305,7 @@ const TaskPage: React.FC = () => {
               background: '#FFFFFF',
               marginTop: '-4px',
               minHeight: '350px',
-              padding: '32px 72px 32px 72px',
+              // padding: '24px 72px 24px 72px',
             },
           }}
         >
@@ -385,16 +385,16 @@ const TaskPage: React.FC = () => {
               <UsersReserveList users={task.requestor} />
             </Col>
 
-            {/* <CustomBrakeLine /> */}
             {/* extend forms */}
 
-            <Col style={{ fontWeight: 'normal' }} span={24}>
+            <Col style={{ fontWeight: 'normal', marginTop: 24 }} span={24}>
+              <div style={{ height: 32 }} />
               {formInfo(task.type)}
             </Col>
 
             {/* Action */}
             {
-              <React.Fragment>
+              <div>
                 {/* accept  */}
                 {!accepted && (
                   <Button
@@ -450,7 +450,7 @@ const TaskPage: React.FC = () => {
                     ไม่อนุมัติ
                   </Button>
                 )}
-              </React.Fragment>
+              </div>
             }
           </Row>
         </Col>
