@@ -11,7 +11,7 @@ const OverviewBorderLayout: React.FC<{
 }> = props => {
   const { viewOnly, children } = props;
   const { height } = useWindowResize();
-  const offset = props.expandOffset || 200;
+  const offset = viewOnly === true ? height : props.expandOffset || 200;
   const color = props.color || '#1890FF';
   const marginTop = props.marginTop || -32;
   const style: React.CSSProperties = {
