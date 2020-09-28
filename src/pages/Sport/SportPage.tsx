@@ -292,9 +292,18 @@ class SportPage extends Component<
   }
 
   render() {
-    const { confirmModal, step, backCard, quota, failed } = this.state;
+    const {
+      confirmModal,
+      step,
+      backCard,
+      quota,
+      failed,
+      badge,
+    } = this.state;
 
     const { areaSelected } = this.props;
+
+    console.log('render', this.props, this.state);
 
     return (
       <React.Fragment>
@@ -360,6 +369,7 @@ class SportPage extends Component<
                 key={areaSelected.id}
                 required={areaSelected.required}
                 onSubmit={this.onForm}
+                sportName={badge}
               />
 
               {/* traling spaces */}

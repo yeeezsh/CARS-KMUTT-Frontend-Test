@@ -13,7 +13,7 @@ interface PropsTypes extends FormComponentProps {
   required: number;
   onSubmit: any;
   owner: string;
-  areaName: string;
+  sportName: string;
 }
 
 interface StateTypes {
@@ -112,7 +112,7 @@ class SportForm extends Component<PropsTypes, StateTypes> {
   render() {
     const { getFieldDecorator } = this.props.form;
     const { users } = this.state;
-    const { owner, areaName } = this.props;
+    const { owner, sportName: areaName } = this.props;
 
     console.log('owner from props jaaa', owner);
     return (
