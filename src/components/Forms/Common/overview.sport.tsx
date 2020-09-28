@@ -181,7 +181,6 @@ const OverviewCommonForm: React.FC<FormComponentProps & Props> = props => {
           {projectData &&
             projectData.projectStartTime &&
             moment(projectData.projectStartTime).format('HH.mm')}{' '}
-          น. <br />
           {projectData &&
           !projectData.projectStopDate && // when not have stop date show end time here
             projectData.projectStopTime &&
