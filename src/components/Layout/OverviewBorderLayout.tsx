@@ -6,17 +6,19 @@ const OverviewBorderLayout: React.FC<{
   viewOnly?: boolean; // view hide border
   style?: React.CSSProperties;
   color?: React.CSSProperties['color'];
-  offset?: number;
+  expandOffset?: number;
+  marginTop?: number;
 }> = props => {
   const { viewOnly, children } = props;
   const { height } = useWindowResize();
-  const offset = props.offset || 200;
+  const offset = props.expandOffset || 200;
   const color = props.color || '#1890FF';
-
+  const marginTop = props.marginTop || -32;
   const style: React.CSSProperties = {
     border: viewOnly ? '' : `1px solid ${color}`,
     padding: 24,
-    marginTop: -32,
+    margin: 0,
+    marginTop,
   };
   return (
     <Col span={24} style={style}>
