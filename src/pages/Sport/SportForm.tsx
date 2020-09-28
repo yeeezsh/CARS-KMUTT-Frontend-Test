@@ -97,7 +97,9 @@ class SportForm extends Component<PropsTypes, StateTypes> {
     const { users } = this.state;
     const { setFields } = this.props.form;
     return this.setState(
-      { users: users.map((e, i) => (Number(key) === i ? value : e)) },
+      {
+        users: users.map((user, i) => (Number(key) === i ? value : user)),
+      },
       () => {
         //   error exception when type
         return setFields({
