@@ -379,8 +379,6 @@ class SportPage extends Component<
             {/* overview */}
             <Route path="*/3">
               <ConfirmPage onConfirm={this.onConfirm} />
-              {/* traling spaces */}
-              <Col span={24} style={{ height: '150px' }} />
             </Route>
           </Switch>
         </PageLayout>
