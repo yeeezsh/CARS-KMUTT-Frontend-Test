@@ -2,8 +2,10 @@ import Menu from 'Models/kanbanCard/interface';
 import BackCardStyles from 'Pages/Areas/styles/backcard';
 import React, { useEffect, useState } from 'react';
 import Loadable from 'react-loadable';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import { commonAreaAPI } from 'Services/area/common';
+import { setFormCurrentIndex } from 'Store/reducers/areaForm/actions';
 const BackCard = Loadable({
   loader: () => import('Components/BackCard'),
   loading: () => null,
@@ -19,6 +21,7 @@ const KanbanCard = Loadable({
 
 const Types: React.FC = () => {
   const [areas, setAreas] = useState<Menu[]>([]);
+  const dispatch = useDispatch();
   const history = useHistory();
 
   useEffect(() => {
@@ -26,6 +29,9 @@ const Types: React.FC = () => {
       console.log('common area api', a);
       setAreas(a);
     });
+
+    // clear form index state
+    dispatch(setFormCurrentIndex(0));
   }, []);
 
   function goBack() {

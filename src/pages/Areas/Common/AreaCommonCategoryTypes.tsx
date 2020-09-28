@@ -4,8 +4,10 @@ import BackCard from 'Components/BackCard';
 import KanbanCard from 'Components/KanbanCard/KanbanCard';
 import KanBanLayout from 'Components/Layout/KanbanLayout';
 import Menu from 'Models/kanbanCard/interface';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
+import { setFormCurrentIndex } from 'Store/reducers/areaForm/actions';
 import BackCardStyles from '../styles/backcard';
 
 const AreaCommonCategoryTypesPage: React.FunctionComponent<{
@@ -16,6 +18,7 @@ const AreaCommonCategoryTypesPage: React.FunctionComponent<{
   const location = useLocation();
   const history = useHistory();
   const areaId = location.pathname.split('/')[3];
+  const dispatch = useDispatch();
 
   const menu: Menu[] = [
     {
@@ -50,6 +53,11 @@ const AreaCommonCategoryTypesPage: React.FunctionComponent<{
       e.callback &&
       props.selected(e.callback());
   }
+
+  useEffect(() => {
+    // clear form index state
+    dispatch(setFormCurrentIndex(0));
+  }, []);
 
   return (
     <KanBanLayout title="จองพื้นที่ส่วนกลาง" outline="เลือกประเภทกิจกรรม">
