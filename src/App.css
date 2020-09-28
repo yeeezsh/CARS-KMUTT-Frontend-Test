@@ -10,7 +10,7 @@ a:hover {
 /* antd overrides */
 
 .ant-scrolling-effect {
-  width: inherit;
+  width: 0 !important;
 } 
 
 /* steps */
