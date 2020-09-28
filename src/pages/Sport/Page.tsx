@@ -32,7 +32,7 @@ const TimePage = Loadable({
   loading: () => null,
 });
 const FormPage = Loadable({
-  loader: () => import('./Form'),
+  loader: () => import('./SportForm'),
   loading: () => null,
 });
 const ConfirmPage = Loadable({

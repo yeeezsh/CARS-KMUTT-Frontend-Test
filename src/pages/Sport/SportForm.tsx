@@ -27,7 +27,7 @@ let CACHE_STATE: StateTypes = {
   status: false,
 };
 
-class FormPage extends Component<PropsTypes, StateTypes> {
+class SportForm extends Component<PropsTypes, StateTypes> {
   constructor(props: PropsTypes) {
     super(props);
     this.state = {
@@ -183,6 +183,6 @@ const mapStateToProps = (rootReducers: RootReducersType) => {
   };
 };
 
-const wrapped = Form.create<PropsTypes>({})(FormPage);
+const wrapped = Form.create<PropsTypes>({})(SportForm);
 
 export default connect(mapStateToProps)(wrapped);
