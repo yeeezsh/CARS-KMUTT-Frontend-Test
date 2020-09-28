@@ -336,7 +336,7 @@ class ReservationInfo extends Component<
             <ReservationMessage key={i} msg={e.msg} date={e.createAt} />
           ))}
 
-          <Col span={24} className={styles.overview}>
+          <Col span={24}>
             <Row type="flex" justify="space-between">
               <Col>
                 <Outline>ข้อมูลการจอง</Outline>
