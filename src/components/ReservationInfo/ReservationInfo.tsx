@@ -6,6 +6,7 @@ import {
 } from 'Components/Forms/Common';
 import { Overview as OverviewMeetingForm } from 'Components/Forms/Meeting';
 import ButtonActionLayout from 'Components/Layout/ButtonActionLayout';
+import OverviewBorderLayout from 'Components/Layout/OverviewBorderLayout';
 import Loading from 'Components/Loading';
 import { ButtonBackgroundColor } from 'Models/button/button.bg';
 import moment from 'moment';
@@ -430,7 +431,11 @@ class ReservationInfo extends Component<
           </CenterIconLayout>
         )}
 
-        {!this.state.noTask && DataContainer()}
+        {!this.state.noTask && (
+          <OverviewBorderLayout marginTop={-6} color="#fbbe9b">
+            <DataContainer />
+          </OverviewBorderLayout>
+        )}
 
         {!this.state.loading && this.state.noTask && (
           <CenterIconLayout>
