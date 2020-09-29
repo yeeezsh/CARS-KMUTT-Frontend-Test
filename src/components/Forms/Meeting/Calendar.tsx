@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 import Area from 'Services/area/@interfaces/area.available.interface';
 import { AreaServiceResponseAPI } from 'Services/area/@interfaces/area.interfaces';
-import { areaAPI } from 'Services/area/area.service';
+import { areaService } from 'Services/area/area.service';
 // data store & API
 import { RootReducersType } from 'Store/reducers';
 import {
@@ -190,9 +190,9 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
 
   // selectDate observe
   useEffect(() => {
-    areaAPI.getAreaInfo(areaId).then(async a => {
+    areaService.getAreaInfo(areaId).then(async a => {
       dispatch(setAreaInfoForm(a));
-      const areaFetch = await areaAPI.getAreaAvailableMeeting(
+      const areaFetch = await areaService.getAreaAvailableMeeting(
         areaId,
         selectedDate,
       );

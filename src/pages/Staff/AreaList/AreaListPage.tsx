@@ -1,7 +1,7 @@
 import StaffLayout from 'Components/Layout/Staff/Home';
 import React, { useEffect, useState } from 'react';
 import { AreaTableAPI } from 'Services/area/@interfaces/area.interfaces';
-import { areaAPI } from 'Services/area/area.service';
+import { areaService } from 'Services/area/area.service';
 import AreaTable from './AreaTable';
 
 const AreaListPage: React.FC = () => {
@@ -9,7 +9,7 @@ const AreaListPage: React.FC = () => {
   const [data, setData] = useState(init);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    areaAPI.getBuildingTable().then(d => {
+    areaService.getBuildingTable().then(d => {
       setData(d);
       setLoading(false);
     });
