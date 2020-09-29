@@ -1,5 +1,6 @@
 import { Moment } from 'moment';
 import AreaBuildingType from '../@types/area.building.type';
+import AreaQuotaType from '../@types/area.quota.type';
 import { AreaBuilding } from './area.building.interfaces';
 
 export interface AreaReseveAPI {
@@ -31,6 +32,7 @@ export interface AreaServiceResponseAPI {
   required?: {
     requestor: number;
   };
+  quota?: AreaQuotaType;
   type: AreaBuildingType;
   forward: number;
   reserve: AreaReseveAPI[];
