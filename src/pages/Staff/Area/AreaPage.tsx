@@ -1,8 +1,8 @@
 import Loading from 'Components/Loading';
 import useAreaId from 'Hooks/useAreaId';
 import React, { useEffect, useState } from 'react';
-import { areaAPI } from 'Services/area';
 import { AreaServiceResponseAPI } from 'Services/area/@interfaces/area.interfaces';
+import { areaAPI } from 'Services/area/area.service';
 import AreaPageFactory from './AreaPageFactory';
 
 const AreaPage: React.FC = () => {

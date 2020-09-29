@@ -9,8 +9,8 @@ import React, { useEffect, useState } from 'react';
 import Loadable from 'react-loadable';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch, useHistory, useLocation } from 'react-router';
-import { areaAPI } from 'Services/area';
 import { AreaServiceResponseAPI } from 'Services/area/@interfaces/area.interfaces';
+import { areaAPI } from 'Services/area/area.service';
 import { taskMeetingAPI } from 'Services/task/meeting';
 import { RootReducersType } from 'Store/reducers';
 import {

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Loadable from 'react-loadable';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch, useHistory, useLocation } from 'react-router';
-import { areaAPI } from 'Services/area';
+import { areaAPI } from 'Services/area/area.service';
 // store / data
 import { taskFormAPI } from 'Services/task/form';
 import { RootReducersType } from 'Store/reducers';
