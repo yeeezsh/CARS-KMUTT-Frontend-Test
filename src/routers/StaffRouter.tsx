@@ -3,11 +3,11 @@ import React, { useEffect } from 'react';
 import Loadable from 'react-loadable';
 import { useDispatch } from 'react-redux';
 import { Route, Router, useHistory, useLocation } from 'react-router';
-import { u } from 'Services/user';
 import {
   StaffPermissionType,
   STAFF_PERMISSION,
 } from 'Services/user/staff.interface';
+import { userService } from 'Services/user/user.service';
 import { setButtonActionLayout } from 'Store/reducers/layout/layout.action';
 
 const StaffSiderLayout = Loadable({
@@ -72,7 +72,7 @@ const StaffRouter: React.FunctionComponent = () => {
 
   useEffect(() => {
     const validStaff = STAFF_PERMISSION.includes(
-      u.GetUser().group as StaffPermissionType,
+      userService.GetUser().group as StaffPermissionType,
     );
     if (!validStaff && location.pathname !== '/staff/login') {
       console.warn('redirecting to login pages cuz invalid permission');

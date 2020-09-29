@@ -9,7 +9,7 @@ import Area from 'Services/area/@interfaces/area.available.interface';
 import { stepLists } from 'Services/sport';
 import { taskSport } from 'Services/task/sport';
 import { TaskSport } from 'Services/task/sport/sport.interface';
-import { u } from 'Services/user';
+import { userService } from 'Services/user/user.service';
 import { RootReducersType } from 'Store/reducers';
 import {
   queryArea,
@@ -268,7 +268,7 @@ class SportPage extends Component<
       username,
     } = this.props;
 
-    const fetchQuota = await u.GetQuota();
+    const fetchQuota = await userService.GetQuota();
     const quota = fetchQuota.n < 1;
 
     const owner = username;

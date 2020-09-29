@@ -8,7 +8,7 @@ import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import Loadable from 'react-loadable';
 import AreaBuildingEnum from 'Services/area/@enums/area.building.enum';
-import { u } from 'Services/user';
+import { userService } from 'Services/user/user.service';
 import AreaPagePropsType from './@types/area.page.props.type';
 import cardStyle from './common/card.style';
 import useFetchAvailableAndQuickTask from './hooks/useFetchAvailableAndQuickTask';
@@ -69,7 +69,7 @@ const AreaPageCommonMeeting: React.FC<AreaPagePropsType> = props => {
     setSelecting(prev => prev.map(() => []));
   }
   const [onReserve] = useOnRserveTimeTableAPI(
-    u,
+    userService,
     areaInfo,
     onCancel,
     fetch,

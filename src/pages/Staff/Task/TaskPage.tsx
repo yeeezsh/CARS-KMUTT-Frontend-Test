@@ -13,9 +13,9 @@ import Loadable from 'react-loadable';
 import { useHistory, useLocation } from 'react-router';
 import { taskAPI } from 'Services/task';
 import { TaskDetail } from 'Services/task/task.interface';
-import { u } from 'Services/user';
 import { StaffPermissionType } from 'Services/user/staff.interface';
 import staffGroupHelper from 'Services/user/staffGroupHelper';
+import { userService } from 'Services/user/user.service';
 import { CustomBrakeLine, detailStyle, mainStyle } from './helper';
 import { initTask } from './init.state';
 import useCanReject from './useCanReject';
@@ -201,7 +201,7 @@ const TaskPage: React.FC = () => {
         }
 
         const currentUserLevel = staffGroupHelper(
-          u.GetUser().group as StaffPermissionType,
+          userService.GetUser().group as StaffPermissionType,
         );
 
         // cancle & accept

@@ -18,7 +18,7 @@ import React, { Component } from 'react';
 import Loadable from 'react-loadable';
 import { connect, ConnectedProps } from 'react-redux';
 import { Route, Router, Switch } from 'react-router';
-import { u } from 'Services/user';
+import { userService } from 'Services/user/user.service';
 import { setButtonActionLayout } from 'Store/reducers/layout/layout.action';
 import history from './history';
 import RouteGuard from './RouteGuard';
@@ -73,7 +73,7 @@ class UserRouter extends Component<
   componentDidMount = () => {
     // check authorized first
     const { location } = history;
-    const validUser = u.GetUser().group === 'requestor';
+    const validUser = userService.GetUser().group === 'requestor';
     if (!validUser && location.pathname !== '/login')
       return history.replace('/login');
 
@@ -99,7 +99,7 @@ class UserRouter extends Component<
     const { location } = history;
 
     // check authorized first
-    const validUser = u.GetUser().group === 'requestor';
+    const validUser = userService.GetUser().group === 'requestor';
     if (!validUser && location.pathname !== '/login')
       return history.replace('/login');
   };
