@@ -1,10 +1,10 @@
 import { Col, Icon, Row } from 'antd';
 import Form, { FormComponentProps } from 'antd/lib/form';
 import {
-  Calendar as CalendarFormComp,
+  CalendarMeeting as CalendarFormComp,
   OverviewMeeting as OverviewForm,
 } from 'Components/Forms/Meeting';
-import { CalendarForm } from 'Components/Forms/Meeting/Calendar';
+import { CalendarForm } from 'Components/Forms/Meeting/CalendarMeeting';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import Loadable from 'react-loadable';

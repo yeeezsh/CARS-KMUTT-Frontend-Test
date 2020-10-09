@@ -1,7 +1,7 @@
 import Loadable from 'react-loadable';
 
-const Calendar = Loadable({
-  loader: () => import('./Calendar'),
+const CalendarMeeting = Loadable({
+  loader: () => import('./CalendarMeeting'),
   loading: () => null,
 });
 const OverviewMeeting = Loadable({
@@ -9,4 +9,4 @@ const OverviewMeeting = Loadable({
   loading: () => null,
 });
 
-export { Calendar, OverviewMeeting };
+export { CalendarMeeting, OverviewMeeting };

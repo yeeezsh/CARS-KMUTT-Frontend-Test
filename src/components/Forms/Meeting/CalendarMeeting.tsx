@@ -82,7 +82,7 @@ export interface CalendarForm {
   stopTime: Moment;
 }
 
-const Calendar: React.FC<FormComponentProps & Props> = props => {
+const CalendarMeeting: React.FC<FormComponentProps & Props> = props => {
   const CUR_IND = props.ind || 0;
   const dispatch = useDispatch();
   const location = useLocation().pathname;
@@ -365,4 +365,4 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
 
 export default Form.create<FormComponentProps & Props>({
   name: 'calendar',
-})(Calendar);
+})(CalendarMeeting);

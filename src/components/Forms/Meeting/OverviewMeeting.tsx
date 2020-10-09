@@ -19,7 +19,7 @@ import {
   setFormCurrentIndex,
 } from 'Store/reducers/areaForm/actions';
 import { AreaInfo } from 'Store/reducers/areaForm/types';
-import { CalendarForm } from './Calendar';
+import { CalendarForm } from './CalendarMeeting';
 
 interface Props {
   ind?: number;
