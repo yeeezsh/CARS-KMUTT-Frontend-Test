@@ -84,7 +84,8 @@ const FormClub: React.FC<{
     props.areaInfo?._id || location.split('/')[AREA_PARAM_IND];
 
   function initFormHelper() {
-    areaAPI.getAreaInfo(areaId).then(a => dispatch(setAreaInfoForm(a)));
+    if (!props.areaInfo)
+      areaAPI.getAreaInfo(areaId).then(a => dispatch(setAreaInfoForm(a)));
     dispatch(initForm({ size: MAX_STEPS }));
     dispatch(setFormCurrentIndex(0));
   }
