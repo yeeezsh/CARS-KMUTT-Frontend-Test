@@ -317,12 +317,13 @@ const CalendarMeeting: React.FC<FormComponentProps & Props> = props => {
             // disable cur by curtime
             // TEMPORALILY DISABLED FOR TESTING
             disabledMapped = disabledMapped
-              .map(e => {
+              .map(disableSlot => {
                 // skip when day not in
-                if (today.valueOf() !== selectedDate?.valueOf()) return e;
+                if (today.valueOf() !== selectedDate?.valueOf())
+                  return disableSlot;
 
                 const valueMapped = moment(
-                  e.value.format(TIME_FORMAT),
+                  disableSlot.value.format(TIME_FORMAT),
                   TIME_FORMAT,
                 ).set('date', Number(selectedDate?.format('DD')));
                 const o: TimeNode = {
