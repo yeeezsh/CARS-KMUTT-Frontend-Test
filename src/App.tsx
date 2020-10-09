@@ -1,12 +1,9 @@
+import Loadable from '@loadable/component';
 import React, { Component } from 'react';
-import Loadable from 'react-loadable';
 import { u } from 'Services/user';
 import './App.css';
 
-const RootRouter = Loadable({
-  loader: () => import('./routers/RootRouter'),
-  loading: () => null,
-});
+const RootRouter = Loadable(() => import('./routers/RootRouter'));
 
 // const EXCEPION_PATH = ['/login', '/staff/login', '/staff'];
 

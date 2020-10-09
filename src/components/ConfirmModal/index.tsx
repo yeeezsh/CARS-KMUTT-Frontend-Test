@@ -1,16 +1,10 @@
+import Loadable from '@loadable/component';
 import { Col, Input, Modal, Row } from 'antd';
 import { ConfirmMoalType } from 'Models/confirmModal/interface';
 import React, { useEffect, useState } from 'react';
-import Loadable from 'react-loadable';
 
-const ModalHeader = Loadable({
-  loader: () => import('./Header'),
-  loading: () => null,
-});
-const ModalFooter = Loadable({
-  loader: () => import('./Footer'),
-  loading: () => null,
-});
+const ModalHeader = Loadable(() => import('./Header'));
+const ModalFooter = Loadable(() => import('./Footer'));
 
 const { TextArea } = Input;
 
