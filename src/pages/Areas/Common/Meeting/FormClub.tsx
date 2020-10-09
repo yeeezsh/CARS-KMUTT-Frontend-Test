@@ -19,8 +19,10 @@ import {
   setFormCurrentIndex,
 } from 'Store/reducers/areaForm/actions';
 import { FacilityForm } from '../../../../components/Forms/Common';
+import { WHITE_SPACE } from '../common/constant';
 // styles
 import sharedStyles from '../common/styles/styles.module.css';
+import WhiteSpace from '../common/WhiteSpace';
 // store & data
 import stepsList from './steps/club';
 
@@ -198,7 +200,8 @@ const FormClub: React.FC<{
       </Row>
 
       {/* spacing between fixed inner header */}
-      <div style={{ height: '145px' }} />
+
+      <WhiteSpace />
       <Switch>
         <Route path="/*1">
           <Outline style={{ margin: 0 }}>
@@ -218,6 +221,7 @@ const FormClub: React.FC<{
           <OverviewForm ind={2} />
         </Route>
       </Switch>
+      <WhiteSpace size={WHITE_SPACE} />
 
       {/* confirm modal */}
       <ConfirmModal
