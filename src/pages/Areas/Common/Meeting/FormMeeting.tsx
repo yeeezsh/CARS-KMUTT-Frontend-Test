@@ -18,8 +18,10 @@ import {
   setAreaInfoForm,
   setFormCurrentIndex,
 } from 'Store/reducers/areaForm/actions';
+import { WHITE_SPACE } from '../common/constant';
 // styles
 import sharedStyles from '../common/styles/styles.module.css';
+import Trail from '../common/Trail';
 // store & data
 import stepsList from './steps/meeting';
 
@@ -184,7 +186,8 @@ const FormMeeting: React.FC<FormComponentProps> = () => {
       </Row>
 
       {/* spacing between fixed inner header */}
-      <div style={{ height: '145px' }} />
+
+      <Trail />
       <Switch>
         <Route path="/*1">
           <Outline style={{ margin: 0 }}>
@@ -197,6 +200,7 @@ const FormMeeting: React.FC<FormComponentProps> = () => {
           <OverviewForm showFacility={false} ind={1} />
         </Route>
       </Switch>
+      <Trail size={WHITE_SPACE} />
 
       {/* confirm modal */}
       <ConfirmModal
