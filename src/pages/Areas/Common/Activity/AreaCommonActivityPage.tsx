@@ -21,7 +21,7 @@ import {
 } from '../../../../components/Forms/Common';
 // assets
 import sharedStyles from '../common/styles/styles.module.css';
-import Trail from '../common/Trail';
+import WhiteSpace from '../common/WhiteSpace';
 import stepsList from './steps';
 
 const StateSteps = Loadable({
@@ -187,15 +187,15 @@ const AreaCommonActivityPage: React.FC<{
       <Switch>
         <Route path="**/1">
           <RequestorForm ind={0} />
-          <Trail />
+          <WhiteSpace />
         </Route>
         <Route path="**/2">
           <ProjectForm ind={1} />
-          <Trail />
+          <WhiteSpace />
         </Route>
         <Route path="**/3">
           <FacilityForm ind={2} />
-          <Trail />
+          <WhiteSpace />
         </Route>
         <Route path="**/4">
           <OverviewCommonForm ind={3} />

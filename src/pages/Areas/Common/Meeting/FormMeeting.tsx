@@ -21,7 +21,7 @@ import {
 import { WHITE_SPACE } from '../common/constant';
 // styles
 import sharedStyles from '../common/styles/styles.module.css';
-import Trail from '../common/Trail';
+import WhiteSpace from '../common/WhiteSpace';
 // store & data
 import stepsList from './steps/meeting';
 
@@ -187,7 +187,7 @@ const FormMeeting: React.FC<FormComponentProps> = () => {
 
       {/* spacing between fixed inner header */}
 
-      <Trail />
+      <WhiteSpace />
       <Switch>
         <Route path="/*1">
           <Outline style={{ margin: 0 }}>
@@ -200,7 +200,7 @@ const FormMeeting: React.FC<FormComponentProps> = () => {
           <OverviewForm showFacility={false} ind={1} />
         </Route>
       </Switch>
-      <Trail size={WHITE_SPACE} />
+      <WhiteSpace size={WHITE_SPACE} />
 
       {/* confirm modal */}
       <ConfirmModal
