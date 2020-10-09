@@ -1,10 +1,10 @@
 import { Col, Icon, Row } from 'antd';
 import Form, { FormComponentProps } from 'antd/lib/form';
 import {
-  Calendar as CalendarFormComp,
-  Overview as OverviewForm,
+  CalendarMeeting as CalendarFormComp,
+  OverviewMeeting as OverviewForm,
 } from 'Components/Forms/Meeting';
-import { CalendarForm } from 'Components/Forms/Meeting/Calendar';
+import { CalendarForm } from 'Components/Forms/Meeting/CalendarMeeting';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import Loadable from 'react-loadable';
@@ -18,8 +18,13 @@ import {
   setAreaInfoForm,
   setFormCurrentIndex,
 } from 'Store/reducers/areaForm/actions';
+import {
+  WHITE_SPACE,
+  WHITE_SPACE_OVERVIEW_OFFSET,
+} from '../common/constant';
 // styles
 import sharedStyles from '../common/styles/styles.module.css';
+import WhiteSpace from '../common/WhiteSpace';
 // store & data
 import stepsList from './steps/meeting';
 
@@ -184,7 +189,8 @@ const FormMeeting: React.FC<FormComponentProps> = () => {
       </Row>
 
       {/* spacing between fixed inner header */}
-      <div style={{ height: '145px' }} />
+
+      <WhiteSpace />
       <Switch>
         <Route path="/*1">
           <Outline style={{ margin: 0 }}>
@@ -194,9 +200,11 @@ const FormMeeting: React.FC<FormComponentProps> = () => {
           <CalendarFormComp ind={0} />
         </Route>
         <Route path="/*2">
+          <WhiteSpace size={WHITE_SPACE_OVERVIEW_OFFSET} />
           <OverviewForm showFacility={false} ind={1} />
         </Route>
       </Switch>
+      <WhiteSpace size={WHITE_SPACE} />
 
       {/* confirm modal */}
       <ConfirmModal

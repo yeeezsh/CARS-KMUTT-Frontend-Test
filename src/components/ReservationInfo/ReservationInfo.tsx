@@ -4,7 +4,7 @@ import {
   OverviewCommonForm,
   OverviewSportForm,
 } from 'Components/Forms/Common';
-import { Overview as OverviewMeetingForm } from 'Components/Forms/Meeting';
+import { OverviewMeeting as OverviewMeetingForm } from 'Components/Forms/Meeting';
 import ButtonActionLayout from 'Components/Layout/ButtonActionLayout';
 import OverviewBorderLayout from 'Components/Layout/OverviewBorderLayout';
 import Loading from 'Components/Loading';

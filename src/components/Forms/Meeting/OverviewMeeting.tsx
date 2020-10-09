@@ -8,6 +8,7 @@ import ButtonActionLayout from 'Components/Layout/ButtonActionLayout';
 import OverviewBorderLayout from 'Components/Layout/OverviewBorderLayout';
 import Outline from 'Components/Outline';
 import moment from 'moment';
+import WhiteSpace from 'Pages/Areas/Common/common/WhiteSpace';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // data & store
@@ -18,7 +19,7 @@ import {
   setFormCurrentIndex,
 } from 'Store/reducers/areaForm/actions';
 import { AreaInfo } from 'Store/reducers/areaForm/types';
-import { CalendarForm } from './Calendar';
+import { CalendarForm } from './CalendarMeeting';
 
 interface Props {
   ind?: number;
@@ -66,7 +67,7 @@ const CustomParagraph: React.FC = props => (
   </p>
 );
 
-const Overview: React.FC<FormComponentProps & Props> = props => {
+const OverviewMeeting: React.FC<FormComponentProps & Props> = props => {
   console.log('overview common props data', props.data);
   const CUR_IND = props.ind || 3;
   const { validateFields } = props.form;
@@ -169,6 +170,8 @@ const Overview: React.FC<FormComponentProps & Props> = props => {
           </div>
         </div>
 
+        <WhiteSpace size={32} />
+
         {/* action */}
         {!props.viewOnly && (
           <ButtonActionLayout>
@@ -184,4 +187,4 @@ const Overview: React.FC<FormComponentProps & Props> = props => {
 
 export default Form.create<FormComponentProps & Props>({
   name: 'overview-meeting',
-})(Overview);
+})(OverviewMeeting);

@@ -23,7 +23,7 @@ import {
 import { AreaFormReducer } from 'Store/reducers/areaForm/types';
 // assets
 import sharedStyles from '../common/styles/styles.module.css';
-import Trail from '../common/Trail';
+import WhiteSpace from '../common/WhiteSpace';
 import stepsList from './steps';
 
 const StateSteps = Loadable({
@@ -214,24 +214,24 @@ const AreaCommonSportPage: React.FC<{
       <Switch>
         <Route path="**/1">
           <RequestorForm ind={0} />
-          <Trail />
+          <WhiteSpace />
         </Route>
         <Route path="**/2">
           <ProjectForm ind={1} />
-          <Trail />
+          <WhiteSpace />
         </Route>
         <Route path="**/3">
           <AreaForm ind={2} />
-          <Trail />
+          <WhiteSpace />
         </Route>
         <Route path="**/4">{<EquipmentForm ind={3} />}</Route>
         <Route path="**/5">
           <ReturnForm ind={4} />
-          <Trail />
+          <WhiteSpace />
         </Route>
         <Route path="**/6">
           <FacilityForm ind={5} />
-          <Trail />
+          <WhiteSpace />
         </Route>
         <Route path="**/7">
           <OverviewSportForm ind={6} />

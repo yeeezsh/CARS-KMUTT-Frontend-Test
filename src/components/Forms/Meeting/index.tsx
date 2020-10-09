@@ -1,12 +1,12 @@
 import Loadable from 'react-loadable';
 
-const Calendar = Loadable({
-  loader: () => import('./Calendar'),
+const CalendarMeeting = Loadable({
+  loader: () => import('./CalendarMeeting'),
   loading: () => null,
 });
-const Overview = Loadable({
-  loader: () => import('./Overview'),
+const OverviewMeeting = Loadable({
+  loader: () => import('./OverviewMeeting'),
   loading: () => null,
 });
 
-export { Calendar, Overview };
+export { CalendarMeeting, OverviewMeeting };

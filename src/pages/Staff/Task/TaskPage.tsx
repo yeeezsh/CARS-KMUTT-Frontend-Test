@@ -6,7 +6,7 @@ import {
   OverviewCommonForm,
   OverviewSportForm,
 } from 'Components/Forms/Common';
-import { Overview as OverviewMeetingForm } from 'Components/Forms/Meeting';
+import { OverviewMeeting as OverviewMeetingForm } from 'Components/Forms/Meeting';
 import typeDescHelper from 'Components/TaskTable/type.desc.helper';
 import React, { useEffect, useState } from 'react';
 import Loadable from 'react-loadable';

@@ -1,9 +1,9 @@
 import { Col, Icon, Row } from 'antd';
 import {
-  Calendar as CalendarFormComp,
-  Overview as OverviewForm,
+  CalendarMeeting as CalendarFormComp,
+  OverviewMeeting as OverviewForm,
 } from 'Components/Forms/Meeting';
-import { CalendarForm } from 'Components/Forms/Meeting/Calendar';
+import { CalendarForm } from 'Components/Forms/Meeting/CalendarMeeting';
 import moment, { Moment } from 'moment';
 import React, { useEffect, useState } from 'react';
 import Loadable from 'react-loadable';
@@ -19,8 +19,13 @@ import {
   setFormCurrentIndex,
 } from 'Store/reducers/areaForm/actions';
 import { FacilityForm } from '../../../../components/Forms/Common';
+import {
+  WHITE_SPACE,
+  WHITE_SPACE_OVERVIEW_OFFSET,
+} from '../common/constant';
 // styles
 import sharedStyles from '../common/styles/styles.module.css';
+import WhiteSpace from '../common/WhiteSpace';
 // store & data
 import stepsList from './steps/club';
 
@@ -198,7 +203,8 @@ const FormClub: React.FC<{
       </Row>
 
       {/* spacing between fixed inner header */}
-      <div style={{ height: '145px' }} />
+
+      <WhiteSpace />
       <Switch>
         <Route path="/*1">
           <Outline style={{ margin: 0 }}>
@@ -215,9 +221,11 @@ const FormClub: React.FC<{
           <FacilityForm ind={1} showStepLabel={false} />
         </Route>
         <Route path="/*3">
+          <WhiteSpace size={WHITE_SPACE_OVERVIEW_OFFSET} />
           <OverviewForm ind={2} />
         </Route>
       </Switch>
+      <WhiteSpace size={WHITE_SPACE} />
 
       {/* confirm modal */}
       <ConfirmModal
