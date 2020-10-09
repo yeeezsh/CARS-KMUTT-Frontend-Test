@@ -8,6 +8,7 @@ import ButtonActionLayout from 'Components/Layout/ButtonActionLayout';
 import OverviewBorderLayout from 'Components/Layout/OverviewBorderLayout';
 import Outline from 'Components/Outline';
 import moment from 'moment';
+import WhiteSpace from 'Pages/Areas/Common/common/WhiteSpace';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // data & store
@@ -168,6 +169,8 @@ const Overview: React.FC<FormComponentProps & Props> = props => {
             </Checkbox>
           </div>
         </div>
+
+        <WhiteSpace size={32} />
 
         {/* action */}
         {!props.viewOnly && (
