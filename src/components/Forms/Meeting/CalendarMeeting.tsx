@@ -66,8 +66,6 @@ const OFFSET_DAY = 3;
 const AREA_PARAM_IND = 5;
 const RESERVATION_INTERVAL = 60;
 const RESERVATION_OFFSET_INTERVAL = RESERVATION_INTERVAL - 1;
-// const OFFSET_BOTTOM = 595;
-const OFFSET_BOTTOM = 355;
 
 interface Props {
   ind?: number;
