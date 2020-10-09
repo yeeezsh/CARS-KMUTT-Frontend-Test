@@ -67,7 +67,7 @@ const CustomParagraph: React.FC = props => (
   </p>
 );
 
-const Overview: React.FC<FormComponentProps & Props> = props => {
+const OverviewMeeting: React.FC<FormComponentProps & Props> = props => {
   console.log('overview common props data', props.data);
   const CUR_IND = props.ind || 3;
   const { validateFields } = props.form;
@@ -187,4 +187,4 @@ const Overview: React.FC<FormComponentProps & Props> = props => {
 
 export default Form.create<FormComponentProps & Props>({
   name: 'overview-meeting',
-})(Overview);
+})(OverviewMeeting);

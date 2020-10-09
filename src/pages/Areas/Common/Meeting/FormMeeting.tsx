@@ -2,7 +2,7 @@ import { Col, Icon, Row } from 'antd';
 import Form, { FormComponentProps } from 'antd/lib/form';
 import {
   Calendar as CalendarFormComp,
-  Overview as OverviewForm,
+  OverviewMeeting as OverviewForm,
 } from 'Components/Forms/Meeting';
 import { CalendarForm } from 'Components/Forms/Meeting/Calendar';
 import moment from 'moment';
