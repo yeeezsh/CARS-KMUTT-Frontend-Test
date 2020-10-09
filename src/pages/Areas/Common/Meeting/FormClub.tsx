@@ -19,7 +19,10 @@ import {
   setFormCurrentIndex,
 } from 'Store/reducers/areaForm/actions';
 import { FacilityForm } from '../../../../components/Forms/Common';
-import { WHITE_SPACE } from '../common/constant';
+import {
+  WHITE_SPACE,
+  WHITE_SPACE_OVERVIEW_OFFSET,
+} from '../common/constant';
 // styles
 import sharedStyles from '../common/styles/styles.module.css';
 import WhiteSpace from '../common/WhiteSpace';
@@ -218,6 +221,7 @@ const FormClub: React.FC<{
           <FacilityForm ind={1} showStepLabel={false} />
         </Route>
         <Route path="/*3">
+          <WhiteSpace size={WHITE_SPACE_OVERVIEW_OFFSET} />
           <OverviewForm ind={2} />
         </Route>
       </Switch>
