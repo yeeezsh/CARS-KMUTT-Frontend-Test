@@ -12,6 +12,7 @@ import { taskTable } from 'Services/taskTable';
 import { TaskTableTypeAPI } from 'Services/taskTable/interface';
 import { RootReducersType } from 'Store/reducers';
 import { onSetType } from 'Store/reducers/search/actions';
+import useReadyQuery from './hooks/useReadyQuery';
 
 const StaffLayout = Loadable({
   loader: () => import('Components/Layout/Staff/Home'),
@@ -37,6 +38,7 @@ function StaffAccept() {
   const [orderCol, setOrderCol] = useState<string>(DEFAULT_ORDER_COL);
   const [order, setOrder] = useState<undefined | 1 | -1>(undefined);
   const [loading, setLoading] = useState<boolean>(true);
+  const ready = useReadyQuery(current, size, orderCol, order);
   const dispatch = useDispatch();
 
   function setQueryString() {
@@ -62,10 +64,11 @@ function StaffAccept() {
   useEffect(() => {
     setQueryString();
     setLoading(true);
-    taskTable.getAcceptTask(current, size, orderCol, order).then(e => {
-      setData(e);
-      setLoading(false);
-    });
+    ready &&
+      taskTable.getAcceptTask(current, size, orderCol, order).then(e => {
+        setData(e);
+        setLoading(false);
+      });
   }, [current, size, orderCol, order]);
 
   // once load
