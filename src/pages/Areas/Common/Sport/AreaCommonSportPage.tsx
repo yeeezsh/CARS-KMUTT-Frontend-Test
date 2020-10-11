@@ -12,7 +12,7 @@ import React, { useEffect, useState } from 'react';
 import Loadable from 'react-loadable';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch, useHistory, useLocation } from 'react-router';
-import { areaAPI } from 'Services/area';
+import { areaService } from 'Services/area/area.service';
 import { taskFormAPI } from 'Services/task/form';
 import { RootReducersType } from 'Store/reducers';
 // store / data
@@ -73,7 +73,7 @@ const AreaCommonSportPage: React.FC<{
   useEffect(() => {
     if (!props.noInit) dispatch(initForm({ size: MAX_STEPS }));
     areaId &&
-      areaAPI
+      areaService
         .getAreaInfo(areaId)
         .then(area => {
           dispatch(setAreaInfoForm(area));

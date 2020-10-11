@@ -9,8 +9,8 @@ import React, { useEffect, useState } from 'react';
 import Loadable from 'react-loadable';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch, useHistory, useLocation } from 'react-router';
-import { areaAPI } from 'Services/area';
 import { AreaServiceResponseAPI } from 'Services/area/@interfaces/area.interfaces';
+import { areaService } from 'Services/area/area.service';
 import { taskMeetingAPI } from 'Services/task/meeting';
 import { RootReducersType } from 'Store/reducers';
 import {
@@ -84,7 +84,10 @@ const FormClub: React.FC<{
     props.areaInfo?._id || location.split('/')[AREA_PARAM_IND];
 
   function initFormHelper() {
-    areaAPI.getAreaInfo(areaId).then(a => dispatch(setAreaInfoForm(a)));
+    if (!props.areaInfo)
+      areaService
+        .getAreaInfo(areaId)
+        .then(a => dispatch(setAreaInfoForm(a)));
     dispatch(initForm({ size: MAX_STEPS }));
     dispatch(setFormCurrentIndex(0));
   }

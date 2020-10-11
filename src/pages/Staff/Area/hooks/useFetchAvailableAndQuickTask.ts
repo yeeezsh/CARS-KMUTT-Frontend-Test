@@ -1,9 +1,9 @@
 import TimeNode from 'Components/TimeTable/timetable.interface';
 import { Moment } from 'moment';
 import { useState } from 'react';
-import { areaAPI } from 'Services/area';
 import { AreaAvailableAPI } from 'Services/area/@interfaces/area.available.interface';
 import { AreaServiceResponseAPI } from 'Services/area/@interfaces/area.interfaces';
+import { areaService } from 'Services/area/area.service';
 import { taskAPI } from 'Services/task';
 import { QuickTask as QuickTaskInterface } from 'Services/task/task.quick.interface';
 
@@ -25,7 +25,7 @@ async function fetch(
 
   // fetch avalable
   if (!noQueryAvailableArea) {
-    const available = await areaAPI.getAreaAvailable(
+    const available = await areaService.getAreaAvailable(
       areaInfo._id,
       startDate,
       stopDate,

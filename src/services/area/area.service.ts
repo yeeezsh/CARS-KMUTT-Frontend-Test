@@ -7,12 +7,13 @@ import {
   AreaTableAPI,
 } from './@interfaces/area.interfaces';
 
-class AreaAPI {
+class AreaService {
   async getBuildingTable(): Promise<AreaTableAPI[]> {
     try {
       const data = (await adapter.instance.get('/area/table')).data;
       return data;
     } catch (err) {
+      console.error(err);
       throw err;
     }
   }
@@ -33,6 +34,7 @@ class AreaAPI {
       ).data;
       return data.map((e: any) => ({ ...e, date: moment(e.date) }));
     } catch (err) {
+      console.error(err);
       throw err;
     }
   }
@@ -79,9 +81,10 @@ class AreaAPI {
         })),
       };
     } catch (err) {
+      console.error(err);
       throw err;
     }
   }
 }
 
-export const areaAPI = new AreaAPI();
+export const areaService = new AreaService();

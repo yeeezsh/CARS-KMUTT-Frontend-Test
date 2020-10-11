@@ -4,7 +4,7 @@ import KanBanLayout from 'Components/Layout/KanbanLayout';
 import Menu from 'Models/kanbanCard/interface';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
-import { commonAreaAPI } from 'Services/area/common';
+import { areaCommonService } from 'Services/area/area.common/area.common.service';
 import BackCardStyles from '../styles/backcard';
 
 const AreaCommonPage: React.FC = () => {
@@ -12,7 +12,7 @@ const AreaCommonPage: React.FC = () => {
   const history = useHistory();
 
   useEffect(() => {
-    commonAreaAPI.getBuilding().then(a => {
+    areaCommonService.getBuilding().then(a => {
       console.log('common area api', a);
       setAreas(a);
     });

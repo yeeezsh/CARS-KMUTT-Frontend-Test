@@ -13,9 +13,9 @@ import React, { useEffect, useState } from 'react';
 import Loadable from 'react-loadable';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
-import { areaAPI } from 'Services/area';
 import Area from 'Services/area/@interfaces/area.available.interface';
 import { AreaServiceResponseAPI } from 'Services/area/@interfaces/area.interfaces';
+import { areaService } from 'Services/area/area.service';
 // data store & API
 import { RootReducersType } from 'Store/reducers';
 import {
@@ -66,8 +66,6 @@ const OFFSET_DAY = 3;
 const AREA_PARAM_IND = 5;
 const RESERVATION_INTERVAL = 60;
 const RESERVATION_OFFSET_INTERVAL = RESERVATION_INTERVAL - 1;
-// const OFFSET_BOTTOM = 595;
-const OFFSET_BOTTOM = 355;
 
 interface Props {
   ind?: number;
@@ -103,6 +101,8 @@ const CalendarMeeting: React.FC<FormComponentProps & Props> = props => {
   const { getFieldDecorator } = props.form;
 
   const data: CalendarForm = forms.forms[CUR_IND];
+  const areaInfo =
+    props.areaInfo || (forms.area as AreaServiceResponseAPI);
   const [selected, setSelected] = useState<TimeNode[]>([]);
 
   function onSelect(value: Moment, type: TimeNode['type']) {
@@ -186,38 +186,42 @@ const CalendarMeeting: React.FC<FormComponentProps & Props> = props => {
   // once
   useEffect(() => {
     dispatch(setFormCurrentIndex(CUR_IND));
+    if (!props.areaInfo) {
+      areaService.getAreaInfo(areaId).then(a => {
+        dispatch(setAreaInfoForm(a));
+      });
+    } else {
+      dispatch(setAreaInfoForm(props.areaInfo));
+    }
   }, []);
 
   // selectDate observe
   useEffect(() => {
-    areaAPI.getAreaInfo(areaId).then(async a => {
-      dispatch(setAreaInfoForm(a));
-      const areaFetch = await areaAPI.getAreaAvailableMeeting(
-        areaId,
-        selectedDate,
-      );
+    areaInfo &&
+      areaService
+        .getAreaAvailableMeeting(areaId, selectedDate)
+        .then(areaFetch => {
+          props.selectDate && props.selectDate(selectedDate);
 
-      props.selectDate && props.selectDate(selectedDate);
-
-      setAreaState([
-        {
-          area: {
-            id: a._id,
-            label: a.label,
-            required: Number(a.required) || 1,
-          },
-          time: {
-            start: a.reserve[0].start,
-            stop: a.reserve[0].stop,
-            interval: a.reserve[0].interval,
-            week: a.reserve[0].week,
-            forward: a.forward,
-            disabled: areaFetch.disabled,
-          },
-        },
-      ]);
-    });
-  }, [selectedDate]);
+          setAreaState([
+            {
+              area: {
+                id: areaInfo._id,
+                label: areaInfo.label,
+                required: Number(areaInfo.required) || 1,
+              },
+              time: {
+                start: areaInfo.reserve[0].start,
+                stop: areaInfo.reserve[0].stop,
+                interval: areaInfo.reserve[0].interval,
+                week: areaInfo.reserve[0].week,
+                forward: areaInfo.forward,
+                disabled: areaFetch.disabled,
+              },
+            },
+          ]);
+        });
+  }, [selectedDate, areaInfo]);
 
   return (
     <>
