@@ -28,6 +28,7 @@ class CommonAreaService {
       });
       return mainMenu;
     } catch (err) {
+      console.error(err);
       throw err;
     }
   }
@@ -53,6 +54,7 @@ class CommonAreaService {
       });
       return mainMenu;
     } catch (err) {
+      console.error(err);
       throw err;
     }
   }
