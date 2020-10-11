@@ -4,7 +4,7 @@ ADD package.json package.json
 RUN yarn install
 
 FROM base as dev
-ADD . ./src
+ADD . .
 CMD ["yarn", "start"]
 EXPOSE 5000
 
@@ -15,7 +15,7 @@ ARG REACT_APP_BACKEND_ENDPOINT
 ENV REACT_APP_BACKEND_ENDPOINT $REACT_APP_BACKEND_ENDPOINT
 
 FROM nginx:alpine as nginx
-COPY --from=uat /src/dist/ /var/www
+COPY --from=uat dist/ /var/www
 COPY /server/nginx.conf /etc/nginx/nginx.conf
 EXPOSE 80
 ENTRYPOINT ["nginx","-g","daemon off;"]
