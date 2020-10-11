@@ -106,8 +106,9 @@ export class UserService {
     return this.user;
   };
 
-  GetQuota = async (): Promise<QuotaType> => {
-    const res = (await adapter.instance.get('/users/quota')).data;
+  GetQuota = async (areaId: string): Promise<QuotaType> => {
+    const res = (await adapter.instance.get('/users/quota/' + areaId))
+      .data;
     console.log('quota', res);
     return res;
   };
