@@ -1,4 +1,4 @@
-FROM node:12 as dev
+FROM node:14-slim as dev
 # cache dependencies
 ADD yarn.lock /tmp/yarn.lock
 ADD package.json /tmp/package.json
@@ -9,7 +9,7 @@ WORKDIR /src
 CMD ["yarn", "start"]
 EXPOSE 5000
 
-FROM node:12 as uat
+FROM node:14-slim as uat
 # cache dependencies
 ADD yarn.lock /tmp/yarn.lock
 ADD package.json /tmp/package.json
