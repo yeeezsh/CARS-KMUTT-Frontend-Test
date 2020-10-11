@@ -5,7 +5,6 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   mode: 'production',
@@ -80,7 +79,13 @@ module.exports = {
       template: './src/index.html',
     }),
     new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en|th/),
-    new Dotenv(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        REACT_APP_BACKEND_ENDPOINT: JSON.stringify(
+          process.env.REACT_APP_BACKEND_ENDPOINT,
+        ),
+      },
+    }),
   ],
   optimization: {
     minimize: true,

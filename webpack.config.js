@@ -114,7 +114,9 @@ module.exports = {
     new BundleAnalyzerPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
-        REACT_APP_BACKEND_ENDPOINT: JSON.stringify(process.env.REACT_APP_BACKEND_ENDPOINT),
+        REACT_APP_BACKEND_ENDPOINT: JSON.stringify(
+          process.env.REACT_APP_BACKEND_ENDPOINT,
+        ),
       },
     }),
   ],
