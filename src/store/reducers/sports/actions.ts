@@ -1,6 +1,6 @@
 import { Moment } from 'moment';
 import Area from 'Services/area/@interfaces/area.available.interface';
-import { sport } from 'Services/area/sport';
+import { areaSportService } from 'Services/area/sport/area.sport.service';
 import { SportReducer } from '.';
 
 export const SET_DATE_SELECTED = 'SET_DATE_SELECTED';
@@ -24,7 +24,7 @@ export const queryArea = () => async (
 ) => {
   const { areaId, dateSelected } = getState().SportReducers;
 
-  const areas = await sport.getFields(areaId, dateSelected);
+  const areas = await areaSportService.getFields(areaId, dateSelected);
   const maxForward = areas.reduce(
     (
       prev: { time: { forward: number } },

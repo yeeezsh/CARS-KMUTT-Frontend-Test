@@ -4,14 +4,14 @@ import adapter from '../../adapter.interface';
 import { AreaSportResponseAPI } from '../@interfaces/area.sport.api.interface';
 import { FetchMenu } from '../@interfaces/fetch.menu.interface';
 import TimeAreaReserveType from '../@interfaces/time.interface';
-import category from './constant';
+import areaSportCategory from './constant';
 
-class SportClass {
+class SportAreaService {
   async getAreas(): Promise<Menu[]> {
     const fetch: FetchMenu[] = (
       await adapter.instance.get('/area/sport/building/all')
     ).data;
-    const mainMenu = category
+    const mainMenu = areaSportCategory
       .map(e => {
         const fetchIndex = fetch.findIndex(d => d.name === e.query?.name);
         if (fetchIndex < 0) return e;
@@ -70,6 +70,6 @@ class SportClass {
     }
   }
 }
-const sport = new SportClass();
+const areaSportService = new SportAreaService();
 
-export { category, sport };
+export { areaSportCategory, areaSportService };
