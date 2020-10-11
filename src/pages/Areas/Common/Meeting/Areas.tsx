@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Loadable from 'react-loadable';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
-import { areaCommonService } from 'Services/area.common/area.common.service';
+import { areaCommonService } from 'Services/area/area.common/area.common.service';
 import { setFormCurrentIndex } from 'Store/reducers/areaForm/actions';
 const BackCard = Loadable({
   loader: () => import('Components/BackCard'),

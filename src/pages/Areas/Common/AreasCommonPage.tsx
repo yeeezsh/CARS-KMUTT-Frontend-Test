@@ -4,7 +4,7 @@ import KanBanLayout from 'Components/Layout/KanbanLayout';
 import Menu from 'Models/kanbanCard/interface';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
-import { areaCommonService } from 'Services/area/common/area.common.service';
+import { areaCommonService } from 'Services/area/area.common/area.common.service';
 import BackCardStyles from '../styles/backcard';
 
 const AreaCommonPage: React.FC = () => {
