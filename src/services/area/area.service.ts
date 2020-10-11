@@ -7,7 +7,7 @@ import {
   AreaTableAPI,
 } from './@interfaces/area.interfaces';
 
-class AreaAPI {
+class AreaService {
   async getBuildingTable(): Promise<AreaTableAPI[]> {
     try {
       const data = (await adapter.instance.get('/area/table')).data;
@@ -84,4 +84,4 @@ class AreaAPI {
   }
 }
 
-export const areaAPI = new AreaAPI();
+export const areaService = new AreaService();

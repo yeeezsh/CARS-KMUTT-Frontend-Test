@@ -13,9 +13,9 @@ import React, { useEffect, useState } from 'react';
 import Loadable from 'react-loadable';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
-import { areaAPI } from 'Services/area';
 import Area from 'Services/area/@interfaces/area.available.interface';
 import { AreaServiceResponseAPI } from 'Services/area/@interfaces/area.interfaces';
+import { areaService } from 'Services/area/area.service';
 // data store & API
 import { RootReducersType } from 'Store/reducers';
 import {
@@ -187,7 +187,7 @@ const CalendarMeeting: React.FC<FormComponentProps & Props> = props => {
   useEffect(() => {
     dispatch(setFormCurrentIndex(CUR_IND));
     if (!props.areaInfo) {
-      areaAPI.getAreaInfo(areaId).then(a => {
+      areaService.getAreaInfo(areaId).then(a => {
         dispatch(setAreaInfoForm(a));
       });
     } else {
@@ -198,7 +198,7 @@ const CalendarMeeting: React.FC<FormComponentProps & Props> = props => {
   // selectDate observe
   useEffect(() => {
     areaInfo &&
-      areaAPI
+      areaService
         .getAreaAvailableMeeting(areaId, selectedDate)
         .then(areaFetch => {
           props.selectDate && props.selectDate(selectedDate);
