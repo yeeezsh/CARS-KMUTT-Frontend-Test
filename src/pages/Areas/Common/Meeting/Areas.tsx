@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Loadable from 'react-loadable';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
-import { commonAreaAPI } from 'Services/area/common';
+import { areaCommonService } from 'Services/area/common/area.common.service';
 import { setFormCurrentIndex } from 'Store/reducers/areaForm/actions';
 const BackCard = Loadable({
   loader: () => import('Components/BackCard'),
@@ -25,7 +25,7 @@ const Types: React.FC = () => {
   const history = useHistory();
 
   useEffect(() => {
-    commonAreaAPI.getMeeting().then(a => {
+    areaCommonService.getMeeting().then(a => {
       console.log('common area api', a);
       setAreas(a);
     });

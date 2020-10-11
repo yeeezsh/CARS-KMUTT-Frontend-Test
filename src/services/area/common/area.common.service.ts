@@ -2,7 +2,7 @@ import Menu from 'Models/kanbanCard/interface';
 import adapter from 'Services/adapter.interface';
 import { FetchMenu } from '../@interfaces/fetch.menu.interface';
 
-class CommonAreaClass {
+class CommonAreaService {
   list?: Menu[];
 
   async getBuilding() {
@@ -58,4 +58,4 @@ class CommonAreaClass {
   }
 }
 
-export const commonAreaAPI = new CommonAreaClass();
+export const areaCommonService = new CommonAreaService();
