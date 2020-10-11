@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
@@ -112,5 +111,12 @@ module.exports = {
     }),
     new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en|th/),
     new BundleAnalyzerPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        REACT_APP_BACKEND_ENDPOINT: JSON.stringify(
+          process.env.REACT_APP_BACKEND_ENDPOINT,
+        ),
+      },
+    }),
   ],
 };

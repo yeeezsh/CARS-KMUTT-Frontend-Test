@@ -1,7 +1,7 @@
 import Menu from 'Models/kanbanCard/interface';
 import React, { Component } from 'react';
 import Loadable from 'react-loadable';
-import { sport } from 'Services/area/sport';
+import { areaSportService } from 'Services/area/area.sport/area.sport.service';
 
 const KanBanLayout = Loadable({
   loader: () => import('Components/Layout/KanbanLayout'),
@@ -22,7 +22,7 @@ export default class Areas extends Component<
     category: [],
   };
   async componentDidMount() {
-    const data = await sport.getAreas();
+    const data = await areaSportService.getAreas();
     const categoryMenu = data.map(e => {
       return {
         ...e,

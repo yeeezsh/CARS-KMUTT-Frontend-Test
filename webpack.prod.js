@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
-/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -79,6 +77,13 @@ module.exports = {
       template: './src/index.html',
     }),
     new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en|th/),
+    new webpack.DefinePlugin({
+      'process.env': {
+        REACT_APP_BACKEND_ENDPOINT: JSON.stringify(
+          process.env.REACT_APP_BACKEND_ENDPOINT,
+        ),
+      },
+    }),
   ],
   optimization: {
     minimize: true,

@@ -6,7 +6,7 @@ import ButtonActionLayout from 'Components/Layout/ButtonActionLayout';
 import OverviewBorderLayout from 'Components/Layout/OverviewBorderLayout';
 import Outline from 'Components/Outline';
 import moment from 'moment';
-import Trail from 'Pages/Areas/Common/common/Trail';
+import WhiteSpace from 'Pages/Areas/Common/common/WhiteSpace';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // store & dara
@@ -466,7 +466,7 @@ const OverviewCommonForm: React.FC<FormComponentProps & Props> = props => {
           </Checkbox>
         </div>
 
-        <Trail size={25} />
+        <WhiteSpace size={25} />
         {/* action */}
 
         {!props.viewOnly && (

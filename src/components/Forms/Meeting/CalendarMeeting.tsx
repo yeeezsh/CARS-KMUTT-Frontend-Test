@@ -66,8 +66,6 @@ const OFFSET_DAY = 3;
 const AREA_PARAM_IND = 5;
 const RESERVATION_INTERVAL = 60;
 const RESERVATION_OFFSET_INTERVAL = RESERVATION_INTERVAL - 1;
-// const OFFSET_BOTTOM = 595;
-const OFFSET_BOTTOM = 355;
 
 interface Props {
   ind?: number;
@@ -82,7 +80,7 @@ export interface CalendarForm {
   stopTime: Moment;
 }
 
-const Calendar: React.FC<FormComponentProps & Props> = props => {
+const CalendarMeeting: React.FC<FormComponentProps & Props> = props => {
   const CUR_IND = props.ind || 0;
   const dispatch = useDispatch();
   const location = useLocation().pathname;
@@ -103,6 +101,8 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
   const { getFieldDecorator } = props.form;
 
   const data: CalendarForm = forms.forms[CUR_IND];
+  const areaInfo =
+    props.areaInfo || (forms.area as AreaServiceResponseAPI);
   const [selected, setSelected] = useState<TimeNode[]>([]);
 
   function onSelect(value: Moment, type: TimeNode['type']) {
@@ -186,38 +186,42 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
   // once
   useEffect(() => {
     dispatch(setFormCurrentIndex(CUR_IND));
+    if (!props.areaInfo) {
+      areaService.getAreaInfo(areaId).then(a => {
+        dispatch(setAreaInfoForm(a));
+      });
+    } else {
+      dispatch(setAreaInfoForm(props.areaInfo));
+    }
   }, []);
 
   // selectDate observe
   useEffect(() => {
-    areaService.getAreaInfo(areaId).then(async a => {
-      dispatch(setAreaInfoForm(a));
-      const areaFetch = await areaService.getAreaAvailableMeeting(
-        areaId,
-        selectedDate,
-      );
+    areaInfo &&
+      areaService
+        .getAreaAvailableMeeting(areaId, selectedDate)
+        .then(areaFetch => {
+          props.selectDate && props.selectDate(selectedDate);
 
-      props.selectDate && props.selectDate(selectedDate);
-
-      setAreaState([
-        {
-          area: {
-            id: a._id,
-            label: a.label,
-            required: Number(a.required) || 1,
-          },
-          time: {
-            start: a.reserve[0].start,
-            stop: a.reserve[0].stop,
-            interval: a.reserve[0].interval,
-            week: a.reserve[0].week,
-            forward: a.forward,
-            disabled: areaFetch.disabled,
-          },
-        },
-      ]);
-    });
-  }, [selectedDate]);
+          setAreaState([
+            {
+              area: {
+                id: areaInfo._id,
+                label: areaInfo.label,
+                required: Number(areaInfo.required) || 1,
+              },
+              time: {
+                start: areaInfo.reserve[0].start,
+                stop: areaInfo.reserve[0].stop,
+                interval: areaInfo.reserve[0].interval,
+                week: areaInfo.reserve[0].week,
+                forward: areaInfo.forward,
+                disabled: areaFetch.disabled,
+              },
+            },
+          ]);
+        });
+  }, [selectedDate, areaInfo]);
 
   return (
     <>
@@ -317,12 +321,13 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
             // disable cur by curtime
             // TEMPORALILY DISABLED FOR TESTING
             disabledMapped = disabledMapped
-              .map(e => {
+              .map(disableSlot => {
                 // skip when day not in
-                if (today.valueOf() !== selectedDate?.valueOf()) return e;
+                if (today.valueOf() !== selectedDate?.valueOf())
+                  return disableSlot;
 
                 const valueMapped = moment(
-                  e.value.format(TIME_FORMAT),
+                  disableSlot.value.format(TIME_FORMAT),
                   TIME_FORMAT,
                 ).set('date', Number(selectedDate?.format('DD')));
                 const o: TimeNode = {
@@ -365,4 +370,4 @@ const Calendar: React.FC<FormComponentProps & Props> = props => {
 
 export default Form.create<FormComponentProps & Props>({
   name: 'calendar',
-})(Calendar);
+})(CalendarMeeting);

@@ -30,7 +30,7 @@ const AreaTable: React.FC<{
       title: 'Action',
       key: 'action',
       width: 120,
-      render: d => <ActionBtn onClick={() => TARGET_AREA(d)} />,
+      render: () => <ActionBtn />,
     },
   ];
   return (

@@ -13,6 +13,7 @@ class AreaService {
       const data = (await adapter.instance.get('/area/table')).data;
       return data;
     } catch (err) {
+      console.error(err);
       throw err;
     }
   }
@@ -33,6 +34,7 @@ class AreaService {
       ).data;
       return data.map((e: any) => ({ ...e, date: moment(e.date) }));
     } catch (err) {
+      console.error(err);
       throw err;
     }
   }
@@ -79,6 +81,7 @@ class AreaService {
         })),
       };
     } catch (err) {
+      console.error(err);
       throw err;
     }
   }

@@ -1,7 +1,7 @@
 import React from 'react';
 
 const DEFAULT_HEIGHT = '125px';
-const Trail: React.FC<{ size?: number }> = props => {
+const WhiteSpace: React.FC<{ size?: number }> = props => {
   return (
     <div
       style={{
@@ -11,4 +11,4 @@ const Trail: React.FC<{ size?: number }> = props => {
   );
 };
 
-export default Trail;
+export default WhiteSpace;
