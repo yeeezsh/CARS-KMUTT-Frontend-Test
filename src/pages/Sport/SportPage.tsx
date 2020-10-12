@@ -268,11 +268,11 @@ class SportPage extends Component<
       username,
     } = this.props;
 
-    const fetchQuota = await userService.GetQuota();
+    const areaId = location.pathname.split('/')[3];
+    const fetchQuota = await userService.GetQuota(areaId);
     const quota = fetchQuota.n < 1;
 
     const owner = username;
-    const areaId = location.pathname.split('/')[3];
     setOwner(owner);
     setAreaId(areaId);
     queryArea();
