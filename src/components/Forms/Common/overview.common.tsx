@@ -15,8 +15,8 @@ import {
   setFormCurrentIndex,
 } from 'Store/reducers/areaForm/actions';
 import { AreaInfo } from 'Store/reducers/areaForm/types';
-import CustomBreakLine from './common/CustomBreakLine';
-import CustomSubHeader from './common/CustomSubHeader';
+import CustomBreakLine from '../shared/CustomBreakLine';
+import CustomSubHeader from '../shared/CustomSubHeader';
 import { FacilityForm } from './facility';
 import {
   FORM_COMMON_LAYOUT_EXPAND_OFFSET,

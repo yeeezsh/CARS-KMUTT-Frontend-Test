@@ -4,11 +4,11 @@ import { useSelector } from 'react-redux';
 import { END_POINT } from 'Services/adapter.interface';
 import { RootReducersType } from 'Store/reducers';
 import { AreaInfo } from 'Store/reducers/areaForm/types';
-import CustomBreakLine from './common/CustomBreakLine';
-import CustomLabel from './common/CustomLabel';
-import CustomParagraph from './common/CustomParagraph';
-import CustomSubHeader from './common/CustomSubHeader';
-import DownloadButton from './common/DownloadButton';
+import CustomBreakLine from '../shared/CustomBreakLine';
+import CustomLabel from '../shared/CustomLabel';
+import CustomParagraph from '../shared/CustomParagraph';
+import CustomSubHeader from '../shared/CustomSubHeader';
+import DownloadButton from '../shared/DownloadButton';
 import { ProjectForm } from './project';
 import { RequestorForm } from './requestor';
 

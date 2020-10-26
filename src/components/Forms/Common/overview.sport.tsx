@@ -15,11 +15,11 @@ import {
   setFormCurrentIndex,
 } from 'Store/reducers/areaForm/actions';
 import { AreaInfo } from 'Store/reducers/areaForm/types';
+import CustomBreakLine from '../shared/CustomBreakLine';
+import CustomLabel from '../shared/CustomLabel';
+import CustomParagraph from '../shared/CustomParagraph';
+import CustomSubHeader from '../shared/CustomSubHeader';
 import { AreaForm } from './area';
-import CustomBreakLine from './common/CustomBreakLine';
-import CustomLabel from './common/CustomLabel';
-import CustomParagraph from './common/CustomParagraph';
-import CustomSubHeader from './common/CustomSubHeader';
 import { EquipmentForm } from './equipment';
 import { FacilityForm } from './facility';
 import {
