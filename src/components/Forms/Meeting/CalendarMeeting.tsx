@@ -119,9 +119,6 @@ const CalendarMeeting: React.FC<FormComponentProps & Props> = props => {
       RESERVATION_INTERVAL,
     );
 
-    const duplicated = selected.filter(
-      e => e.value.valueOf() === value.valueOf(),
-    );
     const duplicatedInd = selected.findIndex(
       e => e.value.valueOf() === value.valueOf(),
     );
@@ -132,7 +129,6 @@ const CalendarMeeting: React.FC<FormComponentProps & Props> = props => {
     } else if (duplicatedInd >= 0 && selected.length === 1) {
       return setSelected([]);
     } else if (duplicatedInd >= 0 && selected.length > 0) {
-      console.log('dup', duplicated, duplicatedInd);
       return setSelected(prev => prev.slice(0, duplicatedInd));
     }
 
