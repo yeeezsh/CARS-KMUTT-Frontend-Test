@@ -62,9 +62,6 @@ const OverviewCommonSportForm: React.FC<FormComponentProps &
   const { validateFields } = props.form;
   const dispatch = useDispatch();
 
-  const {} =
-    props.data || useSelector((s: RootReducersType) => s.AreaFormReducers);
-
   const { forms, area } =
     props.data || useSelector((s: RootReducersType) => s.AreaFormReducers);
 
