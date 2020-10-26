@@ -19,6 +19,7 @@ import {
 } from 'Store/reducers/areaForm/actions';
 import { AreaInfo } from 'Store/reducers/areaForm/types';
 import { AreaForm } from './area';
+import OverviewShareComponent from './common/overview.share.component';
 import { EquipmentForm } from './equipment';
 import { FacilityForm } from './facility';
 import {
@@ -162,113 +163,7 @@ const OverviewCommonForm: React.FC<FormComponentProps & Props> = props => {
           <Outline style={{ color: '#1890FF' }}>ข้อมูลการจอง</Outline>
         )}
         {/* overview section */}
-        <CustomLabel>สถานที่</CustomLabel>
-        <CustomParagraph>{area?.label}</CustomParagraph>
-        <CustomLabel>วันที่จอง</CustomLabel>
-        <CustomParagraph>
-          {/* start date */}
-          ตั้งแต่{' '}
-          {projectData &&
-            projectData.projectStartDate &&
-            moment(projectData.projectStartDate).format('DD')}{' '}
-          {projectData &&
-            projectData.projectStartDate &&
-            moment(projectData.projectStartDate).format('MMMM')}{' '}
-          {projectData &&
-            projectData.projectStartDate &&
-            moment(projectData.projectStartDate).format('YYYY')}
-          ,{' '}
-          {projectData &&
-            projectData.projectStartTime &&
-            moment(projectData.projectStartTime).format('HH.mm')}{' '}
-          {projectData &&
-          !projectData.projectStopDate && // when not have stop date show end time here
-            projectData.projectStopTime &&
-            ' ถึง ' +
-              moment(projectData.projectStopTime).format('HH.mm')}{' '}
-          น. <br />
-          {/* stop date */}
-          {projectData && projectData.projectStopDate && (
-            <React.Fragment>
-              ถึง{' '}
-              {projectData &&
-                projectData.projectStopDate &&
-                moment(projectData.projectStopDate).format('DD')}{' '}
-              {projectData &&
-                projectData.projectStopDate &&
-                moment(projectData.projectStopDate).format('MMMM')}{' '}
-              {projectData &&
-                projectData.projectStopDate &&
-                moment(projectData.projectStopDate).format('YYYY')}
-              ,{' '}
-              {projectData &&
-                projectData.projectStopTime &&
-                moment(projectData.projectStopTime).format('HH.mm')}{' '}
-              น.
-            </React.Fragment>
-          )}
-        </CustomParagraph>
-        <CustomBrakeLine />
-
-        {/* requestor data */}
-        <CustomSubHeader>รายละเอียดผู้ขอใช้บริการ</CustomSubHeader>
-        <CustomLabel>รหัสนักศึกษา</CustomLabel>
-        <CustomParagraph>
-          {requestorData && requestorData.requestorId}
-        </CustomParagraph>
-
-        <CustomLabel>ชื่อ-นามสกุล</CustomLabel>
-        <CustomParagraph>
-          {requestorData && requestorData.name}
-        </CustomParagraph>
-
-        <CustomLabel>คณะ</CustomLabel>
-        <CustomParagraph>
-          {requestorData && requestorData.faculty}
-        </CustomParagraph>
-
-        <CustomLabel>ภาควิชา</CustomLabel>
-        <CustomParagraph>
-          {requestorData && requestorData.department}
-        </CustomParagraph>
-
-        {requestorData && requestorData.studentYear && (
-          <React.Fragment>
-            <CustomLabel>ชั้นปีที่ </CustomLabel>
-            <CustomParagraph>
-              {requestorData && requestorData.studentYear}
-            </CustomParagraph>
-          </React.Fragment>
-        )}
-
-        <CustomLabel>โทรศัพท์</CustomLabel>
-        <CustomParagraph>
-          {requestorData && requestorData.phone}
-        </CustomParagraph>
-        <CustomBrakeLine />
-
-        {/* project */}
-        <CustomSubHeader>รายละเอียดการใช้บริการ</CustomSubHeader>
-        <CustomLabel>ชื่อโครงการ</CustomLabel>
-        <CustomParagraph>
-          {projectData && projectData.projectName}
-        </CustomParagraph>
-        <CustomLabel>ไฟล์โครงการที่แนบมาด้วย</CustomLabel>
-        <CustomParagraph>
-          {projectData &&
-            projectData.files &&
-            projectData.files.map(e => (
-              <React.Fragment key={e.uid}>
-                {e.name}{' '}
-                <DownloadBtn onClick={() => onDownload(e.response.id)} />
-              </React.Fragment>
-            ))}
-        </CustomParagraph>
-
-        <CustomLabel>อาจารย์ที่ปรึกษา</CustomLabel>
-        <CustomParagraph>
-          {projectData && projectData.advisor}
-        </CustomParagraph>
+        {area && <OverviewShareComponent data={{ forms, area }} />}
 
         {areaData && Object.keys(areaData).length > 0 && (
           <CustomLabel>บริการสนามกีฬา</CustomLabel>
