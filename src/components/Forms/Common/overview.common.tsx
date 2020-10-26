@@ -17,12 +17,12 @@ import {
 import { AreaInfo } from 'Store/reducers/areaForm/types';
 import CustomBreakLine from './common/CustomBreakLine';
 import CustomSubHeader from './common/CustomSubHeader';
-import OverviewShareComponent from './common/overview.share.component';
-import { FacilityForm } from './facility';
 import {
   FORM_COMMON_LAYOUT_EXPAND_OFFSET,
   FORM_COMMON_LAYOUT_MARGIN_TOP,
-} from './layout.constant';
+} from './common/layout.constant';
+import OverviewShareComponent from './common/overview.share.component';
+import { FacilityForm } from './facility';
 
 interface Props {
   ind?: number;

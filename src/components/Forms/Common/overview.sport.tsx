@@ -20,13 +20,13 @@ import CustomBreakLine from './common/CustomBreakLine';
 import CustomLabel from './common/CustomLabel';
 import CustomParagraph from './common/CustomParagraph';
 import CustomSubHeader from './common/CustomSubHeader';
-import OverviewShareComponent from './common/overview.share.component';
-import { EquipmentForm } from './equipment';
-import { FacilityForm } from './facility';
 import {
   FORM_COMMON_LAYOUT_EXPAND_OFFSET,
   FORM_COMMON_LAYOUT_MARGIN_TOP,
-} from './layout.constant';
+} from './common/layout.constant';
+import OverviewShareComponent from './common/overview.share.component';
+import { EquipmentForm } from './equipment';
+import { FacilityForm } from './facility';
 import { ReturnForm } from './return';
 
 const LabelWithUnit: React.FC<{
