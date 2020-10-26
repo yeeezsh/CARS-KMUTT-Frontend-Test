@@ -1,6 +1,5 @@
 import { Checkbox, Form } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
-import BreakingLine from 'Components/BreakingLine';
 import Button from 'Components/Button';
 import ButtonActionLayout from 'Components/Layout/ButtonActionLayout';
 import OverviewBorderLayout from 'Components/Layout/OverviewBorderLayout';
@@ -9,8 +8,6 @@ import moment from 'moment';
 import WhiteSpace from 'Pages/Areas/Common/common/WhiteSpace';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// store & dara
-import { END_POINT } from 'Services/adapter.interface';
 import { RootReducersType } from 'Store/reducers';
 import {
   fillForm,
@@ -18,15 +15,14 @@ import {
   setFormCurrentIndex,
 } from 'Store/reducers/areaForm/actions';
 import { AreaInfo } from 'Store/reducers/areaForm/types';
+import CustomBreakLine from './common/CustomBreakLine';
+import CustomSubHeader from './common/CustomSubHeader';
 import OverviewShareComponent from './common/overview.share.component';
 import { FacilityForm } from './facility';
 import {
   FORM_COMMON_LAYOUT_EXPAND_OFFSET,
   FORM_COMMON_LAYOUT_MARGIN_TOP,
 } from './layout.constant';
-import { ProjectForm } from './project';
-// interfaces
-import { RequestorForm } from './requestor';
 
 interface Props {
   ind?: number;
@@ -37,63 +33,6 @@ interface Props {
   viewOnly?: boolean;
 }
 
-// custom components
-const CustomBrakeLine: React.FC = () => (
-  <BreakingLine color="#91D5FF" lineSize={0.25} />
-);
-const CustomSubHeader: React.FC = props => (
-  <Outline style={{ color: '#1890FF', fontSize: '14px', margin: 0 }}>
-    {props.children}
-  </Outline>
-);
-
-const CustomLabel: React.FC = props => (
-  <p
-    style={{
-      color: '#666666',
-      fontSize: '14px',
-      fontWeight: 'bold',
-      margin: 0,
-    }}
-  >
-    {props.children}
-  </p>
-);
-
-const DownloadBtn: React.FC<{
-  onClick?: () => void;
-}> = props => (
-  <Button
-    fontColor="#1890FF"
-    fontSize={12}
-    style={{
-      marginLeft: '50px',
-      width: '75px',
-      height: '30px',
-      padding: 0,
-      backgroundColor: '#E6F7FF',
-    }}
-    onClick={props.onClick}
-  >
-    ดาวน์โหลด
-  </Button>
-);
-
-const CustomParagraph: React.FC = props => (
-  <p
-    style={{
-      color: '#666666',
-      fontSize: '14px',
-      margin: 0,
-      marginLeft: '8px',
-    }}
-  >
-    {props.children}
-  </p>
-);
-
-// constant
-const DOWNLOAD_URL = END_POINT + '/file';
 const OverviewCommonForm: React.FC<FormComponentProps & Props> = props => {
   console.log('overview common props data', props.data);
   const CUR_IND = props.ind || 3;
@@ -101,8 +40,7 @@ const OverviewCommonForm: React.FC<FormComponentProps & Props> = props => {
   const dispatch = useDispatch();
   const { forms, area } =
     props.data || useSelector((s: RootReducersType) => s.AreaFormReducers);
-  const requestorData: RequestorForm | undefined = forms[0];
-  const projectData: ProjectForm | undefined = forms[1];
+
   const facilityData: FacilityForm | undefined = forms[2];
 
   //   set index when form is loaded
@@ -121,10 +59,6 @@ const OverviewCommonForm: React.FC<FormComponentProps & Props> = props => {
     });
   }
 
-  function onDownload(id: string) {
-    window.open(DOWNLOAD_URL + '/' + id);
-  }
-
   return (
     <React.Fragment>
       <OverviewBorderLayout
@@ -138,7 +72,7 @@ const OverviewCommonForm: React.FC<FormComponentProps & Props> = props => {
         {/* overview section */}
         {area && <OverviewShareComponent data={{ forms, area }} />}
 
-        <CustomBrakeLine />
+        <CustomBreakLine />
         {/* facility */}
         <CustomSubHeader>
           เครื่องปรับอากาศและเครื่องขยายเสียง
