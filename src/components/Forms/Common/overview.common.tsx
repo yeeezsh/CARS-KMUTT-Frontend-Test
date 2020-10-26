@@ -202,7 +202,7 @@ const OverviewCommonForm: React.FC<FormComponentProps & Props> = props => {
 
         <CustomLabel>ภาควิชา</CustomLabel>
         <CustomParagraph>
-          {requestorData && requestorData.faculty}
+          {requestorData && requestorData.department}
         </CustomParagraph>
 
         {requestorData && requestorData.studentYear && (
