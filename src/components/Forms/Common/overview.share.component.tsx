@@ -4,13 +4,13 @@ import { useSelector } from 'react-redux';
 import { END_POINT } from 'Services/adapter.interface';
 import { RootReducersType } from 'Store/reducers';
 import { AreaInfo } from 'Store/reducers/areaForm/types';
-import { ProjectForm } from '../project';
-import { RequestorForm } from '../requestor';
-import CustomBreakLine from './CustomBreakLine';
-import CustomLabel from './CustomLabel';
-import CustomParagraph from './CustomParagraph';
-import CustomSubHeader from './CustomSubHeader';
-import DownloadButton from './DownloadButton';
+import CustomBreakLine from './common/CustomBreakLine';
+import CustomLabel from './common/CustomLabel';
+import CustomParagraph from './common/CustomParagraph';
+import CustomSubHeader from './common/CustomSubHeader';
+import DownloadButton from './common/DownloadButton';
+import { ProjectForm } from './project';
+import { RequestorForm } from './requestor';
 
 const DOWNLOAD_URL = END_POINT + '/file';
 

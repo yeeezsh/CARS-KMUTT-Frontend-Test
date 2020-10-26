@@ -20,13 +20,13 @@ import CustomBreakLine from './common/CustomBreakLine';
 import CustomLabel from './common/CustomLabel';
 import CustomParagraph from './common/CustomParagraph';
 import CustomSubHeader from './common/CustomSubHeader';
+import { EquipmentForm } from './equipment';
+import { FacilityForm } from './facility';
 import {
   FORM_COMMON_LAYOUT_EXPAND_OFFSET,
   FORM_COMMON_LAYOUT_MARGIN_TOP,
-} from './common/layout.constant';
-import OverviewShareComponent from './common/overview.share.component';
-import { EquipmentForm } from './equipment';
-import { FacilityForm } from './facility';
+} from './layout.constant';
+import OverviewShareComponent from './overview.share.component';
 import { ReturnForm } from './return';
 
 const LabelWithUnit: React.FC<{
@@ -98,6 +98,7 @@ const OverviewCommonForm: React.FC<FormComponentProps & Props> = props => {
         {!props.viewOnly && (
           <Outline style={{ color: '#1890FF' }}>ข้อมูลการจอง</Outline>
         )}
+
         {/* overview section */}
         {area && <OverviewShareComponent data={{ forms, area }} />}
 

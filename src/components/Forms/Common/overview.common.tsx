@@ -17,12 +17,12 @@ import {
 import { AreaInfo } from 'Store/reducers/areaForm/types';
 import CustomBreakLine from './common/CustomBreakLine';
 import CustomSubHeader from './common/CustomSubHeader';
+import { FacilityForm } from './facility';
 import {
   FORM_COMMON_LAYOUT_EXPAND_OFFSET,
   FORM_COMMON_LAYOUT_MARGIN_TOP,
-} from './common/layout.constant';
-import OverviewShareComponent from './common/overview.share.component';
-import { FacilityForm } from './facility';
+} from './layout.constant';
+import OverviewShareComponent from './overview.share.component';
 
 interface Props {
   ind?: number;
@@ -69,6 +69,7 @@ const OverviewCommonForm: React.FC<FormComponentProps & Props> = props => {
         {!props.viewOnly && (
           <Outline style={{ color: '#1890FF' }}>ข้อมูลการจอง</Outline>
         )}
+
         {/* overview section */}
         {area && <OverviewShareComponent data={{ forms, area }} />}
 
