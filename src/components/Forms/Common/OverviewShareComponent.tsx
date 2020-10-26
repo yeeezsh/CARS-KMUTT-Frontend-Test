@@ -12,7 +12,12 @@ import DownloadButton from '../shared/DownloadButton';
 import { ProjectForm } from './project';
 import { RequestorForm } from './requestor';
 
+// constant
 const DOWNLOAD_URL = END_POINT + '/file';
+const TIME_FORMAT = 'HH.mm';
+const DAY_FORMAT = 'DD';
+const MONTH_FULL_FORMAT = 'MMMM';
+const YEAR_FULL_FORMAT = 'YYYY';
 
 const OverviewShareComponent: React.FC<{
   data: {
@@ -36,23 +41,25 @@ const OverviewShareComponent: React.FC<{
         ตั้งแต่{' '}
         {projectData &&
           projectData.projectStartDate &&
-          moment(projectData.projectStartDate).format('DD')}{' '}
+          moment(projectData.projectStartDate).format(DAY_FORMAT)}{' '}
         {projectData &&
           projectData.projectStartDate &&
-          moment(projectData.projectStartDate).format('MMMM')}{' '}
+          moment(projectData.projectStartDate).format(
+            MONTH_FULL_FORMAT,
+          )}{' '}
         {projectData &&
           projectData.projectStartDate &&
-          moment(projectData.projectStartDate).format('YYYY')}
+          moment(projectData.projectStartDate).format(YEAR_FULL_FORMAT)}
         ,{' '}
         {projectData &&
           projectData.projectStartTime &&
-          moment(projectData.projectStartTime).format('HH.mm')}{' '}
+          moment(projectData.projectStartTime).format(TIME_FORMAT)}{' '}
         น.
         {projectData &&
         !projectData.projectStopDate && // when not have stop date show end time here
           projectData.projectStopTime &&
           ' ถึง ' +
-            moment(projectData.projectStopTime).format('HH.mm')}{' '}
+            moment(projectData.projectStopTime).format(TIME_FORMAT)}{' '}
         <br />
         {/* stop date */}
         {projectData && projectData.projectStopDate && (
@@ -60,17 +67,19 @@ const OverviewShareComponent: React.FC<{
             ถึง{' '}
             {projectData &&
               projectData.projectStopDate &&
-              moment(projectData.projectStopDate).format('DD')}{' '}
+              moment(projectData.projectStopDate).format(DAY_FORMAT)}{' '}
             {projectData &&
               projectData.projectStopDate &&
-              moment(projectData.projectStopDate).format('MMMM')}{' '}
+              moment(projectData.projectStopDate).format(
+                MONTH_FULL_FORMAT,
+              )}{' '}
             {projectData &&
               projectData.projectStopDate &&
-              moment(projectData.projectStopDate).format('YYYY')}
+              moment(projectData.projectStopDate).format(YEAR_FULL_FORMAT)}
             ,{' '}
             {projectData &&
               projectData.projectStopTime &&
-              moment(projectData.projectStopTime).format('HH.mm')}{' '}
+              moment(projectData.projectStopTime).format(TIME_FORMAT)}{' '}
             น.
           </React.Fragment>
         )}
