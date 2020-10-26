@@ -56,7 +56,8 @@ interface Props {
   viewOnly?: boolean;
 }
 
-const OverviewCommonForm: React.FC<FormComponentProps & Props> = props => {
+const OverviewCommonSportForm: React.FC<FormComponentProps &
+  Props> = props => {
   const CUR_IND = props.ind || 3;
   const { validateFields } = props.form;
   const dispatch = useDispatch();
@@ -315,4 +316,4 @@ const OverviewCommonForm: React.FC<FormComponentProps & Props> = props => {
 
 export default Form.create<FormComponentProps & Props>({
   name: 'overview-sport',
-})(OverviewCommonForm);
+})(OverviewCommonSportForm);

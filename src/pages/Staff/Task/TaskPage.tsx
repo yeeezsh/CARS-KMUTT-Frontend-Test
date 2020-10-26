@@ -4,7 +4,7 @@ import rejectIcon from 'Assets/icons/button/reject.svg';
 import xIcon from 'Assets/icons/button/x.svg';
 import {
   OverviewCommonForm,
-  OverviewSportForm,
+  OverviewCommonSportForm,
 } from 'Components/Forms/Common';
 import { OverviewMeeting as OverviewMeetingForm } from 'Components/Forms/Meeting';
 import typeDescHelper from 'Components/TaskTable/type.desc.helper';
@@ -93,7 +93,9 @@ const TaskPage: React.FC = () => {
       return <OverviewCommonForm viewOnly={true} data={{ forms, area }} />;
     }
     if (type === 'common-sport') {
-      return <OverviewSportForm viewOnly={true} data={{ forms, area }} />;
+      return (
+        <OverviewCommonSportForm viewOnly={true} data={{ forms, area }} />
+      );
     }
     if (type === 'meeting-club') {
       return (
