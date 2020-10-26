@@ -40,7 +40,6 @@ const TIME_FORMAT = 'HH:mm';
 const DATE_FORMAT_FULL_MONTH = 'DD-MMMM-YYYY';
 
 const OverviewMeeting: React.FC<FormComponentProps & Props> = props => {
-  console.log('overview common props data', props.data);
   const CUR_IND = props.ind || 3;
   const { validateFields } = props.form;
   const dispatch = useDispatch();
