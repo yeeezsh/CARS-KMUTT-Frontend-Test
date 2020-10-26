@@ -1,6 +1,5 @@
 import { Checkbox } from 'antd';
 import Form, { FormComponentProps } from 'antd/lib/form';
-import BreakingLine from 'Components/BreakingLine';
 import Button from 'Components/Button';
 // pages
 import { FacilityForm } from 'Components/Forms/Common/facility';
@@ -19,6 +18,10 @@ import {
   setFormCurrentIndex,
 } from 'Store/reducers/areaForm/actions';
 import { AreaInfo } from 'Store/reducers/areaForm/types';
+import CustomBreakLine from '../shared/CustomBreakLine';
+import CustomLabel from '../shared/CustomLabel';
+import CustomParagraph from '../shared/CustomParagraph';
+import CustomSubHeader from '../shared/CustomSubHeader';
 import { CalendarForm } from './CalendarMeeting';
 
 interface Props {
@@ -31,41 +34,6 @@ interface Props {
   showFacility?: boolean;
   buttonOffeset?: boolean | number;
 }
-
-// custom components
-const CustomBrakeLine: React.FC = () => (
-  <BreakingLine color="#91D5FF" lineSize={0.25} />
-);
-const CustomSubHeader: React.FC = props => (
-  <Outline style={{ color: '#1890FF', fontSize: '14px', margin: 0 }}>
-    {props.children}
-  </Outline>
-);
-const CustomLabel: React.FC = props => (
-  <p
-    style={{
-      color: '#666666',
-      fontSize: '14px',
-      fontWeight: 'bold',
-      margin: 0,
-    }}
-  >
-    {props.children}
-  </p>
-);
-
-const CustomParagraph: React.FC = props => (
-  <p
-    style={{
-      color: '#666666',
-      fontSize: '14px',
-      margin: 0,
-      marginLeft: '8px',
-    }}
-  >
-    {props.children}
-  </p>
-);
 
 const OverviewMeeting: React.FC<FormComponentProps & Props> = props => {
   console.log('overview common props data', props.data);
@@ -118,7 +86,7 @@ const OverviewMeeting: React.FC<FormComponentProps & Props> = props => {
               props.showFacility === false ? 'hidden' : 'visible',
           }}
         >
-          <CustomBrakeLine />
+          <CustomBreakLine />
           <CustomSubHeader>
             เครื่องปรับอากาศและเครื่องขยายเสียง
           </CustomSubHeader>
