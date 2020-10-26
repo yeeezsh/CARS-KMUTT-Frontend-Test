@@ -35,6 +35,10 @@ interface Props {
   buttonOffeset?: boolean | number;
 }
 
+// constant
+const TIME_FORMAT = 'HH:mm';
+const DATE_FORMAT_FULL_MONTH = 'DD-MMMM-YYYY';
+
 const OverviewMeeting: React.FC<FormComponentProps & Props> = props => {
   console.log('overview common props data', props.data);
   const CUR_IND = props.ind || 3;
@@ -71,12 +75,12 @@ const OverviewMeeting: React.FC<FormComponentProps & Props> = props => {
         <CustomParagraph>{area?.label}</CustomParagraph>
         <CustomLabel>วันที่จอง</CustomLabel>
         <CustomParagraph>
-          {moment(calendarData?.date).format('DD-MMMM-YYYY')}
+          {moment(calendarData?.date).format(DATE_FORMAT_FULL_MONTH)}
         </CustomParagraph>
         <CustomLabel>เวลา</CustomLabel>
         <CustomParagraph>
-          {moment(calendarData?.startTime).format('HH:mm')} -{' '}
-          {moment(calendarData?.stopTime).format('HH:mm')}
+          {moment(calendarData?.startTime).format(TIME_FORMAT)} -{' '}
+          {moment(calendarData?.stopTime).format(TIME_FORMAT)}
         </CustomParagraph>
 
         {/* facility */}
@@ -101,11 +105,13 @@ const OverviewMeeting: React.FC<FormComponentProps & Props> = props => {
                   ตั้งแต่เวลา{' '}
                   {facilityData &&
                     moment(facilityData?.startAirTime).format(
-                      'HH.mm',
+                      TIME_FORMAT,
                     )}{' '}
                   ถึงเวลา{' '}
                   {facilityData &&
-                    moment(facilityData?.stopAirTime).format('HH.mm')}{' '}
+                    moment(facilityData?.stopAirTime).format(
+                      TIME_FORMAT,
+                    )}{' '}
                   น.
                 </p>
               )}
@@ -124,12 +130,12 @@ const OverviewMeeting: React.FC<FormComponentProps & Props> = props => {
                   ตั้งแต่เวลา{' '}
                   {facilityData &&
                     moment(facilityData.startSoundTime).format(
-                      'HH.mm',
+                      TIME_FORMAT,
                     )}{' '}
                   ถึงเวลา{' '}
                   {facilityData &&
                     moment(facilityData.stopSoundTime).format(
-                      'HH.mm',
+                      TIME_FORMAT,
                     )}{' '}
                   น.
                 </p>
