@@ -26,7 +26,7 @@ import {
   FORM_COMMON_LAYOUT_EXPAND_OFFSET,
   FORM_COMMON_LAYOUT_MARGIN_TOP,
 } from './layout.constant';
-import OverviewShareComponent from './overview.share.component';
+import OverviewShareComponent from './OverviewShareComponent';
 import { ReturnForm } from './return';
 
 const LabelWithUnit: React.FC<{
