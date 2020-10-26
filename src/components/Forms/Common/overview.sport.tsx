@@ -56,7 +56,6 @@ interface Props {
   viewOnly?: boolean;
 }
 
-// constant
 const OverviewCommonForm: React.FC<FormComponentProps & Props> = props => {
   const CUR_IND = props.ind || 3;
   const { validateFields } = props.form;
