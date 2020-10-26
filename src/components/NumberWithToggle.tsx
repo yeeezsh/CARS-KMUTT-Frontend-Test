@@ -63,50 +63,53 @@ const NumberWithToggle: React.FC<{
   ]);
 
   return (
-    <React.Fragment>
-      <Row justify="center" type="flex">
-        {/* label */}
-        <Col span={13}>
-          <span style={sharedLabelstyle}>{props.label}</span>
+    <Row justify="center" type="flex">
+      {/* label */}
+      <Col span={13}>
+        <span style={sharedLabelstyle}>{props.label}</span>
 
-          <span
-            style={{
-              ...sharedLabelstyle,
-              ...{
-                marginLeft: '8px',
-                fontSize: '14px',
-                fontWeight: 'lighter',
-              },
-            }}
+        <span
+          style={{
+            ...sharedLabelstyle,
+            ...{
+              marginLeft: '8px',
+              fontSize: '14px',
+              fontWeight: 'lighter',
+            },
+          }}
+        >
+          ({props.unit})
+        </span>
+      </Col>
+
+      {/* number */}
+      <Col offset={1} span={8}>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+          }}
+        >
+          <ToggleButton
+            disabled={value === 0 ? true : false}
+            onClick={() => addValue(-1)}
           >
-            ({props.unit})
-          </span>
-        </Col>
-
-        {/* number */}
-        <Col offset={1} span={10}>
-          <div style={{ display: 'flex' }}>
-            <ToggleButton
-              disabled={value === 0 ? true : false}
-              onClick={() => addValue(-1)}
-            >
-              -
-            </ToggleButton>
-            <Input
-              style={{
-                height: '32px',
-                marginBottom: '6px',
-                display: 'block',
-                width: '65px',
-                textAlign: 'center',
-              }}
-              value={value}
-            />
-            <ToggleButton onClick={() => addValue(1)}>+</ToggleButton>
-          </div>
-        </Col>
-      </Row>
-    </React.Fragment>
+            -
+          </ToggleButton>
+          <Input
+            style={{
+              height: '32px',
+              marginBottom: '6px',
+              display: 'block',
+              width: '65px',
+              textAlign: 'center',
+            }}
+            value={value}
+          />
+          <ToggleButton onClick={() => addValue(1)}>+</ToggleButton>
+        </div>
+      </Col>
+    </Row>
   );
 };
 

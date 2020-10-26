@@ -12,10 +12,6 @@ const FacilityForm = Loadable({
   loader: () => import('./facility'),
   loading: () => null,
 });
-const OverviewCommonForm = Loadable({
-  loader: () => import('./overview.common'),
-  loading: () => null,
-});
 const AreaForm = Loadable({
   loader: () => import('./area'),
   loading: () => null,
@@ -28,8 +24,14 @@ const ReturnForm = Loadable({
   loader: () => import('./return'),
   loading: () => null,
 });
-const OverviewSportForm = Loadable({
-  loader: () => import('./overview.sport'),
+
+// overview components
+const OverviewCommonSportForm = Loadable({
+  loader: () => import('./OverviewCommonSportForm'),
+  loading: () => null,
+});
+const OverviewCommonForm = Loadable({
+  loader: () => import('./OverviewCommonForm'),
   loading: () => null,
 });
 
@@ -37,9 +39,9 @@ export {
   RequestorForm,
   ProjectForm,
   FacilityForm,
-  OverviewCommonForm,
   AreaForm,
   EquipmentForm,
   ReturnForm,
-  OverviewSportForm,
+  OverviewCommonForm,
+  OverviewCommonSportForm,
 };

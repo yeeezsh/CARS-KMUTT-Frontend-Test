@@ -1,6 +1,5 @@
 import { Checkbox } from 'antd';
 import Form, { FormComponentProps } from 'antd/lib/form';
-import BreakingLine from 'Components/BreakingLine';
 import Button from 'Components/Button';
 // pages
 import { FacilityForm } from 'Components/Forms/Common/facility';
@@ -19,6 +18,10 @@ import {
   setFormCurrentIndex,
 } from 'Store/reducers/areaForm/actions';
 import { AreaInfo } from 'Store/reducers/areaForm/types';
+import CustomBreakLine from '../shared/CustomBreakLine';
+import CustomLabel from '../shared/CustomLabel';
+import CustomParagraph from '../shared/CustomParagraph';
+import CustomSubHeader from '../shared/CustomSubHeader';
 import { CalendarForm } from './CalendarMeeting';
 
 interface Props {
@@ -32,43 +35,11 @@ interface Props {
   buttonOffeset?: boolean | number;
 }
 
-// custom components
-const CustomBrakeLine: React.FC = () => (
-  <BreakingLine color="#91D5FF" lineSize={0.25} />
-);
-const CustomSubHeader: React.FC = props => (
-  <Outline style={{ color: '#1890FF', fontSize: '14px', margin: 0 }}>
-    {props.children}
-  </Outline>
-);
-const CustomLabel: React.FC = props => (
-  <p
-    style={{
-      color: '#666666',
-      fontSize: '14px',
-      fontWeight: 'bold',
-      margin: 0,
-    }}
-  >
-    {props.children}
-  </p>
-);
-
-const CustomParagraph: React.FC = props => (
-  <p
-    style={{
-      color: '#666666',
-      fontSize: '14px',
-      margin: 0,
-      marginLeft: '8px',
-    }}
-  >
-    {props.children}
-  </p>
-);
+// constant
+const TIME_FORMAT = 'HH:mm';
+const DATE_FORMAT_FULL_MONTH = 'DD-MMMM-YYYY';
 
 const OverviewMeeting: React.FC<FormComponentProps & Props> = props => {
-  console.log('overview common props data', props.data);
   const CUR_IND = props.ind || 3;
   const { validateFields } = props.form;
   const dispatch = useDispatch();
@@ -103,12 +74,12 @@ const OverviewMeeting: React.FC<FormComponentProps & Props> = props => {
         <CustomParagraph>{area?.label}</CustomParagraph>
         <CustomLabel>วันที่จอง</CustomLabel>
         <CustomParagraph>
-          {moment(calendarData?.date).format('DD-MMMM-YYYY')}
+          {moment(calendarData?.date).format(DATE_FORMAT_FULL_MONTH)}
         </CustomParagraph>
         <CustomLabel>เวลา</CustomLabel>
         <CustomParagraph>
-          {moment(calendarData?.startTime).format('HH:mm')} -{' '}
-          {moment(calendarData?.stopTime).format('HH:mm')}
+          {moment(calendarData?.startTime).format(TIME_FORMAT)} -{' '}
+          {moment(calendarData?.stopTime).format(TIME_FORMAT)}
         </CustomParagraph>
 
         {/* facility */}
@@ -118,7 +89,7 @@ const OverviewMeeting: React.FC<FormComponentProps & Props> = props => {
               props.showFacility === false ? 'hidden' : 'visible',
           }}
         >
-          <CustomBrakeLine />
+          <CustomBreakLine />
           <CustomSubHeader>
             เครื่องปรับอากาศและเครื่องขยายเสียง
           </CustomSubHeader>
@@ -133,11 +104,13 @@ const OverviewMeeting: React.FC<FormComponentProps & Props> = props => {
                   ตั้งแต่เวลา{' '}
                   {facilityData &&
                     moment(facilityData?.startAirTime).format(
-                      'HH.mm',
+                      TIME_FORMAT,
                     )}{' '}
                   ถึงเวลา{' '}
                   {facilityData &&
-                    moment(facilityData?.stopAirTime).format('HH.mm')}{' '}
+                    moment(facilityData?.stopAirTime).format(
+                      TIME_FORMAT,
+                    )}{' '}
                   น.
                 </p>
               )}
@@ -156,12 +129,12 @@ const OverviewMeeting: React.FC<FormComponentProps & Props> = props => {
                   ตั้งแต่เวลา{' '}
                   {facilityData &&
                     moment(facilityData.startSoundTime).format(
-                      'HH.mm',
+                      TIME_FORMAT,
                     )}{' '}
                   ถึงเวลา{' '}
                   {facilityData &&
                     moment(facilityData.stopSoundTime).format(
-                      'HH.mm',
+                      TIME_FORMAT,
                     )}{' '}
                   น.
                 </p>

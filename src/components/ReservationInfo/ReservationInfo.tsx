@@ -2,7 +2,7 @@ import { Col, Row } from 'antd';
 import emptyIcon from 'Assets/icons/empty.box.svg';
 import {
   OverviewCommonForm,
-  OverviewSportForm,
+  OverviewCommonSportForm,
 } from 'Components/Forms/Common';
 import { OverviewMeeting as OverviewMeetingForm } from 'Components/Forms/Meeting';
 import ButtonActionLayout from 'Components/Layout/ButtonActionLayout';
@@ -223,7 +223,10 @@ class ReservationInfo extends Component<
       }
       if (taskType === TaskType.commonSport) {
         return (
-          <OverviewSportForm viewOnly={true} data={{ forms, area }} />
+          <OverviewCommonSportForm
+            viewOnly={true}
+            data={{ forms, area }}
+          />
         );
       }
       if (taskType === TaskType.meetingClub) {

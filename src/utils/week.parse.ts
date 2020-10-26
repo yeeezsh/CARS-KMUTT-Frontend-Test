@@ -19,5 +19,6 @@ export default (str: string): number[] => {
       const filtered = strSplit.filter(e => e !== ',').map(e => Number(e));
       return filtered;
   }
+  console.error('week parser error on parsing: ', str);
   return [];
 };

@@ -3,7 +3,7 @@ import {
   AreaForm,
   EquipmentForm,
   FacilityForm,
-  OverviewSportForm,
+  OverviewCommonSportForm,
   ProjectForm,
   RequestorForm,
   ReturnForm,
@@ -84,7 +84,7 @@ const AreaCommonSportPage: React.FC<{
           AreaForm.preload();
           FacilityForm.preload();
           EquipmentForm.preload();
-          OverviewSportForm.preload();
+          OverviewCommonSportForm.preload();
         });
   }, []);
 
@@ -234,7 +234,7 @@ const AreaCommonSportPage: React.FC<{
           <WhiteSpace />
         </Route>
         <Route path="**/7">
-          <OverviewSportForm ind={6} />
+          <OverviewCommonSportForm ind={6} />
         </Route>
       </Switch>
     </PageLayout>
