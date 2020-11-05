@@ -7,7 +7,7 @@ import { taskAPI } from 'Services/task';
 import { taskMeetingAPI } from 'Services/task/meeting';
 import { CreateTaskMeeting } from 'Services/task/meeting/interface';
 import { CreateTaskByStaff } from 'Services/task/task.create.interface';
-import { UserClass } from 'Services/user';
+import { UserService } from 'Services/user/user.service';
 import SelectedDateType from '../@types/selected.date.type';
 
 function selectingToDateAPI(
@@ -24,7 +24,7 @@ function selectingToDateAPI(
 async function sportTaskAPI(
   selecting: TimeNode[][],
   areaInfo: AreaServiceResponseAPI,
-  u: UserClass,
+  u: UserService,
 ) {
   const parser: CreateTaskByStaff = {
     time: [],
@@ -54,7 +54,7 @@ async function meetingTaskAPI(
 }
 
 async function callAPI(
-  u: UserClass,
+  u: UserService,
   areaInfo: AreaServiceResponseAPI,
   selectedDate: SelectedDateType | undefined,
   selecting: TimeNode[][],
@@ -83,7 +83,7 @@ async function callAPI(
 }
 
 function useOnRserveTimeTableAPI(
-  u: UserClass,
+  u: UserService,
   areaInfo: AreaServiceResponseAPI,
   onCancel: () => void,
   fetchData: (startDate: Moment, stopDate: Moment) => void,

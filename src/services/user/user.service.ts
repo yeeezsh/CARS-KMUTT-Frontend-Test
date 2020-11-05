@@ -15,7 +15,7 @@ const loginAdapter: AxiosInstance['post'] = async (
   return await adapter.instance.post(url, data);
 };
 
-export class UserClass {
+export class UserService {
   user: User;
   constructor() {
     const data = localStorage.getItem('user');
@@ -106,11 +106,12 @@ export class UserClass {
     return this.user;
   };
 
-  GetQuota = async (): Promise<QuotaType> => {
-    const res = (await adapter.instance.get('/users/quota')).data;
+  GetQuota = async (areaId: string): Promise<QuotaType> => {
+    const res = (await adapter.instance.get('/users/quota/' + areaId))
+      .data;
     console.log('quota', res);
     return res;
   };
 }
 
-export const u = new UserClass();
+export const userService = new UserService();

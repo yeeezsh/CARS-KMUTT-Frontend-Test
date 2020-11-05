@@ -1,9 +1,9 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import { u } from 'Services/user';
+import { userService } from 'Services/user/user.service';
 
 const LogoutPage: React.FunctionComponent = () => {
-  u.UserLogout();
+  userService.UserLogout();
   return <Redirect to="/staff/login" />;
 };
 

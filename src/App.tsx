@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Loadable from 'react-loadable';
-import { u } from 'Services/user';
+import { userService } from 'Services/user/user.service';
 import './App.css';
 
 const RootRouter = Loadable({
@@ -16,7 +16,7 @@ class App extends Component {
       // get token before initial app
       // const exceptPath = EXCEPION_PATH.includes(window.location.pathname);
       // if (exceptPath) return;
-      u.RestoreUser();
+      userService.RestoreUser();
       // if (!u.GetUser()._id) throw Error('user need login');
     } catch (err) {
       // const staffPath = window.location.pathname.includes('staff');

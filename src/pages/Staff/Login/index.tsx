@@ -4,12 +4,12 @@ import logo from 'Assets/login.logo.svg';
 import Button from 'Components/Button';
 import React, { Component } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router';
-import { u } from 'Services/user';
 import {
   MSG_BAD_USERNAME,
   MSG_REQUIRE_PASSWORD,
   MSG_REQUIRE_USERNAME,
 } from 'Services/user/default.msg';
+import { userService } from 'Services/user/user.service';
 // utils
 import usernameValidator from 'Utils/username.validator';
 import styles from './styles.module.css';
@@ -25,8 +25,8 @@ class StaffLoginPage extends Component<
   };
 
   componentDidMount = async () => {
-    console.log(u.GetUser());
-    if (u.GetUser()) await u.UserLogout();
+    console.log(userService.GetUser());
+    if (userService.GetUser()) await userService.UserLogout();
   };
 
   onValidator = (_rule: any, value: string, callback: any) => {
@@ -45,7 +45,10 @@ class StaffLoginPage extends Component<
         if (!err) {
           return this.setState({ loading: true }, async () => {
             const { username, password } = values;
-            const { auth, msg } = await u.StaffLogin(username, password);
+            const { auth, msg } = await userService.StaffLogin(
+              username,
+              password,
+            );
 
             if (auth) return this.props.history.push('/staff');
             setFields({
