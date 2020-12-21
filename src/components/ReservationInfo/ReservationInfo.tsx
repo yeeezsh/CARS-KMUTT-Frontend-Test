@@ -307,17 +307,19 @@ class ReservationInfo extends Component<
         return (
           <React.Fragment>
             <ButtonActionLayout>
-              <Col span={11}>
-                <Button onClick={this.goBack}>ย้อนกลับ</Button>
-              </Col>
-              <Col span={11}>
-                <Button
-                  style={{ backgroundColor: ButtonBackgroundColor.Blue }}
-                  onClick={this.onModal}
-                >
-                  ยืนยัน
-                </Button>
-              </Col>
+              <Row type="flex" justify="space-around">
+                <Col span={11}>
+                  <Button onClick={this.goBack}>ย้อนกลับ</Button>
+                </Col>
+                <Col span={11}>
+                  <Button
+                    style={{ backgroundColor: ButtonBackgroundColor.Blue }}
+                    onClick={this.onModal}
+                  >
+                    ยืนยัน
+                  </Button>
+                </Col>
+              </Row>
             </ButtonActionLayout>
           </React.Fragment>
         );
@@ -327,9 +329,6 @@ class ReservationInfo extends Component<
             <ButtonActionLayout>
               <Button onClick={this.goBack}>ย้อนกลับ</Button>
             </ButtonActionLayout>
-            {/* <Col span={24}>
-              
-            </Col> */}
           </React.Fragment>
         );
       }
