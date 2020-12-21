@@ -4,6 +4,8 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
   .BundleAnalyzerPlugin;
 const webpack = require('webpack');
+const processEnv = require('./config/process.env');
+const htmlEnv = require('./config/html.env');
 
 module.exports = {
   mode: 'development',
@@ -108,15 +110,12 @@ module.exports = {
     new ForkTsCheckerWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: './src/index.html',
+      ...htmlEnv,
     }),
     new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en|th/),
     new BundleAnalyzerPlugin(),
     new webpack.DefinePlugin({
-      'process.env': {
-        REACT_APP_BACKEND_ENDPOINT: JSON.stringify(
-          process.env.REACT_APP_BACKEND_ENDPOINT,
-        ),
-      },
+      'process.env': { ...processEnv },
     }),
   ],
 };
