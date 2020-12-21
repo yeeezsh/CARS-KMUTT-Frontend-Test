@@ -12,9 +12,9 @@ const RootRouter = Loadable({
 class App extends Component {
   componentDidMount() {
     try {
+      u.RestoreUser();
       ReactGA.initialize('G-VSK5G6Y1LF');
       ReactGA.pageview(window.location.pathname + window.location.search);
-      u.RestoreUser();
     } catch (err) {
       console.error(err);
     }
