@@ -65,7 +65,7 @@ const AreaCommonActivityPage: React.FC<{
   const location = useLocation().pathname;
   const useModal = props.useModal !== undefined ? props.useModal : true;
 
-  const areaId = forms.area?._id || location.split('/')[3];
+  const areaId = location.split('/')[3];
 
   function goBack() {
     if (steps === 0) {
@@ -96,6 +96,7 @@ const AreaCommonActivityPage: React.FC<{
       areaService
         .getAreaInfo(areaId)
         .then(area => {
+          console.log(area);
           dispatch(setAreaInfoForm(area));
         })
         .then(() => {

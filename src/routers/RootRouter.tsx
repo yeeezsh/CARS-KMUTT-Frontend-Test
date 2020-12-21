@@ -3,8 +3,12 @@ import Loadable from 'react-loadable';
 import { Route, Router, Switch } from 'react-router';
 import history from './history';
 
+// const PageUserRouter = Loadable({
+//   loader: () => import('./UserRouter'),
+//   loading: () => null,
+// });
 const PageUserRouter = Loadable({
-  loader: () => import('./UserRouter'),
+  loader: () => import('./UserRouter_'),
   loading: () => null,
 });
 

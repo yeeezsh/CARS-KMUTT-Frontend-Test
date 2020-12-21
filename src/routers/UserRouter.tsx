@@ -1,3 +1,8 @@
+// DEPRECATED IN NEXT PATCH
+// DEPRECATED IN NEXT PATCH
+// DEPRECATED IN NEXT PATCH
+// DEPRECATED IN NEXT PATCH
+
 import hamburgerOrange from 'Assets/icons/hamburger-orange.svg';
 import hamburgerWhite from 'Assets/icons/hamburger-white.svg';
 // Common Area
@@ -6,12 +11,12 @@ import {
   Activity as CommonActivity,
   Areas as CommonArea,
   Sport as CommonSport,
-  TypesWSport as CommonAreaTypes,
+  TypesWSport as CommonAreaTypes
 } from 'Pages/Areas/Common';
 import {
   Areas as MeetingArea,
   FormClub as MeetingFormClub,
-  FormMeeting as MeetingFormMeeting,
+  FormMeeting as MeetingFormMeeting
 } from 'Pages/Areas/Common/Meeting';
 import { Category as SportCategory, Page as SportPage } from 'Pages/Sport';
 import React, { Component } from 'react';
