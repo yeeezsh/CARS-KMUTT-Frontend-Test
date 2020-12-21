@@ -49,14 +49,18 @@ const MyReserveEditPage = Loadable({
   loading: () => null,
 });
 
-// type Props = PropsRedux;
+type UserRouter = {
+  drawer: boolean;
+  onHome: boolean;
+  onLogin: boolean;
+};
 
 const UserRouter = () => {
-  const [routerState, setRouterState] = useState<{
-    drawer: boolean;
-    onHome: boolean;
-    onLogin: boolean;
-  }>({ drawer: false, onHome: true, onLogin: false });
+  const [routerState, setRouterState] = useState<UserRouter>({
+    drawer: false,
+    onHome: true,
+    onLogin: false,
+  });
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -94,8 +98,6 @@ const UserRouter = () => {
     setRouterState(prev => ({ ...prev, drawer: !prev.drawer }));
   };
 
-  const { drawer, onHome } = routerState;
-
   return (
     <Router history={appHistory}>
       {/* hamburger */}
@@ -109,14 +111,14 @@ const UserRouter = () => {
               marginLeft: '20px',
               cursor: 'pointer',
             }}
-            src={onHome ? hamburgerWhite : hamburgerOrange}
+            src={routerState.onHome ? hamburgerWhite : hamburgerOrange}
             alt="hamburger"
           />
         </div>
       )}
 
       {/* AppDrawer */}
-      <AppDrawer onDrawer={onDrawer} drawer={drawer} />
+      <AppDrawer onDrawer={onDrawer} drawer={routerState.drawer} />
 
       <Route path="/login">
         <LoginPage />
