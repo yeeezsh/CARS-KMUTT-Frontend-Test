@@ -67,7 +67,7 @@ const AreaCommonSportPage: React.FC<{
   const location = useLocation().pathname;
   const useModal = props.useModal !== undefined ? props.useModal : true;
 
-  const areaId = forms.area?._id || location.split('/')[3];
+  const areaId = location.split('/')[3];
 
   // once
   useEffect(() => {
