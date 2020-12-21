@@ -1,3 +1,3 @@
 module.exports = {
-  REACT_APP_GA_KEY: JSON.stringify(process.env.REACT_APP_GA_KEY),
+  GA: process.env.REACT_APP_GA_KEY,
 };

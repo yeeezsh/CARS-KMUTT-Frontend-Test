@@ -12,11 +12,11 @@
   </body>
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=<%= htmlWebpackPlugin.options.REACT_APP_GA_KEY %>"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=<%= htmlWebpackPlugin.options.GA %>"></script>
 <script scr>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', '<%= htmlWebpackPlugin.options.REACT_APP_GA_KEY %>');
+  gtag('config', '<%= htmlWebpackPlugin.options.GA %>');
 </script>
 </html>

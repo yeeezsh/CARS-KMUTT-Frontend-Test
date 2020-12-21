@@ -4,7 +4,7 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
   .BundleAnalyzerPlugin;
 const webpack = require('webpack');
-const processEnv = require('./config/html.env');
+const processEnv = require('./config/process.env');
 const htmlEnv = require('./config/html.env');
 
 module.exports = {
