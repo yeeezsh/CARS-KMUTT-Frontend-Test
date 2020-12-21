@@ -13,8 +13,12 @@ class App extends Component {
   componentDidMount() {
     try {
       u.RestoreUser();
-      ReactGA.initialize('G-VSK5G6Y1LF');
-      ReactGA.pageview(window.location.pathname + window.location.search);
+      if (process.env.REACT_APP_GA_KEY) {
+        ReactGA.initialize(process.env.REACT_APP_GA_KEY);
+        ReactGA.pageview(
+          window.location.pathname + window.location.search,
+        );
+      }
     } catch (err) {
       console.error(err);
     }

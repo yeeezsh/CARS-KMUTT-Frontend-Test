@@ -78,11 +78,7 @@ module.exports = {
     }),
     new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en|th/),
     new webpack.DefinePlugin({
-      'process.env': {
-        REACT_APP_BACKEND_ENDPOINT: JSON.stringify(
-          process.env.REACT_APP_BACKEND_ENDPOINT,
-        ),
-      },
+      'process.env': { ...processEnv },
     }),
   ],
   optimization: {
