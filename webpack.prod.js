@@ -3,8 +3,8 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-const processEnv = require('./config/process.env')
-const htmlEnv = require('./config/html.env')
+const processEnv = require('./config/process.env');
+const htmlEnv = require('./config/html.env');
 
 module.exports = {
   mode: 'production',
@@ -77,7 +77,6 @@ module.exports = {
     new ForkTsCheckerWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: './src/index.html',
-      ...htmlEnv,
     }),
     new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en|th/),
     new webpack.DefinePlugin({

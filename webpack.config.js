@@ -110,7 +110,6 @@ module.exports = {
     new ForkTsCheckerWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: './src/index.html',
-      ...htmlEnv,
     }),
     new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en|th/),
     new BundleAnalyzerPlugin(),
