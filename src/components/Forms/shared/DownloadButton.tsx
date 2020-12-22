@@ -5,9 +5,6 @@ const DownloadButton: React.FC<{
   onClick?: () => void;
   downloadUrl: string;
 }> = props => {
-  function onDownload(id: string) {
-    window.open(props.downloadUrl + '/' + id);
-  }
   return (
     <Button
       fontColor="#1890FF"
@@ -19,7 +16,7 @@ const DownloadButton: React.FC<{
         padding: 0,
         backgroundColor: '#E6F7FF',
       }}
-      onClick={() => onDownload(props.downloadUrl)}
+      onClick={() => window.open(props.downloadUrl)}
     >
       ดาวน์โหลด
     </Button>
