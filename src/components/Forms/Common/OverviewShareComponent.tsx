@@ -132,8 +132,11 @@ const OverviewShareComponent: React.FC<{
         {projectData &&
           projectData.files &&
           projectData.files.map(e => (
-            <React.Fragment key={e.uid}>
-              {e.name} <DownloadButton downloadUrl={DOWNLOAD_URL} />
+            <React.Fragment key={e.response.id}>
+              {e.name}{' '}
+              <DownloadButton
+                downloadUrl={DOWNLOAD_URL + '/' + e.response.id}
+              />
             </React.Fragment>
           ))}
       </CustomParagraph>
