@@ -86,14 +86,15 @@ class StaffLoginPage extends Component<
                 fontSize: '48px',
                 fontWeight: 'bold',
                 textAlign: 'center',
+                marginBottom: '0px',
               }}
             >
               STAFF
             </p>
-            <p className={styles.label}>common area reservation systems</p>
+            <p className={styles.label}>BOOK MY SPACE</p>
           </Col>
         </Row>
-        <div style={{ height: '80px' }} />
+        <div style={{ height: '40px' }} />
         <Form onSubmit={this.onSubmit} autoComplete="on">
           <Row type="flex" justify="center">
             <Col span={18} lg={14} className={styles.input}>
