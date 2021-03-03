@@ -84,10 +84,10 @@ class LoginPage extends Component<
             <img src={logo} alt="logo" />
           </Col>
           <Col span={22}>
-            <p className={styles.label}>common area reservation systems</p>
+            <p className={styles.label}>BOOK MY SPACE</p>
           </Col>
         </Row>
-        <div style={{ height: '80px' }} />
+        <div style={{ height: '40px' }} />
         <Form onSubmit={this.onSubmit} autoComplete="on">
           <Row type="flex" justify="center">
             <Col span={18} lg={14} className={styles.input}>
