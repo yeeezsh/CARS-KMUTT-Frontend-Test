@@ -82,8 +82,6 @@ class LoginPage extends Component<
         <Row type="flex" justify="center">
           <Col>
             <img src={logo} alt="logo" />
-          </Col>
-          <Col span={22}>
             <p className={styles.label}>BOOK MY SPACE</p>
           </Col>
         </Row>
