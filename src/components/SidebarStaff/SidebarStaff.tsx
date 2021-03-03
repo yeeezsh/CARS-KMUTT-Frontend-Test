@@ -18,7 +18,6 @@ const SidebarStaff: React.FC = () => {
     <div className={styles.main}>
       <div className={styles.logo}>
         <img src={sidebarIcon} alt="sidebar icon" />
-        <p>STAFF</p>
       </div>
 
       {/* menu */}
