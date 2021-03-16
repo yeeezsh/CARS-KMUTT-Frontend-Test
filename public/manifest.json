@@ -21,5 +21,19 @@
   "start_url": "https://bookmyspace.kmutt.ac.th",
   "display": "standalone",
   "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "background_color": "#ffffff",
+  "shortcuts": [
+    {
+      "name": "จองสนามกีฬา",
+      "url": "/reserve/sport/category"
+    },
+    {
+      "name": "จองพื้นที่จัดกิจกรรม / ห้องประชุม",
+      "url": "/reserve/area/category"
+    },
+    {
+      "name": "ประวัติการจอง",
+      "url": "/my/reserve/history"
+    }
+  ]
 }
