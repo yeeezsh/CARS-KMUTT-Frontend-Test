@@ -19,7 +19,7 @@
     }
   ],
   "start_url": "https://bookmyspace.kmutt.ac.th",
-  "display": "standalone",
+  "display": "fullscreen",
   "theme_color": "#ef713f",
   "background_color": "#ffffff",
   "shortcuts": [
