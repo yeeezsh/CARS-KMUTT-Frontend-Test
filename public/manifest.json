@@ -1,6 +1,7 @@
 {
   "short_name": "Book My Space",
   "name": "Book My Space",
+  "lang": "th-TH",
   "icons": [
     {
       "src": "/public/favicon.ico",
