@@ -18,6 +18,7 @@ RUN yarn build
 
 FROM nginx:alpine as nginx
 COPY --from=uat dist/ /var/www
+COPY --from=uat public/ /var/www/public
 COPY /server/nginx.conf /etc/nginx/nginx.conf
 EXPOSE 80
 ENTRYPOINT ["nginx","-g","daemon off;"]

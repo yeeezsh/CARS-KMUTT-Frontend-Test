@@ -2,7 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Book My Space | KMUTT</title>
   </head>
@@ -11,12 +14,37 @@
     <div id="root"></div>
   </body>
 
+  <!-- icon & manifest -->
+  <link
+    rel="apple-touch-icon"
+    sizes="180x180"
+    href="/public/apple-touch-icon.png"
+  />
+  <link
+    rel="icon"
+    type="image/png"
+    sizes="32x32"
+    href="/public/favicon-32x32.png"
+  />
+  <link
+    rel="icon"
+    type="image/png"
+    sizes="16x16"
+    href="/public/favicon-16x16.png"
+  />
+  <link rel="manifest" href="/public/manifest.json" />
+
   <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=<%= process.env.REACT_APP_GA_KEY %>"></script>
-<script scr>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', '<%= process.env.REACT_APP_GA_KEY %>');
-</script>
+  <script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=<%= process.env.REACT_APP_GA_KEY %>"
+  ></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', '<%= process.env.REACT_APP_GA_KEY %>');
+  </script>
 </html>
