@@ -20,7 +20,7 @@ import ButtonActionLayout from 'Components/Layout/ButtonActionLayout';
 import moment, { Moment } from 'moment';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import adapter, { END_POINT } from 'Services/adapter.interface';
+import adapter, { END_POINT } from 'Services/adapter';
 // store & data
 import { RootReducersType } from 'Store/reducers';
 import {

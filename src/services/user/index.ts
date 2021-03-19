@@ -1,7 +1,7 @@
 import { AxiosError, AxiosInstance } from 'axios';
 import store from 'Store/index';
 import { deleteUser, setUser } from '../../store/reducers/users/actions';
-import adapter from '../adapter.interface';
+import adapter from '../adapter';
 import { MSG_BAD_PASSWORD, MSG_INTERNAL_ERROR } from './default.msg';
 import User from './interface';
 import { QuotaType } from './quota.interface';

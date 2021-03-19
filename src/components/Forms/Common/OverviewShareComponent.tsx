@@ -1,7 +1,7 @@
 import moment from 'moment';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { END_POINT } from 'Services/adapter.interface';
+import { END_POINT } from 'Services/adapter';
 import { RootReducersType } from 'Store/reducers';
 import { AreaInfo } from 'Store/reducers/areaForm/types';
 import CustomBreakLine from '../shared/CustomBreakLine';

@@ -1,4 +1,4 @@
-import adapter from 'Services/adapter.interface';
+import adapter from 'Services/adapter';
 import { BuildingInfo, BuildingTableAPI } from './interface';
 
 class BuildingAPI {

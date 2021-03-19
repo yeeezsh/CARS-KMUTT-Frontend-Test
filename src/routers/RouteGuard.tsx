@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
-import adapter from 'Services/adapter.interface';
+import adapter from 'Services/adapter';
 
 const TOKEN_VALIDATION_URL = '/users/auth/requestor';
 const LOGIN_URL = '/login';

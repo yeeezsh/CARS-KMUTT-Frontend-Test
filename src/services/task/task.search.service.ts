@@ -1,4 +1,4 @@
-import adapter from 'Services/adapter.interface';
+import adapter from 'Services/adapter';
 import { TaskTableTypeAPI } from 'Services/taskTable/interface';
 import { TaskStateType } from './task.interface';
 

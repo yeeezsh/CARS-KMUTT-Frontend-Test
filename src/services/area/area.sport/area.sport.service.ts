@@ -1,6 +1,6 @@
 import Menu from 'Models/kanbanCard/interface';
 import moment, { Moment } from 'moment';
-import adapter from '../../adapter.interface';
+import adapter from '../../adapter';
 import { AreaSportResponseAPI } from '../@interfaces/area.sport.api.interface';
 import { FetchMenu } from '../@interfaces/fetch.menu.interface';
 import TimeAreaReserveType from '../@interfaces/time.interface';

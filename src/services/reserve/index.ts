@@ -1,5 +1,5 @@
 import moment from 'moment';
-import adapter from '../adapter.interface';
+import adapter from '../adapter';
 import stateDesc from '../task/helpers/state.desc';
 import { TaskAPI } from './api.interface';
 import Reserve, { ReserveType } from './interface';

@@ -1,4 +1,4 @@
-import adapter from '../../adapter.interface';
+import adapter from '../../adapter';
 import { TaskSport } from './sport.interface';
 
 class TaskSportClass {
