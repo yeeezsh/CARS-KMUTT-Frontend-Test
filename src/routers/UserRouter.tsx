@@ -67,9 +67,6 @@ const UserRouter = () => {
   //   onmount
   useEffect(() => {
     const { location } = history;
-    const validUser = u.GetUser().group === 'requestor';
-    if (!validUser && location.pathname !== '/login')
-      return history.replace('/login');
 
     // preload other components
     Home.preload();
