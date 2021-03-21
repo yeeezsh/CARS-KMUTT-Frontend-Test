@@ -178,7 +178,7 @@ class TimePage extends Component<OwnProps & StateProps, any> {
             const { area, time } = e;
             const start = moment(time.start).startOf('hour');
             const weekParsed = WeekParseHelper(e.time.week);
-            // console.log(weekParsed, selectedWeek, weekParsed.includes(selectedWeek));
+
             if (!weekParsed.includes(selectedWeek)) return null;
 
             let disabledMapped: TimeNode[] = [];
@@ -201,23 +201,18 @@ class TimePage extends Component<OwnProps & StateProps, any> {
                   type: 'disabled',
                   value: moment(valueMapped),
                 };
-                // console.log(disabled.value.format('HH:mm DD-MM-YYY'), 'd - t', today.format('HH:mm DD-MM-YYY'));
-                // console.log(today.diff(valueMapped));
-                const pastDate = today.diff(valueMapped) > 0;
-                // console.log('pastdate', pastDate);
-                if (pastDate) return disabled;
 
+                const pastDate = today.diff(valueMapped) > 0;
+                if (pastDate) return disabled;
                 return e;
               })
               .filter(({ type }) => type !== 'available');
-            // console.log('dsm', disabledMapped);
-            // console.log(today, selectedDate.format('DD'), e.time.forward);
+
             const disabledMappedAPI = [
               ...disabledMapped,
               ...(time.disabled || []),
             ];
 
-            // console.log('wowza', `${selectedDate.format('DD-MM')}-${e.area.id}`);
             const { onSelectArea, onSelectTime } = this.props;
             return (
               <Col
