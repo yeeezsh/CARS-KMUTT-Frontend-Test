@@ -12,6 +12,7 @@ import React, { Component } from 'react';
 import Loadable from 'react-loadable';
 import { connect } from 'react-redux';
 import Area from 'Services/area/@interfaces/area.available.interface';
+import { RootReducersType } from 'Store/reducers';
 import WeekParseHelper from 'Utils/week.parse';
 import styles from './styles.module.css';
 
@@ -240,9 +241,9 @@ class TimePage extends Component<OwnProps & StateProps, any> {
   }
 }
 
-const mapStateToProps = (rootReducers: any): StateProps => {
+const mapStateToProps = (rootReducers: RootReducersType) => {
   const { SportReducers } = rootReducers;
-  const { dateSelected, maxForward, areas } = SportReducers;
+  const { dateSelected, maxForward, areas, areasGroup } = SportReducers;
   return {
     date: {
       selected: dateSelected,
@@ -252,6 +253,7 @@ const mapStateToProps = (rootReducers: any): StateProps => {
         .add(maxForward - 1, 'day'),
     },
     areas,
+    areasGroup,
   };
 };
 
@@ -262,9 +264,10 @@ interface StateProps {
     selected: Moment;
   };
   areas: Area[];
+  areasGroup: Area[];
 }
 
 export default connect<StateProps, {}, OwnProps>(
-  mapStateToProps,
+  mapStateToProps as any,
   {},
 )(TimePage);
