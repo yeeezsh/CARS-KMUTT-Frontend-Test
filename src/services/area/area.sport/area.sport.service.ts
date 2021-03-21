@@ -36,8 +36,6 @@ class SportAreaService {
         )
       ).data;
 
-      console.log('fetch / get fields', fetch);
-
       const newMapped: Array<{
         area: {
           id: string;
