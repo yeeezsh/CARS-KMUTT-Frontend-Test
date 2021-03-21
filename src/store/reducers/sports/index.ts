@@ -1,6 +1,5 @@
 import moment, { Moment } from 'moment';
 import Area from 'Services/area/@interfaces/area.available.interface';
-import TimeAreaReserveType from 'Services/area/@interfaces/time.interface';
 import {
   QUERY_AREA,
   RESET_STATE,
@@ -18,8 +17,8 @@ export interface SportReducer {
   areaSelected: Area['area'];
   maxForward: number;
   owner: string;
-  areas: TimeAreaReserveType['areas'];
-  areasGroup: TimeAreaReserveType['areas'];
+  areas: Area[];
+  areasGroup: Area[];
   areaId: string;
   users: string[];
   interval: number;
