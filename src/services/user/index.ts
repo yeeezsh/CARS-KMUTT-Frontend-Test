@@ -1,7 +1,7 @@
 import { AxiosError, AxiosInstance } from 'axios';
 import store from 'Store/index';
 import { deleteUser, setUser } from '../../store/reducers/users/actions';
-import adapter from '../adapter.interface';
+import adapter from '../adapter';
 import { MSG_BAD_PASSWORD, MSG_INTERNAL_ERROR } from './default.msg';
 import User from './interface';
 import { QuotaType } from './quota.interface';
@@ -82,7 +82,8 @@ export class UserClass {
       this.SaveCredential(res);
       return { auth: true };
     } catch (err) {
-      const status: number = err.response.status;
+      const error = err as AxiosError;
+      const status = error.response?.status;
       if (status === 401)
         return {
           auth: false,

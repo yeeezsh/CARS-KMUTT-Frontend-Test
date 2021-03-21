@@ -1,8 +1,3 @@
-// DEPRECATED IN NEXT PATCH
-// DEPRECATED IN NEXT PATCH
-// DEPRECATED IN NEXT PATCH
-// DEPRECATED IN NEXT PATCH
-
 import hamburgerOrange from 'Assets/icons/hamburger-orange.svg';
 import hamburgerWhite from 'Assets/icons/hamburger-white.svg';
 // Common Area
@@ -11,21 +6,21 @@ import {
   Activity as CommonActivity,
   Areas as CommonArea,
   Sport as CommonSport,
-  TypesWSport as CommonAreaTypes
+  TypesWSport as CommonAreaTypes,
 } from 'Pages/Areas/Common';
 import {
   Areas as MeetingArea,
   FormClub as MeetingFormClub,
-  FormMeeting as MeetingFormMeeting
+  FormMeeting as MeetingFormMeeting,
 } from 'Pages/Areas/Common/Meeting';
 import { Category as SportCategory, Page as SportPage } from 'Pages/Sport';
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import Loadable from 'react-loadable';
-import { connect, ConnectedProps } from 'react-redux';
-import { Route, Router, Switch } from 'react-router';
+import { useDispatch } from 'react-redux';
+import { Route, Router, Switch, useHistory } from 'react-router';
 import { u } from 'Services/user';
 import { setButtonActionLayout } from 'Store/reducers/layout/layout.action';
-import history from './history';
+import appHistory from './history';
 import RouteGuard from './RouteGuard';
 
 const LoginPage = Loadable({
@@ -54,33 +49,24 @@ const MyReserveEditPage = Loadable({
   loading: () => null,
 });
 
-type Props = PropsRedux;
-class UserRouter extends Component<
-  Props,
-  {
-    drawer: boolean;
-    onHome: boolean;
-  }
-> {
-  state = {
+type UserRouterType = {
+  drawer: boolean;
+  onHome: boolean;
+  onLogin: boolean;
+};
+
+const UserRouter = () => {
+  const [routerState, setRouterState] = useState<UserRouterType>({
     drawer: false,
     onHome: true,
-  };
+    onLogin: false,
+  });
+  const history = useHistory();
+  const dispatch = useDispatch();
 
-  onDrawer = () => {
-    return this.setState(prevState => {
-      return {
-        drawer: !prevState.drawer,
-      };
-    });
-  };
-
-  componentDidMount = () => {
-    // check authorized first
+  //   onmount
+  useEffect(() => {
     const { location } = history;
-    const validUser = u.GetUser().group === 'requestor';
-    if (!validUser && location.pathname !== '/login')
-      return history.replace('/login');
 
     // preload other components
     Home.preload();
@@ -88,159 +74,144 @@ class UserRouter extends Component<
 
     // when first lunch
     const onHome = location.pathname === '/';
-    if (!onHome) this.setState({ onHome });
+    if (!onHome) setRouterState(prev => ({ ...prev, onHome }));
 
     // set layout styles
-    this.props.setButtonActionLayout();
+    dispatch(setButtonActionLayout({ style: 'base' }));
+  }, []);
 
-    // check on home
-    history.listen(({ pathname }) => {
-      const currentHome = pathname === '/';
-      return this.setState({ onHome: currentHome });
-    });
-  };
-
-  componentDidUpdate = () => {
+  //   navbar styles change and auth
+  useEffect(() => {
     const { location } = history;
-
-    // check authorized first
     const validUser = u.GetUser().group === 'requestor';
     if (!validUser && location.pathname !== '/login')
       return history.replace('/login');
-  };
-
-  render() {
-    const { drawer, onHome } = this.state;
-    const { location } = history;
+    const onHome = location.pathname === '/';
     const onLogin = location.pathname === '/login';
+    setRouterState(prev => ({ ...prev, onLogin, onHome }));
+  }, [history.location]);
 
-    return (
-      <Router history={history}>
-        {/* hamburger */}
-        {!onLogin && (
-          <div onClick={this.onDrawer}>
-            <img
-              style={{
-                zIndex: 2,
-                position: 'fixed',
-                marginTop: '24px',
-                marginLeft: '20px',
-                cursor: 'pointer',
-              }}
-              src={onHome ? hamburgerWhite : hamburgerOrange}
-              alt="hamburger"
-            />
-          </div>
-        )}
-
-        {/* AppDrawer */}
-        <AppDrawer onDrawer={this.onDrawer} drawer={drawer} />
-
-        <Route path="/login">
-          <LoginPage />
-        </Route>
-
-        <Route exact={true} path="/">
-          <RouteGuard>
-            <Home />
-          </RouteGuard>
-        </Route>
-
-        {/* Area */}
-        <Route path="/reserve/area">
-          <Switch>
-            <Route path="*/category">
-              <AreaCategory />
-            </Route>
-          </Switch>
-        </Route>
-
-        {/* Meeting Area */}
-        <Route path="/reserve/area/meeting">
-          <Switch>
-            <Route path="*/areas">
-              <MeetingArea />
-            </Route>
-            <Route path="*/meeting-club/:id">
-              <MeetingFormClub />
-            </Route>
-            <Route path="*/meeting-room/:id">
-              <MeetingFormMeeting />
-            </Route>
-          </Switch>
-        </Route>
-
-        {/* Common Area */}
-        <Route path="/reserve/area/common">
-          <Switch>
-            <Route path="*/">
-              <CommonArea />
-            </Route>
-          </Switch>
-        </Route>
-
-        <Route path="/reserve/common">
-          <Switch>
-            <Route path="**typesSport">
-              <CommonAreaTypes allowSport={true} />
-            </Route>
-            <Route path="**types">
-              <CommonAreaTypes />
-            </Route>
-            <Route path="*/activity">
-              <CommonActivity />
-            </Route>
-            <Route path="*/sport">
-              <CommonSport />
-            </Route>
-          </Switch>
-        </Route>
-
-        {/* Sport  */}
-        <Route path="/reserve/sport">
-          <Switch>
-            <Route path="*/category">
-              <SportCategory />
-            </Route>
-            <Route path="*/([0-9])">
-              <SportPage />
-            </Route>
-          </Switch>
-        </Route>
-
-        <Route path="/my/reserve/">
-          <Switch>
-            <Route path="*/edit/:id">
-              <MyReserveEditPage />
-            </Route>
-
-            <Route path="*/history">
-              <MyReservePage key={'history'} type="history" />
-            </Route>
-            <Route path="*/wait">
-              <MyReservePage key={'wait'} type="wait" />
-            </Route>
-            <Route path="*/requested">
-              <MyReservePage key={'requested'} type="requested" />
-            </Route>
-          </Switch>
-        </Route>
-
-        <Route path="/logout">
-          <LogoutPage />
-        </Route>
-      </Router>
-    );
-  }
-}
-
-function mapDispatchToProps(dispatch: any) {
-  return {
-    setButtonActionLayout: () => {
-      dispatch(setButtonActionLayout({ style: 'base' }));
-    },
+  const onDrawer = () => {
+    setRouterState(prev => ({ ...prev, drawer: !prev.drawer }));
   };
-}
-const connector = connect(null, mapDispatchToProps);
-type PropsRedux = ConnectedProps<typeof connector>;
-export default connector(UserRouter);
+
+  return (
+    <Router history={appHistory}>
+      {/* hamburger */}
+      {!routerState.onLogin && (
+        <div onClick={onDrawer}>
+          <img
+            style={{
+              zIndex: 2,
+              position: 'fixed',
+              marginTop: '24px',
+              marginLeft: '20px',
+              cursor: 'pointer',
+            }}
+            src={routerState.onHome ? hamburgerWhite : hamburgerOrange}
+            alt="hamburger"
+          />
+        </div>
+      )}
+
+      {/* AppDrawer */}
+      <AppDrawer onDrawer={onDrawer} drawer={routerState.drawer} />
+
+      <Route path="/login">
+        <LoginPage />
+      </Route>
+
+      <Route exact={true} path="/">
+        <RouteGuard>
+          <Home />
+        </RouteGuard>
+      </Route>
+
+      {/* Area */}
+      <Route path="/reserve/area">
+        <Switch>
+          <Route path="*/category">
+            <AreaCategory />
+          </Route>
+        </Switch>
+      </Route>
+
+      {/* Meeting Area */}
+      <Route path="/reserve/area/meeting">
+        <Switch>
+          <Route path="*/areas">
+            <MeetingArea />
+          </Route>
+          <Route path="*/meeting-club/:id">
+            <MeetingFormClub />
+          </Route>
+          <Route path="*/meeting-room/:id">
+            <MeetingFormMeeting />
+          </Route>
+        </Switch>
+      </Route>
+
+      {/* Common Area */}
+      <Route path="/reserve/area/common">
+        <Switch>
+          <Route path="*/">
+            <CommonArea />
+          </Route>
+        </Switch>
+      </Route>
+
+      <Route path="/reserve/common">
+        <Switch>
+          <Route path="**typesSport">
+            <CommonAreaTypes allowSport={true} />
+          </Route>
+          <Route path="**types">
+            <CommonAreaTypes />
+          </Route>
+          <Route path="*/activity">
+            <CommonActivity />
+          </Route>
+          <Route path="*/sport">
+            <CommonSport />
+          </Route>
+        </Switch>
+      </Route>
+
+      {/* Sport  */}
+      <Route path="/reserve/sport">
+        <Switch>
+          <Route path="*/category">
+            <SportCategory />
+          </Route>
+          <Route path="*/([0-9])">
+            <SportPage />
+          </Route>
+        </Switch>
+      </Route>
+
+      <Route path="/my/reserve/">
+        <Switch>
+          <Route path="*/edit/:id">
+            <MyReserveEditPage />
+          </Route>
+
+          <Route path="*/history">
+            <MyReservePage key={'history'} type="history" />
+          </Route>
+          <Route path="*/wait">
+            <MyReservePage key={'wait'} type="wait" />
+          </Route>
+          <Route path="*/requested">
+            <MyReservePage key={'requested'} type="requested" />
+          </Route>
+        </Switch>
+      </Route>
+
+      <Route path="/logout">
+        <LogoutPage />
+      </Route>
+    </Router>
+  );
+};
+
+export default UserRouter;

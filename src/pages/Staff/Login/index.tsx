@@ -25,7 +25,6 @@ class StaffLoginPage extends Component<
   };
 
   componentDidMount = async () => {
-    console.log(u.GetUser());
     if (u.GetUser()) await u.UserLogout();
   };
 
@@ -46,8 +45,8 @@ class StaffLoginPage extends Component<
           return this.setState({ loading: true }, async () => {
             const { username, password } = values;
             const { auth, msg } = await u.StaffLogin(username, password);
-
             if (auth) return this.props.history.push('/staff');
+
             setFields({
               password: {
                 value: values.password,

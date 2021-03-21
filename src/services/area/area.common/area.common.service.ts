@@ -1,5 +1,5 @@
 import Menu from 'Models/kanbanCard/interface';
-import adapter from 'Services/adapter.interface';
+import adapter from 'Services/adapter';
 import { FetchMenu } from '../@interfaces/fetch.menu.interface';
 
 class CommonAreaService {

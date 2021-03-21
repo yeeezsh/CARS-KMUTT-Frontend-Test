@@ -1,6 +1,6 @@
 import TimeNode from 'Components/TimeTable/timetable.interface';
 import moment, { Moment } from 'moment';
-import adapter from 'Services/adapter.interface';
+import adapter from 'Services/adapter';
 import { AreaAvailableAPI } from './@interfaces/area.available.interface';
 import {
   AreaServiceResponseAPI as AreaAPIInterfaces,

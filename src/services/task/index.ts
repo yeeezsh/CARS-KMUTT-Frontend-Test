@@ -1,5 +1,5 @@
 import moment, { Moment } from 'moment';
-import adapter from '../adapter.interface';
+import adapter from '../adapter';
 import taskDetailParse from './parser/task.detail.parse';
 import taskLastParse from './parser/task.last.parse';
 import { CreateTaskByStaff } from './task.create.interface';

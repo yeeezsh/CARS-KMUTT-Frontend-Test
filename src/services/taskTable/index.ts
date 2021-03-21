@@ -1,5 +1,5 @@
 import moment from 'moment';
-import adapter from 'Services/adapter.interface';
+import adapter from 'Services/adapter';
 import { TaskStateType } from 'Services/task/task.interface';
 import {
   // TaskTableType,

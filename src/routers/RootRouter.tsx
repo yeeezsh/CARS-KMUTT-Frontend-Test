@@ -8,7 +8,7 @@ import history from './history';
 //   loading: () => null,
 // });
 const PageUserRouter = Loadable({
-  loader: () => import('./UserRouter_'),
+  loader: () => import('./UserRouter'),
   loading: () => null,
 });
 
