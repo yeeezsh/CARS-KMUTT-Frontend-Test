@@ -343,7 +343,4 @@ interface StateProps {
   areasGroup: Area[];
 }
 
-export default connect<StateProps, {}, OwnProps>(
-  mapStateToProps as any,
-  {},
-)(TimePage);
+export default connect(mapStateToProps, {})(TimePage);
