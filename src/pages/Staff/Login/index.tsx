@@ -44,18 +44,16 @@ class StaffLoginPage extends Component<
         if (!err) {
           return this.setState({ loading: true }, async () => {
             const { username, password } = values;
-            try {
-              const { auth, msg } = await u.StaffLogin(username, password);
-              if (auth) return this.props.history.push('/staff');
-              setFields({
-                password: {
-                  value: values.password,
-                  errors: [new Error(msg)],
-                },
-              });
-            } catch (err) {
-              return this.setState({ loading: false });
-            }
+            const { auth, msg } = await u.StaffLogin(username, password);
+            if (auth) return this.props.history.push('/staff');
+
+            setFields({
+              password: {
+                value: values.password,
+                errors: [new Error(msg)],
+              },
+            });
+            return this.setState({ loading: false });
           });
         }
       },
