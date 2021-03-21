@@ -3,7 +3,6 @@ import moment, { Moment } from 'moment';
 import adapter from '../../adapter';
 import { AreaSportResponseAPI } from '../@interfaces/area.sport.api.interface';
 import { FetchMenu } from '../@interfaces/fetch.menu.interface';
-import TimeAreaReserveType from '../@interfaces/time.interface';
 import areaSportCategory from './constant';
 
 class SportAreaService {
@@ -29,10 +28,7 @@ class SportAreaService {
     return mainMenu;
   }
 
-  async getFields(
-    id: string,
-    date: Moment,
-  ): Promise<TimeAreaReserveType['areas'] | any> {
+  async getFields(id: string, date: Moment) {
     try {
       const fetch: AreaSportResponseAPI[] = (
         await adapter.instance.get(
@@ -40,13 +36,29 @@ class SportAreaService {
         )
       ).data;
 
-      const newMapped: TimeAreaReserveType['areas'] = [];
+      console.log('fetch / get fields', fetch);
+
+      const newMapped: Array<{
+        area: {
+          id: string;
+          label: string;
+          required: number;
+        };
+        time: {
+          start: Moment;
+          stop: Moment;
+          disabled: Array<{ value: Moment }>;
+          interval: number;
+          week: string;
+          forward: number;
+        };
+      }> = [];
       fetch.forEach(area => {
         area.reserve?.forEach(reserve => {
           newMapped.push({
             area: {
-              id: area._id,
-              label: area.label,
+              id: area._id || '',
+              label: area.label || '',
               required: (area.required && area.required.requestor) || 0,
             },
             time: {
