@@ -82,7 +82,8 @@ export class UserClass {
       this.SaveCredential(res);
       return { auth: true };
     } catch (err) {
-      const status: number = err.response.status;
+      const error = err as AxiosError;
+      const status = error.response?.status;
       if (status === 401)
         return {
           auth: false,
