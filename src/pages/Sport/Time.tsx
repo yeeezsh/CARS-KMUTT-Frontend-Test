@@ -15,6 +15,8 @@ import Area from 'Services/area/@interfaces/area.available.interface';
 import WeekParseHelper from 'Utils/week.parse';
 import styles from './styles.module.css';
 
+const DEFAULT_INTERVAL_TIME = 60;
+
 const BadgeDateSelector = Loadable({
   loader: () => import('Components/BadgeDateSelector'),
   loading: () => null,
@@ -84,17 +86,17 @@ class TimePage extends Component<OwnProps & StateProps, any> {
       .every(e => e === false);
 
     let reserveSlot: number[] = this.props.areas.map(
-      e => e.time.interval || 60,
+      e => e.time.interval || DEFAULT_INTERVAL_TIME,
     );
     reserveSlot = reserveSlot.filter(
       (e, i) => reserveSlot.indexOf(e) === i,
     );
 
     let unit: 'ชั่วโมง' | 'นาที' = 'นาที';
-    const useHourUnit = reserveSlot.some(e => e >= 60);
+    const useHourUnit = reserveSlot.some(e => e >= DEFAULT_INTERVAL_TIME);
     if (useHourUnit) {
       unit = 'ชั่วโมง';
-      reserveSlot = reserveSlot.map(e => e / 60);
+      reserveSlot = reserveSlot.map(e => e / DEFAULT_INTERVAL_TIME);
     }
     const reserveDesc = reserveSlot.join(', ') + ' ' + unit;
     const { date, areas } = this.props;
@@ -226,7 +228,7 @@ class TimePage extends Component<OwnProps & StateProps, any> {
                   title={area.label}
                   start={time.start}
                   stop={time.stop}
-                  interval={time.interval || 60}
+                  interval={time.interval || DEFAULT_INTERVAL_TIME}
                   onSelect={onSelectTime}
                   disabled={disabledMappedAPI}
                 />
