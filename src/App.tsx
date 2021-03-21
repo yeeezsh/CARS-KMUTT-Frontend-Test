@@ -24,7 +24,7 @@ adapter.instance.interceptors.response.use(
     if (unathorized) {
       u.UserLogout();
       message.info('กำลังพากลับสู่หน้าล็อกอิน ...');
-      if (path.includes('/staff')) history.replace('staff/login');
+      if (path.includes('/staff')) history.replace('/staff/login');
       else history.replace('/login');
     }
   },
