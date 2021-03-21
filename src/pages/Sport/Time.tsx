@@ -22,8 +22,8 @@ const BadgeDateSelector = Loadable({
   loader: () => import('Components/BadgeDateSelector'),
   loading: () => null,
 });
-const TimeTable = Loadable({
-  loader: () => import('Components/TimeTable'),
+const TimeTableSport = Loadable({
+  loader: () => import('Components/TimeTableSport'),
   loading: () => null,
 });
 
@@ -100,7 +100,7 @@ class TimePage extends Component<OwnProps & StateProps, any> {
       reserveSlot = reserveSlot.map(e => e / DEFAULT_INTERVAL_TIME);
     }
     const reserveDesc = reserveSlot.join(', ') + ' ' + unit;
-    const { date, areas } = this.props;
+    const { date, areas, areasGroup } = this.props;
 
     return (
       <React.Fragment>
@@ -175,12 +175,88 @@ class TimePage extends Component<OwnProps & StateProps, any> {
           </Col>
         )}
 
+        {/* Group TimeTable */}
+        {areasGroup &&
+          areasGroup.map(el => {
+            const times = areas.filter(f => f.area.id === el.area.id);
+            // const timesTable: TimeTable[] = [];
+            const area = times[0].area;
+
+            console.log('times', times);
+            console.log('area', area);
+
+            const timesTable = times.map(({ time }) => {
+              const start = moment(time.start).startOf('hour');
+              const weekParsed = WeekParseHelper(time.week);
+
+              if (!weekParsed.includes(selectedWeek)) return null;
+
+              let disabledMapped: TimeNode[] = [];
+              const cur = start;
+              while (cur <= time.stop) {
+                disabledMapped.push({
+                  value: moment(cur),
+                  type: 'available',
+                });
+                cur.add(time.interval || 60, 'minute');
+              }
+              disabledMapped.push({
+                value: moment(cur),
+                type: 'available',
+              });
+              disabledMapped = disabledMapped
+                .map(e => {
+                  const valueMapped = moment(
+                    e.value.format('HH.mm'),
+                    'HH.mm',
+                  ).set('date', Number(selectedDate.format('DD')));
+                  const disabled: TimeNode = {
+                    type: 'disabled',
+                    value: moment(valueMapped),
+                  };
+
+                  const pastDate = today.diff(valueMapped) > 0;
+                  if (pastDate) return disabled;
+                  return e;
+                })
+                .filter(({ type }) => type !== 'available');
+
+              const disabledMappedAPI = [
+                ...disabledMapped,
+                ...(time.disabled || []),
+              ];
+
+              const { onSelectArea, onSelectTime } = this.props;
+              return (
+                <Col
+                  key={`${selectedDate.format('DD-MM')}-${
+                    area.id
+                  }-${Math.random()}`}
+                  span={24}
+                >
+                  <TimeTableSport
+                    onClick={() => onSelectArea(area)}
+                    title={area.label}
+                    start={time.start}
+                    stop={time.stop}
+                    interval={time.interval || DEFAULT_INTERVAL_TIME}
+                    onSelect={onSelectTime}
+                    disabled={disabledMappedAPI}
+                  />
+                </Col>
+              );
+            });
+
+            console.log('render', timesTable);
+            return timesTable.map(el => el);
+          })}
+
         {/* TimeTable */}
-        {areas &&
+        {/* {areas &&
           areas.map(e => {
             const { area, time } = e;
             const start = moment(time.start).startOf('hour');
-            const weekParsed = WeekParseHelper(e.time.week);
+            const weekParsed = WeekParseHelper(e.time.week);xw
 
             if (!weekParsed.includes(selectedWeek)) return null;
 
@@ -235,7 +311,7 @@ class TimePage extends Component<OwnProps & StateProps, any> {
                 />
               </Col>
             );
-          })}
+          })} */}
       </React.Fragment>
     );
   }
