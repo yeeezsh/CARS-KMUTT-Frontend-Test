@@ -19,6 +19,7 @@ export interface SportReducer {
   maxForward: number;
   owner: string;
   areas: TimeAreaReserveType['areas'];
+  areasGroup: TimeAreaReserveType['areas'];
   areaId: string;
   users: string[];
   interval: number;
@@ -34,6 +35,7 @@ const initialState = {
   dateSelected: moment(),
   timeSelected: undefined,
   areaSelected: DEFAULT_SELECTED_AREA,
+  areasGroup: [],
   areas: [],
   maxForward: 0,
   owner: '',
@@ -55,6 +57,7 @@ export const SportReducers = (
       return {
         ...state,
         areas: action.areas,
+        areasGroup: action.areasGroup,
         maxForward: action.maxForward,
       };
     case SET_AREA_SELECTED:

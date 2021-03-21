@@ -36,6 +36,7 @@ export const queryArea = () => async (
     type: QUERY_AREA,
     areas,
     maxForward,
+    areasGroup,
   });
 };
 
