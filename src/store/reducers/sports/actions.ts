@@ -30,13 +30,18 @@ export const queryArea = () => async (
     .map(area => area.time.forward)
     .sort((a, b) => -(a - b))[0];
 
-  const areasGroup = areas;
+  const areasGroupId = Array.from(
+    areas.reduce((acc, cur) => acc.add(cur.area.id), new Set()),
+  ) as string[];
+  const areasGroup = areasGroupId.map(el =>
+    areas.find(f => f.area.id === el),
+  );
 
   return dispatch({
     type: QUERY_AREA,
     areas,
     maxForward,
-    areasGroup,
+    areasGroup: areasGroup,
   });
 };
 
