@@ -49,14 +49,14 @@ const MyReserveEditPage = Loadable({
   loading: () => null,
 });
 
-type UserRouter = {
+type UserRouterType = {
   drawer: boolean;
   onHome: boolean;
   onLogin: boolean;
 };
 
 const UserRouter = () => {
-  const [routerState, setRouterState] = useState<UserRouter>({
+  const [routerState, setRouterState] = useState<UserRouterType>({
     drawer: false,
     onHome: true,
     onLogin: false,
