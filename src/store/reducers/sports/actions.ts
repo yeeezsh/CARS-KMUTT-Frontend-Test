@@ -25,12 +25,12 @@ export const queryArea = () => async (
   const { areaId, dateSelected } = getState().SportReducers;
 
   const areas = await areaSportService.getFields(areaId, dateSelected);
-  const maxForward = areas.reduce(
-    (
-      prev: { time: { forward: number } },
-      cur: { time: { forward: number } },
-    ) => (prev.time.forward > cur.time.forward ? prev : cur),
-  ).time.forward;
+
+  const maxForward = areas
+    .map(area => area.time.forward)
+    .sort((a, b) => -(a - b))[0];
+
+  const areasGroup = areas;
 
   return dispatch({
     type: QUERY_AREA,
