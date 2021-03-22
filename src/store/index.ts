@@ -9,5 +9,11 @@ if (DEBUGMODE) {
   const logger = createLogger();
   middleware.push(logger);
 }
-const store = configureStore({ reducer: rootReducer, middleware });
+
+const store = configureStore({
+  reducer: rootReducer,
+  middleware,
+  devTools: process.env.NODE_ENV === 'development',
+});
+
 export default store;
