@@ -26,10 +26,10 @@ interface TimeTableSportState {
 
 interface TimeTableSportProps {
   selected?: TimeNodeSport[];
-  start: Moment;
-  stop: Moment;
-  interval: number;
-  disabled?: TimeNodeSport[];
+  start: Moment[];
+  stop: Moment[];
+  interval: number[];
+  disabled?: Array<TimeNodeSport[]>;
   title?: string;
   onSelect: (value: Moment, type: TimeNodeSport['type']) => void;
   onClick?: () => void;
@@ -73,46 +73,48 @@ export default class TimeTableSport extends Component<
       enableEndTrim,
     } = this.props;
     let table: TimeNodeSport[] = [];
-    let cur = moment(start).subtract(interval, 'minute'); // fix not start with correct time e.g. [1, 3] -> [1,2,3]
-    const stopWithTrim = stop.subtract(
-      enableEndTrim ? interval : 0,
-      'minute',
-    );
 
-    do {
-      table.push({
-        value: cur,
-        type: 'available',
+    start.forEach((startEl, i) => {
+      let cur = moment(startEl).subtract(interval[i], 'minute'); // fix not start with correct time e.g. [1, 3] -> [1,2,3]
+      const stopWithTrim = stop[i].subtract(
+        enableEndTrim ? interval[i] : 0,
+        'minute',
+      );
+
+      do {
+        table.push({
+          value: cur,
+          type: 'available',
+        });
+        cur = moment(cur.add(interval[i], 'minute'));
+      } while (cur < stopWithTrim);
+
+      const selectedMapped = selected?.map(e =>
+        moment(e.value).format('HH.mm'),
+      );
+      const disabledMapped =
+        disabled && disabled[i]?.map(e => moment(e.value).format('HH.mm'));
+      table = table.map(e => {
+        const typeDisabled = disabledMapped?.includes(
+          e.value.format('HH.mm'),
+        );
+        const typeSelected = selectedMapped?.includes(
+          e.value.format('HH.mm'),
+        );
+        if (typeDisabled) {
+          return {
+            ...e,
+            type: 'disabled',
+          };
+        }
+        if (typeSelected) {
+          return {
+            ...e,
+            type: 'selecting',
+          };
+        }
+        return e;
       });
-      cur = moment(cur.add(interval, 'minute'));
-    } while (cur < stopWithTrim);
-
-    const selectedMapped = selected?.map(e =>
-      moment(e.value).format('HH.mm'),
-    );
-    const disabledMapped = disabled?.map(e =>
-      moment(e.value).format('HH.mm'),
-    );
-    table = table.map(e => {
-      const typeDisabled = disabledMapped?.includes(
-        e.value.format('HH.mm'),
-      );
-      const typeSelected = selectedMapped?.includes(
-        e.value.format('HH.mm'),
-      );
-      if (typeDisabled) {
-        return {
-          ...e,
-          type: 'disabled',
-        };
-      }
-      if (typeSelected) {
-        return {
-          ...e,
-          type: 'selecting',
-        };
-      }
-      return e;
     });
 
     return (

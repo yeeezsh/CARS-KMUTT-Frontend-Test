@@ -179,7 +179,6 @@ class TimePage extends Component<OwnProps & StateProps, any> {
         {areasGroup &&
           areasGroup.map(el => {
             const times = areas.filter(f => f.area.id === el.area.id);
-            // const timesTable: TimeTable[] = [];
             const area = times[0].area;
 
             console.log('times', times);
@@ -226,29 +225,36 @@ class TimePage extends Component<OwnProps & StateProps, any> {
                 ...(time.disabled || []),
               ];
 
-              const { onSelectArea, onSelectTime } = this.props;
-              return (
-                <Col
-                  key={`${selectedDate.format('DD-MM')}-${
-                    area.id
-                  }-${Math.random()}`}
-                  span={24}
-                >
-                  <TimeTableSport
-                    onClick={() => onSelectArea(area)}
-                    title={area.label}
-                    start={time.start}
-                    stop={time.stop}
-                    interval={time.interval || DEFAULT_INTERVAL_TIME}
-                    onSelect={onSelectTime}
-                    disabled={disabledMappedAPI}
-                  />
-                </Col>
-              );
+              return {
+                area,
+                time,
+                disabledMappedAPI,
+              };
             });
 
-            console.log('render', timesTable);
-            return timesTable.map(el => el);
+            // const { onSelectArea, onSelectTime } = this.props;
+            //   return (
+            //     <Col
+            //       key={`${selectedDate.format('DD-MM')}-${
+            //         area.id
+            //       }-${Math.random()}`}
+            //       span={24}
+            //     >
+            //       <TimeTableSport
+            //         onClick={() => onSelectArea(area)}
+            //         title={area.label}
+            //         start={times.start}
+            //         stop={time.stop}
+            //         interval={time.interval || DEFAULT_INTERVAL_TIME}
+            //         onSelect={onSelectTime}
+            //         disabled={disabledMappedAPI}
+            //       />
+            //     </Col>
+            //   );
+
+            console.log('timesTable', timesTable);
+
+            // return timesTable.map(el => el);
           })}
 
         {/* TimeTable */}
