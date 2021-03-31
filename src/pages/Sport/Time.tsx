@@ -201,10 +201,10 @@ class TimePage extends Component<OwnProps & StateProps, any> {
                   type: 'disabled',
                   value: moment(valueMapped),
                 };
-                // console.log(disabled.value.format('HH:mm DD-MM-YYY'), 'd - t', today.format('HH:mm DD-MM-YYY'));
-                // console.log(today.diff(valueMapped));
-                const pastDate = today.diff(valueMapped) > 0;
-                // console.log('pastdate', pastDate);
+
+                const pastDate =
+                  today.diff(valueMapped) >= 0 &&
+                  selectedDate.format('DD') === today.format('DD');
                 if (pastDate) return disabled;
 
                 return e;
