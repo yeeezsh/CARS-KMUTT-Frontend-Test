@@ -176,7 +176,7 @@ class TimePage extends Component<OwnProps & StateProps, any> {
         {areas &&
           areas.map(e => {
             const { area, time } = e;
-            const start = moment(time.start).startOf('hour');
+            const start = moment(time.start);
             const weekParsed = WeekParseHelper(e.time.week);
 
             if (!weekParsed.includes(selectedWeek)) return null;
@@ -190,7 +190,6 @@ class TimePage extends Component<OwnProps & StateProps, any> {
               });
               cur.add(time.interval || 60, 'minute');
             }
-            disabledMapped.push({ value: moment(cur), type: 'available' });
             disabledMapped = disabledMapped
               .map(e => {
                 const valueMapped = moment(
