@@ -190,7 +190,6 @@ class TimePage extends Component<OwnProps & StateProps, any> {
               });
               cur.add(time.interval || 60, 'minute');
             }
-            disabledMapped.push({ value: moment(cur), type: 'available' });
             disabledMapped = disabledMapped
               .map(e => {
                 const valueMapped = moment(
