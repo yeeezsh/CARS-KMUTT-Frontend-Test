@@ -1,19 +1,25 @@
 import { Col, Form, Input, Row } from 'antd';
 import { FormComponentProps } from 'antd/lib/form/Form';
 import Button from 'Components/Button';
+import labelStyles from 'Components/Forms/Common/styles/label';
 import ButtonActionLayout from 'Components/Layout/ButtonActionLayout';
 import Outline from 'Components/Outline';
+import moment, { Moment } from 'moment';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { RootReducersType } from 'Store/reducers';
 import usernameValidator from 'Utils/username.validator';
 import styles from './styles.module.css';
 
+const TIME_FORMAT = 'HH:mm';
+
 interface PropsTypes extends FormComponentProps {
   required: number;
   onSubmit: any;
   owner: string;
   sportName: string;
+  selectedDatetime?: Moment;
+  interval: number;
 }
 
 interface StateTypes {
@@ -138,6 +144,21 @@ class SportForm extends Component<PropsTypes, StateTypes> {
         {/* Form */}
         <Col span={24}>
           <Row type="flex" justify="center">
+            <p
+              style={{
+                ...labelStyles,
+                margin: 0,
+                padding: 0,
+                marginBottom: 8,
+              }}
+            >
+              เวลา{' '}
+              {moment(this.props.selectedDatetime).format(TIME_FORMAT)} -
+              {moment(this.props.selectedDatetime)
+                .add(this.props.interval - 1, 'minutes')
+                .format(TIME_FORMAT)}
+            </p>
+
             <Col span={20}>
               <Form onSubmit={this.onSubmit}>
                 {users.map((e, i) => {
@@ -183,6 +204,8 @@ const mapStateToProps = (rootReducers: RootReducersType) => {
   const { SportReducers } = rootReducers;
   return {
     owner: SportReducers.owner,
+    selectedDatetime: SportReducers.timeSelected,
+    interval: SportReducers.interval,
   };
 };
 
