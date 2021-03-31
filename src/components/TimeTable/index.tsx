@@ -93,6 +93,7 @@ export default class TimeTable extends Component<
     const disabledMapped = disabled?.map(e =>
       moment(e.value).format('HH.mm'),
     );
+
     table = table.map(e => {
       const typeDisabled = disabledMapped?.includes(
         e.value.format('HH.mm'),
@@ -100,6 +101,7 @@ export default class TimeTable extends Component<
       const typeSelected = selectedMapped?.includes(
         e.value.format('HH.mm'),
       );
+
       if (typeDisabled) {
         return {
           ...e,
@@ -131,7 +133,9 @@ export default class TimeTable extends Component<
               return (
                 <Row
                   className={styles.table}
-                  key={`${value.format('DD-MM-YYYY HH:mm')}-${type}`}
+                  key={`${value.format(
+                    'DD-MM-YYYY HH:mm',
+                  )}-${type}-${Math.random().toString()}`}
                   onClick={() => {
                     this.onSelect(value, type);
                     this.props.onClick && this.props.onClick();
