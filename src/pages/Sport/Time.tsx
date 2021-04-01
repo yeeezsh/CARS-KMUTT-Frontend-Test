@@ -6,6 +6,7 @@ import orangeSquareIcon from 'Assets/icons/square/orange.svg';
 import Badge from 'Components/Badge';
 import BreakingLine from 'Components/BreakingLine';
 import Outline from 'Components/Outline';
+import TimeTable from 'Components/TimeTable';
 import TimeNode from 'Components/TimeTable/timetable.interface';
 import moment, { Moment } from 'moment';
 import React, { Component } from 'react';
@@ -20,10 +21,6 @@ const DEFAULT_INTERVAL_TIME = 60;
 
 const BadgeDateSelector = Loadable({
   loader: () => import('Components/BadgeDateSelector'),
-  loading: () => null,
-});
-const TimeTableSport = Loadable({
-  loader: () => import('Components/TimeTableSport'),
   loading: () => null,
 });
 
@@ -67,7 +64,6 @@ interface OwnProps {
 // class TimePage extends Component<TimeAreaReserveType> {
 class TimePage extends Component<OwnProps & StateProps, any> {
   onSelectDate = (d: Moment) => {
-    // console.log('badge select date', d.format('DD'));
     return this.setState({ selectedDate: d }, () =>
       this.props.onSelectDate(d),
     );
@@ -175,90 +171,8 @@ class TimePage extends Component<OwnProps & StateProps, any> {
           </Col>
         )}
 
-        {/* Group TimeTable */}
-        {areasGroup &&
-          areasGroup.map(el => {
-            const times = areas.filter(f => f.area.id === el.area.id);
-            const area = times[0].area;
-
-            console.log('times', times);
-            console.log('area', area);
-
-            const timesTable = times.map(({ time }) => {
-              const start = moment(time.start).startOf('hour');
-              const weekParsed = WeekParseHelper(time.week);
-
-              if (!weekParsed.includes(selectedWeek)) return null;
-
-              let disabledMapped: TimeNode[] = [];
-              const cur = start;
-              while (cur <= time.stop) {
-                disabledMapped.push({
-                  value: moment(cur),
-                  type: 'available',
-                });
-                cur.add(time.interval || 60, 'minute');
-              }
-              disabledMapped.push({
-                value: moment(cur),
-                type: 'available',
-              });
-              disabledMapped = disabledMapped
-                .map(e => {
-                  const valueMapped = moment(
-                    e.value.format('HH.mm'),
-                    'HH.mm',
-                  ).set('date', Number(selectedDate.format('DD')));
-                  const disabled: TimeNode = {
-                    type: 'disabled',
-                    value: moment(valueMapped),
-                  };
-
-                  const pastDate = today.diff(valueMapped) > 0;
-                  if (pastDate) return disabled;
-                  return e;
-                })
-                .filter(({ type }) => type !== 'available');
-
-              const disabledMappedAPI = [
-                ...disabledMapped,
-                ...(time.disabled || []),
-              ];
-
-              return {
-                area,
-                time,
-                disabledMappedAPI,
-              };
-            });
-
-            // const { onSelectArea, onSelectTime } = this.props;
-            //   return (
-            //     <Col
-            //       key={`${selectedDate.format('DD-MM')}-${
-            //         area.id
-            //       }-${Math.random()}`}
-            //       span={24}
-            //     >
-            //       <TimeTableSport
-            //         onClick={() => onSelectArea(area)}
-            //         title={area.label}
-            //         start={times.start}
-            //         stop={time.stop}
-            //         interval={time.interval || DEFAULT_INTERVAL_TIME}
-            //         onSelect={onSelectTime}
-            //         disabled={disabledMappedAPI}
-            //       />
-            //     </Col>
-            //   );
-
-            console.log('timesTable', timesTable);
-
-            // return timesTable.map(el => el);
-          })}
-
         {/* TimeTable */}
-        {/* {areas &&
+        {areas &&
           areas.map(e => {
             const { area, time } = e;
             const start = moment(time.start);
@@ -318,7 +232,7 @@ class TimePage extends Component<OwnProps & StateProps, any> {
                 />
               </Col>
             );
-          })} */}
+          })}
       </React.Fragment>
     );
   }
@@ -327,13 +241,14 @@ class TimePage extends Component<OwnProps & StateProps, any> {
 const mapStateToProps = (rootReducers: RootReducersType) => {
   const { SportReducers } = rootReducers;
   const { dateSelected, maxForward, areas, areasGroup } = SportReducers;
+  const stopWithOffsetDay = maxForward - 1;
   return {
     date: {
       selected: dateSelected,
       start: moment().startOf('day'),
       stop: moment()
         .startOf('day')
-        .add(maxForward - 1, 'day'),
+        .add(stopWithOffsetDay, 'day'),
     },
     areas,
     areasGroup,
