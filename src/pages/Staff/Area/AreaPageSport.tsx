@@ -102,7 +102,9 @@ const AreaPageSport: React.FC<AreaPagePropsType> = props => {
                 area={areaInfo.label}
                 time={{
                   start: areaInfo.reserve[0] && areaInfo.reserve[0].start,
-                  stop: areaInfo.reserve[0] && areaInfo.reserve[0].stop,
+                  stop: moment(
+                    areaInfo.reserve[0] && areaInfo.reserve[0].stop,
+                  ).add(areaInfo.reserve[0].interval, 'minutes'), // enable end pad
                 }}
                 week={areaInfo.reserve[0] && areaInfo.reserve[0].week}
                 forward={areaInfo.forward}
