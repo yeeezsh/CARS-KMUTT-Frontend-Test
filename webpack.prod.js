@@ -87,7 +87,8 @@ module.exports = {
     usedExports: true,
     splitChunks: {
       chunks: 'all',
-      maxInitialRequests: Infinity,
+      maxInitialRequests: 5,
+      maxAsyncRequests: 10,
       minSize: 0,
       cacheGroups: {
         vendor: {
