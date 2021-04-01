@@ -7,13 +7,13 @@ import styles from './styles.module.css';
 // interfaces
 import TimeNode from './timetable.interface';
 
-const selecting: React.CSSProperties = {
+const selectingStyle: React.CSSProperties = {
   backgroundColor: '#1890FF',
   color: '#FFFFFF',
   border: '1px solid #1890FF',
 };
 
-const disabled: React.CSSProperties = {
+const disabledStyle: React.CSSProperties = {
   backgroundColor: '#DADADA',
   color: '#979797',
   border: ' 1px solid #979797',
@@ -38,9 +38,9 @@ interface TimeTableGroupProps {
 const cardStyle = (type: TimeNode['type']): React.CSSProperties => {
   switch (type) {
     case 'disabled':
-      return disabled;
+      return disabledStyle;
     case 'selecting':
-      return selecting;
+      return selectingStyle;
     default:
       return {};
   }
@@ -59,7 +59,6 @@ export default class TimeTableGroup extends Component<
 
   onSelect = (value: Moment, type: TimeNode['type']): void => {
     this.props.onSelect(value, type);
-    return;
   };
 
   render() {
