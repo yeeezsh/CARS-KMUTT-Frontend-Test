@@ -265,22 +265,24 @@ class TimePage extends Component<OwnProps & StateProps, any> {
             const { onSelectArea, onSelectTime } = this.props;
 
             return (
-              <Col
-                key={`${selectedDate.format('DD-MM')}-${
-                  group.area.id
-                }-${Math.random()}`}
-                span={24}
-              >
-                <TimeTableGroup
-                  onClick={() => onSelectArea(group.area)}
-                  title={groups.area.label}
-                  start={groups.start}
-                  stop={groups.stop}
-                  interval={groups.interval || DEFAULT_INTERVAL_TIME}
-                  onSelect={onSelectTime}
-                  disabled={groups.disabled}
-                />
-              </Col>
+              !nonAvailableWeek && (
+                <Col
+                  key={`${selectedDate.format('DD-MM')}-${
+                    group.area.id
+                  }-${Math.random()}`}
+                  span={24}
+                >
+                  <TimeTableGroup
+                    onClick={() => onSelectArea(group.area)}
+                    title={groups.area.label}
+                    start={groups.start}
+                    stop={groups.stop}
+                    interval={groups.interval || DEFAULT_INTERVAL_TIME}
+                    onSelect={onSelectTime}
+                    disabled={groups.disabled}
+                  />
+                </Col>
+              )
             );
           })}
       </React.Fragment>
