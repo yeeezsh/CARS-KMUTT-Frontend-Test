@@ -424,7 +424,7 @@ const mapStateToProps = (rootReducers: RootReducersType) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: any): any => {
+const mapDispatchToProps = (dispatch: any) => {
   return {
     setDateSelected: (date: Moment) => dispatch(setDateSelected(date)),
     setTimeSelected: (time: Moment) => dispatch(setTimeSelected(time)),

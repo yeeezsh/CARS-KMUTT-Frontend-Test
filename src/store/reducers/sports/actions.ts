@@ -25,17 +25,23 @@ export const queryArea = () => async (
   const { areaId, dateSelected } = getState().SportReducers;
 
   const areas = await areaSportService.getFields(areaId, dateSelected);
-  const maxForward = areas.reduce(
-    (
-      prev: { time: { forward: number } },
-      cur: { time: { forward: number } },
-    ) => (prev.time.forward > cur.time.forward ? prev : cur),
-  ).time.forward;
+
+  const maxForward = areas
+    .map(area => area.time.forward)
+    .sort((a, b) => -(a - b))[0];
+
+  const areasGroupId = Array.from(
+    areas.reduce((acc, cur) => acc.add(cur.area.id), new Set()),
+  ) as string[];
+  const areasGroup = areasGroupId.map(el =>
+    areas.find(f => f.area.id === el),
+  );
 
   return dispatch({
     type: QUERY_AREA,
     areas,
     maxForward,
+    areasGroup: areasGroup,
   });
 };
 

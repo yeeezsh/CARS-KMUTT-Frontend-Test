@@ -1,36 +1,34 @@
-//TODO: Consider to use TimeTableGroup instead
 import { Col, Row } from 'antd';
 import moment, { Moment } from 'moment';
 import React, { Component } from 'react';
 import BreakingLine from '../BreakingLine';
 import Outline from '../Outline';
-// styles
 import styles from './styles.module.css';
 // interfaces
 import TimeNode from './timetable.interface';
 
-const selecting: React.CSSProperties = {
+const selectingStyle: React.CSSProperties = {
   backgroundColor: '#1890FF',
   color: '#FFFFFF',
   border: '1px solid #1890FF',
 };
 
-const disabled: React.CSSProperties = {
+const disabledStyle: React.CSSProperties = {
   backgroundColor: '#DADADA',
   color: '#979797',
   border: ' 1px solid #979797',
 };
 
-interface TimeTableState {
+interface TimeTableGroupState {
   table: TimeNode[];
 }
 
-interface TimeTableProps {
+interface TimeTableGroupProps {
   selected?: TimeNode[];
-  start: Moment;
-  stop: Moment;
-  interval: number;
-  disabled?: TimeNode[];
+  start: Moment[];
+  stop: Moment[];
+  interval: number[];
+  disabled?: Array<TimeNode[]>;
   title?: string;
   onSelect: (value: Moment, type: TimeNode['type']) => void;
   onClick?: () => void;
@@ -40,19 +38,19 @@ interface TimeTableProps {
 const cardStyle = (type: TimeNode['type']): React.CSSProperties => {
   switch (type) {
     case 'disabled':
-      return disabled;
+      return disabledStyle;
     case 'selecting':
-      return selecting;
+      return selectingStyle;
     default:
       return {};
   }
 };
 
-export default class TimeTable extends Component<
-  TimeTableProps,
-  TimeTableState
+export default class TimeTableGroup extends Component<
+  TimeTableGroupProps,
+  TimeTableGroupState
 > {
-  constructor(props: TimeTableProps) {
+  constructor(props: TimeTableGroupProps) {
     super(props);
     this.state = {
       table: [],
@@ -61,7 +59,6 @@ export default class TimeTable extends Component<
 
   onSelect = (value: Moment, type: TimeNode['type']): void => {
     this.props.onSelect(value, type);
-    return;
   };
 
   render() {
@@ -73,49 +70,54 @@ export default class TimeTable extends Component<
       selected,
       enableEndTrim,
     } = this.props;
+
     let table: TimeNode[] = [];
-    let cur = moment(start).subtract(interval, 'minute'); // fix not start with correct time e.g. [1, 3] -> [1,2,3]
-    const stopWithTrim = stop.subtract(
-      enableEndTrim ? interval : 0,
-      'minute',
-    );
 
-    do {
-      table.push({
-        value: cur,
-        type: 'available',
+    start.forEach((_e, i) => {
+      let cur = moment(start[i]).subtract(interval[i], 'minute'); // fix not start with correct time e.g. [1, 3] -> [1,2,3]
+      const stopWithTrim = moment(stop[i]).subtract(
+        enableEndTrim ? interval[i] : 0,
+        'minute',
+      );
+
+      do {
+        table.push({
+          value: cur,
+          type: 'available',
+        });
+        cur = moment(cur.add(interval[i], 'minute'));
+      } while (cur < stopWithTrim);
+
+      const selectedMapped = selected?.map(e =>
+        moment(e.value).format('HH.mm'),
+      );
+      const disabledMapped =
+        disabled &&
+        disabled[i] &&
+        disabled[i]?.map(e => moment(e.value).format('HH.mm'));
+
+      table = table.map(e => {
+        const typeDisabled = disabledMapped?.includes(
+          e.value.format('HH.mm'),
+        );
+        const typeSelected = selectedMapped?.includes(
+          e.value.format('HH.mm'),
+        );
+
+        if (typeDisabled) {
+          return {
+            ...e,
+            type: 'disabled',
+          };
+        }
+        if (typeSelected) {
+          return {
+            ...e,
+            type: 'selecting',
+          };
+        }
+        return e;
       });
-      cur = moment(cur.add(interval, 'minute'));
-    } while (cur < stopWithTrim);
-
-    const selectedMapped = selected?.map(e =>
-      moment(e.value).format('HH.mm'),
-    );
-    const disabledMapped = disabled?.map(e =>
-      moment(e.value).format('HH.mm'),
-    );
-
-    table = table.map(e => {
-      const typeDisabled = disabledMapped?.includes(
-        e.value.format('HH.mm'),
-      );
-      const typeSelected = selectedMapped?.includes(
-        e.value.format('HH.mm'),
-      );
-
-      if (typeDisabled) {
-        return {
-          ...e,
-          type: 'disabled',
-        };
-      }
-      if (typeSelected) {
-        return {
-          ...e,
-          type: 'selecting',
-        };
-      }
-      return e;
     });
 
     return (
