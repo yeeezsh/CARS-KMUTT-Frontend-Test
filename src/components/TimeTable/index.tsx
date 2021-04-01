@@ -1,3 +1,4 @@
+//TODO: Consider to use TimeTableGroup instead
 import { Col, Row } from 'antd';
 import moment, { Moment } from 'moment';
 import React, { Component } from 'react';
