@@ -72,14 +72,6 @@ export default class TimeTableGroup extends Component<
       enableEndTrim,
     } = this.props;
 
-    console.log(this.props);
-    console.log('props ttgroup \n');
-    console.log(this.props.start[0]);
-    console.log(this.props.start[0].format('DD-MM-YYYY HH:mm'));
-    console.log(this.props.stop[0]);
-    console.log(this.props.stop[0].format('DD-MM-YYYY HH:mm'));
-    console.log('\n');
-
     let table: TimeNode[] = [];
 
     start.forEach((_e, i) => {
@@ -89,27 +81,12 @@ export default class TimeTableGroup extends Component<
         'minute',
       );
 
-      console.log('start', cur.format('DD-MM-YYYY HH:mm'));
-      console.log(
-        'start: ',
-        i,
-        start[i].format('DD-MM-YYYY HH:mm'),
-        start[i],
-      );
-      console.log('stopWithTrim', stopWithTrim.format('DD-MM-YYYY HH:mm'));
-      console.log(
-        'stop: ',
-        i,
-        stop[i].format('DD-MM-YYYY HH:mm'),
-        stop[i],
-      );
       do {
         table.push({
           value: cur,
           type: 'available',
         });
         cur = moment(cur.add(interval[i], 'minute'));
-        console.log('kkkkkkkkkkkkk');
       } while (cur < stopWithTrim);
 
       const selectedMapped = selected?.map(e =>
@@ -143,8 +120,6 @@ export default class TimeTableGroup extends Component<
         return e;
       });
     });
-
-    console.log('time table group ', table);
 
     return (
       <React.Fragment>

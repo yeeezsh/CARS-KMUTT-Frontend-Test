@@ -182,15 +182,6 @@ class TimePage extends Component<OwnProps & StateProps, any> {
               fg => fg.area.id === group.area.id,
             );
 
-            console.log('groupArea');
-            console.log(groupArea);
-            groupArea
-              .map(el => el.time.start.format('HH:mm'))
-              .forEach(el => console.log(el));
-            groupArea
-              .map(el => el.time.stop.format('HH:mm'))
-              .forEach(el => console.log(el));
-
             const groups: {
               area: Area['area'];
               start: Moment[];
@@ -206,12 +197,8 @@ class TimePage extends Component<OwnProps & StateProps, any> {
             };
 
             groupArea.forEach(e => {
-              console.log('groupArea.forEach');
-              console.log(e);
               const start = moment(e.time.start);
-              console.log('start', start.format('HH:mm'));
               groups.start.push(start);
-              console.log('stop', e.time.stop.format('HH:mm'));
               const stop = moment(e.time.stop);
               groups.stop.push(stop);
               const interval = e.time.interval;
@@ -256,11 +243,6 @@ class TimePage extends Component<OwnProps & StateProps, any> {
 
               groups.disabled.push(disabledMappedAPI);
             });
-
-            console.log('mapped groups', groups);
-            console.log(groups.start[0].format('HH:mm'));
-            console.log(groups.stop[0].format('HH:mm'));
-            console.log('\n\n\n');
 
             const { onSelectArea, onSelectTime } = this.props;
 
