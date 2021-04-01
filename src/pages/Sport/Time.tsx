@@ -6,7 +6,6 @@ import orangeSquareIcon from 'Assets/icons/square/orange.svg';
 import Badge from 'Components/Badge';
 import BreakingLine from 'Components/BreakingLine';
 import Outline from 'Components/Outline';
-import TimeTable from 'Components/TimeTable';
 import TimeNode from 'Components/TimeTable/timetable.interface';
 import moment, { Moment } from 'moment';
 import React, { Component } from 'react';
@@ -21,6 +20,11 @@ const DEFAULT_INTERVAL_TIME = 60;
 
 const BadgeDateSelector = Loadable({
   loader: () => import('Components/BadgeDateSelector'),
+  loading: () => null,
+});
+
+const TimeTableGroup = Loadable({
+  loader: () => import('Components/TimeTable/TimeTableGroup'),
   loading: () => null,
 });
 
@@ -96,7 +100,7 @@ class TimePage extends Component<OwnProps & StateProps, any> {
       reserveSlot = reserveSlot.map(e => e / DEFAULT_INTERVAL_TIME);
     }
     const reserveDesc = reserveSlot.join(', ') + ' ' + unit;
-    const { date, areas, areasGroup } = this.props;
+    const { date, areasGroup, areas } = this.props;
 
     return (
       <React.Fragment>
@@ -171,64 +175,110 @@ class TimePage extends Component<OwnProps & StateProps, any> {
           </Col>
         )}
 
-        {/* TimeTable */}
-        {areas &&
-          areas.map(e => {
-            const { area, time } = e;
-            const start = moment(time.start);
-            const weekParsed = WeekParseHelper(e.time.week);
+        {/* TimeTable Group */}
+        {areasGroup &&
+          areasGroup.map(group => {
+            const groupArea = areas.filter(
+              fg => fg.area.id === group.area.id,
+            );
 
-            if (!weekParsed.includes(selectedWeek)) return null;
+            console.log('groupArea');
+            console.log(groupArea);
+            groupArea
+              .map(el => el.time.start.format('HH:mm'))
+              .forEach(el => console.log(el));
+            groupArea
+              .map(el => el.time.stop.format('HH:mm'))
+              .forEach(el => console.log(el));
 
-            let disabledMapped: TimeNode[] = [];
-            const cur = start;
-            while (cur <= time.stop) {
-              disabledMapped.push({
-                value: moment(cur),
-                type: 'available',
-              });
-              cur.add(time.interval || 60, 'minute');
-            }
-            disabledMapped = disabledMapped
-              .map(e => {
-                const valueMapped = moment(
-                  e.value.format('HH.mm'),
-                  'HH.mm',
-                ).set('date', Number(selectedDate.format('DD')));
-                const disabled: TimeNode = {
-                  type: 'disabled',
-                  value: moment(valueMapped),
-                };
+            const groups: {
+              area: Area['area'];
+              start: Moment[];
+              stop: Moment[];
+              interval: number[];
+              disabled: TimeNode[][];
+            } = {
+              area: group.area,
+              start: [],
+              stop: [],
+              interval: [],
+              disabled: [],
+            };
 
-                const pastDate =
-                  today.diff(valueMapped) >= 0 &&
-                  selectedDate.format('DD') === today.format('DD');
-                if (pastDate) return disabled;
-                return e;
-              })
-              .filter(({ type }) => type !== 'available');
+            groupArea.forEach(e => {
+              console.log('groupArea.forEach');
+              console.log(e);
+              const start = moment(e.time.start);
+              console.log('start', start.format('HH:mm'));
+              groups.start.push(start);
+              console.log('stop', e.time.stop.format('HH:mm'));
+              const stop = moment(e.time.stop);
+              groups.stop.push(stop);
+              const interval = e.time.interval;
+              groups.interval.push(interval || 60);
 
-            const disabledMappedAPI = [
-              ...disabledMapped,
-              ...(time.disabled || []),
-            ];
+              const weekParsed = WeekParseHelper(e.time.week);
+
+              if (!weekParsed.includes(selectedWeek)) return null;
+
+              let disabledMapped: TimeNode[] = [];
+              const cur = moment(start);
+              while (cur <= stop) {
+                disabledMapped.push({
+                  value: moment(cur),
+                  type: 'available',
+                });
+                cur.add(interval || 60, 'minute');
+              }
+              disabledMapped = disabledMapped
+                .map(e => {
+                  const valueMapped = moment(
+                    e.value.format('HH.mm'),
+                    'HH.mm',
+                  ).set('date', Number(selectedDate.format('DD')));
+                  const disabled: TimeNode = {
+                    type: 'disabled',
+                    value: moment(valueMapped),
+                  };
+
+                  const pastDate =
+                    today.diff(valueMapped) >= 0 &&
+                    selectedDate.format('DD') === today.format('DD');
+                  if (pastDate) return disabled;
+                  return e;
+                })
+                .filter(({ type }) => type !== 'available');
+
+              const disabledMappedAPI = [
+                ...disabledMapped,
+                ...(e.time.disabled || []),
+              ];
+
+              groups.disabled.push(disabledMappedAPI);
+            });
+
+            console.log('mapped groups', groups);
+            console.log(groups.start[0].format('HH:mm'));
+            console.log(groups.stop[0].format('HH:mm'));
+            console.log('\n\n\n');
+
             const { onSelectArea, onSelectTime } = this.props;
 
             return (
               <Col
                 key={`${selectedDate.format('DD-MM')}-${
-                  e.area.id
+                  group.area.id
                 }-${Math.random()}`}
                 span={24}
               >
-                <TimeTable
-                  onClick={() => onSelectArea(e.area)}
-                  title={area.label}
-                  start={time.start}
-                  stop={time.stop}
-                  interval={time.interval || DEFAULT_INTERVAL_TIME}
+                <TimeTableGroup
+                  onClick={() => onSelectArea(group.area)}
+                  title={groups.area.label}
+                  start={groups.start}
+                  stop={groups.stop}
+                  interval={groups.interval || DEFAULT_INTERVAL_TIME}
                   onSelect={onSelectTime}
-                  disabled={disabledMappedAPI}
+                  disabled={groups.disabled}
                 />
               </Col>
             );
